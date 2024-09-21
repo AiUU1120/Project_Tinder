@@ -1,0 +1,16 @@
+{
+    "name": "Tinder.Data",
+    "rootNamespace": "",
+    "references": [
+        "GUID:7cb2814e6655d904f952bf240b160d11"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
