@@ -1,14 +1,14 @@
 ﻿/*
 * @Author: AiUU
 * @Description: 单个 Playable 动画节点类
-* @AkanyaTech.FrameTools
+* @AkanyaTech.PlayableKami
 */
 
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Playables;
 
-namespace FrameTools.PlayableKami.PlayableNode
+namespace AkanyaTools.PlayableKami.PlayableNode
 {
     public sealed class SingleAnimationNode : PlayableNodeBase
     {

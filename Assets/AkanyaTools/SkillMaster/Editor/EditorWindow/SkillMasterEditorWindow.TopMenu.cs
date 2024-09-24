@@ -1,11 +1,11 @@
 ﻿/*
 * @Author: AiUU
 * @Description: SkillMaster 编辑器顶部菜单
-* @AkanyaTech.FrameTools
+* @AkanyaTech.SkillMaster
 */
 
+using AkanyaTools.SkillMaster.Config;
 using FrameTools.Extension;
-using FrameTools.SkillMaster.Config;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEditor.UIElements;
@@ -13,7 +13,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-namespace FrameTools.SkillMaster.Editor.EditorWindow
+namespace AkanyaTools.SkillMaster.Editor.EditorWindow
 {
     public partial class SkillMasterEditorWindow
     {
@@ -144,6 +144,12 @@ namespace FrameTools.SkillMaster.Editor.EditorWindow
         private void OnSkillConfigObjFieldValueChanged(ChangeEvent<Object> evt)
         {
             m_SkillConfig = evt.newValue as SkillConfig;
+            if (m_SkillConfig == null)
+            {
+                Debug.LogError("SkillConfig 数据不匹配!");
+                return;
+            }
+            curFrameCount = m_SkillConfig.maxFrameCount;
         }
     }
 }

@@ -5,11 +5,11 @@
 */
 
 using System;
+using AkanyaTools.PlayableKami;
 using GameCore.Character.UnityChan.State;
 using GameCore.Common;
 using Data.Config;
 using Data.Enums.GameCore;
-using FrameTools.PlayableKami;
 using FrameTools.ResourceSystem;
 using FrameTools.StateMachine;
 using UnityEngine;

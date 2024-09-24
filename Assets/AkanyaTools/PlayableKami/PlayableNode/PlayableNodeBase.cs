@@ -1,12 +1,12 @@
 ﻿/*
 * @Author: AiUU
 * @Description: Playable 节点基类
-* @AkanyaTech.FrameTools
+* @AkanyaTech.PlayableKami
 */
 
 using FrameTools.Extension;
 
-namespace FrameTools.PlayableKami.PlayableNode
+namespace AkanyaTools.PlayableKami.PlayableNode
 {
     public abstract class PlayableNodeBase
     {

@@ -5,7 +5,7 @@
         <ui:Button text="Return Old Scene" parse-escape-sequences="true" display-tooltip-when-elided="true" name="LoadOldSceneBtn" style="-unity-font-style: normal; width: 120px; height: 30px; align-self: center;" />
         <ui:Button text="Skill Base Info" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ShowSkillBasicInfoBtn" style="-unity-font-style: normal; width: 120px; align-self: center; height: 30px;" />
         <uie:ObjectField label="Playing Charater" name="PreviewCharacterObjField" allow-scene-objects="false" type="UnityEngine.GameObject, UnityEngine.CoreModule" style="flex-shrink: 1; flex-grow: 1; align-self: center; justify-content: flex-start; align-items: center; flex-direction: row; margin-left: 5%; flex-wrap: nowrap; display: flex; visibility: visible; overflow: hidden; opacity: 1;" />
-        <uie:ObjectField label="Skill Config" name="SkillConfigObjField" type="FrameTools.SkillMaster.Config.SkillConfig, AkanyaTools.Root" allow-scene-objects="false" style="flex-shrink: 1; flex-grow: 1; align-self: center; margin-left: 5%; margin-right: 0; align-items: center;" />
+        <uie:ObjectField label="Skill Config" name="SkillConfigObjField" type="AkanyaTools.SkillMaster.Config.SkillConfig, AkanyaTools.Root" allow-scene-objects="false" style="flex-shrink: 1; flex-grow: 1; align-self: center; margin-left: 5%; margin-right: 0; align-items: center;" />
     </ui:VisualElement>
     <ui:VisualElement name="Content" style="flex-grow: 1; height: auto; align-items: stretch; flex-direction: row;">
         <ui:VisualElement name="Left" style="flex-grow: 0; width: 200px; min-width: 200px; flex-shrink: 1; border-left-color: rgb(88, 88, 88); border-right-color: rgb(88, 88, 88); border-top-color: rgb(88, 88, 88); border-bottom-color: rgb(88, 88, 88); border-right-width: 2px;">
@@ -16,9 +16,9 @@
                     <ui:Button text="&gt;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="NextFrameBtn" style="height: 25px; min-height: 25px; font-size: 15px; -unity-font-style: bold;" />
                 </ui:VisualElement>
                 <ui:VisualElement name="FrameController" style="flex-grow: 1; align-self: center; flex-direction: row; flex-shrink: 0; justify-content: flex-end;">
-                    <ui:TextField picking-mode="Ignore" name="CurFrameTxtField" style="width: 30px; min-width: 30px; height: 20px; min-height: 20px; align-self: center; justify-content: flex-start;" />
+                    <ui:IntegerField value="0" name="CurFrameIntField" style="align-self: center; width: 30px; min-width: 30px; height: 20px; min-height: 20px;" />
                     <ui:Label tabindex="-1" text="/" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-text-align: middle-center; -unity-font-style: normal; font-size: 15px;" />
-                    <ui:TextField picking-mode="Ignore" name="FrameCountTxtField" style="align-self: center; width: 30px; min-width: 30px; height: 20px; min-height: 20px;" />
+                    <ui:IntegerField value="0" name="FrameCountIntField" style="align-self: center; width: 30px; min-width: 30px; height: 20px; min-height: 20px;" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

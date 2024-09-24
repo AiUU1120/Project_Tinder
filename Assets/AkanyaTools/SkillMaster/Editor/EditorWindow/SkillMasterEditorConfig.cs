@@ -1,10 +1,10 @@
 ﻿/*
 * @Author: AiUU
 * @Description: SkillMaster 编辑器配置
-* @AkanyaTech.FrameTools
+* @AkanyaTech.SkillMaster
 */
 
-namespace FrameTools.SkillMaster.Editor.EditorWindow
+namespace AkanyaTools.SkillMaster.Editor.EditorWindow
 {
     public sealed class SkillMasterEditorConfig
     {

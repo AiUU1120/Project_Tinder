@@ -1,19 +1,19 @@
 /*
 * @Author: AiUU
 * @Description: Playable 动画控制器
-* @AkanyaTech.FrameTools
+* @AkanyaTech.PlayableKami
 */
 
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using FrameTools.PlayableKami.PlayableNode;
+using AkanyaTools.PlayableKami.PlayableNode;
 using FrameTools.ResourceSystem;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Playables;
 
-namespace FrameTools.PlayableKami
+namespace AkanyaTools.PlayableKami
 {
     public sealed class AnimationController : MonoBehaviour
     {

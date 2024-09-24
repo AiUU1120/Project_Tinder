@@ -1,7 +1,7 @@
 ﻿/*
 * @Author: AiUU
 * @Description: SkillMaster 编辑器窗口时间线
-* @AkanyaTech.FrameTools
+* @AkanyaTech.SkillMaster
 */
 
 using FrameTools.Extension;
@@ -9,7 +9,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace FrameTools.SkillMaster.Editor.EditorWindow
+namespace AkanyaTools.SkillMaster.Editor.EditorWindow
 {
     public partial class SkillMasterEditorWindow
     {
@@ -25,6 +25,9 @@ namespace FrameTools.SkillMaster.Editor.EditorWindow
 
         private int m_CurSelectedFrameIndex;
 
+        /// <summary>
+        /// 当前选中帧索引
+        /// </summary>
         private int curSelectedFrameIndex
         {
             get => m_CurSelectedFrameIndex;
@@ -34,8 +37,40 @@ namespace FrameTools.SkillMaster.Editor.EditorWindow
                 {
                     return;
                 }
-                m_CurSelectedFrameIndex = value;
+                // 选中帧超出范围 更新最大帧
+                if (value > curFrameCount)
+                {
+                    curFrameCount = value;
+                }
+                m_CurSelectedFrameIndex = Mathf.Clamp(value, 0, curFrameCount);
+                m_CurFrameIntField.value = curSelectedFrameIndex;
                 UpdateTimelineView();
+            }
+        }
+
+        private int m_CurFrameCount;
+
+        /// <summary>
+        /// 当前帧总数 影响 Content 大小
+        /// </summary>
+        private int curFrameCount
+        {
+            get => m_CurFrameCount;
+            set
+            {
+                if (m_CurFrameCount == value)
+                {
+                    return;
+                }
+                m_CurFrameCount = value;
+                m_FrameCountIntField.value = curFrameCount;
+
+                if (m_SkillConfig == null)
+                {
+                    return;
+                }
+                m_SkillConfig.maxFrameCount = curFrameCount;
+                SaveConfig();
             }
         }
 
@@ -181,6 +216,20 @@ namespace FrameTools.SkillMaster.Editor.EditorWindow
             var x = curSelectedFramePosX - curContentOffsetPosX;
             Handles.DrawLine(new Vector3(x, 0), new Vector3(x, m_ContentViewport.contentRect.height + m_Timeline.contentRect.height));
             Handles.EndGUI();
+        }
+
+        #endregion
+
+        #region Config
+
+        private void SaveConfig()
+        {
+            if (m_SkillConfig == null)
+            {
+                return;
+            }
+            EditorUtility.SetDirty(m_SkillConfig);
+            AssetDatabase.SaveAssetIfDirty(m_SkillConfig);
         }
 
         #endregion

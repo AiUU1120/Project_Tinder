@@ -1,14 +1,14 @@
 /*
 * @Author: AiUU
 * @Description: SkillMaster 技能编辑器窗口
-* @AkanyaTech.FrameTools
+* @AkanyaTech.SkillMaster
 */
 
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace FrameTools.SkillMaster.Editor.EditorWindow
+namespace AkanyaTools.SkillMaster.Editor.EditorWindow
 {
     public sealed partial class SkillMasterEditorWindow : UnityEditor.EditorWindow
     {
@@ -31,6 +31,18 @@ namespace FrameTools.SkillMaster.Editor.EditorWindow
 
             InitTopMenu();
             InitTimeLine();
+            InitConsole();
+
+            if (m_SkillConfig != null)
+            {
+                m_SkillConfigObjField.value = m_SkillConfig;
+            }
+            else
+            {
+                curFrameCount = 100;
+            }
+
+            curSelectedFrameIndex = 0;
         }
     }
 }

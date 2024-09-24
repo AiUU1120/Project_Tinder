@@ -1,7 +1,7 @@
 ﻿/*
 * @Author: AiUU
 * @Description: 混合 Playable 动画节点类
-* @AkanyaTech.FrameTools
+* @AkanyaTech.PlayableKami
 */
 
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Playables;
 
-namespace FrameTools.PlayableKami.PlayableNode
+namespace AkanyaTools.PlayableKami.PlayableNode
 {
     public sealed class BlendAnimationNode : PlayableNodeBase
     {
