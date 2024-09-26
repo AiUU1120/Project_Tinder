@@ -33,10 +33,6 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
             get => m_CurSelectedFrameIndex;
             set
             {
-                if (m_CurSelectedFrameIndex == value)
-                {
-                    return;
-                }
                 // 选中帧超出范围 更新最大帧
                 if (value > curFrameCount)
                 {
@@ -53,24 +49,20 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         /// <summary>
         /// 当前帧总数 影响 Content 大小
         /// </summary>
-        private int curFrameCount
+        public int curFrameCount
         {
             get => m_CurFrameCount;
             set
             {
-                if (m_CurFrameCount == value)
-                {
-                    return;
-                }
                 m_CurFrameCount = value;
                 m_FrameCountIntField.value = curFrameCount;
 
-                if (m_SkillConfig == null)
+                if (m_SkillConfig != null)
                 {
-                    return;
+                    m_SkillConfig.maxFrameCount = curFrameCount;
+                    SaveConfig();
                 }
-                m_SkillConfig.maxFrameCount = curFrameCount;
-                SaveConfig();
+                UpdateContentSize();
             }
         }
 
@@ -108,11 +100,14 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         /// 根据鼠标坐标获取帧索引
         /// </summary>
         /// <returns></returns>
-        private int GetFrameIndexByMousePos(float x)
-        {
-            var pos = x + curContentOffsetPosX;
-            return Mathf.RoundToInt(pos / m_SkillMasterEditorConfig.frameUnitWidth);
-        }
+        private int GetFrameIndexByMousePos(float x) => GetFrameIndexByPos(x + curContentOffsetPosX);
+
+        /// <summary>
+        /// 根据帧坐标获取帧索引
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public int GetFrameIndexByPos(float x) => Mathf.RoundToInt(x / m_SkillMasterEditorConfig.frameUnitWidth);
 
         /// <summary>
         /// 更新脏标识 让 Editor 刷新
@@ -167,6 +162,7 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
             m_SkillMasterEditorConfig.frameUnitWidth = Mathf.Clamp(m_SkillMasterEditorConfig.frameUnitWidth - delta, SkillMasterEditorConfig.standard_frame_unit_width,
                 SkillMasterEditorConfig.max_frame_width_level * SkillMasterEditorConfig.standard_frame_unit_width);
             UpdateTimelineView();
+            UpdateContentSize();
         }
 
         /// <summary>
@@ -222,7 +218,10 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
 
         #region Config
 
-        private void SaveConfig()
+        /// <summary>
+        /// 保存配置变更
+        /// </summary>
+        public void SaveConfig()
         {
             if (m_SkillConfig == null)
             {

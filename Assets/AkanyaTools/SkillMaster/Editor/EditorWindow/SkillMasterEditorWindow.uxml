@@ -5,7 +5,7 @@
         <ui:Button text="Return Old Scene" parse-escape-sequences="true" display-tooltip-when-elided="true" name="LoadOldSceneBtn" style="-unity-font-style: normal; width: 120px; height: 30px; align-self: center;" />
         <ui:Button text="Skill Base Info" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ShowSkillBasicInfoBtn" style="-unity-font-style: normal; width: 120px; align-self: center; height: 30px;" />
         <uie:ObjectField label="Playing Charater" name="PreviewCharacterObjField" allow-scene-objects="false" type="UnityEngine.GameObject, UnityEngine.CoreModule" style="flex-shrink: 1; flex-grow: 1; align-self: center; justify-content: flex-start; align-items: center; flex-direction: row; margin-left: 5%; flex-wrap: nowrap; display: flex; visibility: visible; overflow: hidden; opacity: 1;" />
-        <uie:ObjectField label="Skill Config" name="SkillConfigObjField" type="AkanyaTools.SkillMaster.Config.SkillConfig, AkanyaTools.Root" allow-scene-objects="false" style="flex-shrink: 1; flex-grow: 1; align-self: center; margin-left: 5%; margin-right: 0; align-items: center;" />
+        <uie:ObjectField label="Skill Config" name="SkillConfigObjField" type="AkanyaTools.SkillMaster.Scripts.Config.SkillConfig, AkanyaTools.SkillMaster" allow-scene-objects="false" style="flex-shrink: 1; flex-grow: 1; align-self: center; margin-left: 5%; margin-right: 0; align-items: center;" />
     </ui:VisualElement>
     <ui:VisualElement name="Content" style="flex-grow: 1; height: auto; align-items: stretch; flex-direction: row;">
         <ui:VisualElement name="Left" style="flex-grow: 0; width: 200px; min-width: 200px; flex-shrink: 1; border-left-color: rgb(88, 88, 88); border-right-color: rgb(88, 88, 88); border-top-color: rgb(88, 88, 88); border-bottom-color: rgb(88, 88, 88); border-right-width: 2px;">
@@ -21,18 +21,17 @@
                     <ui:IntegerField value="0" name="FrameCountIntField" style="align-self: center; width: 30px; min-width: 30px; height: 20px; min-height: 20px;" />
                 </ui:VisualElement>
             </ui:VisualElement>
+            <ui:VisualElement name="TrackMenu" style="flex-grow: 1; width: 100%; height: 100%; padding-left: 7px; padding-top: 3px; padding-right: 3px;" />
         </ui:VisualElement>
         <ui:VisualElement name="Right" style="flex-grow: 1; width: 1100px; flex-shrink: 1; padding-left: 5px;">
             <ui:IMGUIContainer name="Timeline" style="height: 30px; min-height: 30px; margin-right: 13px; border-left-color: rgb(40, 40, 40); border-right-color: rgb(40, 40, 40); border-top-color: rgb(40, 40, 40); border-bottom-color: rgb(40, 40, 40); border-bottom-width: 2px;" />
             <ui:ScrollView name="MainContentView" mode="VerticalAndHorizontal" horizontal-scroller-visibility="AlwaysVisible" vertical-scroller-visibility="AlwaysVisible">
-                <ui:VisualElement name="ContentListView" style="flex-grow: 1; min-height: 1000px; min-width: 1500px;">
-                    <ui:Button text="Button" parse-escape-sequences="true" display-tooltip-when-elided="true" style="width: 5000px; height: 5000px;" />
-                </ui:VisualElement>
+                <ui:VisualElement name="ContentListView" style="flex-grow: 0; min-height: 1000px; min-width: auto; flex-shrink: 0; padding-top: 3px;" />
             </ui:ScrollView>
             <ui:IMGUIContainer name="SelectLine" style="position: absolute; left: 5px;" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="Bottom" style="flex-grow: 1; height: 30px; min-height: 30px; border-left-color: rgb(88, 88, 88); border-right-color: rgb(88, 88, 88); border-top-color: rgb(88, 88, 88); border-bottom-color: rgb(88, 88, 88); border-top-width: 2px; align-self: flex-end; width: 100%; flex-shrink: 0; min-width: 100%; flex-direction: row-reverse;">
+    <ui:VisualElement name="Bottom" style="flex-grow: 1; height: 30px; min-height: 30px; border-left-color: rgb(88, 88, 88); border-right-color: rgb(88, 88, 88); border-top-color: rgb(88, 88, 88); border-bottom-color: rgb(88, 88, 88); border-top-width: 2px; align-self: flex-end; width: 100%; flex-shrink: 0; min-width: 100%; flex-direction: row-reverse; background-image: none;">
         <ui:Label tabindex="-1" text="Skill Master 0.1.0" parse-escape-sequences="true" display-tooltip-when-elided="true" style="align-self: auto; justify-content: flex-start; -unity-text-align: lower-center; white-space: nowrap; height: 80%; min-height: 80%; -unity-font-style: italic; font-size: 15px; flex-direction: column; align-items: stretch;" />
     </ui:VisualElement>
 </ui:UXML>

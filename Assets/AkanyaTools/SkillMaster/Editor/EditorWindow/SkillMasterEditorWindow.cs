@@ -15,6 +15,8 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         [SerializeField]
         private VisualTreeAsset m_VisualTreeAsset;
 
+        public static SkillMasterEditorWindow instance { get; private set; }
+
         [MenuItem("AkanyaTech/SkillMaster &K")]
         public static void ShowExample()
         {
@@ -24,6 +26,8 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
 
         public void CreateGUI()
         {
+            instance = this;
+
             var root = rootVisualElement;
 
             VisualElement labelFromUXML = m_VisualTreeAsset.Instantiate();
@@ -32,16 +36,17 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
             InitTopMenu();
             InitTimeLine();
             InitConsole();
+            InitContent();
 
             if (m_SkillConfig != null)
             {
                 m_SkillConfigObjField.value = m_SkillConfig;
+                curFrameCount = m_SkillConfig.maxFrameCount;
             }
             else
             {
                 curFrameCount = 100;
             }
-
             curSelectedFrameIndex = 0;
         }
     }

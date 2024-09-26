@@ -4,7 +4,7 @@
 * @AkanyaTech.SkillMaster
 */
 
-using AkanyaTools.SkillMaster.Config;
+using AkanyaTools.SkillMaster.Scripts.Config;
 using FrameTools.Extension;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -17,7 +17,7 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
 {
     public partial class SkillMasterEditorWindow
     {
-        private const string skill_master_scene_path = "Assets/FrameTools/SkillMaster/SkillMasterScene.unity";
+        private const string skill_master_scene_path = "Assets/AkanyaTools/SkillMaster/Static Resources/SkillMasterScene.unity";
 
         private const string preview_character_parent_name = "PreviewCharacterRoot";
 
@@ -36,6 +36,8 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         private GameObject m_CurPreviewCharacterObj;
 
         private SkillConfig m_SkillConfig;
+
+        public SkillConfig skillConfig => m_SkillConfig;
 
         private void InitTopMenu()
         {
@@ -83,6 +85,7 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
             var curScenePath = SceneManager.GetActiveScene().path;
             if (curScenePath == m_OldScenePath)
             {
+                Debug.LogWarning("SkillMaster: 已经在旧场景!");
                 return;
             }
             EditorSceneManager.OpenScene(m_OldScenePath);
@@ -144,6 +147,13 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         private void OnSkillConfigObjFieldValueChanged(ChangeEvent<Object> evt)
         {
             m_SkillConfig = evt.newValue as SkillConfig;
+            RefreshTrack();
+            curSelectedFrameIndex = 0;
+            if (evt.newValue == null)
+            {
+                curFrameCount = 100;
+                return;
+            }
             if (m_SkillConfig == null)
             {
                 Debug.LogError("SkillConfig 数据不匹配!");
