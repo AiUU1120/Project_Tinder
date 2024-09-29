@@ -52,5 +52,12 @@ namespace AkanyaTools.SkillMaster.Editor.Track
         {
             this.frameUnitWidth = frameUnitWidth;
         }
+
+        /// <summary>
+        /// 删除片段
+        /// </summary>
+        public virtual void DeleteTrackItem(int frameIndex)
+        {
+        }
     }
 }

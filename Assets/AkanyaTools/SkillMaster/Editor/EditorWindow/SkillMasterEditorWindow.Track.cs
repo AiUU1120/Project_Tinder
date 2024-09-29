@@ -5,9 +5,11 @@
 */
 
 using System.Collections.Generic;
+using AkanyaTools.SkillMaster.Editor.Inspector;
 using AkanyaTools.SkillMaster.Editor.Track;
 using AkanyaTools.SkillMaster.Editor.Track.Animation;
 using FrameTools.Extension;
+using UnityEditor;
 using UnityEngine.UIElements;
 
 namespace AkanyaTools.SkillMaster.Editor.EditorWindow
@@ -63,6 +65,15 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
             var animationTrack = new AnimationTrack();
             animationTrack.Init(m_TrackMenu, m_ContentListView, m_SkillMasterEditorConfig.frameUnitWidth);
             m_TrackList.Add(animationTrack);
+        }
+
+        /// <summary>
+        /// 在监视器中显示轨道片段信息
+        /// </summary>
+        public void ShowTrackItemInInspector(TrackItemBase item, TrackBase track)
+        {
+            SkillMasterInspector.SetTrackItem(item, track);
+            Selection.activeObject = this;
         }
     }
 }

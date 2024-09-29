@@ -59,13 +59,26 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Animation
         /// <summary>
         /// 检查目标帧是否在已有片段内
         /// </summary>
-        /// <param name="targetFrame"></param>
+        /// <param name="targetFrame">目标帧</param>
+        /// <param name="selfIndex">自身开始帧 不填则不规避自身判断</param>
+        /// <param name="isLeft"></param>
         /// <returns></returns>
-        public bool CheckFrame(int targetFrame)
+        public bool CheckFrame(int targetFrame, int selfIndex, bool isLeft)
         {
             foreach (var item in animationData.frameData)
             {
-                if (targetFrame > item.Key && targetFrame < item.Value.durationFrame + item.Key)
+                // 规避自身判断
+                if (item.Key == selfIndex)
+                {
+                    continue;
+                }
+                // 向左移动
+                if (isLeft && selfIndex > item.Key && targetFrame < item.Value.durationFrame + item.Key)
+                {
+                    return false;
+                }
+                // 向右移动
+                if (!isLeft && selfIndex < item.Key && targetFrame > item.Key)
                 {
                     return false;
                 }
@@ -86,6 +99,14 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Animation
             }
             animationData.frameData.Add(newIndex, e);
             SkillMasterEditorWindow.instance.SaveConfig();
+        }
+
+        public override void DeleteTrackItem(int frameIndex)
+        {
+            base.DeleteTrackItem(frameIndex);
+            SkillMasterEditorWindow.instance.skillConfig.skillAnimationData.frameData.Remove(frameIndex);
+            SkillMasterEditorWindow.instance.SaveConfig();
+            RefreshView();
         }
 
         #region Callback
