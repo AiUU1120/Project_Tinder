@@ -60,7 +60,6 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
                 if (m_SkillConfig != null)
                 {
                     m_SkillConfig.maxFrameCount = curFrameCount;
-                    SaveConfig();
                 }
                 UpdateContentSize();
             }
@@ -229,6 +228,11 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
             }
             EditorUtility.SetDirty(m_SkillConfig);
             AssetDatabase.SaveAssetIfDirty(m_SkillConfig);
+            // 重新引用数据
+            foreach (var track in m_TrackList)
+            {
+                track.OnConfigChanged();
+            }
         }
 
         #endregion

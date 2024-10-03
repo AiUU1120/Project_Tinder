@@ -22,7 +22,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Animation
 
         private readonly Dictionary<int, AnimationTrackItem> m_TrackItemDic = new();
 
-        private SkillAnimationData animationData => SkillMasterEditorWindow.instance.skillConfig.skillAnimationData;
+        public SkillAnimationData animationData => SkillMasterEditorWindow.instance.skillConfig.skillAnimationData;
 
         public override void Init(VisualElement menuParent, VisualElement trackParent, float frameWidth)
         {
@@ -50,9 +50,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Animation
             // 根据数据绘制片段
             foreach (var item in animationData.frameData)
             {
-                var trackItem = new AnimationTrackItem();
-                trackItem.Init(this, track, item.Key, frameUnitWidth, item.Value);
-                m_TrackItemDic.Add(item.Key, trackItem);
+                CreateTrackItem(item.Key, item.Value);
             }
         }
 
@@ -98,15 +96,28 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Animation
                 return;
             }
             animationData.frameData.Add(newIndex, e);
+            // 修改数据索引
+            m_TrackItemDic.Remove(oldIndex, out var item);
+            m_TrackItemDic.Add(newIndex, item);
             SkillMasterEditorWindow.instance.SaveConfig();
         }
 
         public override void DeleteTrackItem(int frameIndex)
         {
             base.DeleteTrackItem(frameIndex);
-            SkillMasterEditorWindow.instance.skillConfig.skillAnimationData.frameData.Remove(frameIndex);
+            animationData.frameData.Remove(frameIndex);
+            if (m_TrackItemDic.Remove(frameIndex, out var item))
+            {
+                track.Remove(item.root);
+            }
             SkillMasterEditorWindow.instance.SaveConfig();
-            RefreshView();
+        }
+
+        private void CreateTrackItem(int frameIndex, SkillAnimationFrameEvent e)
+        {
+            var trackItem = new AnimationTrackItem();
+            trackItem.Init(this, track, frameIndex, frameUnitWidth, e);
+            m_TrackItemDic.Add(frameIndex, trackItem);
         }
 
         #region Callback
@@ -183,11 +194,19 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Animation
                         transitionTime = 0.25f,
                     };
                     // 保存新增动画数据
-                    SkillMasterEditorWindow.instance.skillConfig.skillAnimationData.frameData.Add(selectFrameIndex, animationEvent);
+                    animationData.frameData.Add(selectFrameIndex, animationEvent);
                     SkillMasterEditorWindow.instance.SaveConfig();
 
-                    RefreshView();
+                    CreateTrackItem(selectFrameIndex, animationEvent);
                 }
+            }
+        }
+
+        public override void OnConfigChanged()
+        {
+            foreach (var item in m_TrackItemDic.Values)
+            {
+                item.OnConfigChanged();
             }
         }
 

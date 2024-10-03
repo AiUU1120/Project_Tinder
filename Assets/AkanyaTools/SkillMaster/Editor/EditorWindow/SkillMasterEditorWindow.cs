@@ -49,5 +49,13 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
             }
             curSelectedFrameIndex = 0;
         }
+
+        private void OnDestroy()
+        {
+            if (m_SkillConfig != null)
+            {
+                SaveConfig();
+            }
+        }
     }
 }

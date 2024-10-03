@@ -14,26 +14,15 @@ using UnityEngine.UIElements;
 
 namespace AkanyaTools.SkillMaster.Editor.Track.Animation
 {
-    public sealed class AnimationTrackItem : TrackItemBase
+    public sealed class AnimationTrackItem : TrackItemBase<AnimationTrack>
     {
-        public Label root { get; private set; }
-
         public SkillAnimationFrameEvent animationEvent { get; private set; }
-        public int frameIndex { get; private set; }
 
         private const string track_item_path = "Assets/AkanyaTools/SkillMaster/Editor/Track/Animation/AnimationTrackItem.uxml";
-
-        private AnimationTrack m_AnimationTrack;
-
-        private float m_FrameUnitWidth;
 
         private VisualElement m_MainDragArea;
 
         private VisualElement m_AnimationEndLine;
-
-        private Color m_NormalColor;
-
-        private Color m_SelectedColor;
 
         private bool m_IsMouseDrag;
 
@@ -43,17 +32,19 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Animation
 
         public void Init(AnimationTrack animationTrack, VisualElement parent, int startFrameIndex, float frameUnitWidth, SkillAnimationFrameEvent e)
         {
-            m_AnimationTrack = animationTrack;
+            track = animationTrack;
             frameIndex = startFrameIndex;
-            m_FrameUnitWidth = frameUnitWidth;
+            this.frameUnitWidth = frameUnitWidth;
             animationEvent = e;
             root = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(track_item_path).Instantiate().Query<Label>();
             m_MainDragArea = root.NiceQ<VisualElement>("MainDragArea");
             m_AnimationEndLine = root.NiceQ<VisualElement>("AnimationEndLine");
             parent.Add(root);
 
-            m_NormalColor = root.resolvedStyle.backgroundColor;
-            m_SelectedColor = new Color(m_NormalColor.r, m_NormalColor.g, m_NormalColor.b, 1f);
+            normalColor = root.resolvedStyle.backgroundColor;
+            selectedColor = new Color(normalColor.r, normalColor.g, normalColor.b, 1f);
+
+            OnUnSelect();
 
             m_MainDragArea.RegisterCallback<MouseDownEvent>(OnMouseDown);
             m_MainDragArea.RegisterCallback<MouseUpEvent>(OnMouseUp);
@@ -67,14 +58,14 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Animation
         /// 刷新视图
         /// </summary>
         /// <param name="frameUnitWidth"></param>
-        public void RefreshView(float frameUnitWidth)
+        public override void RefreshView(float frameUnitWidth)
         {
-            m_FrameUnitWidth = frameUnitWidth;
+            base.RefreshView(frameUnitWidth);
             // 更新显示文本为动画片段名
             root.text = animationEvent.animationClip.name;
             // 位置计算
             var mainPos = root.transform.position;
-            mainPos.x = frameIndex * m_FrameUnitWidth;
+            mainPos.x = frameIndex * this.frameUnitWidth;
             root.transform.position = mainPos;
             // 宽度计算
             root.style.width = animationEvent.durationFrame * frameUnitWidth;
@@ -94,13 +85,16 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Animation
             }
         }
 
+        /// <summary>
+        /// 应用拖拽
+        /// </summary>
         private void ApplyDrag()
         {
             if (m_StartDragFrame == frameIndex)
             {
                 return;
             }
-            m_AnimationTrack.SetFrameIndex(m_StartDragFrame, frameIndex);
+            track.SetFrameIndex(m_StartDragFrame, frameIndex);
             SkillMasterInspector.instance.SetTrackItemFrameIndex(frameIndex);
         }
 
@@ -120,12 +114,10 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Animation
 
         private void OnMouseDown(MouseDownEvent evt)
         {
-            root.style.backgroundColor = m_SelectedColor;
             m_IsMouseDrag = true;
             m_StartDragPosX = evt.mousePosition.x;
             m_StartDragFrame = frameIndex;
-
-            SkillMasterEditorWindow.instance.ShowTrackItemInInspector(this, m_AnimationTrack);
+            Select();
         }
 
         private void OnMouseUp(MouseUpEvent evt)
@@ -139,7 +131,6 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Animation
 
         private void OnMouseOut(MouseOutEvent evt)
         {
-            root.style.backgroundColor = m_NormalColor;
             if (m_IsMouseDrag)
             {
                 ApplyDrag();
@@ -152,7 +143,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Animation
             if (m_IsMouseDrag)
             {
                 var offsetPos = evt.mousePosition.x - m_StartDragPosX;
-                var offsetFrame = Mathf.RoundToInt(offsetPos / m_FrameUnitWidth);
+                var offsetFrame = Mathf.RoundToInt(offsetPos / frameUnitWidth);
                 var targetFrame = m_StartDragFrame + offsetFrame;
                 if (targetFrame < 0)
                 {
@@ -163,11 +154,11 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Animation
                 // 考虑拖动后是否与已有片段位置冲突
                 if (offsetFrame < 0)
                 {
-                    checkDrag = m_AnimationTrack.CheckFrame(targetFrame, m_StartDragFrame, true);
+                    checkDrag = track.CheckFrame(targetFrame, m_StartDragFrame, true);
                 }
                 else if (offsetFrame > 0)
                 {
-                    checkDrag = m_AnimationTrack.CheckFrame(targetFrame + animationEvent.durationFrame, m_StartDragFrame, false);
+                    checkDrag = track.CheckFrame(targetFrame + animationEvent.durationFrame, m_StartDragFrame, false);
                 }
                 else
                 {
@@ -180,8 +171,13 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Animation
                 }
                 frameIndex = targetFrame;
                 CheckBoundaryOverflow();
-                RefreshView(m_FrameUnitWidth);
+                RefreshView(frameUnitWidth);
             }
+        }
+
+        public override void OnConfigChanged()
+        {
+            animationEvent = track.animationData.frameData[frameIndex];
         }
 
         #endregion

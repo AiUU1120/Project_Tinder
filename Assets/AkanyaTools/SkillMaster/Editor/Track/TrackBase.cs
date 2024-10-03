@@ -59,5 +59,12 @@ namespace AkanyaTools.SkillMaster.Editor.Track
         public virtual void DeleteTrackItem(int frameIndex)
         {
         }
+
+        /// <summary>
+        /// 配置修改时
+        /// </summary>
+        public virtual void OnConfigChanged()
+        {
+        }
     }
 }

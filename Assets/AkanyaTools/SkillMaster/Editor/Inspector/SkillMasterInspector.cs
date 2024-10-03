@@ -12,8 +12,6 @@ using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Debug = System.Diagnostics.Debug;
-using Object = UnityEngine.Object;
 
 namespace AkanyaTools.SkillMaster.Editor.Inspector
 {
@@ -53,7 +51,9 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
         /// <param name="track"></param>
         public static void SetTrackItem(TrackItemBase item, TrackBase track)
         {
+            s_CurTrackItem?.OnUnSelect();
             s_CurTrackItem = item;
+            s_CurTrackItem.OnSelect();
             s_CurTrack = track;
             // 避免已经打开了监视器时数据不刷新
             if (instance != null)
@@ -140,9 +140,20 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
             m_Root?.Clear();
         }
 
+        private void OnDestroy()
+        {
+            if (s_CurTrackItem == null)
+            {
+                return;
+            }
+            s_CurTrackItem.OnUnSelect();
+            s_CurTrackItem = null;
+            s_CurTrack = null;
+        }
+
         #region Callback
 
-        private void OnAnimationClipAssetFieldValueChanged(ChangeEvent<Object> evt)
+        private void OnAnimationClipAssetFieldValueChanged(ChangeEvent<UnityEngine.Object> evt)
         {
             if (evt.previousValue == evt.newValue)
             {
@@ -156,7 +167,7 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
             SkillMasterEditorWindow.instance.skillConfig.skillAnimationData.frameData[m_TrackItemFrameIndex].animationClip = clip;
             SkillMasterEditorWindow.instance.SaveConfig();
 
-            s_CurTrack.RefreshView();
+            s_CurTrackItem.RefreshView();
         }
 
         private void OnDurationFieldValueChanged(ChangeEvent<int> evt)
@@ -172,7 +183,7 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
                 SkillMasterEditorWindow.instance.skillConfig.skillAnimationData.frameData[m_TrackItemFrameIndex].durationFrame = value;
                 (s_CurTrackItem as AnimationTrackItem)?.CheckBoundaryOverflow();
                 SkillMasterEditorWindow.instance.SaveConfig();
-                s_CurTrack.RefreshView();
+                s_CurTrackItem.RefreshView();
             }
             else
             {
