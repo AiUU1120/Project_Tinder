@@ -12,6 +12,8 @@ namespace AkanyaTools.SkillMaster.Scripts.Event
     {
         public AnimationClip animationClip;
 
+        public bool applyRootMotion;
+
         public float transitionTime;
 
 #if UNITY_EDITOR

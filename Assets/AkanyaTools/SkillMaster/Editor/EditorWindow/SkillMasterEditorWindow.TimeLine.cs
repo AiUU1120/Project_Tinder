@@ -40,7 +40,8 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
                 }
                 m_CurSelectedFrameIndex = Mathf.Clamp(value, 0, curFrameCount);
                 m_CurFrameIntField.value = curSelectedFrameIndex;
-                UpdateTimelineView();
+                RefreshTimelineView();
+                TickSkill();
             }
         }
 
@@ -57,9 +58,9 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
                 m_CurFrameCount = value;
                 m_FrameCountIntField.value = curFrameCount;
 
-                if (m_SkillConfig != null)
+                if (skillConfig != null)
                 {
-                    m_SkillConfig.maxFrameCount = curFrameCount;
+                    skillConfig.frameCount = curFrameCount;
                 }
                 UpdateContentSize();
             }
@@ -111,7 +112,7 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         /// <summary>
         /// 更新脏标识 让 Editor 刷新
         /// </summary>
-        private void UpdateTimelineView()
+        private void RefreshTimelineView()
         {
             m_Timeline.MarkDirtyLayout();
             m_SelectLine.MarkDirtyLayout();
@@ -160,7 +161,7 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
             var delta = (int) evt.delta.y;
             m_SkillMasterEditorConfig.frameUnitWidth = Mathf.Clamp(m_SkillMasterEditorConfig.frameUnitWidth - delta, SkillMasterEditorConfig.standard_frame_unit_width,
                 SkillMasterEditorConfig.max_frame_width_level * SkillMasterEditorConfig.standard_frame_unit_width);
-            UpdateTimelineView();
+            RefreshTimelineView();
             UpdateContentSize();
         }
 
@@ -171,6 +172,12 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         private void OnTimeLineMouseDown(MouseDownEvent evt)
         {
             m_IsTimelineMouseEnter = true;
+            isPlaying = false;
+            var newValue = GetFrameIndexByMousePos(evt.localMousePosition.x);
+            if (curSelectedFrameIndex == newValue)
+            {
+                return;
+            }
             curSelectedFrameIndex = GetFrameIndexByMousePos(evt.localMousePosition.x);
         }
 
@@ -185,10 +192,16 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         /// <param name="evt"></param>
         private void OnTimeLineMouseMove(MouseMoveEvent evt)
         {
-            if (m_IsTimelineMouseEnter)
+            if (!m_IsTimelineMouseEnter)
             {
-                curSelectedFrameIndex = GetFrameIndexByMousePos(evt.localMousePosition.x);
+                return;
             }
+            var newValue = GetFrameIndexByMousePos(evt.localMousePosition.x);
+            if (curSelectedFrameIndex == newValue)
+            {
+                return;
+            }
+            curSelectedFrameIndex = GetFrameIndexByMousePos(evt.localMousePosition.x);
         }
 
         private void OnTimeLineMouseOut(MouseOutEvent evt)
@@ -211,28 +224,6 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
             var x = curSelectedFramePosX - curContentOffsetPosX;
             Handles.DrawLine(new Vector3(x, 0), new Vector3(x, m_ContentViewport.contentRect.height + m_Timeline.contentRect.height));
             Handles.EndGUI();
-        }
-
-        #endregion
-
-        #region Config
-
-        /// <summary>
-        /// 保存配置变更
-        /// </summary>
-        public void SaveConfig()
-        {
-            if (m_SkillConfig == null)
-            {
-                return;
-            }
-            EditorUtility.SetDirty(m_SkillConfig);
-            AssetDatabase.SaveAssetIfDirty(m_SkillConfig);
-            // 重新引用数据
-            foreach (var track in m_TrackList)
-            {
-                track.OnConfigChanged();
-            }
         }
 
         #endregion

@@ -17,7 +17,13 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
 {
     public partial class SkillMasterEditorWindow
     {
+        public GameObject curPreviewCharacterObj { get; private set; }
+
+        public SkillConfig skillConfig { get; private set; }
+
         private const string skill_master_scene_path = "Assets/AkanyaTools/SkillMaster/Static Resources/SkillMasterScene.unity";
+
+        private const string default_character_path = "Assets/AkanyaTools/SkillMaster/Static Resources/Models/YBot/ybot.fbx";
 
         private const string preview_character_parent_name = "PreviewCharacterRoot";
 
@@ -33,12 +39,6 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
 
         private ObjectField m_SkillConfigObjField;
 
-        private GameObject m_CurPreviewCharacterObj;
-
-        private SkillConfig m_SkillConfig;
-
-        public SkillConfig skillConfig => m_SkillConfig;
-
         private void InitTopMenu()
         {
             m_LoadEditorSceneBtn = rootVisualElement.NiceQ<Button>("LoadEditorSceneBtn");
@@ -52,6 +52,7 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
 
             m_PreviewCharacterObjField = rootVisualElement.NiceQ<ObjectField>("PreviewCharacterObjField");
             m_PreviewCharacterObjField.RegisterValueChangedCallback(OnPreviewCharacterObjFieldValueChanged);
+            m_PreviewCharacterObjField.value = AssetDatabase.LoadAssetAtPath<GameObject>(default_character_path);
 
             m_SkillConfigObjField = rootVisualElement.NiceQ<ObjectField>("SkillConfigObjField");
             m_SkillConfigObjField.RegisterValueChangedCallback(OnSkillConfigObjFieldValueChanged);
@@ -96,9 +97,9 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         /// </summary>
         private void OnShowSkillBasicInfoBtnClick()
         {
-            if (m_SkillConfig != null)
+            if (skillConfig != null)
             {
-                Selection.activeObject = m_SkillConfig;
+                Selection.activeObject = skillConfig;
             }
             else
             {
@@ -112,19 +113,18 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         /// <param name="evt"></param>
         private void OnPreviewCharacterObjFieldValueChanged(ChangeEvent<Object> evt)
         {
-            if (evt.newValue == null)
-            {
-                return;
-            }
             var curScenePath = SceneManager.GetActiveScene().path;
             if (curScenePath != skill_master_scene_path)
             {
-                Debug.LogWarning("SkillMaster: 请勿在非 SkillMaster 编辑场景下实例化演示角色!");
                 return;
             }
-            if (m_CurPreviewCharacterObj != null)
+            if (curPreviewCharacterObj != null)
             {
-                DestroyImmediate(m_CurPreviewCharacterObj);
+                DestroyImmediate(curPreviewCharacterObj);
+            }
+            if (evt.newValue == null)
+            {
+                return;
             }
             var parent = GameObject.Find(preview_character_parent_name).transform;
             if (parent == null)
@@ -136,8 +136,8 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
             {
                 DestroyImmediate(parent.GetChild(0).gameObject);
             }
-            m_CurPreviewCharacterObj = Instantiate(evt.newValue as GameObject, Vector3.zero, Quaternion.identity, parent);
-            m_CurPreviewCharacterObj.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            curPreviewCharacterObj = Instantiate(evt.newValue as GameObject, Vector3.zero, Quaternion.identity, parent);
+            curPreviewCharacterObj.transform.localRotation = Quaternion.Euler(0, 0, 0);
         }
 
         /// <summary>
@@ -146,7 +146,7 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         /// <param name="evt"></param>
         private void OnSkillConfigObjFieldValueChanged(ChangeEvent<Object> evt)
         {
-            m_SkillConfig = evt.newValue as SkillConfig;
+            skillConfig = evt.newValue as SkillConfig;
             RefreshTrack();
             curSelectedFrameIndex = 0;
             if (evt.newValue == null)
@@ -154,12 +154,30 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
                 curFrameCount = 100;
                 return;
             }
-            if (m_SkillConfig == null)
+            if (skillConfig == null)
             {
                 Debug.LogError("SkillConfig 数据不匹配!");
                 return;
             }
-            curFrameCount = m_SkillConfig.maxFrameCount;
+            curFrameCount = skillConfig.frameCount;
+        }
+
+        /// <summary>
+        /// 保存配置变更
+        /// </summary>
+        public void SaveConfig()
+        {
+            if (skillConfig == null)
+            {
+                return;
+            }
+            EditorUtility.SetDirty(skillConfig);
+            AssetDatabase.SaveAssetIfDirty(skillConfig);
+            // 重新引用数据
+            foreach (var track in m_TrackList)
+            {
+                track.OnConfigChanged();
+            }
         }
     }
 }

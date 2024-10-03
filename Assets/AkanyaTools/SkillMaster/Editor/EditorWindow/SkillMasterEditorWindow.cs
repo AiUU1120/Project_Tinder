@@ -38,10 +38,10 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
             InitConsole();
             InitContent();
 
-            if (m_SkillConfig != null)
+            if (skillConfig != null)
             {
-                m_SkillConfigObjField.value = m_SkillConfig;
-                curFrameCount = m_SkillConfig.maxFrameCount;
+                m_SkillConfigObjField.value = skillConfig;
+                curFrameCount = skillConfig.frameCount;
             }
             else
             {
@@ -52,7 +52,7 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
 
         private void OnDestroy()
         {
-            if (m_SkillConfig != null)
+            if (skillConfig != null)
             {
                 SaveConfig();
             }

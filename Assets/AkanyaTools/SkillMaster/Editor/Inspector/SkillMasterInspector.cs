@@ -4,7 +4,6 @@
 * @AkanyaTech.SkillMaster
 */
 
-using System;
 using AkanyaTools.SkillMaster.Editor.EditorWindow;
 using AkanyaTools.SkillMaster.Editor.Track;
 using AkanyaTools.SkillMaster.Editor.Track.Animation;
@@ -35,6 +34,8 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
         private Label m_IsLoopLabel;
 
         private int m_TrackItemFrameIndex;
+
+        private Toggle m_RootMotionToggle;
 
         public override VisualElement CreateInspectorGUI()
         {
@@ -96,6 +97,14 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
             animationClipAssetField.RegisterValueChangedCallback(OnAnimationClipAssetFieldValueChanged);
             m_Root.Add(animationClipAssetField);
 
+            // 根运动
+            m_RootMotionToggle = new Toggle("Apply Root Motion")
+            {
+                value = item.animationEvent.applyRootMotion
+            };
+            m_RootMotionToggle.RegisterValueChangedCallback(OnRootMotionToggleValueChanged);
+            m_Root.Add(m_RootMotionToggle);
+
             // 轨道长度
             m_DurationField = new IntegerField("Duration Frame")
             {
@@ -153,18 +162,14 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
 
         #region Callback
 
-        private void OnAnimationClipAssetFieldValueChanged(ChangeEvent<UnityEngine.Object> evt)
+        private void OnAnimationClipAssetFieldValueChanged(ChangeEvent<Object> evt)
         {
-            if (evt.previousValue == evt.newValue)
-            {
-                return;
-            }
             var clip = evt.newValue as AnimationClip;
             Debug.Assert(clip != null, nameof(clip) + " != null");
             m_ClipFrameLabel.text = "Frame Count: " + (int) (clip.length * clip.frameRate);
             m_IsLoopLabel.text = "Is Loop: " + clip.isLooping;
 
-            SkillMasterEditorWindow.instance.skillConfig.skillAnimationData.frameData[m_TrackItemFrameIndex].animationClip = clip;
+            ((AnimationTrackItem) s_CurTrackItem).animationEvent.animationClip = clip;
             SkillMasterEditorWindow.instance.SaveConfig();
 
             s_CurTrackItem.RefreshView();
@@ -172,18 +177,14 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
 
         private void OnDurationFieldValueChanged(ChangeEvent<int> evt)
         {
-            if (evt.previousValue == evt.newValue)
-            {
-                return;
-            }
             var value = evt.newValue;
             // 安全校验
             if (((AnimationTrack) s_CurTrack).CheckFrame(m_TrackItemFrameIndex + value, m_TrackItemFrameIndex, false))
             {
-                SkillMasterEditorWindow.instance.skillConfig.skillAnimationData.frameData[m_TrackItemFrameIndex].durationFrame = value;
-                (s_CurTrackItem as AnimationTrackItem)?.CheckBoundaryOverflow();
+                ((AnimationTrackItem) s_CurTrackItem).animationEvent.durationFrame = value;
+                ((AnimationTrackItem) s_CurTrackItem)?.CheckBoundaryOverflow();
                 SkillMasterEditorWindow.instance.SaveConfig();
-                s_CurTrackItem.RefreshView();
+                s_CurTrackItem?.RefreshView();
             }
             else
             {
@@ -193,11 +194,7 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
 
         private void OnTransitionFieldValueChanged(ChangeEvent<float> evt)
         {
-            if (Math.Abs(evt.previousValue - evt.newValue) < 0.001f)
-            {
-                return;
-            }
-            SkillMasterEditorWindow.instance.skillConfig.skillAnimationData.frameData[m_TrackItemFrameIndex].transitionTime = evt.newValue;
+            ((AnimationTrackItem) s_CurTrackItem).animationEvent.transitionTime = evt.newValue;
             SkillMasterEditorWindow.instance.SaveConfig();
         }
 
@@ -205,6 +202,12 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
         {
             s_CurTrack.DeleteTrackItem(m_TrackItemFrameIndex);
             Selection.activeObject = null;
+        }
+
+        private void OnRootMotionToggleValueChanged(ChangeEvent<bool> evt)
+        {
+            ((AnimationTrackItem) s_CurTrackItem).animationEvent.applyRootMotion = evt.newValue;
+            SkillMasterEditorWindow.instance.SaveConfig();
         }
 
         #endregion

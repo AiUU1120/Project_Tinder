@@ -58,6 +58,11 @@ namespace AkanyaTools.PlayableKami
 
         private void Start()
         {
+            if (m_Animator == null)
+            {
+                Debug.LogError("PlayableKami: 请保证游戏对象上有 Animator 组件!");
+                return;
+            }
             if (m_GraphName == "")
             {
                 m_GraphName = GetHashCode().ToString();

@@ -8,7 +8,6 @@ using System;
 using Data.Enums.GameCore;
 using FrameTools.AudioSystem;
 using FrameTools.StateMachine;
-using JKFrame;
 using UnityEngine;
 
 namespace GameCore.Character.UnityChan.State

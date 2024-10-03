@@ -5,6 +5,7 @@
 */
 
 using System.Collections.Generic;
+using System.Linq;
 using AkanyaTools.SkillMaster.Editor.EditorWindow;
 using AkanyaTools.SkillMaster.Scripts.Config;
 using AkanyaTools.SkillMaster.Scripts.Event;
@@ -118,6 +119,123 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Animation
             var trackItem = new AnimationTrackItem();
             trackItem.Init(this, track, frameIndex, frameUnitWidth, e);
             m_TrackItemDic.Add(frameIndex, trackItem);
+        }
+
+        public override void TickView(int frameIndex)
+        {
+            var previewObj = SkillMasterEditorWindow.instance.curPreviewCharacterObj;
+            var animator = previewObj.GetComponent<Animator>();
+            var frameData = animationData.frameData;
+
+            #region 根运动
+
+            var frameDataSortedDic = new SortedDictionary<int, SkillAnimationFrameEvent>(frameData);
+            var keys = frameDataSortedDic.Keys.ToArray();
+            var rootMotionTotalPos = Vector3.zero;
+            // 按序遍历
+            for (var i = 0; i < keys.Length; i++)
+            {
+                var key = keys[i];
+                var e = frameDataSortedDic[key];
+                // 只考虑应用根运动的动画
+                if (!e.applyRootMotion)
+                {
+                    continue;
+                }
+                var nextKeyFrameIndex = 0;
+                nextKeyFrameIndex = i + 1 < keys.Length ? keys[i + 1] : SkillMasterEditorWindow.instance.skillConfig.frameCount;
+
+                var isBreak = false;
+                // 手动点击 Timeline 时特判
+                if (nextKeyFrameIndex > frameIndex)
+                {
+                    nextKeyFrameIndex = frameIndex;
+                    isBreak = true;
+                }
+
+                // 当前片段持续帧数
+                var durationFrameCount = nextKeyFrameIndex - key;
+                if (durationFrameCount > 0)
+                {
+                    var frameCount = e.animationClip.length * SkillMasterEditorWindow.instance.skillConfig.frameRate;
+                    // 播放进度
+                    var totalProgress = durationFrameCount / frameCount;
+                    // 播放次数
+                    var playTimes = 0;
+                    // 最后一次不完整播放
+                    var lastPlayProgress = 0f;
+                    // 循环动画采样多次
+                    if (e.animationClip.isLooping)
+                    {
+                        playTimes = (int) totalProgress;
+                        lastPlayProgress = totalProgress - playTimes;
+                    }
+                    else
+                    {
+                        if (totalProgress >= 1)
+                        {
+                            playTimes = 1;
+                            lastPlayProgress = 0;
+                        }
+                        else if (totalProgress < 1)
+                        {
+                            lastPlayProgress = totalProgress;
+                            playTimes = 0;
+                        }
+                    }
+
+                    // 采样计算
+                    animator.applyRootMotion = true;
+                    if (playTimes >= 1)
+                    {
+                        e.animationClip.SampleAnimation(previewObj, e.animationClip.length);
+                        rootMotionTotalPos += previewObj.transform.position * playTimes;
+                    }
+                    if (lastPlayProgress > 0)
+                    {
+                        e.animationClip.SampleAnimation(previewObj, lastPlayProgress * e.animationClip.length);
+                        rootMotionTotalPos += previewObj.transform.position;
+                    }
+                }
+                if (isBreak)
+                {
+                    break;
+                }
+            }
+
+            #endregion
+
+            #region 姿态
+
+            // curOffset: 当前帧距离最近的动画片段的偏移
+            var curOffset = int.MaxValue;
+            var animationEventIndex = -1;
+            foreach (var data in frameData)
+            {
+                var offset = frameIndex - data.Key;
+                if (offset > 0 && offset < curOffset)
+                {
+                    curOffset = offset;
+                    animationEventIndex = data.Key;
+                }
+            }
+            if (animationEventIndex == -1)
+            {
+                return;
+            }
+            var animationEvent = frameData[animationEventIndex];
+            var clipFrameCount = animationEvent.animationClip.length * animationEvent.animationClip.frameRate;
+            var progress = curOffset / clipFrameCount;
+            if (progress > 1 && animationEvent.animationClip.isLooping)
+            {
+                progress -= (int) progress;
+            }
+            animator.applyRootMotion = animationEvent.applyRootMotion;
+            animationEvent.animationClip.SampleAnimation(previewObj, progress * animationEvent.animationClip.length);
+
+            #endregion
+
+            previewObj.transform.position = rootMotionTotalPos;
         }
 
         #region Callback

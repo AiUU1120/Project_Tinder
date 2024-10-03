@@ -19,8 +19,11 @@ namespace AkanyaTools.SkillMaster.Scripts.Config
         [Tooltip("技能名称")]
         public string skillName;
 
-        [Tooltip("帧数上限")]
-        public int maxFrameCount = 100;
+        [Tooltip("帧总数")]
+        public int frameCount = 100;
+
+        [Tooltip("帧率")]
+        public int frameRate = 30;
 
         [NonSerialized, OdinSerialize]
         public SkillAnimationData skillAnimationData = new();

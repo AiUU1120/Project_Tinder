@@ -1,12 +1,9 @@
 {
-    "name": "Tinder.GameCore",
+    "name": "AkanyaTools.SkillMaster.Runtime",
     "rootNamespace": "",
     "references": [
-        "GUID:75469ad4d38634e559750d17036d5f7c",
         "GUID:7cb2814e6655d904f952bf240b160d11",
-        "GUID:7cf55fc08c6c461408fa7debea4c77c7",
-        "GUID:c37444128554bcc48aed84e0318f6808",
-        "GUID:af270953dcdeefd46aa7b70850de7a44"
+        "GUID:c37444128554bcc48aed84e0318f6808"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

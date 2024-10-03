@@ -16,7 +16,10 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 7400000, guid: 1cb8ed3cbba15f0479fbae54e0a963df, type: 3}
+    - {fileID: 7400000, guid: 3fa48627bdc1f4d40896492ff7f91e98, type: 3}
+    - {fileID: 7400000, guid: cb8b82883d188e840b81ef3d02fef0a6, type: 3}
+    - {fileID: 7400000, guid: 7c3ac43c854208542b73444c482c0712, type: 3}
+    - {fileID: 7400000, guid: 2591c8ca644eb1b4f921f7146c88d8b6, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -24,11 +27,11 @@ MonoBehaviour:
     SerializationNodes:
     - Name: skillAnimationData
       Entry: 7
-      Data: 0|AkanyaTools.SkillMaster.Scripts.Config.SkillAnimationData, AkanyaTools.SkillMaster
+      Data: 0|AkanyaTools.SkillMaster.Scripts.Config.SkillAnimationData, AkanyaTools.SkillMaster.Runtime
     - Name: frameData
       Entry: 7
       Data: 1|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[AkanyaTools.SkillMaster.Scripts.Event.SkillAnimationFrameEvent,
-        AkanyaTools.SkillMaster]], mscorlib
+        AkanyaTools.SkillMaster.Runtime]], mscorlib
     - Name: comparer
       Entry: 7
       Data: 2|System.Collections.Generic.GenericEqualityComparer`1[[System.Int32,
@@ -38,25 +41,82 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
+      Data: 4
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 155
+    - Name: $v
+      Entry: 7
+      Data: 3|AkanyaTools.SkillMaster.Scripts.Event.SkillAnimationFrameEvent, AkanyaTools.SkillMaster.Runtime
+    - Name: animationClip
+      Entry: 10
+      Data: 0
+    - Name: applyRootMotion
+      Entry: 5
+      Data: true
+    - Name: transitionTime
+      Entry: 4
+      Data: 0.25
+    - Name: durationFrame
+      Entry: 3
+      Data: 70
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 116
+    - Name: $v
+      Entry: 7
+      Data: 4|AkanyaTools.SkillMaster.Scripts.Event.SkillAnimationFrameEvent, AkanyaTools.SkillMaster.Runtime
+    - Name: animationClip
+      Entry: 10
+      Data: 1
+    - Name: applyRootMotion
+      Entry: 5
+      Data: true
+    - Name: transitionTime
+      Entry: 4
+      Data: 0.25
+    - Name: durationFrame
+      Entry: 3
+      Data: 39
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 7
+      Data: 5|AkanyaTools.SkillMaster.Scripts.Event.SkillAnimationFrameEvent, AkanyaTools.SkillMaster.Runtime
+    - Name: animationClip
+      Entry: 10
       Data: 2
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 0
-    - Name: $v
-      Entry: 7
-      Data: 3|AkanyaTools.SkillMaster.Scripts.Event.SkillAnimationFrameEvent, AkanyaTools.SkillMaster
-    - Name: animationClip
-      Entry: 10
-      Data: 0
+    - Name: applyRootMotion
+      Entry: 5
+      Data: true
     - Name: transitionTime
       Entry: 4
       Data: 0.25
     - Name: durationFrame
       Entry: 3
-      Data: 25
+      Data: 43
     - Name: 
       Entry: 8
       Data: 
@@ -68,19 +128,22 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 32
+      Data: 43
     - Name: $v
       Entry: 7
-      Data: 4|AkanyaTools.SkillMaster.Scripts.Event.SkillAnimationFrameEvent, AkanyaTools.SkillMaster
+      Data: 6|AkanyaTools.SkillMaster.Scripts.Event.SkillAnimationFrameEvent, AkanyaTools.SkillMaster.Runtime
     - Name: animationClip
       Entry: 10
-      Data: 0
+      Data: 3
+    - Name: applyRootMotion
+      Entry: 5
+      Data: true
     - Name: transitionTime
       Entry: 4
       Data: 0.25
     - Name: durationFrame
       Entry: 3
-      Data: 17
+      Data: 73
     - Name: 
       Entry: 8
       Data: 
@@ -97,4 +160,5 @@ MonoBehaviour:
       Entry: 8
       Data: 
   skillName: TestSkill
-  maxFrameCount: 80
+  frameCount: 225
+  frameRate: 30

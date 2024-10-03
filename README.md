@@ -11,3 +11,4 @@ A story about tinder and igniting flames.
 
 ![](https://s2.loli.net/2024/09/29/5R3j4Fz8qZ1bX2U.png)
 
+![](https://s2.loli.net/2024/10/04/4ioH3fSnhXy81At.gif)

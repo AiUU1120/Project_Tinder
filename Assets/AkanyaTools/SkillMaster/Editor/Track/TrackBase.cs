@@ -5,6 +5,7 @@
 */
 
 using UnityEditor;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace AkanyaTools.SkillMaster.Editor.Track
@@ -34,6 +35,13 @@ namespace AkanyaTools.SkillMaster.Editor.Track
             menuParent.Add(menu);
             track = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(trackAssetPath).Instantiate().Query().ToList()[1];
             trackParent.Add(track);
+        }
+
+        /// <summary>
+        /// 驱动轨道显示
+        /// </summary>
+        public virtual void TickView(int frameIndex)
+        {
         }
 
         /// <summary>

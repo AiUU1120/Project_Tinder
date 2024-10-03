@@ -4,6 +4,7 @@
 * @AkanyaTech.SkillMaster
 */
 
+using System;
 using FrameTools.Extension;
 using UnityEngine.UIElements;
 
@@ -21,13 +22,49 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
 
         private IntegerField m_FrameCountIntField;
 
+        private bool m_IsPlaying;
+
+        private bool isPlaying
+        {
+            get => m_IsPlaying;
+            set
+            {
+                m_IsPlaying = value;
+                if (!m_IsPlaying)
+                {
+                    return;
+                }
+                m_StartTime = DateTime.Now;
+                m_StartFrameIndex = curSelectedFrameIndex;
+            }
+        }
+
+        private DateTime m_StartTime;
+
+        private int m_StartFrameIndex;
+
+        private void Update()
+        {
+            if (!isPlaying)
+            {
+                return;
+            }
+            var time = DateTime.Now.Subtract(m_StartTime).TotalSeconds;
+            var frameRate = skillConfig ? skillConfig.frameRate : SkillMasterEditorConfig.default_frame_rate;
+            curSelectedFrameIndex = (int) (time * frameRate + m_StartFrameIndex);
+            if (curSelectedFrameIndex == curFrameCount)
+            {
+                isPlaying = false;
+            }
+        }
+
         private void InitConsole()
         {
             m_PreFrameBtn = rootVisualElement.NiceQ<Button>("PreFrameBtn");
             m_PreFrameBtn.clicked += OnPreFrameBtnClick;
 
             m_PlayBtn = rootVisualElement.NiceQ<Button>("PlayBtn");
-            m_PreFrameBtn.clicked += OnPlayBtnClick;
+            m_PlayBtn.clicked += OnPlayBtnClick;
 
             m_NextFrameBtn = rootVisualElement.NiceQ<Button>("NextFrameBtn");
             m_NextFrameBtn.clicked += OnNextFrameBtnClick;
@@ -39,28 +76,58 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
             m_FrameCountIntField.RegisterValueChangedCallback(OnFrameCountIntFieldValueChanged);
         }
 
+        /// <summary>
+        /// 驱动技能表现
+        /// </summary>
+        private void TickSkill()
+        {
+            if (skillConfig == null || curPreviewCharacterObj == null)
+            {
+                return;
+            }
+            foreach (var track in m_TrackList)
+            {
+                track.TickView(curSelectedFrameIndex);
+            }
+        }
+
+        #region Callback
+
         private void OnPreFrameBtnClick()
         {
+            isPlaying = false;
             curSelectedFrameIndex--;
         }
 
         private void OnPlayBtnClick()
         {
+            isPlaying = !isPlaying;
         }
 
         private void OnNextFrameBtnClick()
         {
+            isPlaying = false;
             curSelectedFrameIndex++;
         }
 
         private void OnCurFrameIntFieldValueChanged(ChangeEvent<int> evt)
         {
+            if (curSelectedFrameIndex == evt.newValue)
+            {
+                return;
+            }
             curSelectedFrameIndex = evt.newValue;
         }
 
         private void OnFrameCountIntFieldValueChanged(ChangeEvent<int> evt)
         {
+            if (curFrameCount == evt.newValue)
+            {
+                return;
+            }
             curFrameCount = evt.newValue;
         }
+
+        #endregion
     }
 }
