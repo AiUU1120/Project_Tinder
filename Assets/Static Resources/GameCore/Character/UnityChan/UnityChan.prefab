@@ -10588,11 +10588,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7767508103479031859}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fccf048a94588343b7efaca125e8ab4, type: 3}
+  m_Script: {fileID: 11500000, guid: 3b8617bca496497e947def2ea5c98580, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_CharacterController: {fileID: 951355479123982479}
   m_AnimationController: {fileID: 7134811486449007383}
+  m_SkillPlayer: {fileID: 2484238328680876814}
   m_InputController: {fileID: 8036415932374362739}
   m_CharacterConfig: {fileID: 11400000, guid: 067ec612a16b2ea45b455c94be93d0ea, type: 2}
   m_MoveSpeed: 6.5
@@ -10610,7 +10611,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1ae4abc8fde45b18f6bcdd687a4d6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AnimationController: {fileID: 7134811486449007383}
 --- !u!114 &8036415932374362739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10685,6 +10685,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: f0826b86-42f8-409d-8b66-6bb443c3633f
     m_ActionName: Player/Run[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8036415932374362739}
+        m_TargetAssemblyTypeName: GameCore.Common.InputController, Tinder.GameCore
+        m_MethodName: GetSpecialInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 527a89fb-ae77-4c71-8bb6-52884deef47a
+    m_ActionName: Player/Special[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: KeyBoard&Mouse
   m_DefaultActionMap: Player

@@ -13,10 +13,6 @@ namespace GameCore.Character.UnityChan.State
         public override void Enter()
         {
             base.Enter();
-            if (CheckStateChange())
-            {
-                return;
-            }
             // 播放待机动作
             unityChanController.PlayAnimation("Idle", mixingTime: 0.3f);
         }
@@ -30,11 +26,21 @@ namespace GameCore.Character.UnityChan.State
             }
         }
 
+        public override void Exit()
+        {
+            base.Exit();
+        }
+
         protected override bool CheckStateChange()
         {
             if (unityChanController.input.moveInput.magnitude >= 0.1f)
             {
                 unityChanController.ChangeState(PlayerMotionState.Move);
+                return true;
+            }
+            if (unityChanController.input.isSpecial)
+            {
+                unityChanController.ChangeState(PlayerMotionState.Skill);
                 return true;
             }
             return false;

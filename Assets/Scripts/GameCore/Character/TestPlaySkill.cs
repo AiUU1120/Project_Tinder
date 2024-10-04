@@ -16,7 +16,7 @@ namespace GameCore.Character
         {
             if (Input.GetKeyDown(KeyCode.J))
             {
-                m_SkillPlayer.PlaySkill(m_SkillConfig);
+                // m_SkillPlayer.PlaySkill(m_SkillConfig);
             }
         }
     }

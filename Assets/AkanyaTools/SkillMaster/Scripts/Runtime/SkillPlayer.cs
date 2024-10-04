@@ -4,6 +4,7 @@
 * @AkanyaTech.SkillMaster
 */
 
+using System;
 using AkanyaTools.PlayableKami;
 using AkanyaTools.SkillMaster.Scripts.Config;
 using UnityEngine;
@@ -12,7 +13,6 @@ namespace AkanyaTools.SkillMaster.Scripts.Runtime
 {
     public sealed class SkillPlayer : MonoBehaviour
     {
-        [SerializeField]
         private AnimationController m_AnimationController;
 
         public bool isPlaying { get; private set; }
@@ -24,6 +24,10 @@ namespace AkanyaTools.SkillMaster.Scripts.Runtime
         private float m_FrameRate;
 
         private float m_PlayTotalTime;
+
+        private Action<Vector3, Quaternion> m_OnRootMotion;
+
+        private Action m_OnSkillEnd;
 
         private void Update()
         {
@@ -44,17 +48,32 @@ namespace AkanyaTools.SkillMaster.Scripts.Runtime
             {
                 isPlaying = false;
                 m_SkillConfig = null;
+                if (m_OnRootMotion != null)
+                {
+                    m_AnimationController.ClearOnRootMotion();
+                }
+                m_OnRootMotion = null;
+                m_OnSkillEnd?.Invoke();
             }
+        }
+
+        public void Init(AnimationController animationController)
+        {
+            m_AnimationController = animationController;
         }
 
         /// <summary>
         /// 播放技能
         /// </summary>
         /// <param name="skillConfig">技能配置</param>
-        public void PlaySkill(SkillConfig skillConfig)
+        /// <param name="skillEndAction">技能结束回调</param>
+        /// <param name="rootMotionAction">根运动回调</param>
+        public void PlaySkill(SkillConfig skillConfig, Action skillEndAction, Action<Vector3, Quaternion> rootMotionAction = null)
         {
             m_SkillConfig = skillConfig;
-            m_CurFrameIndex = 0;
+            m_OnSkillEnd = skillEndAction;
+            m_OnRootMotion = rootMotionAction;
+            m_CurFrameIndex = -1;
             m_FrameRate = skillConfig.frameRate;
             m_PlayTotalTime = 0;
             isPlaying = true;
@@ -75,6 +94,14 @@ namespace AkanyaTools.SkillMaster.Scripts.Runtime
             if (m_SkillConfig.skillAnimationData.frameData.TryGetValue(m_CurFrameIndex, out var frameData))
             {
                 m_AnimationController.PlaySingleAnimation(frameData.animationClip, speed: 1f, blockSameAnim: false, mixingTime: frameData.transitionTime);
+                if (frameData.applyRootMotion)
+                {
+                    m_AnimationController.SetOnRootMotion(m_OnRootMotion);
+                }
+                else
+                {
+                    m_AnimationController.ClearOnRootMotion();
+                }
             }
         }
     }

@@ -1,4 +1,4 @@
-/*
+﻿/*
 * @Author: AiUU
 * @Description: UnityChan角色控制器类
 * @AkanyaTech.Tinder
@@ -6,6 +6,7 @@
 
 using System;
 using AkanyaTools.PlayableKami;
+using AkanyaTools.SkillMaster.Scripts.Runtime;
 using GameCore.Character.UnityChan.State;
 using GameCore.Common;
 using Data.Config;
@@ -26,6 +27,9 @@ namespace GameCore.Character.UnityChan
         private AnimationController m_AnimationController;
 
         [SerializeField]
+        private SkillPlayer m_SkillPlayer;
+
+        [SerializeField]
         private InputController m_InputController;
 
         [SerializeField]
@@ -43,6 +47,8 @@ namespace GameCore.Character.UnityChan
 
         [SerializeField]
         private float m_TurnSpeed = 7f;
+
+        public SkillPlayer skillPlayer => m_SkillPlayer;
 
         public InputController input => m_InputController;
 
@@ -85,6 +91,7 @@ namespace GameCore.Character.UnityChan
             {
                 m_CameraTrans = Camera.main.transform;
             }
+            skillPlayer.Init(m_AnimationController);
             InitStateMachine();
         }
 
@@ -123,6 +130,9 @@ namespace GameCore.Character.UnityChan
                     break;
                 case PlayerMotionState.Dash:
                     m_StateMachine.ChangeState<UnityChanDashState>();
+                    break;
+                case PlayerMotionState.Skill:
+                    m_StateMachine.ChangeState<UnityChanSkillState>();
                     break;
             }
         }

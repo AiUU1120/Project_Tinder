@@ -47,7 +47,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 155
+      Data: 117
     - Name: $v
       Entry: 7
       Data: 3|AkanyaTools.SkillMaster.Scripts.Event.SkillAnimationFrameEvent, AkanyaTools.SkillMaster.Runtime
@@ -62,7 +62,7 @@ MonoBehaviour:
       Data: 0.25
     - Name: durationFrame
       Entry: 3
-      Data: 70
+      Data: 62
     - Name: 
       Entry: 8
       Data: 
@@ -74,7 +74,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 116
+      Data: 86
     - Name: $v
       Entry: 7
       Data: 4|AkanyaTools.SkillMaster.Scripts.Event.SkillAnimationFrameEvent, AkanyaTools.SkillMaster.Runtime
@@ -89,7 +89,7 @@ MonoBehaviour:
       Data: 0.25
     - Name: durationFrame
       Entry: 3
-      Data: 39
+      Data: 31
     - Name: 
       Entry: 8
       Data: 
@@ -116,7 +116,7 @@ MonoBehaviour:
       Data: 0.25
     - Name: durationFrame
       Entry: 3
-      Data: 43
+      Data: 26
     - Name: 
       Entry: 8
       Data: 
@@ -128,7 +128,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 43
+      Data: 26
     - Name: $v
       Entry: 7
       Data: 6|AkanyaTools.SkillMaster.Scripts.Event.SkillAnimationFrameEvent, AkanyaTools.SkillMaster.Runtime
@@ -143,7 +143,7 @@ MonoBehaviour:
       Data: 0.25
     - Name: durationFrame
       Entry: 3
-      Data: 73
+      Data: 60
     - Name: 
       Entry: 8
       Data: 
@@ -160,5 +160,5 @@ MonoBehaviour:
       Entry: 8
       Data: 
   skillName: TestSkill
-  frameCount: 225
+  frameCount: 179
   frameRate: 30

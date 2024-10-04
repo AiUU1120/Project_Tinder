@@ -11,5 +11,6 @@ namespace Data.Enums.GameCore
         Idle,
         Move,
         Dash,
+        Skill,
     }
 }

@@ -17,6 +17,8 @@ namespace GameCore.Common
 
         public bool isJumping { get; private set; }
 
+        public bool isSpecial { get; private set; }
+
         public void GetMoveInput(InputAction.CallbackContext ctx)
         {
             moveInput = ctx.ReadValue<Vector2>();
@@ -25,6 +27,11 @@ namespace GameCore.Common
         public void GetRunInput(InputAction.CallbackContext ctx)
         {
             isDashing = ctx.ReadValueAsButton();
+        }
+
+        public void GetSpecialInput(InputAction.CallbackContext ctx)
+        {
+            isSpecial = ctx.ReadValueAsButton();
         }
     }
 }
