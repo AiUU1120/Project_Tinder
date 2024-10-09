@@ -5,8 +5,8 @@
 */
 
 using AkanyaTools.SkillMaster.Editor.EditorWindow;
+using AkanyaTools.SkillMaster.Editor.Track.Style;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace AkanyaTools.SkillMaster.Editor.Track
 {
@@ -49,6 +49,10 @@ namespace AkanyaTools.SkillMaster.Editor.Track
 
     public abstract class TrackItemBase<T> : TrackItemBase where T : TrackBase
     {
+        public int frameIndex { get; protected set; }
+
+        public TrackItemStyleBase itemStyle { get; protected set; }
+
         protected T track;
 
         /// <summary>
@@ -61,10 +65,6 @@ namespace AkanyaTools.SkillMaster.Editor.Track
         /// </summary>
         protected Color selectedColor;
 
-        public int frameIndex { get; protected set; }
-
-        public Label root { get; protected set; }
-
         public override void Select()
         {
             SkillMasterEditorWindow.instance.ShowTrackItemInInspector(this, track);
@@ -72,12 +72,12 @@ namespace AkanyaTools.SkillMaster.Editor.Track
 
         public override void OnSelect()
         {
-            root.style.backgroundColor = selectedColor;
+            itemStyle.SetBgColor(selectedColor);
         }
 
         public override void OnUnSelect()
         {
-            root.style.backgroundColor = normalColor;
+            itemStyle.SetBgColor(normalColor);
         }
     }
 }

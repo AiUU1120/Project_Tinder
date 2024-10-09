@@ -6,7 +6,7 @@
 
 using AkanyaTools.SkillMaster.Editor.EditorWindow;
 using AkanyaTools.SkillMaster.Editor.Track;
-using AkanyaTools.SkillMaster.Editor.Track.Animation;
+using AkanyaTools.SkillMaster.Editor.Track.AnimationTrack;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;

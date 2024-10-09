@@ -7,7 +7,7 @@
 using System.Collections.Generic;
 using AkanyaTools.SkillMaster.Editor.Inspector;
 using AkanyaTools.SkillMaster.Editor.Track;
-using AkanyaTools.SkillMaster.Editor.Track.Animation;
+using AkanyaTools.SkillMaster.Editor.Track.AnimationTrack;
 using FrameTools.Extension;
 using UnityEditor;
 using UnityEngine.UIElements;
@@ -16,7 +16,9 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
 {
     public partial class SkillMasterEditorWindow
     {
-        private VisualElement m_TrackMenu;
+        private VisualElement m_TrackMenuList;
+
+        private ScrollView m_MainContentView;
 
         private VisualElement m_ContentListView;
 
@@ -27,8 +29,12 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         /// </summary>
         private void InitContent()
         {
+            m_TrackMenuList = rootVisualElement.NiceQ<VisualElement>("TrackMenuList");
+
+            m_MainContentView = rootVisualElement.NiceQ<ScrollView>("MainContentView");
+            m_MainContentView.verticalScroller.valueChanged += OnMainContentViewScrollerValueChanged;
+
             m_ContentListView = rootVisualElement.NiceQ<VisualElement>("ContentListView");
-            m_TrackMenu = rootVisualElement.NiceQ<VisualElement>("TrackMenu");
             UpdateContentSize();
             InitTrack();
         }
@@ -63,7 +69,7 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         private void InitAnimationTrack()
         {
             var animationTrack = new AnimationTrack();
-            animationTrack.Init(m_TrackMenu, m_ContentListView, m_SkillMasterEditorConfig.frameUnitWidth);
+            animationTrack.Init(m_TrackMenuList, m_ContentListView, m_SkillMasterEditorConfig.frameUnitWidth);
             m_TrackList.Add(animationTrack);
         }
 
@@ -74,6 +80,17 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         {
             SkillMasterInspector.SetTrackItem(item, track);
             Selection.activeObject = this;
+        }
+
+        /// <summary>
+        /// 同步 Track 主体与 TrackMenu 位置
+        /// </summary>
+        /// <param name="obj"></param>
+        private void OnMainContentViewScrollerValueChanged(float obj)
+        {
+            var pos = m_TrackMenuList.transform.position;
+            pos.y = m_ContentContainer.transform.position.y;
+            m_TrackMenuList.transform.position = pos;
         }
     }
 }

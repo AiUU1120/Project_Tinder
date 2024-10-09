@@ -4,6 +4,7 @@
 * @AkanyaTech.SkillMaster
 */
 
+using AkanyaTools.SkillMaster.Scripts.Config;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -28,6 +29,8 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         {
             instance = this;
 
+            SkillConfig.SetOnValidate(RefreshView);
+
             var root = rootVisualElement;
 
             VisualElement labelFromUXML = m_VisualTreeAsset.Instantiate();
@@ -47,7 +50,28 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
             {
                 curFrameCount = 100;
             }
+
+            if (curPreviewCharacterPrefab != null)
+            {
+                m_PreviewCharacterPrefabObjField.value = curPreviewCharacterPrefab;
+            }
+
+            if (curPreviewCharacterObj != null)
+            {
+                m_PreviewCharacterObjObjField.value = curPreviewCharacterObj;
+            }
+
             curSelectedFrameIndex = 0;
+        }
+
+        /// <summary>
+        /// 强制刷新整个编辑器视图
+        /// </summary>
+        private void RefreshView()
+        {
+            var tempConfig = skillConfig;
+            m_SkillConfigObjField.value = null;
+            m_SkillConfigObjField.value = tempConfig;
         }
 
         private void OnDestroy()

@@ -12,12 +12,15 @@ using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
+using Object = UnityEngine.Object;
 
 namespace AkanyaTools.SkillMaster.Editor.EditorWindow
 {
     public partial class SkillMasterEditorWindow
     {
         public GameObject curPreviewCharacterObj { get; private set; }
+
+        public GameObject curPreviewCharacterPrefab { get; private set; }
 
         public SkillConfig skillConfig { get; private set; }
 
@@ -35,7 +38,9 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
 
         private Button m_ShowSkillBasicInfoBtn;
 
-        private ObjectField m_PreviewCharacterObjField;
+        private ObjectField m_PreviewCharacterPrefabObjField;
+
+        private ObjectField m_PreviewCharacterObjObjField;
 
         private ObjectField m_SkillConfigObjField;
 
@@ -50,9 +55,12 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
             m_ShowSkillBasicInfoBtn = rootVisualElement.NiceQ<Button>("ShowSkillBasicInfoBtn");
             m_ShowSkillBasicInfoBtn.clicked += OnShowSkillBasicInfoBtnClick;
 
-            m_PreviewCharacterObjField = rootVisualElement.NiceQ<ObjectField>("PreviewCharacterObjField");
-            m_PreviewCharacterObjField.RegisterValueChangedCallback(OnPreviewCharacterObjFieldValueChanged);
-            m_PreviewCharacterObjField.value = AssetDatabase.LoadAssetAtPath<GameObject>(default_character_path);
+            m_PreviewCharacterPrefabObjField = rootVisualElement.NiceQ<ObjectField>("PreviewCharacterPrefabObjField");
+            m_PreviewCharacterPrefabObjField.RegisterValueChangedCallback(OnPreviewCharacterPrefabObjFieldValueChanged);
+            // m_PreviewCharacterObjField.value = AssetDatabase.LoadAssetAtPath<GameObject>(default_character_path);
+
+            m_PreviewCharacterObjObjField = rootVisualElement.NiceQ<ObjectField>("PreviewCharacterObjObjField");
+            m_PreviewCharacterObjObjField.RegisterValueChangedCallback(OnPreviewCharacterObjObjFieldValueChanged);
 
             m_SkillConfigObjField = rootVisualElement.NiceQ<ObjectField>("SkillConfigObjField");
             m_SkillConfigObjField.RegisterValueChangedCallback(OnSkillConfigObjFieldValueChanged);
@@ -108,24 +116,37 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         }
 
         /// <summary>
-        /// 预览角色修改
+        /// 预览角色预制体修改
         /// </summary>
         /// <param name="evt"></param>
-        private void OnPreviewCharacterObjFieldValueChanged(ChangeEvent<Object> evt)
+        private void OnPreviewCharacterPrefabObjFieldValueChanged(ChangeEvent<Object> evt)
         {
+            // 避免在非编辑器场景下操作
             var curScenePath = SceneManager.GetActiveScene().path;
             if (curScenePath != skill_master_scene_path)
             {
+                m_PreviewCharacterPrefabObjField.value = null;
                 return;
             }
-            if (curPreviewCharacterObj != null)
-            {
-                DestroyImmediate(curPreviewCharacterObj);
-            }
+
             if (evt.newValue == null)
             {
                 return;
             }
+
+            if (evt.newValue == curPreviewCharacterPrefab)
+            {
+                return;
+            }
+
+            curPreviewCharacterPrefab = evt.newValue as GameObject;
+
+            // 删除现有预览角色
+            if (curPreviewCharacterObj != null)
+            {
+                DestroyImmediate(curPreviewCharacterObj);
+            }
+
             var parent = GameObject.Find(preview_character_parent_name).transform;
             if (parent == null)
             {
@@ -138,6 +159,16 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
             }
             curPreviewCharacterObj = Instantiate(evt.newValue as GameObject, Vector3.zero, Quaternion.identity, parent);
             curPreviewCharacterObj.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            m_PreviewCharacterObjObjField.value = curPreviewCharacterObj;
+        }
+
+        /// <summary>
+        /// 预览角色修改
+        /// </summary>
+        /// <param name="evt"></param>
+        private void OnPreviewCharacterObjObjFieldValueChanged(ChangeEvent<Object> evt)
+        {
+            curPreviewCharacterObj = evt.newValue as GameObject;
         }
 
         /// <summary>
@@ -173,7 +204,14 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
             }
             EditorUtility.SetDirty(skillConfig);
             AssetDatabase.SaveAssetIfDirty(skillConfig);
-            // 重新引用数据
+            ReReferenceData();
+        }
+
+        /// <summary>
+        /// 重新引用数据
+        /// </summary>
+        private void ReReferenceData()
+        {
             foreach (var track in m_TrackList)
             {
                 track.OnConfigChanged();

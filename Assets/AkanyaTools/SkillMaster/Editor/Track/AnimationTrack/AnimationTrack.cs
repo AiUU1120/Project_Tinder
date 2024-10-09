@@ -7,19 +7,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using AkanyaTools.SkillMaster.Editor.EditorWindow;
+using AkanyaTools.SkillMaster.Editor.Track.Style;
 using AkanyaTools.SkillMaster.Scripts.Config;
 using AkanyaTools.SkillMaster.Scripts.Event;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace AkanyaTools.SkillMaster.Editor.Track.Animation
+namespace AkanyaTools.SkillMaster.Editor.Track.AnimationTrack
 {
     public sealed class AnimationTrack : TrackBase
     {
-        protected override string menuAssetPath => "Assets/AkanyaTools/SkillMaster/Editor/Track/Animation/AnimationTrackMenu.uxml";
-
-        protected override string trackAssetPath => "Assets/AkanyaTools/SkillMaster/Editor/Track/Animation/AnimationTrack.uxml";
+        private SingleLineTrackStyle m_TrackStyle;
 
         private readonly Dictionary<int, AnimationTrackItem> m_TrackItemDic = new();
 
@@ -28,8 +27,10 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Animation
         public override void Init(VisualElement menuParent, VisualElement trackParent, float frameWidth)
         {
             base.Init(menuParent, trackParent, frameWidth);
-            track.RegisterCallback<DragUpdatedEvent>(OnDragUpdated);
-            track.RegisterCallback<DragExitedEvent>(OnDragExited);
+            m_TrackStyle = new SingleLineTrackStyle();
+            m_TrackStyle.Init(menuParent, trackParent, "Animation");
+            m_TrackStyle.contentRoot.RegisterCallback<DragUpdatedEvent>(OnDragUpdated);
+            m_TrackStyle.contentRoot.RegisterCallback<DragExitedEvent>(OnDragExited);
             RefreshView();
         }
 
@@ -39,7 +40,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Animation
             // 销毁已有
             foreach (var item in m_TrackItemDic)
             {
-                track.Remove(item.Value.root);
+                m_TrackStyle.DeleteItem(item.Value.itemStyle.root);
             }
             m_TrackItemDic.Clear();
 
@@ -109,7 +110,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Animation
             animationData.frameData.Remove(frameIndex);
             if (m_TrackItemDic.Remove(frameIndex, out var item))
             {
-                track.Remove(item.root);
+                m_TrackStyle.DeleteItem(item.itemStyle.root);
             }
             SkillMasterEditorWindow.instance.SaveConfig();
         }
@@ -117,7 +118,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Animation
         private void CreateTrackItem(int frameIndex, SkillAnimationFrameEvent e)
         {
             var trackItem = new AnimationTrackItem();
-            trackItem.Init(this, track, frameIndex, frameUnitWidth, e);
+            trackItem.Init(this, m_TrackStyle, frameIndex, frameUnitWidth, e);
             m_TrackItemDic.Add(frameIndex, trackItem);
         }
 

@@ -27,6 +27,24 @@ namespace AkanyaTools.SkillMaster.Scripts.Config
 
         [NonSerialized, OdinSerialize]
         public SkillAnimationData skillAnimationData = new();
+
+#if UNITY_EDITOR
+        /// <summary>
+        /// 设置 SkillConfig OnValidate 回调
+        /// </summary>
+        /// <param name="action"></param>
+        public static void SetOnValidate(Action action)
+        {
+            s_OnValidate = action;
+        }
+
+        private static Action s_OnValidate;
+
+        private void OnValidate()
+        {
+            s_OnValidate?.Invoke();
+        }
+#endif
     }
 
     /// <summary>

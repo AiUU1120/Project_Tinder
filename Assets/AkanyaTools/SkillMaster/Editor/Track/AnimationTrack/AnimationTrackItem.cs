@@ -6,23 +6,20 @@
 
 using AkanyaTools.SkillMaster.Editor.EditorWindow;
 using AkanyaTools.SkillMaster.Editor.Inspector;
+using AkanyaTools.SkillMaster.Editor.Track.Style;
 using AkanyaTools.SkillMaster.Scripts.Event;
 using FrameTools.Extension;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace AkanyaTools.SkillMaster.Editor.Track.Animation
+namespace AkanyaTools.SkillMaster.Editor.Track.AnimationTrack
 {
     public sealed class AnimationTrackItem : TrackItemBase<AnimationTrack>
     {
         public SkillAnimationFrameEvent animationEvent { get; private set; }
 
-        private const string track_item_path = "Assets/AkanyaTools/SkillMaster/Editor/Track/Animation/AnimationTrackItem.uxml";
-
-        private VisualElement m_MainDragArea;
-
-        private VisualElement m_AnimationEndLine;
+        private AnimationTrackItemStyle m_TrackItemStyle;
 
         private bool m_IsMouseDrag;
 
@@ -30,26 +27,26 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Animation
 
         private int m_StartDragFrame;
 
-        public void Init(AnimationTrack animationTrack, VisualElement parent, int startFrameIndex, float frameUnitWidth, SkillAnimationFrameEvent e)
+        public void Init(AnimationTrack animationTrack, TrackStyleBase parentTrackStyle, int startFrameIndex, float frameUnitWidth, SkillAnimationFrameEvent e)
         {
             track = animationTrack;
             frameIndex = startFrameIndex;
             this.frameUnitWidth = frameUnitWidth;
             animationEvent = e;
-            root = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(track_item_path).Instantiate().Query<Label>();
-            m_MainDragArea = root.NiceQ<VisualElement>("MainDragArea");
-            m_AnimationEndLine = root.NiceQ<VisualElement>("AnimationEndLine");
-            parent.Add(root);
 
-            normalColor = root.resolvedStyle.backgroundColor;
+            m_TrackItemStyle = new AnimationTrackItemStyle();
+            m_TrackItemStyle.Init(parentTrackStyle, startFrameIndex, frameUnitWidth);
+            itemStyle = m_TrackItemStyle;
+
+            normalColor = m_TrackItemStyle.root.resolvedStyle.backgroundColor;
             selectedColor = new Color(normalColor.r, normalColor.g, normalColor.b, 1f);
 
             OnUnSelect();
 
-            m_MainDragArea.RegisterCallback<MouseDownEvent>(OnMouseDown);
-            m_MainDragArea.RegisterCallback<MouseUpEvent>(OnMouseUp);
-            m_MainDragArea.RegisterCallback<MouseOutEvent>(OnMouseOut);
-            m_MainDragArea.RegisterCallback<MouseMoveEvent>(OnMouseMove);
+            m_TrackItemStyle.mainDragArea.RegisterCallback<MouseDownEvent>(OnMouseDown);
+            m_TrackItemStyle.mainDragArea.RegisterCallback<MouseUpEvent>(OnMouseUp);
+            m_TrackItemStyle.mainDragArea.RegisterCallback<MouseOutEvent>(OnMouseOut);
+            m_TrackItemStyle.mainDragArea.RegisterCallback<MouseMoveEvent>(OnMouseMove);
 
             RefreshView(frameUnitWidth);
         }
@@ -62,26 +59,24 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Animation
         {
             base.RefreshView(frameUnitWidth);
             // 更新显示文本为动画片段名
-            root.text = animationEvent.animationClip.name;
+            m_TrackItemStyle.SetTitle(animationEvent.animationClip.name);
             // 位置计算
-            var mainPos = root.transform.position;
-            mainPos.x = frameIndex * this.frameUnitWidth;
-            root.transform.position = mainPos;
+            m_TrackItemStyle.SetPositionX(frameIndex * this.frameUnitWidth);
             // 宽度计算
-            root.style.width = animationEvent.durationFrame * frameUnitWidth;
+            m_TrackItemStyle.SetWidth(animationEvent.durationFrame * frameUnitWidth);
             // 计算动画结束线位置
             var animationClipFrameCount = (int) (animationEvent.animationClip.length * animationEvent.animationClip.frameRate);
             if (animationClipFrameCount <= animationEvent.durationFrame)
             {
-                m_AnimationEndLine.style.display = DisplayStyle.Flex;
-                var linePos = m_AnimationEndLine.transform.position;
+                m_TrackItemStyle.animationEndLine.style.display = DisplayStyle.Flex;
+                var linePos = m_TrackItemStyle.animationEndLine.transform.position;
                 linePos.x = animationClipFrameCount * frameUnitWidth - 1;
-                m_AnimationEndLine.transform.position = linePos;
+                m_TrackItemStyle.animationEndLine.transform.position = linePos;
             }
             // 长度大于持续时间则不显示
             else
             {
-                m_AnimationEndLine.style.display = DisplayStyle.None;
+                m_TrackItemStyle.animationEndLine.style.display = DisplayStyle.None;
             }
         }
 
