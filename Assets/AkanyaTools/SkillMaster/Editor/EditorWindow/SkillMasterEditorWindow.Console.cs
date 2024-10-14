@@ -70,10 +70,10 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
             m_NextFrameBtn.clicked += OnNextFrameBtnClick;
 
             m_CurFrameIntField = rootVisualElement.NiceQ<IntegerField>("CurFrameIntField");
-            m_CurFrameIntField.RegisterValueChangedCallback(OnCurFrameIntFieldValueChanged);
+            m_CurFrameIntField.RegisterCallback<FocusOutEvent>(OnCurFrameIntFieldFocusOut);
 
             m_FrameCountIntField = rootVisualElement.NiceQ<IntegerField>("FrameCountIntField");
-            m_FrameCountIntField.RegisterValueChangedCallback(OnFrameCountIntFieldValueChanged);
+            m_FrameCountIntField.RegisterCallback<FocusOutEvent>(OnFrameCountIntFieldFocusOut);
         }
 
         /// <summary>
@@ -110,22 +110,22 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
             curSelectedFrameIndex++;
         }
 
-        private void OnCurFrameIntFieldValueChanged(ChangeEvent<int> evt)
+        private void OnCurFrameIntFieldFocusOut(FocusOutEvent evt)
         {
-            if (curSelectedFrameIndex == evt.newValue)
+            if (curSelectedFrameIndex == m_CurFrameIntField.value)
             {
                 return;
             }
-            curSelectedFrameIndex = evt.newValue;
+            curSelectedFrameIndex = m_CurFrameIntField.value;
         }
 
-        private void OnFrameCountIntFieldValueChanged(ChangeEvent<int> evt)
+        private void OnFrameCountIntFieldFocusOut(FocusOutEvent evt)
         {
-            if (curFrameCount == evt.newValue)
+            if (curFrameCount == m_FrameCountIntField.value)
             {
                 return;
             }
-            curFrameCount = evt.newValue;
+            curFrameCount = m_FrameCountIntField.value;
         }
 
         #endregion

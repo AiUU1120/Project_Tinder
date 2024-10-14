@@ -4,6 +4,7 @@
 * @AkanyaTech.SkillMaster
 */
 
+using System;
 using AkanyaTools.SkillMaster.Editor.EditorWindow;
 using AkanyaTools.SkillMaster.Editor.Track;
 using AkanyaTools.SkillMaster.Editor.Track.AnimationTrack;
@@ -11,6 +12,7 @@ using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Object = UnityEngine.Object;
 
 namespace AkanyaTools.SkillMaster.Editor.Inspector
 {
@@ -36,6 +38,10 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
         private int m_TrackItemFrameIndex;
 
         private Toggle m_RootMotionToggle;
+
+        private int m_OldDurationValue;
+
+        private int m_OldTransitionValue;
 
         public override VisualElement CreateInspectorGUI()
         {
@@ -110,7 +116,8 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
             {
                 value = item.animationEvent.durationFrame
             };
-            m_DurationField.RegisterValueChangedCallback(OnDurationFieldValueChanged);
+            m_DurationField.RegisterCallback<FocusInEvent>(OnDurationFieldFocusIn);
+            m_DurationField.RegisterCallback<FocusOutEvent>(OnDurationFieldFocusOut);
             m_Root.Add(m_DurationField);
 
             // 过渡时间
@@ -118,7 +125,8 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
             {
                 value = item.animationEvent.transitionTime
             };
-            m_TransitionField.RegisterValueChangedCallback(OnTransitionFieldValueChanged);
+            m_TransitionField.RegisterCallback<FocusInEvent>(OnTransitionFieldFocusIn);
+            m_TransitionField.RegisterCallback<FocusOutEvent>(OnTransitionFieldFocusOut);
             m_Root.Add(m_TransitionField);
 
             // 动画信息
@@ -175,26 +183,43 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
             s_CurTrackItem.RefreshView();
         }
 
-        private void OnDurationFieldValueChanged(ChangeEvent<int> evt)
+        private void OnDurationFieldFocusIn(FocusInEvent evt)
         {
-            var value = evt.newValue;
-            // 安全校验
-            if (((AnimationTrack) s_CurTrack).CheckFrame(m_TrackItemFrameIndex + value, m_TrackItemFrameIndex, false))
+            m_OldDurationValue = m_DurationField.value;
+        }
+
+        private void OnDurationFieldFocusOut(FocusOutEvent evt)
+        {
+            if (m_OldDurationValue == m_DurationField.value)
             {
-                ((AnimationTrackItem) s_CurTrackItem).animationEvent.durationFrame = value;
+                return;
+            }
+            // 安全校验
+            if (((AnimationTrack) s_CurTrack).CheckFrame(m_TrackItemFrameIndex + m_DurationField.value, m_TrackItemFrameIndex, false))
+            {
+                ((AnimationTrackItem) s_CurTrackItem).animationEvent.durationFrame = m_DurationField.value;
                 ((AnimationTrackItem) s_CurTrackItem)?.CheckBoundaryOverflow();
                 SkillMasterEditorWindow.instance.SaveConfig();
                 s_CurTrackItem?.RefreshView();
             }
             else
             {
-                m_DurationField.value = evt.previousValue;
+                m_DurationField.value = m_OldDurationValue;
             }
         }
 
-        private void OnTransitionFieldValueChanged(ChangeEvent<float> evt)
+        private void OnTransitionFieldFocusIn(FocusInEvent evt)
         {
-            ((AnimationTrackItem) s_CurTrackItem).animationEvent.transitionTime = evt.newValue;
+            m_OldTransitionValue = m_DurationField.value;
+        }
+
+        private void OnTransitionFieldFocusOut(FocusOutEvent evt)
+        {
+            if (Math.Abs(m_OldTransitionValue - m_TransitionField.value) < 0.00001f)
+            {
+                return;
+            }
+            ((AnimationTrackItem) s_CurTrackItem).animationEvent.transitionTime = m_TransitionField.value;
             SkillMasterEditorWindow.instance.SaveConfig();
         }
 

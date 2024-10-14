@@ -4,6 +4,7 @@
 * @AkanyaTech.SkillMaster
 */
 
+using FrameTools.Extension;
 using UnityEditor;
 using UnityEngine.UIElements;
 
@@ -19,11 +20,11 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Style
         {
             this.menuParent = menuParent;
             this.contentParent = contentParent;
-            menuRoot = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(menu_asset_path).Instantiate().Query().ToList()[2];
+            menuRoot = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(menu_asset_path).Instantiate().Query().ToList()[1];
             menuParent.Add(menuRoot);
             contentRoot = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(track_asset_path).Instantiate().Query().ToList()[1];
             contentParent.Add(contentRoot);
-            titleLabel = (Label) menuRoot;
+            titleLabel = menuRoot.NiceQ<Label>("Title");
             titleLabel.text = title;
         }
     }

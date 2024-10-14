@@ -169,7 +169,7 @@ namespace FrameTools.Extension
             {
                 return e;
             }
-            Debug.LogError($"SkillMaster: 没有找到 {name}!\n请检查是否修改了 UI Builder 组件名称!");
+            Debug.LogError($"SkillMaster: 没有在 {ve.name} 中找到 {name}!\n请检查是否修改了 UI Builder 组件名称!");
             return null;
         }
 

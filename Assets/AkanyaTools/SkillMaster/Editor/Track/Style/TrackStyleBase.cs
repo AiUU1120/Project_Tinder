@@ -37,5 +37,20 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Style
         {
             contentRoot.Remove(obj);
         }
+
+        /// <summary>
+        /// 轨道销毁
+        /// </summary>
+        public virtual void Destroy()
+        {
+            if (menuRoot != null)
+            {
+                menuParent.Remove(menuRoot);
+            }
+            if (contentRoot != null)
+            {
+                contentParent.Remove(contentRoot);
+            }
+        }
     }
 }

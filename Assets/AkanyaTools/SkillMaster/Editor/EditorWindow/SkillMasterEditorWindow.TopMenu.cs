@@ -178,19 +178,9 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         private void OnSkillConfigObjFieldValueChanged(ChangeEvent<Object> evt)
         {
             skillConfig = evt.newValue as SkillConfig;
-            RefreshTrack();
             curSelectedFrameIndex = 0;
-            if (evt.newValue == null)
-            {
-                curFrameCount = 100;
-                return;
-            }
-            if (skillConfig == null)
-            {
-                Debug.LogError("SkillConfig 数据不匹配!");
-                return;
-            }
-            curFrameCount = skillConfig.frameCount;
+            curFrameCount = skillConfig == null ? 100 : skillConfig.frameCount;
+            RefreshTrack();
         }
 
         /// <summary>

@@ -163,6 +163,7 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
                 SkillMasterEditorConfig.max_frame_width_level * SkillMasterEditorConfig.standard_frame_unit_width);
             RefreshTimelineView();
             UpdateContentSize();
+            RefreshTrack();
         }
 
         /// <summary>

@@ -54,5 +54,12 @@ namespace AkanyaTools.SkillMaster.Editor.Track
         public virtual void OnConfigChanged()
         {
         }
+
+        /// <summary>
+        /// 销毁轨道
+        /// </summary>
+        public virtual void Destroy()
+        {
+        }
     }
 }

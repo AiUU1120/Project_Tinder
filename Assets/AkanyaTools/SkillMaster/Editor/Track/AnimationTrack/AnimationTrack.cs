@@ -239,6 +239,11 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AnimationTrack
             previewObj.transform.position = rootMotionTotalPos;
         }
 
+        public override void Destroy()
+        {
+            m_TrackStyle.Destroy();
+        }
+
         #region Callback
 
         /// <summary>
