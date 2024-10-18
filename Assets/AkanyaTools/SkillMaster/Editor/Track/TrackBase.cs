@@ -27,7 +27,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track
         /// <summary>
         /// 刷新视图
         /// </summary>
-        public void RefreshView()
+        protected void RefreshView()
         {
             RefreshView(frameUnitWidth);
         }
@@ -39,6 +39,14 @@ namespace AkanyaTools.SkillMaster.Editor.Track
         public virtual void RefreshView(float frameUnitWidth)
         {
             this.frameUnitWidth = frameUnitWidth;
+        }
+
+        public virtual void OnPlay(int startFrameIndex)
+        {
+        }
+
+        public virtual void OnStop()
+        {
         }
 
         /// <summary>

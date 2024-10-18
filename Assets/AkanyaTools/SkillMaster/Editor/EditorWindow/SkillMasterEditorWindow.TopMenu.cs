@@ -4,7 +4,7 @@
 * @AkanyaTech.SkillMaster
 */
 
-using AkanyaTools.SkillMaster.Scripts.Config;
+using AkanyaTools.SkillMaster.Runtime.Data.Config;
 using FrameTools.Extension;
 using UnityEditor;
 using UnityEditor.SceneManagement;

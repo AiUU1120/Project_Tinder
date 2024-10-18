@@ -8,13 +8,13 @@ using FrameTools.Extension;
 using UnityEditor;
 using UnityEngine.UIElements;
 
-namespace AkanyaTools.SkillMaster.Editor.Track.Style
+namespace AkanyaTools.SkillMaster.Editor.Track.Style.Common
 {
     public sealed class SingleLineTrackStyle : TrackStyleBase
     {
-        private const string menu_asset_path = "Assets/AkanyaTools/SkillMaster/Editor/Track/SingleLineTrackMenu.uxml";
+        private const string menu_asset_path = "Assets/AkanyaTools/SkillMaster/Static Resources/Style/Track/Common/SingleLineTrackMenu.uxml";
 
-        private const string track_asset_path = "Assets/AkanyaTools/SkillMaster/Editor/Track/SingleLineTrackContent.uxml";
+        private const string track_asset_path = "Assets/AkanyaTools/SkillMaster/Static Resources/Style/Track/Common/SingleLineTrackContent.uxml";
 
         public void Init(VisualElement menuParent, VisualElement contentParent, string title)
         {

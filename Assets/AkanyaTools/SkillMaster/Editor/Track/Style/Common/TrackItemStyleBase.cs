@@ -7,11 +7,11 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace AkanyaTools.SkillMaster.Editor.Track.Style
+namespace AkanyaTools.SkillMaster.Editor.Track.Style.Common
 {
     public abstract class TrackItemStyleBase
     {
-        public Label root { get; protected set; }
+        public VisualElement root { get; protected set; }
 
         /// <summary>
         /// 设置背景颜色
@@ -40,6 +40,11 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Style
             var pos = root.transform.position;
             pos.x = x;
             root.transform.position = pos;
+        }
+
+        public virtual void SetVisible(bool visible)
+        {
+            root.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
         }
     }
 }

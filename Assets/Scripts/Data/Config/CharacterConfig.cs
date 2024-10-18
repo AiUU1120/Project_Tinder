@@ -5,7 +5,7 @@
 */
 
 using System.Collections.Generic;
-using FrameTools.Base.Config;
+using AkanyaTools.Base.Config;
 using UnityEngine;
 
 namespace Data.Config

@@ -4,11 +4,8 @@
 * @AkanyaTech.SkillMaster
 */
 
-using System;
-
-namespace AkanyaTools.SkillMaster.Scripts.Event
+namespace AkanyaTools.SkillMaster.Runtime.Event
 {
-    [Serializable]
     public abstract class SkillFrameEventBase
     {
     }

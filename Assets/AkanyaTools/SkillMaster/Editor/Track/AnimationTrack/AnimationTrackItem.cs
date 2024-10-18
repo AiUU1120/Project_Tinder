@@ -7,9 +7,8 @@
 using AkanyaTools.SkillMaster.Editor.EditorWindow;
 using AkanyaTools.SkillMaster.Editor.Inspector;
 using AkanyaTools.SkillMaster.Editor.Track.Style;
-using AkanyaTools.SkillMaster.Scripts.Event;
-using FrameTools.Extension;
-using UnityEditor;
+using AkanyaTools.SkillMaster.Editor.Track.Style.Common;
+using AkanyaTools.SkillMaster.Runtime.Event;
 using UnityEngine;
 using UnityEngine.UIElements;
 

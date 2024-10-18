@@ -1,0 +1,271 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68515d0b14164d3a8012ad59773d086a, type: 3}
+  m_Name: SkillConfig_Test 1
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 7400000, guid: 3fa48627bdc1f4d40896492ff7f91e98, type: 3}
+    - {fileID: 7400000, guid: cb8b82883d188e840b81ef3d02fef0a6, type: 3}
+    - {fileID: 7400000, guid: 7c3ac43c854208542b73444c482c0712, type: 3}
+    - {fileID: 7400000, guid: 2591c8ca644eb1b4f921f7146c88d8b6, type: 3}
+    - {fileID: 8300000, guid: c0217498c5937d84b9bde9fe5a57bb62, type: 3}
+    - {fileID: 8300000, guid: 938feec8fd9d69d43a7cf31d145c0709, type: 3}
+    - {fileID: 8300000, guid: 6b6ffa9d91cdf9545a90bf552771e9ff, type: 3}
+    - {fileID: 8300000, guid: ae3d72ef46ff86c4d93081701fd71098, type: 3}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: skillAnimationData
+      Entry: 7
+      Data: 0|AkanyaTools.SkillMaster.Runtime.Data.SkillAnimationData, AkanyaTools.SkillMaster.Runtime
+    - Name: frameData
+      Entry: 7
+      Data: 1|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[AkanyaTools.SkillMaster.Runtime.Event.SkillAnimationFrameEvent,
+        AkanyaTools.SkillMaster.Runtime]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 2|System.Collections.Generic.GenericEqualityComparer`1[[System.Int32,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 4
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 138
+    - Name: $v
+      Entry: 7
+      Data: 3|AkanyaTools.SkillMaster.Runtime.Event.SkillAnimationFrameEvent, AkanyaTools.SkillMaster.Runtime
+    - Name: animationClip
+      Entry: 10
+      Data: 0
+    - Name: applyRootMotion
+      Entry: 5
+      Data: true
+    - Name: transitionTime
+      Entry: 4
+      Data: 0.25
+    - Name: durationFrame
+      Entry: 3
+      Data: 70
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 116
+    - Name: $v
+      Entry: 7
+      Data: 4|AkanyaTools.SkillMaster.Runtime.Event.SkillAnimationFrameEvent, AkanyaTools.SkillMaster.Runtime
+    - Name: animationClip
+      Entry: 10
+      Data: 1
+    - Name: applyRootMotion
+      Entry: 5
+      Data: true
+    - Name: transitionTime
+      Entry: 4
+      Data: 0.25
+    - Name: durationFrame
+      Entry: 3
+      Data: 22
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 7
+      Data: 5|AkanyaTools.SkillMaster.Runtime.Event.SkillAnimationFrameEvent, AkanyaTools.SkillMaster.Runtime
+    - Name: animationClip
+      Entry: 10
+      Data: 2
+    - Name: applyRootMotion
+      Entry: 5
+      Data: true
+    - Name: transitionTime
+      Entry: 4
+      Data: 0.25
+    - Name: durationFrame
+      Entry: 3
+      Data: 43
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 43
+    - Name: $v
+      Entry: 7
+      Data: 6|AkanyaTools.SkillMaster.Runtime.Event.SkillAnimationFrameEvent, AkanyaTools.SkillMaster.Runtime
+    - Name: animationClip
+      Entry: 10
+      Data: 3
+    - Name: applyRootMotion
+      Entry: 5
+      Data: true
+    - Name: transitionTime
+      Entry: 4
+      Data: 0.25
+    - Name: durationFrame
+      Entry: 3
+      Data: 73
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: skillAudioData
+      Entry: 7
+      Data: 7|AkanyaTools.SkillMaster.Runtime.Data.SkillAudioData, AkanyaTools.SkillMaster.Runtime
+    - Name: frameData
+      Entry: 7
+      Data: 8|System.Collections.Generic.List`1[[AkanyaTools.SkillMaster.Runtime.Event.SkillAudioFrameEvent,
+        AkanyaTools.SkillMaster.Runtime]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 4
+    - Name: 
+      Entry: 7
+      Data: 9|AkanyaTools.SkillMaster.Runtime.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
+    - Name: trackName
+      Entry: 1
+      Data: attack1
+    - Name: frameIndex
+      Entry: 3
+      Data: 13
+    - Name: audioClip
+      Entry: 10
+      Data: 4
+    - Name: playCount
+      Entry: 3
+      Data: 0
+    - Name: volume
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 10|AkanyaTools.SkillMaster.Runtime.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
+    - Name: trackName
+      Entry: 1
+      Data: attack2
+    - Name: frameIndex
+      Entry: 3
+      Data: 77
+    - Name: audioClip
+      Entry: 10
+      Data: 5
+    - Name: playCount
+      Entry: 3
+      Data: 1
+    - Name: volume
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 11|AkanyaTools.SkillMaster.Runtime.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
+    - Name: trackName
+      Entry: 1
+      Data: attack3
+    - Name: frameIndex
+      Entry: 3
+      Data: 121
+    - Name: audioClip
+      Entry: 10
+      Data: 6
+    - Name: playCount
+      Entry: 3
+      Data: 1
+    - Name: volume
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 12|AkanyaTools.SkillMaster.Runtime.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
+    - Name: trackName
+      Entry: 1
+      Data: attack4
+    - Name: frameIndex
+      Entry: 3
+      Data: 170
+    - Name: audioClip
+      Entry: 10
+      Data: 7
+    - Name: playCount
+      Entry: 3
+      Data: 1
+    - Name: volume
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  skillName: TestSkill
+  frameCount: 209
+  frameRate: 30

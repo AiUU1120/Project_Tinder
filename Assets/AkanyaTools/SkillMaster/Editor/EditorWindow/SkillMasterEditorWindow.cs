@@ -4,7 +4,7 @@
 * @AkanyaTech.SkillMaster
 */
 
-using AkanyaTools.SkillMaster.Scripts.Config;
+using AkanyaTools.SkillMaster.Runtime.Data.Config;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -74,7 +74,7 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
             m_SkillConfigObjField.value = tempConfig;
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             if (skillConfig != null)
             {

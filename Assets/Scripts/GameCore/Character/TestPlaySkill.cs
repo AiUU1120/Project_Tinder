@@ -1,5 +1,5 @@
-﻿using AkanyaTools.SkillMaster.Scripts.Config;
-using AkanyaTools.SkillMaster.Scripts.Runtime;
+﻿using AkanyaTools.SkillMaster.Runtime.Component;
+using AkanyaTools.SkillMaster.Runtime.Data.Config;
 using UnityEngine;
 
 namespace GameCore.Character

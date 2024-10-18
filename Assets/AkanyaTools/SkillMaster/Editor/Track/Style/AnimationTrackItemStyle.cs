@@ -4,6 +4,7 @@
 * @AkanyaTech.SkillMaster
 */
 
+using AkanyaTools.SkillMaster.Editor.Track.Style.Common;
 using FrameTools.Extension;
 using UnityEditor;
 using UnityEngine.UIElements;
@@ -16,7 +17,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Style
 
         public VisualElement animationEndLine { get; private set; }
 
-        private const string track_item_path = "Assets/AkanyaTools/SkillMaster/Editor/Track/AnimationTrack/AnimationTrackItem.uxml";
+        private const string track_item_path = "Assets/AkanyaTools/SkillMaster/Static Resources/Style/Track/TrackItem/AnimationTrackItem.uxml";
 
         private Label m_TitleLabel;
 

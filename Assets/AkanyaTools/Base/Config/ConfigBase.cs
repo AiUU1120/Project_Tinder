@@ -6,7 +6,7 @@
 
 using Sirenix.OdinInspector;
 
-namespace FrameTools.Base.Config
+namespace AkanyaTools.Base.Config
 {
     /// <summary>
     /// 配置基类

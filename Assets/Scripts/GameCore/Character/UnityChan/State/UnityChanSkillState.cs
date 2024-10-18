@@ -4,7 +4,7 @@
 * @AkanyaTech.Tinder
 */
 
-using AkanyaTools.SkillMaster.Scripts.Config;
+using AkanyaTools.SkillMaster.Runtime.Data.Config;
 using Data.Enums.GameCore;
 using FrameTools.ResourceSystem;
 using UnityEngine;
@@ -22,7 +22,7 @@ namespace GameCore.Character.UnityChan.State
             {
                 return;
             }
-            m_SkillConfig = ResourceManager.LoadAsset<SkillConfig>("SkillConfig_Test");
+            m_SkillConfig = ResourceManager.LoadAsset<SkillConfig>("SkillConfig_Test 1");
             unityChanController.skillPlayer.PlaySkill(m_SkillConfig, OnSkillEnd, OnRootMotion);
         }
 

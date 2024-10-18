@@ -6,6 +6,7 @@
 
 using AkanyaTools.SkillMaster.Editor.EditorWindow;
 using AkanyaTools.SkillMaster.Editor.Track.Style;
+using AkanyaTools.SkillMaster.Editor.Track.Style.Common;
 using UnityEngine;
 
 namespace AkanyaTools.SkillMaster.Editor.Track

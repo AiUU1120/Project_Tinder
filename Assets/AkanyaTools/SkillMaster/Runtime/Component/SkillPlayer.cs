@@ -6,10 +6,11 @@
 
 using System;
 using AkanyaTools.PlayableKami;
-using AkanyaTools.SkillMaster.Scripts.Config;
+using AkanyaTools.SkillMaster.Runtime.Data.Config;
+using FrameTools.AudioSystem;
 using UnityEngine;
 
-namespace AkanyaTools.SkillMaster.Scripts.Runtime
+namespace AkanyaTools.SkillMaster.Runtime.Component
 {
     public sealed class SkillPlayer : MonoBehaviour
     {
@@ -37,7 +38,7 @@ namespace AkanyaTools.SkillMaster.Scripts.Runtime
             }
 
             m_PlayTotalTime += Time.deltaTime;
-            var targetFrameIndex = (int) m_PlayTotalTime * m_FrameRate;
+            var targetFrameIndex = (int) (m_PlayTotalTime * m_FrameRate);
             // 追帧
             while (m_CurFrameIndex < targetFrameIndex)
             {
@@ -91,6 +92,7 @@ namespace AkanyaTools.SkillMaster.Scripts.Runtime
                 return;
             }
             m_CurFrameIndex++;
+            // 驱动动画
             if (m_SkillConfig.skillAnimationData.frameData.TryGetValue(m_CurFrameIndex, out var frameData))
             {
                 m_AnimationController.PlaySingleAnimation(frameData.animationClip, speed: 1f, blockSameAnim: false, mixingTime: frameData.transitionTime);
@@ -101,6 +103,14 @@ namespace AkanyaTools.SkillMaster.Scripts.Runtime
                 else
                 {
                     m_AnimationController.ClearOnRootMotion();
+                }
+            }
+            // 驱动音效
+            foreach (var data in m_SkillConfig.skillAudioData.frameData)
+            {
+                if (data.audioClip != null && data.frameIndex == m_CurFrameIndex)
+                {
+                    AudioManager.PlayOneShot(data.audioClip, transform.position, volumeScale: data.volume);
                 }
             }
         }

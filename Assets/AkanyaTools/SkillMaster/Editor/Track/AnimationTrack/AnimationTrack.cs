@@ -7,9 +7,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using AkanyaTools.SkillMaster.Editor.EditorWindow;
-using AkanyaTools.SkillMaster.Editor.Track.Style;
-using AkanyaTools.SkillMaster.Scripts.Config;
-using AkanyaTools.SkillMaster.Scripts.Event;
+using AkanyaTools.SkillMaster.Editor.Track.Style.Common;
+using AkanyaTools.SkillMaster.Runtime.Data;
+using AkanyaTools.SkillMaster.Runtime.Event;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -18,15 +18,15 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AnimationTrack
 {
     public sealed class AnimationTrack : TrackBase
     {
+        public SkillAnimationData animationData => SkillMasterEditorWindow.instance.skillConfig.skillAnimationData;
+
         private SingleLineTrackStyle m_TrackStyle;
 
         private readonly Dictionary<int, AnimationTrackItem> m_TrackItemDic = new();
 
-        public SkillAnimationData animationData => SkillMasterEditorWindow.instance.skillConfig.skillAnimationData;
-
-        public override void Init(VisualElement menuParent, VisualElement trackParent, float frameWidth)
+        public override void Init(VisualElement menuParent, VisualElement trackParent, float frameUnitWidth)
         {
-            base.Init(menuParent, trackParent, frameWidth);
+            base.Init(menuParent, trackParent, frameUnitWidth);
             m_TrackStyle = new SingleLineTrackStyle();
             m_TrackStyle.Init(menuParent, trackParent, "Animation");
             m_TrackStyle.contentRoot.RegisterCallback<DragUpdatedEvent>(OnDragUpdated);

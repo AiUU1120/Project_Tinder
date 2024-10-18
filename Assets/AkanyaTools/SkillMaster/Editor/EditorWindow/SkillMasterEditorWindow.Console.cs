@@ -24,18 +24,28 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
 
         private bool m_IsPlaying;
 
-        private bool isPlaying
+        public bool isPlaying
         {
             get => m_IsPlaying;
-            set
+            private set
             {
                 m_IsPlaying = value;
-                if (!m_IsPlaying)
+                if (m_IsPlaying)
                 {
-                    return;
+                    m_StartTime = DateTime.Now;
+                    m_StartFrameIndex = curSelectedFrameIndex;
+                    foreach (var track in m_TrackList)
+                    {
+                        track.OnPlay(m_StartFrameIndex);
+                    }
                 }
-                m_StartTime = DateTime.Now;
-                m_StartFrameIndex = curSelectedFrameIndex;
+                else
+                {
+                    foreach (var track in m_TrackList)
+                    {
+                        track.OnStop();
+                    }
+                }
             }
         }
 

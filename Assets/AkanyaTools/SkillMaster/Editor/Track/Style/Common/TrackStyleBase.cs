@@ -6,7 +6,7 @@
 
 using UnityEngine.UIElements;
 
-namespace AkanyaTools.SkillMaster.Editor.Track.Style
+namespace AkanyaTools.SkillMaster.Editor.Track.Style.Common
 {
     public abstract class TrackStyleBase
     {

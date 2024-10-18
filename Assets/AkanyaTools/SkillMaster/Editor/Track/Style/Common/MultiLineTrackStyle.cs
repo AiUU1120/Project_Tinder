@@ -11,13 +11,13 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace AkanyaTools.SkillMaster.Editor.Track.Style
+namespace AkanyaTools.SkillMaster.Editor.Track.Style.Common
 {
     public sealed class MultiLineTrackStyle : TrackStyleBase
     {
-        private const string menu_asset_path = "Assets/AkanyaTools/SkillMaster/Editor/Track/MultiLineTrackMenu.uxml";
+        private const string menu_asset_path = "Assets/AkanyaTools/SkillMaster/Static Resources/Style/Track/Common/MultiLineTrackMenu.uxml";
 
-        private const string content_asset_path = "Assets/AkanyaTools/SkillMaster/Editor/Track/MultiLineTrackContent.uxml";
+        private const string content_asset_path = "Assets/AkanyaTools/SkillMaster/Static Resources/Style/Track/Common/MultiLineTrackContent.uxml";
 
         /// <summary>
         /// 头部高度
@@ -29,24 +29,31 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Style
         /// </summary>
         private const float item_height = 32;
 
-        private Func<bool> m_OnAddSubTrack;
+        private Action m_OnAddSubTrack;
 
         private Func<int, bool> m_OnDeleteSubTrack;
 
+        private Action<int, int> m_OnSwapSubTrack;
+
+        private Action<SubTrackStyle, string> m_OnSubTrackNameChange;
+
         private VisualElement m_SubTrackMenuParent;
 
-        private readonly List<SubTrack> m_SubTracks = new();
+        private readonly List<SubTrackStyle> m_SubTracks = new();
 
         private int m_SelectedTrackIndex = -1;
 
         private bool m_IsDragging;
 
-        public void Init(VisualElement menuParent, VisualElement contentParent, string title, Func<bool> onAddSubTrack, Func<int, bool> onDeleteSubTrack)
+        public void Init(VisualElement menuParent, VisualElement contentParent, string title, Action onAddSubTrack, Func<int, bool> onDeleteSubTrack, Action<int, int> onSwapSubTrack,
+            Action<SubTrackStyle, string> onSubTrackNameChange)
         {
             this.menuParent = menuParent;
             this.contentParent = contentParent;
             m_OnAddSubTrack = onAddSubTrack;
             m_OnDeleteSubTrack = onDeleteSubTrack;
+            m_OnSwapSubTrack = onSwapSubTrack;
+            m_OnSubTrackNameChange = onSubTrackNameChange;
 
             menuRoot = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(menu_asset_path).Instantiate().Query().ToList()[1];
             menuParent.Add(menuRoot);
@@ -68,21 +75,34 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Style
         }
 
         /// <summary>
-        /// 删除子轨道
+        /// 删除子轨道视图
         /// </summary>
-        /// <param name="subTrack">待删除子轨道</param>
-        private void DeleteSubTrack(SubTrack subTrack)
+        /// <param name="subTrackStyle">待删除子轨道</param>
+        private void DeleteSubTrackView(SubTrackStyle subTrackStyle)
+        {
+            var index = subTrackStyle.GetIndex();
+            subTrackStyle.Remove();
+            m_SubTracks.RemoveAt(index);
+            UpdateAllSubTrackIndex(index);
+            UpdateSize();
+        }
+
+        /// <summary>
+        /// 删除子轨道数据 包括视图
+        /// </summary>
+        /// <param name="subTrackStyle">待删除子轨道</param>
+        private void DeleteSubTrackData(SubTrackStyle subTrackStyle)
         {
             if (m_OnDeleteSubTrack == null)
             {
                 return;
             }
-            var index = subTrack.GetIndex();
-            if (!m_OnDeleteSubTrack(index))
+            var index = subTrackStyle.GetIndex();
+            if (!m_OnDeleteSubTrack.Invoke(index))
             {
                 return;
             }
-            subTrack.Destroy();
+            subTrackStyle.Remove();
             m_SubTracks.RemoveAt(index);
             UpdateAllSubTrackIndex(index);
             UpdateSize();
@@ -128,6 +148,24 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Style
             m_SubTracks[index1] = subTrack2;
             m_SubTracks[index2] = subTrack1;
             UpdateAllSubTrackIndex();
+            m_OnSwapSubTrack?.Invoke(index1, index2);
+        }
+
+        /// <summary>
+        /// 添加子轨道
+        /// </summary>
+        public SubTrackStyle AddSubTrack()
+        {
+            var subTrack = new SubTrackStyle();
+            subTrack.Init(m_SubTracks.Count, m_SubTrackMenuParent, contentRoot, DeleteSubTrackData, DeleteSubTrackView, UpdateSubTrackName);
+            m_SubTracks.Add(subTrack);
+            UpdateSize();
+            return subTrack;
+        }
+
+        private void UpdateSubTrackName(SubTrackStyle subTrackStyle, string name)
+        {
+            m_OnSubTrackNameChange?.Invoke(subTrackStyle, name);
         }
 
         #region Callback
@@ -137,14 +175,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Style
         /// </summary>
         private void OnAddBtnClick()
         {
-            if (m_OnAddSubTrack == null)
-            {
-                return;
-            }
-            var subTrack = new SubTrack();
-            subTrack.Init(m_SubTracks.Count, m_SubTrackMenuParent, contentRoot, DeleteSubTrack);
-            m_SubTracks.Add(subTrack);
-            UpdateSize();
+            m_OnAddSubTrack?.Invoke();
         }
 
         private void OnSubTrackMenuParentMouseMove(MouseMoveEvent evt)
@@ -191,21 +222,29 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Style
 
         #endregion
 
-        private sealed class SubTrack
+        public sealed class SubTrackStyle
         {
-            private const string menu_item_asset_path = "Assets/AkanyaTools/SkillMaster/Editor/Track/MultiLineTrackMenuItem.uxml";
+            private const string menu_item_asset_path = "Assets/AkanyaTools/SkillMaster/Static Resources/Style/Track/Common/MultiLineTrackMenuItem.uxml";
 
-            private const string content_item_asset_path = "Assets/AkanyaTools/SkillMaster/Editor/Track/MultiLineTrackContentItem.uxml";
+            private const string content_item_asset_path = "Assets/AkanyaTools/SkillMaster/Static Resources/Style/Track/Common/MultiLineTrackContentItem.uxml";
 
             private VisualElement m_MenuRoot;
 
-            private VisualElement m_TrackRoot;
+            public VisualElement trackRoot;
 
             private VisualElement m_MenuParent;
 
             private VisualElement m_TrackParent;
 
-            private Action<SubTrack> m_OnDelete;
+            private VisualElement m_Content;
+
+            private TextField m_TrackNameTxtField;
+
+            private Action<SubTrackStyle> m_OnDeleteData;
+
+            private Action<SubTrackStyle> m_OnDeleteView;
+
+            private Action<SubTrackStyle, string> m_OnTrackNameChange;
 
             private static readonly Color s_NormalColor = new(0, 0, 0, 0);
 
@@ -213,23 +252,38 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Style
 
             private int m_Index;
 
-            public void Init(int index, VisualElement menuParent, VisualElement trackParent, Action<SubTrack> onDelete)
+            private string m_OldTrackName;
+
+            public void Init(int index, VisualElement menuParent, VisualElement trackParent, Action<SubTrackStyle> onDeleteData, Action<SubTrackStyle> onDeleteView,
+                Action<SubTrackStyle, string> onTrackNameChange)
             {
-                this.m_MenuParent = menuParent;
-                this.m_TrackParent = trackParent;
-                m_OnDelete = onDelete;
+                m_MenuParent = menuParent;
+                m_TrackParent = trackParent;
+                m_OnDeleteData = onDeleteData;
+                m_OnDeleteView = onDeleteView;
+                m_OnTrackNameChange = onTrackNameChange;
 
                 m_MenuRoot = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(menu_item_asset_path).Instantiate().Query().ToList()[1];
                 menuParent.Add(m_MenuRoot);
 
                 var deleteBtn = m_MenuRoot.NiceQ<Button>("DeleteBtn");
-                deleteBtn.clicked += () => { m_OnDelete?.Invoke(this); };
+                deleteBtn.clicked += () => { m_OnDeleteData?.Invoke(this); };
 
-                m_TrackRoot = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(content_item_asset_path).Instantiate().Query().ToList()[1];
-                trackParent.Add(m_TrackRoot);
+                trackRoot = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(content_item_asset_path).Instantiate().Query().ToList()[1];
+                trackParent.Add(trackRoot);
+
+                m_TrackNameTxtField = m_MenuRoot.NiceQ<TextField>("TrackNameTxtField");
+                m_TrackNameTxtField.RegisterCallback<FocusInEvent>(OnTrackNameTxtFieldFocusIn);
+                m_TrackNameTxtField.RegisterCallback<FocusOutEvent>(OnTrackNameTxtFieldFocusOut);
 
                 SetIndex(index);
                 UnSelect();
+            }
+
+            public void AddItem(VisualElement content)
+            {
+                m_Content = content;
+                trackRoot.Add(content);
             }
 
             /// <summary>
@@ -248,6 +302,15 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Style
                 m_MenuRoot.style.backgroundColor = s_NormalColor;
             }
 
+            /// <summary>
+            /// 设置轨道名称
+            /// </summary>
+            /// <param name="name"></param>
+            public void SetTrackName(string name)
+            {
+                m_TrackNameTxtField.value = name;
+            }
+
             public void SetIndex(int index)
             {
                 m_Index = index;
@@ -256,18 +319,44 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Style
                 menuPos.y = index * item_height;
                 m_MenuRoot.transform.position = menuPos;
 
-                var trackPos = m_TrackRoot.transform.position;
+                var trackPos = trackRoot.transform.position;
                 trackPos.y = index * item_height + head_height;
-                m_TrackRoot.transform.position = trackPos;
+                trackRoot.transform.position = trackPos;
             }
 
             public int GetIndex() => m_Index;
 
-            public void Destroy()
+            public void DeleteView()
+            {
+                m_OnDeleteView?.Invoke(this);
+            }
+
+            /// <summary>
+            /// 显示层面上移除子轨道
+            /// </summary>
+            public void Remove()
             {
                 m_MenuParent.Remove(m_MenuRoot);
-                m_TrackParent.Remove(m_TrackRoot);
+                m_TrackParent.Remove(trackRoot);
             }
+
+            #region Callback
+
+            private void OnTrackNameTxtFieldFocusIn(FocusInEvent evt)
+            {
+                m_OldTrackName = m_TrackNameTxtField.value;
+            }
+
+            private void OnTrackNameTxtFieldFocusOut(FocusOutEvent evt)
+            {
+                if (m_OldTrackName == m_TrackNameTxtField.value)
+                {
+                    return;
+                }
+                m_OnTrackNameChange?.Invoke(this, m_TrackNameTxtField.value);
+            }
+
+            #endregion
         }
     }
 }

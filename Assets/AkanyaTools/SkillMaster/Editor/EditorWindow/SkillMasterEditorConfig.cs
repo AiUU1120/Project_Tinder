@@ -24,6 +24,11 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         public const int max_frame_width_level = 10;
 
         /// <summary>
+        /// 最小缩放级别
+        /// </summary>
+        public const float min_frame_width_level = 0.5f;
+
+        /// <summary>
         /// 默认帧率
         /// </summary>
         public const float default_frame_rate = 30;

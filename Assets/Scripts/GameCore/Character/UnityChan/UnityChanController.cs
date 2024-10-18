@@ -6,7 +6,7 @@
 
 using System;
 using AkanyaTools.PlayableKami;
-using AkanyaTools.SkillMaster.Scripts.Runtime;
+using AkanyaTools.SkillMaster.Runtime.Component;
 using GameCore.Character.UnityChan.State;
 using GameCore.Common;
 using Data.Config;

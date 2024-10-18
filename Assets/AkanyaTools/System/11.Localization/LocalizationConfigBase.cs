@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using JKFrame;
 using System;
-using FrameTools.Base.Config;
+using AkanyaTools.Base.Config;
 using Sirenix.OdinInspector;
 
 public abstract class LocalizationConfigSuperBase : ConfigBase

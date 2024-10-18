@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using FrameTools.Base.Config;
+using AkanyaTools.Base.Config;
 using OfficeOpenXml;
 using UnityEditor;
 using UnityEngine;

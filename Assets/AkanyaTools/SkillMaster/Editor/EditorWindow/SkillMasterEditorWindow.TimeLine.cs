@@ -33,13 +33,18 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
             get => m_CurSelectedFrameIndex;
             set
             {
+                var oldIndex = m_CurSelectedFrameIndex;
                 // 选中帧超出范围 更新最大帧
                 if (value > curFrameCount)
                 {
                     curFrameCount = value;
                 }
                 m_CurSelectedFrameIndex = Mathf.Clamp(value, 0, curFrameCount);
-                m_CurFrameIntField.value = curSelectedFrameIndex;
+                m_CurFrameIntField.value = m_CurSelectedFrameIndex;
+                if (oldIndex == m_CurSelectedFrameIndex)
+                {
+                    return;
+                }
                 RefreshTimelineView();
                 TickSkill();
             }
@@ -159,7 +164,8 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         private void OnTimeLineWheel(WheelEvent evt)
         {
             var delta = (int) evt.delta.y;
-            m_SkillMasterEditorConfig.frameUnitWidth = Mathf.Clamp(m_SkillMasterEditorConfig.frameUnitWidth - delta, SkillMasterEditorConfig.standard_frame_unit_width,
+            m_SkillMasterEditorConfig.frameUnitWidth = Mathf.Clamp(m_SkillMasterEditorConfig.frameUnitWidth - delta,
+                (int) (SkillMasterEditorConfig.min_frame_width_level * SkillMasterEditorConfig.standard_frame_unit_width),
                 SkillMasterEditorConfig.max_frame_width_level * SkillMasterEditorConfig.standard_frame_unit_width);
             RefreshTimelineView();
             UpdateContentSize();

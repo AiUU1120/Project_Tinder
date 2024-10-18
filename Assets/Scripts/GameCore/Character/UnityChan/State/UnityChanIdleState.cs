@@ -5,6 +5,7 @@
 */
 
 using Data.Enums.GameCore;
+using UnityEngine;
 
 namespace GameCore.Character.UnityChan.State
 {
@@ -14,6 +15,10 @@ namespace GameCore.Character.UnityChan.State
         {
             base.Enter();
             // 播放待机动作
+            if (isPass)
+            {
+                return;
+            }
             unityChanController.PlayAnimation("Idle", mixingTime: 0.3f);
         }
 
@@ -24,11 +29,16 @@ namespace GameCore.Character.UnityChan.State
             {
                 return;
             }
+            unityChanController.characterController.Move(new Vector3(0, -9.8f * Time.deltaTime, 0));
         }
 
         public override void Exit()
         {
             base.Exit();
+            if (isPass)
+            {
+                return;
+            }
         }
 
         protected override bool CheckStateChange()

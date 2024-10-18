@@ -5,13 +5,11 @@
 */
 
 using System;
-using System.Collections.Generic;
-using AkanyaTools.SkillMaster.Scripts.Event;
-using FrameTools.Base.Config;
+using AkanyaTools.Base.Config;
 using Sirenix.Serialization;
 using UnityEngine;
 
-namespace AkanyaTools.SkillMaster.Scripts.Config
+namespace AkanyaTools.SkillMaster.Runtime.Data.Config
 {
     [CreateAssetMenu(fileName = "SkillConfig_", menuName = "SkillMaster/Config/SkillConfig")]
     public sealed class SkillConfig : ConfigBase
@@ -25,8 +23,11 @@ namespace AkanyaTools.SkillMaster.Scripts.Config
         [Tooltip("帧率")]
         public int frameRate = 30;
 
-        [NonSerialized, OdinSerialize]
+        [OdinSerialize]
         public SkillAnimationData skillAnimationData = new();
+
+        [OdinSerialize]
+        public SkillAudioData skillAudioData = new();
 
 #if UNITY_EDITOR
         /// <summary>
@@ -45,20 +46,5 @@ namespace AkanyaTools.SkillMaster.Scripts.Config
             s_OnValidate?.Invoke();
         }
 #endif
-    }
-
-    /// <summary>
-    /// 技能动画数据
-    /// </summary>
-    [Serializable]
-    public class SkillAnimationData
-    {
-        /// <summary>
-        /// 动画帧事件数据
-        /// key - 帧数
-        /// value - 事件数据
-        /// </summary>
-        [NonSerialized, OdinSerialize]
-        public Dictionary<int, SkillAnimationFrameEvent> frameData = new();
     }
 }
