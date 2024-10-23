@@ -5,9 +5,10 @@
 */
 
 using AkanyaTools.SkillMaster.Editor.EditorWindow;
+using AkanyaTools.SkillMaster.Editor.Inspector;
 using AkanyaTools.SkillMaster.Editor.Track.Style;
 using AkanyaTools.SkillMaster.Editor.Track.Style.Common;
-using AkanyaTools.SkillMaster.Runtime.Event;
+using AkanyaTools.SkillMaster.Runtime.Data.Event;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -82,7 +83,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AudioTrack
             {
                 return;
             }
-            // SkillMasterInspector.instance.SetTrackItemFrameIndex(frameIndex);
+            SkillMasterInspector.instance.SetTrackItemFrameIndex(frameIndex);
         }
 
         /// <summary>
@@ -181,7 +182,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AudioTrack
             audioEvent.playCount = 1;
             audioEvent.volume = 1;
             frameIndex = selectFrameIndex;
-            RefreshView();
+            ForceRefreshView();
             SkillMasterEditorWindow.instance.SaveConfig();
         }
 

@@ -24,6 +24,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 938feec8fd9d69d43a7cf31d145c0709, type: 3}
     - {fileID: 8300000, guid: 6b6ffa9d91cdf9545a90bf552771e9ff, type: 3}
     - {fileID: 8300000, guid: ae3d72ef46ff86c4d93081701fd71098, type: 3}
+    - {fileID: 8049695311549817459, guid: 82f717fbf9bbd57439863c36b801fff0, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -34,7 +35,7 @@ MonoBehaviour:
       Data: 0|AkanyaTools.SkillMaster.Runtime.Data.SkillAnimationData, AkanyaTools.SkillMaster.Runtime
     - Name: frameData
       Entry: 7
-      Data: 1|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[AkanyaTools.SkillMaster.Runtime.Event.SkillAnimationFrameEvent,
+      Data: 1|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAnimationFrameEvent,
         AkanyaTools.SkillMaster.Runtime]], mscorlib
     - Name: comparer
       Entry: 7
@@ -51,10 +52,11 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 138
+      Data: 133
     - Name: $v
       Entry: 7
-      Data: 3|AkanyaTools.SkillMaster.Runtime.Event.SkillAnimationFrameEvent, AkanyaTools.SkillMaster.Runtime
+      Data: 3|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAnimationFrameEvent,
+        AkanyaTools.SkillMaster.Runtime
     - Name: animationClip
       Entry: 10
       Data: 0
@@ -78,10 +80,11 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 116
+      Data: 111
     - Name: $v
       Entry: 7
-      Data: 4|AkanyaTools.SkillMaster.Runtime.Event.SkillAnimationFrameEvent, AkanyaTools.SkillMaster.Runtime
+      Data: 4|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAnimationFrameEvent,
+        AkanyaTools.SkillMaster.Runtime
     - Name: animationClip
       Entry: 10
       Data: 1
@@ -108,7 +111,8 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 7
-      Data: 5|AkanyaTools.SkillMaster.Runtime.Event.SkillAnimationFrameEvent, AkanyaTools.SkillMaster.Runtime
+      Data: 5|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAnimationFrameEvent,
+        AkanyaTools.SkillMaster.Runtime
     - Name: animationClip
       Entry: 10
       Data: 2
@@ -120,7 +124,7 @@ MonoBehaviour:
       Data: 0.25
     - Name: durationFrame
       Entry: 3
-      Data: 43
+      Data: 38
     - Name: 
       Entry: 8
       Data: 
@@ -132,10 +136,11 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 43
+      Data: 38
     - Name: $v
       Entry: 7
-      Data: 6|AkanyaTools.SkillMaster.Runtime.Event.SkillAnimationFrameEvent, AkanyaTools.SkillMaster.Runtime
+      Data: 6|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAnimationFrameEvent,
+        AkanyaTools.SkillMaster.Runtime
     - Name: animationClip
       Entry: 10
       Data: 3
@@ -168,14 +173,14 @@ MonoBehaviour:
       Data: 7|AkanyaTools.SkillMaster.Runtime.Data.SkillAudioData, AkanyaTools.SkillMaster.Runtime
     - Name: frameData
       Entry: 7
-      Data: 8|System.Collections.Generic.List`1[[AkanyaTools.SkillMaster.Runtime.Event.SkillAudioFrameEvent,
+      Data: 8|System.Collections.Generic.List`1[[AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent,
         AkanyaTools.SkillMaster.Runtime]], mscorlib
     - Name: 
       Entry: 12
       Data: 4
     - Name: 
       Entry: 7
-      Data: 9|AkanyaTools.SkillMaster.Runtime.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
+      Data: 9|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
       Data: attack1
@@ -196,13 +201,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 10|AkanyaTools.SkillMaster.Runtime.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
+      Data: 10|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
       Data: attack2
     - Name: frameIndex
       Entry: 3
-      Data: 77
+      Data: 75
     - Name: audioClip
       Entry: 10
       Data: 5
@@ -217,13 +222,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 11|AkanyaTools.SkillMaster.Runtime.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
+      Data: 11|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
       Data: attack3
     - Name: frameIndex
       Entry: 3
-      Data: 121
+      Data: 122
     - Name: audioClip
       Entry: 10
       Data: 6
@@ -238,13 +243,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 12|AkanyaTools.SkillMaster.Runtime.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
+      Data: 12|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
       Data: attack4
     - Name: frameIndex
       Entry: 3
-      Data: 170
+      Data: 167
     - Name: audioClip
       Entry: 10
       Data: 7
@@ -266,6 +271,293 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: skillEffectData
+      Entry: 7
+      Data: 13|AkanyaTools.SkillMaster.Runtime.Data.SkillEffectData, AkanyaTools.SkillMaster.Runtime
+    - Name: frameData
+      Entry: 7
+      Data: 14|System.Collections.Generic.List`1[[AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
+        AkanyaTools.SkillMaster.Runtime]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 4
+    - Name: 
+      Entry: 7
+      Data: 15|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
+        AkanyaTools.SkillMaster.Runtime
+    - Name: trackName
+      Entry: 1
+      Data: attack1
+    - Name: frameIndex
+      Entry: 3
+      Data: 20
+    - Name: effectPrefab
+      Entry: 10
+      Data: 8
+    - Name: positionOffset
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: -0.23
+    - Name: 
+      Entry: 4
+      Data: 1.11
+    - Name: 
+      Entry: 4
+      Data: 0.43
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: rotation
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 180
+    - Name: 
+      Entry: 4
+      Data: -21.28
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: scale
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: durationTime
+      Entry: 4
+      Data: 1
+    - Name: autoDestroy
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 16|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
+        AkanyaTools.SkillMaster.Runtime
+    - Name: trackName
+      Entry: 1
+      Data: attack2
+    - Name: frameIndex
+      Entry: 3
+      Data: 77
+    - Name: effectPrefab
+      Entry: 10
+      Data: 8
+    - Name: positionOffset
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 1.06
+    - Name: 
+      Entry: 4
+      Data: 0.49
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: rotation
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 180
+    - Name: 
+      Entry: 4
+      Data: 36.6
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: scale
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: -1
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: durationTime
+      Entry: 4
+      Data: 1
+    - Name: autoDestroy
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 17|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
+        AkanyaTools.SkillMaster.Runtime
+    - Name: trackName
+      Entry: 1
+      Data: attack3
+    - Name: frameIndex
+      Entry: 3
+      Data: 127
+    - Name: effectPrefab
+      Entry: 10
+      Data: 8
+    - Name: positionOffset
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 1.08
+    - Name: 
+      Entry: 4
+      Data: 0.8
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: rotation
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 216.3
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: scale
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: -1
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: durationTime
+      Entry: 4
+      Data: 1
+    - Name: autoDestroy
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 18|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
+        AkanyaTools.SkillMaster.Runtime
+    - Name: trackName
+      Entry: 1
+      Data: attack4
+    - Name: frameIndex
+      Entry: 3
+      Data: 168
+    - Name: effectPrefab
+      Entry: 10
+      Data: 8
+    - Name: positionOffset
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 1.22
+    - Name: 
+      Entry: 4
+      Data: 0.72
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: rotation
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 95.4
+    - Name: 
+      Entry: 4
+      Data: 180
+    - Name: 
+      Entry: 4
+      Data: 270
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: scale
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: durationTime
+      Entry: 4
+      Data: 1
+    - Name: autoDestroy
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   skillName: TestSkill
-  frameCount: 209
+  frameCount: 203
   frameRate: 30

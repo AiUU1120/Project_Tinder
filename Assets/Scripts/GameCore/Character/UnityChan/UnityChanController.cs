@@ -91,7 +91,7 @@ namespace GameCore.Character.UnityChan
             {
                 m_CameraTrans = Camera.main.transform;
             }
-            skillPlayer.Init(m_AnimationController);
+            skillPlayer.Init(m_AnimationController, transform);
             InitStateMachine();
         }
 

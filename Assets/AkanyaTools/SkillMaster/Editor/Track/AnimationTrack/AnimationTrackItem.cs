@@ -8,7 +8,7 @@ using AkanyaTools.SkillMaster.Editor.EditorWindow;
 using AkanyaTools.SkillMaster.Editor.Inspector;
 using AkanyaTools.SkillMaster.Editor.Track.Style;
 using AkanyaTools.SkillMaster.Editor.Track.Style.Common;
-using AkanyaTools.SkillMaster.Runtime.Event;
+using AkanyaTools.SkillMaster.Runtime.Data.Event;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -77,6 +77,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AnimationTrack
             {
                 m_TrackItemStyle.animationEndLine.style.display = DisplayStyle.None;
             }
+            track.TickView(SkillMasterEditorWindow.instance.curSelectedFrameIndex);
         }
 
         /// <summary>

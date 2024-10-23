@@ -5,7 +5,7 @@
 */
 
 using System.Collections.Generic;
-using AkanyaTools.SkillMaster.Runtime.Event;
+using AkanyaTools.SkillMaster.Runtime.Data.Event;
 
 namespace AkanyaTools.SkillMaster.Runtime.Data
 {
@@ -14,6 +14,6 @@ namespace AkanyaTools.SkillMaster.Runtime.Data
         /// <summary>
         /// 音效帧事件数据
         /// </summary>
-        public List<SkillAudioFrameEvent> frameData = new();
+        public readonly List<SkillAudioFrameEvent> frameData = new();
     }
 }

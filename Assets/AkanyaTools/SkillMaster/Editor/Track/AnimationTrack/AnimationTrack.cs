@@ -9,7 +9,7 @@ using System.Linq;
 using AkanyaTools.SkillMaster.Editor.EditorWindow;
 using AkanyaTools.SkillMaster.Editor.Track.Style.Common;
 using AkanyaTools.SkillMaster.Runtime.Data;
-using AkanyaTools.SkillMaster.Runtime.Event;
+using AkanyaTools.SkillMaster.Runtime.Data.Event;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -125,10 +125,18 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AnimationTrack
         public override void TickView(int frameIndex)
         {
             var previewObj = SkillMasterEditorWindow.instance.curPreviewCharacterObj;
+            if (previewObj == null)
+            {
+                return;
+            }
+            previewObj.transform.position = GetPosFromRootMotion(frameIndex);
+        }
+
+        public Vector3 GetPosFromRootMotion(int frameIndex, bool isResume = false)
+        {
+            var previewObj = SkillMasterEditorWindow.instance.curPreviewCharacterObj;
             var animator = previewObj.GetComponent<Animator>();
             var frameData = animationData.frameData;
-
-            #region 根运动
 
             var frameDataSortedDic = new SortedDictionary<int, SkillAnimationFrameEvent>(frameData);
             var keys = frameDataSortedDic.Keys.ToArray();
@@ -138,13 +146,14 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AnimationTrack
             {
                 var key = keys[i];
                 var e = frameDataSortedDic[key];
+                animator.applyRootMotion = e.applyRootMotion;
                 // 只考虑应用根运动的动画
                 if (!e.applyRootMotion)
                 {
+                    UpdatePosture(frameIndex);
                     continue;
                 }
-                var nextKeyFrameIndex = 0;
-                nextKeyFrameIndex = i + 1 < keys.Length ? keys[i + 1] : SkillMasterEditorWindow.instance.skillConfig.frameCount;
+                var nextKeyFrameIndex = i + 1 < keys.Length ? keys[i + 1] : SkillMasterEditorWindow.instance.skillConfig.frameCount;
 
                 var isBreak = false;
                 // 手动点击 Timeline 时特判
@@ -156,7 +165,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AnimationTrack
 
                 // 当前片段持续帧数
                 var durationFrameCount = nextKeyFrameIndex - key;
-                if (durationFrameCount > 0)
+                if (durationFrameCount >= 0)
                 {
                     var frameCount = e.animationClip.length * SkillMasterEditorWindow.instance.skillConfig.frameRate;
                     // 播放进度
@@ -186,13 +195,12 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AnimationTrack
                     }
 
                     // 采样计算
-                    animator.applyRootMotion = true;
                     if (playTimes >= 1)
                     {
                         e.animationClip.SampleAnimation(previewObj, e.animationClip.length);
                         rootMotionTotalPos += previewObj.transform.position * playTimes;
                     }
-                    if (lastPlayProgress > 0)
+                    if (lastPlayProgress >= 0)
                     {
                         e.animationClip.SampleAnimation(previewObj, lastPlayProgress * e.animationClip.length);
                         rootMotionTotalPos += previewObj.transform.position;
@@ -203,10 +211,17 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AnimationTrack
                     break;
                 }
             }
+            if (isResume)
+            {
+                UpdatePosture(SkillMasterEditorWindow.instance.curSelectedFrameIndex);
+            }
+            return rootMotionTotalPos;
+        }
 
-            #endregion
-
-            #region 姿态
+        private void UpdatePosture(int frameIndex)
+        {
+            var previewObj = SkillMasterEditorWindow.instance.curPreviewCharacterObj;
+            var frameData = animationData.frameData;
 
             // curOffset: 当前帧距离最近的动画片段的偏移
             var curOffset = int.MaxValue;
@@ -214,7 +229,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AnimationTrack
             foreach (var data in frameData)
             {
                 var offset = frameIndex - data.Key;
-                if (offset > 0 && offset < curOffset)
+                if (offset >= 0 && offset < curOffset)
                 {
                     curOffset = offset;
                     animationEventIndex = data.Key;
@@ -231,12 +246,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AnimationTrack
             {
                 progress -= (int) progress;
             }
-            animator.applyRootMotion = animationEvent.applyRootMotion;
             animationEvent.animationClip.SampleAnimation(previewObj, progress * animationEvent.animationClip.length);
-
-            #endregion
-
-            previewObj.transform.position = rootMotionTotalPos;
         }
 
         public override void Destroy()
@@ -268,61 +278,66 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AnimationTrack
         {
             var objs = DragAndDrop.objectReferences;
             var clip = objs[0] as AnimationClip;
-            if (clip != null)
+            if (clip == null)
             {
-                // 放置动画资源
-                var selectFrameIndex = SkillMasterEditorWindow.instance.GetFrameIndexByPos(evt.localMousePosition.x);
-                var canPlace = true;
-                var durationFrame = -1;
-                var clipFrameCount = (int) (clip.length * clip.frameRate);
-                var nextTrackItem = -1;
-                var curOffset = int.MaxValue;
+                return;
+            }
+            // 放置动画资源
+            var selectFrameIndex = SkillMasterEditorWindow.instance.GetFrameIndexByPos(evt.localMousePosition.x);
+            var canPlace = true;
+            var clipFrameCount = (int) (clip.length * clip.frameRate);
+            var nextTrackItem = -1;
+            var curOffset = int.MaxValue;
 
-                foreach (var item in SkillMasterEditorWindow.instance.skillConfig.skillAnimationData.frameData)
+            foreach (var item in SkillMasterEditorWindow.instance.skillConfig.skillAnimationData.frameData)
+            {
+                // 不允许选中帧在 trackItem 中间
+                if (selectFrameIndex > item.Key && selectFrameIndex < item.Value.durationFrame + item.Key)
                 {
-                    // 不允许选中帧在 trackItem 中间
-                    if (selectFrameIndex > item.Key && selectFrameIndex < item.Value.durationFrame + item.Key)
+                    canPlace = false;
+                    break;
+                }
+                // 找到右侧最近的 trackItem
+                if (item.Key > selectFrameIndex)
+                {
+                    var offset = item.Key - selectFrameIndex;
+                    if (offset < curOffset)
                     {
-                        canPlace = false;
-                        break;
-                    }
-                    // 找到右侧最近的 trackItem
-                    if (item.Key > selectFrameIndex)
-                    {
-                        var offset = item.Key - selectFrameIndex;
-                        if (offset < curOffset)
-                        {
-                            curOffset = offset;
-                            nextTrackItem = item.Key;
-                        }
+                        curOffset = offset;
+                        nextTrackItem = item.Key;
                     }
                 }
-                if (canPlace)
+            }
+            if (canPlace)
+            {
+                // 考虑不能覆盖右边片段
+                int durationFrame;
+                if (nextTrackItem != -1)
                 {
-                    // 考虑不能覆盖右边片段
-                    if (nextTrackItem != -1)
-                    {
-                        var offset = clipFrameCount - curOffset;
-                        durationFrame = offset < 0 ? clipFrameCount : curOffset;
-                    }
-                    // 右边没有片段
-                    else
-                    {
-                        durationFrame = clipFrameCount;
-                    }
-                    // 构建动画数据
-                    var animationEvent = new SkillAnimationFrameEvent()
-                    {
-                        animationClip = clip,
-                        durationFrame = durationFrame,
-                        transitionTime = 0.25f,
-                    };
-                    // 保存新增动画数据
-                    animationData.frameData.Add(selectFrameIndex, animationEvent);
-                    SkillMasterEditorWindow.instance.SaveConfig();
-
-                    CreateTrackItem(selectFrameIndex, animationEvent);
+                    var offset = clipFrameCount - curOffset;
+                    durationFrame = offset < 0 ? clipFrameCount : curOffset;
                 }
+                // 右边没有片段
+                else
+                {
+                    durationFrame = clipFrameCount;
+                }
+                // 构建动画数据
+                var animationEvent = new SkillAnimationFrameEvent()
+                {
+                    animationClip = clip,
+                    durationFrame = durationFrame,
+                    transitionTime = 0.25f,
+                };
+                // 保存新增动画数据
+                animationData.frameData.Add(selectFrameIndex, animationEvent);
+                SkillMasterEditorWindow.instance.SaveConfig();
+
+                CreateTrackItem(selectFrameIndex, animationEvent);
+            }
+            else
+            {
+                Debug.LogWarning("SkillMaster: 该位置不允许放置动画片段");
             }
         }
 

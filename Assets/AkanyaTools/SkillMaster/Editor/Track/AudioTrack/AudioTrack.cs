@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using AkanyaTools.SkillMaster.Editor.EditorWindow;
 using AkanyaTools.SkillMaster.Editor.Track.Style.Common;
 using AkanyaTools.SkillMaster.Runtime.Data;
-using AkanyaTools.SkillMaster.Runtime.Event;
+using AkanyaTools.SkillMaster.Runtime.Data.Event;
 using UnityEngine.UIElements;
 
 namespace AkanyaTools.SkillMaster.Editor.Track.AudioTrack
@@ -114,6 +114,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AudioTrack
                 return false;
             }
             audioData.frameData.RemoveAt(index);
+            m_TrackItems.RemoveAt(index);
             SkillMasterEditorWindow.instance.SaveConfig();
             return true;
         }

@@ -29,6 +29,9 @@ namespace AkanyaTools.SkillMaster.Runtime.Data.Config
         [OdinSerialize]
         public SkillAudioData skillAudioData = new();
 
+        [OdinSerialize]
+        public SkillEffectData skillEffectData = new();
+
 #if UNITY_EDITOR
         /// <summary>
         /// 设置 SkillConfig OnValidate 回调

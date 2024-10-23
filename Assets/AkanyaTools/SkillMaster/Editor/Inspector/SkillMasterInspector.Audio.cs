@@ -9,9 +9,9 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
 {
     public sealed partial class SkillMasterInspector
     {
-        private FloatField m_VolumeField;
+        private FloatField m_AudioVolumeField;
 
-        private float m_OldVolumeValue;
+        private float m_OldAudioVolumeValue;
 
         /// <summary>
         /// 绘制监视器显示内容
@@ -29,13 +29,13 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
             m_Root.Add(audioClipAssetField);
 
             // 音量输入
-            m_VolumeField = new FloatField("Volume")
+            m_AudioVolumeField = new FloatField("Volume")
             {
                 value = item.audioEvent.volume
             };
-            m_VolumeField.RegisterCallback<FocusInEvent>(OnVolumeFieldFocusIn);
-            m_VolumeField.RegisterCallback<FocusOutEvent>(OnVolumeFieldFocusOut);
-            m_Root.Add(m_VolumeField);
+            m_AudioVolumeField.RegisterCallback<FocusInEvent>(OnAudioVolumeFieldFocusIn);
+            m_AudioVolumeField.RegisterCallback<FocusOutEvent>(OnAudioVolumeFieldFocusOut);
+            m_Root.Add(m_AudioVolumeField);
         }
 
         #region Callback
@@ -43,24 +43,23 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
         private void OnAudioClipAssetFieldValueChanged(ChangeEvent<UnityEngine.Object> evt)
         {
             var clip = evt.newValue as AudioClip;
-            // Debug.Assert(clip != null, nameof(clip) + " != null");
             ((AudioTrackItem) s_CurTrackItem).audioEvent.audioClip = clip;
             SkillMasterEditorWindow.instance.SaveConfig();
-            s_CurTrackItem.RefreshView();
+            s_CurTrackItem.ForceRefreshView();
         }
 
-        private void OnVolumeFieldFocusIn(FocusInEvent evt)
+        private void OnAudioVolumeFieldFocusIn(FocusInEvent evt)
         {
-            m_OldVolumeValue = m_VolumeField.value;
+            m_OldAudioVolumeValue = m_AudioVolumeField.value;
         }
 
-        private void OnVolumeFieldFocusOut(FocusOutEvent evt)
+        private void OnAudioVolumeFieldFocusOut(FocusOutEvent evt)
         {
-            if (Math.Abs(m_OldVolumeValue - m_VolumeField.value) < 0.00001f)
+            if (Math.Abs(m_OldAudioVolumeValue - m_AudioVolumeField.value) < 0.00001f)
             {
                 return;
             }
-            ((AudioTrackItem) s_CurTrackItem).audioEvent.volume = m_VolumeField.value;
+            ((AudioTrackItem) s_CurTrackItem).audioEvent.volume = m_AudioVolumeField.value;
             SkillMasterEditorWindow.instance.SaveConfig();
         }
 

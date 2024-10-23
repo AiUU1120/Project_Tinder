@@ -5,9 +5,12 @@
 */
 
 using System;
+using System.Collections;
 using AkanyaTools.PlayableKami;
 using AkanyaTools.SkillMaster.Runtime.Data.Config;
 using FrameTools.AudioSystem;
+using FrameTools.Extension;
+using JKFrame;
 using UnityEngine;
 
 namespace AkanyaTools.SkillMaster.Runtime.Component
@@ -29,6 +32,8 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
         private Action<Vector3, Quaternion> m_OnRootMotion;
 
         private Action m_OnSkillEnd;
+
+        private Transform m_ModelTransform;
 
         private void Update()
         {
@@ -58,9 +63,10 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
             }
         }
 
-        public void Init(AnimationController animationController)
+        public void Init(AnimationController animationController, Transform modelTransform)
         {
             m_AnimationController = animationController;
+            m_ModelTransform = modelTransform;
         }
 
         /// <summary>
@@ -113,6 +119,33 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
                     AudioManager.PlayOneShot(data.audioClip, transform.position, volumeScale: data.volume);
                 }
             }
+
+            // 驱动特效
+            foreach (var data in m_SkillConfig.skillEffectData.frameData)
+            {
+                if (data.effectPrefab != null && data.frameIndex == m_CurFrameIndex)
+                {
+                    var effectObj = PoolSystem.GetGameObject(data.effectPrefab.name);
+                    if (effectObj == null)
+                    {
+                        effectObj = Instantiate(data.effectPrefab);
+                        effectObj.name = data.effectPrefab.name;
+                    }
+                    effectObj.transform.position = m_ModelTransform.TransformPoint(data.positionOffset);
+                    effectObj.transform.rotation = Quaternion.Euler(m_ModelTransform.eulerAngles + data.rotation);
+                    effectObj.transform.localScale = data.scale;
+                    if (data.autoDestroy)
+                    {
+                        StartCoroutine(AutoDestroyEffectGameObject(effectObj, data.durationTime));
+                    }
+                }
+            }
+        }
+
+        private IEnumerator AutoDestroyEffectGameObject(GameObject obj, float time)
+        {
+            yield return new WaitForSeconds(time);
+            obj.GameObjectPushPool();
         }
     }
 }

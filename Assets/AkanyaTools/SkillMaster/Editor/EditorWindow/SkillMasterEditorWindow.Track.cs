@@ -4,13 +4,16 @@
 * @AkanyaTech.SkillMaster
 */
 
+using System;
 using System.Collections.Generic;
 using AkanyaTools.SkillMaster.Editor.Inspector;
 using AkanyaTools.SkillMaster.Editor.Track;
 using AkanyaTools.SkillMaster.Editor.Track.AnimationTrack;
 using AkanyaTools.SkillMaster.Editor.Track.AudioTrack;
+using AkanyaTools.SkillMaster.Editor.Track.EffectTrack;
 using FrameTools.Extension;
 using UnityEditor;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace AkanyaTools.SkillMaster.Editor.EditorWindow
@@ -24,6 +27,8 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         private VisualElement m_ContentListView;
 
         private readonly List<TrackBase> m_TrackList = new();
+
+        private Func<int, bool, Vector3> m_OnGetPosFromRootMotion;
 
         #region 初始化
 
@@ -53,6 +58,7 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
             }
             InitAnimationTrack();
             InitAudioTrack();
+            InitEffectTrack();
         }
 
         /// <summary>
@@ -63,6 +69,7 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
             var animationTrack = new AnimationTrack();
             animationTrack.Init(m_TrackMenuList, m_ContentListView, m_SkillMasterEditorConfig.frameUnitWidth);
             m_TrackList.Add(animationTrack);
+            m_OnGetPosFromRootMotion = animationTrack.GetPosFromRootMotion;
         }
 
         /// <summary>
@@ -73,6 +80,16 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
             var audioTrack = new AudioTrack();
             audioTrack.Init(m_TrackMenuList, m_ContentListView, m_SkillMasterEditorConfig.frameUnitWidth);
             m_TrackList.Add(audioTrack);
+        }
+
+        /// <summary>
+        /// 初始化特效轨道
+        /// </summary>
+        private void InitEffectTrack()
+        {
+            var effectTrack = new EffectTrack();
+            effectTrack.Init(m_TrackMenuList, m_ContentListView, m_SkillMasterEditorConfig.frameUnitWidth);
+            m_TrackList.Add(effectTrack);
         }
 
         #endregion
@@ -125,6 +142,8 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
             }
             m_TrackList.Clear();
         }
+
+        public Vector3 GetPosFromRootMotion(int frameIndex, bool isResume = false) => m_OnGetPosFromRootMotion.Invoke(frameIndex, isResume);
 
         #region Callback
 

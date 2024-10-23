@@ -7,6 +7,7 @@
 using AkanyaTools.SkillMaster.Runtime.Data.Config;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 namespace AkanyaTools.SkillMaster.Editor.EditorWindow
@@ -17,6 +18,15 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         private VisualTreeAsset m_VisualTreeAsset;
 
         public static SkillMasterEditorWindow instance { get; private set; }
+
+        public bool isInEditorScene
+        {
+            get
+            {
+                var curScenePath = SceneManager.GetActiveScene().path;
+                return curScenePath == skill_master_scene_path;
+            }
+        }
 
         [MenuItem("AkanyaTech/SkillMaster &K")]
         public static void ShowExample()
@@ -29,7 +39,7 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         {
             instance = this;
 
-            SkillConfig.SetOnValidate(RefreshView);
+            SkillConfig.SetOnValidate(ForceRefreshView);
 
             var root = rootVisualElement;
 
@@ -67,7 +77,7 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         /// <summary>
         /// 强制刷新整个编辑器视图
         /// </summary>
-        private void RefreshView()
+        private void ForceRefreshView()
         {
             var tempConfig = skillConfig;
             m_SkillConfigObjField.value = null;

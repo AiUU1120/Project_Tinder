@@ -6,7 +6,7 @@
 
 using AkanyaTools.SkillMaster.Editor.EditorWindow;
 using AkanyaTools.SkillMaster.Editor.Track.Style.Common;
-using AkanyaTools.SkillMaster.Runtime.Event;
+using AkanyaTools.SkillMaster.Runtime.Data.Event;
 using FrameTools.Extension;
 using UnityEditor;
 using UnityEngine.UIElements;

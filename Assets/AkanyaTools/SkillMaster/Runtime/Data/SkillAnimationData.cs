@@ -5,7 +5,7 @@
 */
 
 using System.Collections.Generic;
-using AkanyaTools.SkillMaster.Runtime.Event;
+using AkanyaTools.SkillMaster.Runtime.Data.Event;
 
 namespace AkanyaTools.SkillMaster.Runtime.Data
 {

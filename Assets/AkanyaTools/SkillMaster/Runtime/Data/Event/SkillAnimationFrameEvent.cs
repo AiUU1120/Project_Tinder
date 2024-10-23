@@ -6,7 +6,7 @@
 
 using UnityEngine;
 
-namespace AkanyaTools.SkillMaster.Runtime.Event
+namespace AkanyaTools.SkillMaster.Runtime.Data.Event
 {
     public sealed class SkillAnimationFrameEvent : SkillFrameEventBase
     {

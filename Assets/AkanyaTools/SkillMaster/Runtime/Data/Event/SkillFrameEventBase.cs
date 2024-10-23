@@ -4,7 +4,7 @@
 * @AkanyaTech.SkillMaster
 */
 
-namespace AkanyaTools.SkillMaster.Runtime.Event
+namespace AkanyaTools.SkillMaster.Runtime.Data.Event
 {
     public abstract class SkillFrameEventBase
     {

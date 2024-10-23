@@ -8,6 +8,7 @@ using AkanyaTools.SkillMaster.Editor.EditorWindow;
 using AkanyaTools.SkillMaster.Editor.Track;
 using AkanyaTools.SkillMaster.Editor.Track.AnimationTrack;
 using AkanyaTools.SkillMaster.Editor.Track.AudioTrack;
+using AkanyaTools.SkillMaster.Editor.Track.EffectTrack;
 using UnityEditor;
 using UnityEngine.UIElements;
 
@@ -70,6 +71,9 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
                     break;
                 case AudioTrackItem audioItem:
                     DrawAudioTrackItem(audioItem);
+                    break;
+                case EffectTrackItem effectItem:
+                    DrawEffectTrackItem(effectItem);
                     break;
             }
         }

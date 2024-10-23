@@ -28,10 +28,10 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         /// <summary>
         /// 当前选中帧索引
         /// </summary>
-        private int curSelectedFrameIndex
+        public int curSelectedFrameIndex
         {
             get => m_CurSelectedFrameIndex;
-            set
+            private set
             {
                 var oldIndex = m_CurSelectedFrameIndex;
                 // 选中帧超出范围 更新最大帧
