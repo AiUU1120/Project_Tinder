@@ -44,7 +44,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.EffectTrack
             itemStyle = m_TrackItemStyle;
             m_TrackItemStyle.Init(frameUnitWidth, effectEvent, m_SubTrackStyle);
 
-            normalColor = m_TrackItemStyle.root.resolvedStyle.backgroundColor;
+            normalColor = new Color(this.track.themeColor.r, this.track.themeColor.g, this.track.themeColor.b, 0.7f);
             selectedColor = new Color(normalColor.r, normalColor.g, normalColor.b, 1f);
 
             OnUnSelect();

@@ -3,7 +3,7 @@ using AkanyaTools.SkillMaster.Runtime.Data.Event;
 
 namespace AkanyaTools.SkillMaster.Runtime.Data
 {
-    public class SkillEffectData
+    public sealed class SkillEffectData
     {
         /// <summary>
         /// 特效帧事件数据

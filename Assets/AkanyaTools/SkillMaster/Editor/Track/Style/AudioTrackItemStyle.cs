@@ -17,7 +17,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Style
     {
         public VisualElement mainDragArea { get; private set; }
 
-        private const string track_item_path = "Assets/AkanyaTools/SkillMaster/Static Resources/Style/Track/TrackItem/AudioTrackItem.uxml";
+        private const string track_item_path = "Assets/AkanyaTools/SkillMaster/Static Resources/Style/Track/TrackItem/MultiLineSubTrackItem.uxml";
 
         private Label m_TitleLabel;
 

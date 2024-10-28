@@ -1,6 +1,6 @@
 ﻿/*
 * @Author: AiUU
-* @Description: SkillMaster 音效轨道片段
+* @Description: SkillMaster 判定轨道片段
 * @AkanyaTech.SkillMaster
 */
 
@@ -9,19 +9,18 @@ using AkanyaTools.SkillMaster.Editor.Inspector;
 using AkanyaTools.SkillMaster.Editor.Track.Style;
 using AkanyaTools.SkillMaster.Editor.Track.Style.Common;
 using AkanyaTools.SkillMaster.Runtime.Data.Event;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace AkanyaTools.SkillMaster.Editor.Track.AudioTrack
+namespace AkanyaTools.SkillMaster.Editor.Track.DetectionTrack
 {
-    public sealed class AudioTrackItem : TrackItemBase<AudioTrack>
+    public class DetectionTrackItem : TrackItemBase<DetectionTrack>
     {
-        public SkillAudioFrameEvent audioEvent { get; private set; }
+        public SkillDetectionFrameEvent detectionEvent { get; private set; }
 
         private MultiLineTrackStyle.SubTrackStyle m_SubTrackStyle;
 
-        private AudioTrackItemStyle m_TrackItemStyle;
+        private DetectionTrackItemStyle m_TrackItemStyle;
 
         private bool m_IsMouseDrag;
 
@@ -29,18 +28,18 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AudioTrack
 
         private int m_StartDragFrame;
 
-        public void Init(AudioTrack track, float frameUnitWidth, SkillAudioFrameEvent e, MultiLineTrackStyle.SubTrackStyle subTrackStyle)
+        public void Init(DetectionTrack track, float frameUnitWidth, SkillDetectionFrameEvent e, MultiLineTrackStyle.SubTrackStyle subTrackStyle)
         {
             this.track = track;
             frameIndex = e.frameIndex;
-            audioEvent = e;
+            detectionEvent = e;
             m_SubTrackStyle = subTrackStyle;
 
             SetTrackName(e.trackName);
 
-            m_TrackItemStyle = new AudioTrackItemStyle();
+            m_TrackItemStyle = new DetectionTrackItemStyle();
             itemStyle = m_TrackItemStyle;
-            m_TrackItemStyle.Init(frameUnitWidth, audioEvent, m_SubTrackStyle);
+            m_TrackItemStyle.Init(frameUnitWidth, detectionEvent, m_SubTrackStyle);
 
             normalColor = new Color(this.track.themeColor.r, this.track.themeColor.g, this.track.themeColor.b, 0.7f);
             selectedColor = new Color(normalColor.r, normalColor.g, normalColor.b, 1f);
@@ -52,16 +51,13 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AudioTrack
             m_TrackItemStyle.mainDragArea.RegisterCallback<MouseOutEvent>(OnMouseOut);
             m_TrackItemStyle.mainDragArea.RegisterCallback<MouseMoveEvent>(OnMouseMove);
 
-            m_SubTrackStyle.trackRoot.RegisterCallback<DragUpdatedEvent>(OnDragUpdated);
-            m_SubTrackStyle.trackRoot.RegisterCallback<DragExitedEvent>(OnDragExited);
-
             RefreshView(frameUnitWidth);
         }
 
         public override void RefreshView(float frameUnitWidth)
         {
             base.RefreshView(frameUnitWidth);
-            m_TrackItemStyle.RefreshView(frameUnitWidth, audioEvent);
+            m_TrackItemStyle.RefreshView(frameUnitWidth, detectionEvent);
         }
 
         private void SetTrackName(string name)
@@ -91,7 +87,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AudioTrack
         /// </summary>
         private void CheckBoundaryOverflow()
         {
-            var frameCount = (int) (audioEvent.audioClip.length * SkillMasterEditorWindow.instance.skillConfig.frameRate);
+            var frameCount = detectionEvent.durationFrame;
             // 超过右边界则拓展
             if (frameIndex + frameCount > SkillMasterEditorWindow.instance.curFrameCount)
             {
@@ -141,49 +137,8 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AudioTrack
                 return;
             }
             frameIndex = targetFrame;
-            audioEvent.frameIndex = frameIndex;
+            detectionEvent.frameIndex = frameIndex;
             RefreshView(frameUnitWidth);
-        }
-
-        /// <summary>
-        /// 监听用户音效拖拽
-        /// </summary>
-        /// <param name="evt"></param>
-        private void OnDragUpdated(DragUpdatedEvent evt)
-        {
-            var objs = DragAndDrop.objectReferences;
-            var clip = objs[0] as AudioClip;
-            if (clip != null)
-            {
-                DragAndDrop.visualMode = DragAndDropVisualMode.Copy;
-            }
-        }
-
-        /// <summary>
-        /// 监听用户松手 放入音效片段
-        /// </summary>
-        /// <param name="evt"></param>
-        private void OnDragExited(DragExitedEvent evt)
-        {
-            var objs = DragAndDrop.objectReferences;
-            var clip = objs[0] as AudioClip;
-            if (clip == null)
-            {
-                return;
-            }
-            // 放置音效资源
-            var selectFrameIndex = SkillMasterEditorWindow.instance.GetFrameIndexByPos(evt.localMousePosition.x);
-            if (selectFrameIndex < 0)
-            {
-                return;
-            }
-            audioEvent.audioClip = clip;
-            audioEvent.frameIndex = selectFrameIndex;
-            audioEvent.playCount = 1;
-            audioEvent.volume = 1;
-            frameIndex = selectFrameIndex;
-            ForceRefreshView();
-            SkillMasterEditorWindow.instance.SaveConfig();
         }
 
         #endregion

@@ -9,6 +9,7 @@ using AkanyaTools.SkillMaster.Editor.EditorWindow;
 using AkanyaTools.SkillMaster.Editor.Track.Style.Common;
 using AkanyaTools.SkillMaster.Runtime.Data;
 using AkanyaTools.SkillMaster.Runtime.Data.Event;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace AkanyaTools.SkillMaster.Editor.Track.AudioTrack
@@ -17,9 +18,13 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AudioTrack
     {
         public SkillAudioData audioData => SkillMasterEditorWindow.instance.skillConfig.skillAudioData;
 
+        public Color themeColor => m_ThemeColor;
+
         private MultiLineTrackStyle m_TrackStyle;
 
         private readonly List<AudioTrackItem> m_TrackItems = new();
+
+        private readonly Color m_ThemeColor = new(0.43f, 0.72f, 1f, 1f);
 
         #region 初始化
 
@@ -27,7 +32,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AudioTrack
         {
             base.Init(menuParent, trackParent, frameUnitWidth);
             m_TrackStyle = new MultiLineTrackStyle();
-            m_TrackStyle.Init(menuParent, trackParent, "Audio", AddSubTrack, DeleteSubTrack, SwapSubTrack, UpdateSubTrackName);
+            m_TrackStyle.Init(menuParent, trackParent, "Audio", AddSubTrack, DeleteSubTrack, SwapSubTrack, UpdateSubTrackName, m_ThemeColor);
             RefreshView();
         }
 

@@ -1,6 +1,6 @@
 ﻿/*
 * @Author: AiUU
-* @Description: SkillMaster 特效轨道片段样式
+* @Description: SkillMaster 判定轨道片段样式
 * @AkanyaTech.SkillMaster
 */
 
@@ -9,12 +9,11 @@ using AkanyaTools.SkillMaster.Editor.Track.Style.Common;
 using AkanyaTools.SkillMaster.Runtime.Data.Event;
 using FrameTools.Extension;
 using UnityEditor;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace AkanyaTools.SkillMaster.Editor.Track.Style
 {
-    public sealed class EffectTrackItemStyle : TrackItemStyleBase
+    public class DetectionTrackItemStyle : TrackItemStyleBase
     {
         public VisualElement mainDragArea { get; private set; }
 
@@ -22,7 +21,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Style
 
         private Label m_TitleLabel;
 
-        public void Init(float frameUnitWidth, SkillEffectFrameEvent e, MultiLineTrackStyle.SubTrackStyle subTrackStyle)
+        public void Init(float frameUnitWidth, SkillDetectionFrameEvent e, MultiLineTrackStyle.SubTrackStyle subTrackStyle)
         {
             m_TitleLabel = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(track_item_path).Instantiate().Query<Label>();
             root = m_TitleLabel;
@@ -31,16 +30,10 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Style
             mainDragArea = root.NiceQ<VisualElement>("MainDragArea");
         }
 
-        public void RefreshView(float frameUnitWidth, SkillEffectFrameEvent e)
+        public void RefreshView(float frameUnitWidth, SkillDetectionFrameEvent e)
         {
-            if (e.effectPrefab == null)
-            {
-                SetVisible(false);
-                return;
-            }
-            SetVisible(true);
-            SetTitle(e.effectPrefab.name);
-            SetWidth(frameUnitWidth * e.durationTime * SkillMasterEditorWindow.instance.skillConfig.frameRate);
+            SetTitle("");
+            SetWidth(frameUnitWidth * e.durationFrame);
             SetPositionX(frameUnitWidth * e.frameIndex);
         }
 

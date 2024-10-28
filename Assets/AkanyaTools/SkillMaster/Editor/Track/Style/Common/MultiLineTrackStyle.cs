@@ -46,7 +46,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Style.Common
         private bool m_IsDragging;
 
         public void Init(VisualElement menuParent, VisualElement contentParent, string title, Action onAddSubTrack, Func<int, bool> onDeleteSubTrack, Action<int, int> onSwapSubTrack,
-            Action<SubTrackStyle, string> onSubTrackNameChange)
+            Action<SubTrackStyle, string> onSubTrackNameChange, Color themeColor)
         {
             this.menuParent = menuParent;
             this.contentParent = contentParent;
@@ -56,6 +56,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Style.Common
             m_OnSubTrackNameChange = onSubTrackNameChange;
 
             menuRoot = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(menu_asset_path).Instantiate().Query().ToList()[1];
+            SetMenuColor(themeColor);
             menuParent.Add(menuRoot);
 
             m_SubTrackMenuParent = menuRoot.NiceQ<VisualElement>("TrackMenuList");
@@ -168,6 +169,11 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Style.Common
             m_OnSubTrackNameChange?.Invoke(subTrackStyle, name);
         }
 
+        private void SetMenuColor(Color color)
+        {
+            menuRoot.style.backgroundColor = color;
+        }
+
         #region Callback
 
         /// <summary>
@@ -209,6 +215,12 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Style.Common
         private void OnSubTrackMenuParentMouseUp(MouseUpEvent evt)
         {
             m_IsDragging = false;
+            if (m_SelectedTrackIndex == -1)
+            {
+                return;
+            }
+            m_SubTracks[m_SelectedTrackIndex].UnSelect();
+            m_SelectedTrackIndex = -1;
         }
 
         private void OnSubTrackMenuParentMouseOut(MouseOutEvent evt)
@@ -218,6 +230,12 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Style.Common
                 return;
             }
             m_IsDragging = false;
+            if (m_SelectedTrackIndex == -1)
+            {
+                return;
+            }
+            m_SubTracks[m_SelectedTrackIndex].UnSelect();
+            m_SelectedTrackIndex = -1;
         }
 
         #endregion

@@ -27,10 +27,13 @@ namespace AkanyaTools.SkillMaster.Runtime.Data.Config
         public SkillAnimationData skillAnimationData = new();
 
         [OdinSerialize]
-        public SkillAudioData skillAudioData = new();
+        public SkillDetectionData skillDetectionData = new();
 
         [OdinSerialize]
         public SkillEffectData skillEffectData = new();
+
+        [OdinSerialize]
+        public SkillAudioData skillAudioData = new();
 
 #if UNITY_EDITOR
         /// <summary>

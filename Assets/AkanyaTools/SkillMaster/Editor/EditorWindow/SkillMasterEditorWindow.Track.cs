@@ -10,6 +10,7 @@ using AkanyaTools.SkillMaster.Editor.Inspector;
 using AkanyaTools.SkillMaster.Editor.Track;
 using AkanyaTools.SkillMaster.Editor.Track.AnimationTrack;
 using AkanyaTools.SkillMaster.Editor.Track.AudioTrack;
+using AkanyaTools.SkillMaster.Editor.Track.DetectionTrack;
 using AkanyaTools.SkillMaster.Editor.Track.EffectTrack;
 using FrameTools.Extension;
 using UnityEditor;
@@ -57,8 +58,9 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
                 return;
             }
             InitAnimationTrack();
-            InitAudioTrack();
+            InitDetectionTrack();
             InitEffectTrack();
+            InitAudioTrack();
         }
 
         /// <summary>
@@ -90,6 +92,16 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
             var effectTrack = new EffectTrack();
             effectTrack.Init(m_TrackMenuList, m_ContentListView, m_SkillMasterEditorConfig.frameUnitWidth);
             m_TrackList.Add(effectTrack);
+        }
+
+        /// <summary>
+        /// 初始化判定轨道
+        /// </summary>
+        private void InitDetectionTrack()
+        {
+            var detectionTrack = new DetectionTrack();
+            detectionTrack.Init(m_TrackMenuList, m_ContentListView, m_SkillMasterEditorConfig.frameUnitWidth);
+            m_TrackList.Add(detectionTrack);
         }
 
         #endregion
