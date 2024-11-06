@@ -69,5 +69,9 @@ namespace AkanyaTools.SkillMaster.Editor.Track
         public virtual void Destroy()
         {
         }
+
+        public virtual void DrawGizmos()
+        {
+        }
     }
 }

@@ -20,11 +20,11 @@ MonoBehaviour:
     - {fileID: 7400000, guid: cb8b82883d188e840b81ef3d02fef0a6, type: 3}
     - {fileID: 7400000, guid: 7c3ac43c854208542b73444c482c0712, type: 3}
     - {fileID: 7400000, guid: 2591c8ca644eb1b4f921f7146c88d8b6, type: 3}
+    - {fileID: 8049695311549817459, guid: 82f717fbf9bbd57439863c36b801fff0, type: 3}
     - {fileID: 8300000, guid: c0217498c5937d84b9bde9fe5a57bb62, type: 3}
     - {fileID: 8300000, guid: 938feec8fd9d69d43a7cf31d145c0709, type: 3}
     - {fileID: 8300000, guid: 6b6ffa9d91cdf9545a90bf552771e9ff, type: 3}
     - {fileID: 8300000, guid: ae3d72ef46ff86c4d93081701fd71098, type: 3}
-    - {fileID: 8049695311549817459, guid: 82f717fbf9bbd57439863c36b801fff0, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -168,97 +168,281 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: skillAudioData
+    - Name: skillDetectionData
       Entry: 7
-      Data: 7|AkanyaTools.SkillMaster.Runtime.Data.SkillAudioData, AkanyaTools.SkillMaster.Runtime
+      Data: 7|AkanyaTools.SkillMaster.Runtime.Data.SkillDetectionData, AkanyaTools.SkillMaster.Runtime
     - Name: frameData
       Entry: 7
-      Data: 8|System.Collections.Generic.List`1[[AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent,
+      Data: 8|System.Collections.Generic.List`1[[AkanyaTools.SkillMaster.Runtime.Data.Event.SkillDetectionFrameEvent,
         AkanyaTools.SkillMaster.Runtime]], mscorlib
     - Name: 
       Entry: 12
       Data: 4
     - Name: 
       Entry: 7
-      Data: 9|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
+      Data: 9|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillDetectionFrameEvent,
+        AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
-      Data: attack1
+      Data: Detection Track
     - Name: frameIndex
       Entry: 3
-      Data: 13
-    - Name: audioClip
-      Entry: 10
-      Data: 4
-    - Name: playCount
+      Data: 21
+    - Name: durationFrame
       Entry: 3
-      Data: 0
-    - Name: volume
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 10|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
-    - Name: trackName
-      Entry: 1
-      Data: attack2
-    - Name: frameIndex
-      Entry: 3
-      Data: 75
-    - Name: audioClip
-      Entry: 10
       Data: 5
-    - Name: playCount
-      Entry: 3
-      Data: 1
-    - Name: volume
+    - Name: detectionData
+      Entry: 7
+      Data: 10|AkanyaTools.SkillMaster.Runtime.Data.Event.BoxDetectionData, AkanyaTools.SkillMaster.Runtime
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
       Entry: 4
-      Data: 1
+      Data: -0.06
+    - Name: 
+      Entry: 4
+      Data: 1.14
+    - Name: 
+      Entry: 4
+      Data: 1.02
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: rotation
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: scale
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.69
+    - Name: 
+      Entry: 4
+      Data: 2.46
+    - Name: 
+      Entry: 4
+      Data: 1.63
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 11|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
+      Data: 11|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillDetectionFrameEvent,
+        AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
-      Data: attack3
+      Data: Detection Track
     - Name: frameIndex
       Entry: 3
-      Data: 122
-    - Name: audioClip
-      Entry: 10
-      Data: 6
-    - Name: playCount
+      Data: 78
+    - Name: durationFrame
       Entry: 3
-      Data: 1
-    - Name: volume
+      Data: 7
+    - Name: detectionData
+      Entry: 7
+      Data: 12|AkanyaTools.SkillMaster.Runtime.Data.Event.BoxDetectionData, AkanyaTools.SkillMaster.Runtime
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
       Entry: 4
       Data: 1
+    - Name: 
+      Entry: 4
+      Data: 0.83
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: rotation
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: scale
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.7
+    - Name: 
+      Entry: 4
+      Data: 1.8
+    - Name: 
+      Entry: 4
+      Data: 1.51
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 12|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
+      Data: 13|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillDetectionFrameEvent,
+        AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
-      Data: attack4
+      Data: Detection Track
+    - Name: frameIndex
+      Entry: 3
+      Data: 128
+    - Name: durationFrame
+      Entry: 3
+      Data: 4
+    - Name: detectionData
+      Entry: 7
+      Data: 14|AkanyaTools.SkillMaster.Runtime.Data.Event.BoxDetectionData, AkanyaTools.SkillMaster.Runtime
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 1.03
+    - Name: 
+      Entry: 4
+      Data: 1.11
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: rotation
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: scale
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 2.7
+    - Name: 
+      Entry: 4
+      Data: 0.52
+    - Name: 
+      Entry: 4
+      Data: 1.63
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 15|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillDetectionFrameEvent,
+        AkanyaTools.SkillMaster.Runtime
+    - Name: trackName
+      Entry: 1
+      Data: Detection Track
     - Name: frameIndex
       Entry: 3
       Data: 167
-    - Name: audioClip
-      Entry: 10
-      Data: 7
-    - Name: playCount
+    - Name: durationFrame
       Entry: 3
-      Data: 1
-    - Name: volume
+      Data: 9
+    - Name: detectionData
+      Entry: 7
+      Data: 16|AkanyaTools.SkillMaster.Runtime.Data.Event.BoxDetectionData, AkanyaTools.SkillMaster.Runtime
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
       Entry: 4
-      Data: 1
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 1.16
+    - Name: 
+      Entry: 4
+      Data: 0.99
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: rotation
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: scale
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.86
+    - Name: 
+      Entry: 4
+      Data: 2.54
+    - Name: 
+      Entry: 4
+      Data: 2.12
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -273,39 +457,39 @@ MonoBehaviour:
       Data: 
     - Name: skillEffectData
       Entry: 7
-      Data: 13|AkanyaTools.SkillMaster.Runtime.Data.SkillEffectData, AkanyaTools.SkillMaster.Runtime
+      Data: 17|AkanyaTools.SkillMaster.Runtime.Data.SkillEffectData, AkanyaTools.SkillMaster.Runtime
     - Name: frameData
       Entry: 7
-      Data: 14|System.Collections.Generic.List`1[[AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
+      Data: 18|System.Collections.Generic.List`1[[AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
         AkanyaTools.SkillMaster.Runtime]], mscorlib
     - Name: 
       Entry: 12
       Data: 4
     - Name: 
       Entry: 7
-      Data: 15|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
+      Data: 19|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
         AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
       Data: attack1
     - Name: frameIndex
       Entry: 3
-      Data: 20
+      Data: 21
     - Name: effectPrefab
       Entry: 10
-      Data: 8
+      Data: 4
     - Name: positionOffset
       Entry: 7
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: -0.23
+      Data: -0.1455414
     - Name: 
       Entry: 4
-      Data: 1.11
+      Data: 1.103
     - Name: 
       Entry: 4
-      Data: 0.43
+      Data: 0.7105261
     - Name: 
       Entry: 8
       Data: 
@@ -314,13 +498,13 @@ MonoBehaviour:
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 0
+      Data: -2.035555E-13
     - Name: 
       Entry: 4
       Data: 180
     - Name: 
       Entry: 4
-      Data: -21.28
+      Data: 294.2
     - Name: 
       Entry: 8
       Data: 
@@ -350,29 +534,29 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 16|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
+      Data: 20|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
         AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
       Data: attack2
     - Name: frameIndex
       Entry: 3
-      Data: 77
+      Data: 79
     - Name: effectPrefab
       Entry: 10
-      Data: 8
+      Data: 4
     - Name: positionOffset
       Entry: 7
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 0
+      Data: -0.16
     - Name: 
       Entry: 4
-      Data: 1.06
+      Data: 0.73
     - Name: 
       Entry: 4
-      Data: 0.49
+      Data: 0.22
     - Name: 
       Entry: 8
       Data: 
@@ -381,13 +565,13 @@ MonoBehaviour:
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 0
+      Data: 63.53
     - Name: 
       Entry: 4
       Data: 180
     - Name: 
       Entry: 4
-      Data: 36.6
+      Data: 68
     - Name: 
       Entry: 8
       Data: 
@@ -417,7 +601,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 17|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
+      Data: 21|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
         AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
@@ -427,7 +611,7 @@ MonoBehaviour:
       Data: 127
     - Name: effectPrefab
       Entry: 10
-      Data: 8
+      Data: 4
     - Name: positionOffset
       Entry: 7
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
@@ -451,10 +635,10 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 4
-      Data: 216.3
+      Data: 180
     - Name: 
       Entry: 4
-      Data: 0
+      Data: 14.47
     - Name: 
       Entry: 8
       Data: 
@@ -484,29 +668,29 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 18|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
+      Data: 22|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
         AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
       Data: attack4
     - Name: frameIndex
       Entry: 3
-      Data: 168
+      Data: 167
     - Name: effectPrefab
       Entry: 10
-      Data: 8
+      Data: 4
     - Name: positionOffset
       Entry: 7
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 0
+      Data: 0.102521963
     - Name: 
       Entry: 4
-      Data: 1.22
+      Data: 0.7341802
     - Name: 
       Entry: 4
-      Data: 0.72
+      Data: 0.94106257
     - Name: 
       Entry: 8
       Data: 
@@ -515,13 +699,13 @@ MonoBehaviour:
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 95.4
+      Data: 12.0757427
     - Name: 
       Entry: 4
-      Data: 180
+      Data: -181.42189
     - Name: 
       Entry: 4
-      Data: 270
+      Data: 254.035126
     - Name: 
       Entry: 8
       Data: 
@@ -530,10 +714,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 1
+      Data: 1.2
     - Name: 
       Entry: 4
-      Data: 1
+      Data: 1.2
     - Name: 
       Entry: 4
       Data: 1
@@ -558,35 +742,97 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: skillDetectionData
+    - Name: skillAudioData
       Entry: 7
-      Data: 19|AkanyaTools.SkillMaster.Runtime.Data.SkillDetectionData, AkanyaTools.SkillMaster.Runtime
+      Data: 23|AkanyaTools.SkillMaster.Runtime.Data.SkillAudioData, AkanyaTools.SkillMaster.Runtime
     - Name: frameData
       Entry: 7
-      Data: 20|System.Collections.Generic.List`1[[AkanyaTools.SkillMaster.Runtime.Data.Event.SkillDetectionFrameEvent,
+      Data: 24|System.Collections.Generic.List`1[[AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent,
         AkanyaTools.SkillMaster.Runtime]], mscorlib
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 4
     - Name: 
       Entry: 7
-      Data: 21|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillDetectionFrameEvent,
-        AkanyaTools.SkillMaster.Runtime
+      Data: 25|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
-      Data: Detection Track
+      Data: attack1
     - Name: frameIndex
       Entry: 3
-      Data: 0
-    - Name: durationFrame
+      Data: 13
+    - Name: audioClip
+      Entry: 10
+      Data: 5
+    - Name: playCount
       Entry: 3
-      Data: 10
-    - Name: detectionData
-      Entry: 7
-      Data: 22|AkanyaTools.SkillMaster.Runtime.Data.Event.BoxDetectionData, AkanyaTools.SkillMaster.Runtime
+      Data: 0
+    - Name: volume
+      Entry: 4
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
+    - Name: 
+      Entry: 7
+      Data: 26|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
+    - Name: trackName
+      Entry: 1
+      Data: attack2
+    - Name: frameIndex
+      Entry: 3
+      Data: 75
+    - Name: audioClip
+      Entry: 10
+      Data: 6
+    - Name: playCount
+      Entry: 3
+      Data: 1
+    - Name: volume
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 27|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
+    - Name: trackName
+      Entry: 1
+      Data: attack3
+    - Name: frameIndex
+      Entry: 3
+      Data: 122
+    - Name: audioClip
+      Entry: 10
+      Data: 7
+    - Name: playCount
+      Entry: 3
+      Data: 1
+    - Name: volume
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 28|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
+    - Name: trackName
+      Entry: 1
+      Data: attack4
+    - Name: frameIndex
+      Entry: 3
+      Data: 167
+    - Name: audioClip
+      Entry: 10
+      Data: 8
+    - Name: playCount
+      Entry: 3
+      Data: 1
+    - Name: volume
+      Entry: 4
+      Data: 1
     - Name: 
       Entry: 8
       Data: 

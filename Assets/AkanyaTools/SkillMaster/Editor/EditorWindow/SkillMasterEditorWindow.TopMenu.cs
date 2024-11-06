@@ -4,6 +4,7 @@
 * @AkanyaTech.SkillMaster
 */
 
+using AkanyaTools.SkillMaster.Runtime.Component;
 using AkanyaTools.SkillMaster.Runtime.Data.Config;
 using FrameTools.Extension;
 using UnityEditor;
@@ -160,6 +161,10 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
             curPreviewCharacterObj = Instantiate(evt.newValue as GameObject, Vector3.zero, Quaternion.identity, parent);
             curPreviewCharacterObj.transform.localRotation = Quaternion.Euler(0, 0, 0);
             m_PreviewCharacterObjObjField.value = curPreviewCharacterObj;
+            if (curPreviewCharacterObj.GetComponent<SkillPlayer>() == null)
+            {
+                curPreviewCharacterObj.AddComponent<SkillPlayer>();
+            }
         }
 
         /// <summary>

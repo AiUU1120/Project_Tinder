@@ -95,6 +95,30 @@ namespace AkanyaTools.SkillMaster.Editor.Track.DetectionTrack
             }
         }
 
+        public void DrawGizmos()
+        {
+            Gizmos.color = new Color(0, 1, 0, 0.5f);
+            switch (detectionEvent.detectionType)
+            {
+                case DetectionType.Weapon:
+                    break;
+                case DetectionType.Box:
+                    var boxDetectionData = (BoxDetectionData) detectionEvent.detectionData;
+                    var boxPosition = SkillMasterEditorWindow.instance.curPreviewCharacterObj.transform.TransformPoint(boxDetectionData.position);
+                    var boxRotation = SkillMasterEditorWindow.instance.curPreviewCharacterObj.transform.rotation * Quaternion.Euler(boxDetectionData.rotation);
+                    var boxRotateAndPositionMatrix = Matrix4x4.TRS(boxPosition, boxRotation, Vector3.one);
+                    Gizmos.matrix = boxRotateAndPositionMatrix;
+                    Gizmos.DrawCube(Vector3.zero, boxDetectionData.scale);
+                    break;
+                case DetectionType.Sphere:
+                    var sphereDetectionData = (SphereDetectionData) detectionEvent.detectionData;
+                    Gizmos.DrawSphere(SkillMasterEditorWindow.instance.curPreviewCharacterObj.transform.TransformPoint(sphereDetectionData.position), sphereDetectionData.radius);
+                    break;
+            }
+            Gizmos.color = Color.white;
+            Gizmos.matrix = Matrix4x4.identity;
+        }
+
         #region Callback
 
         private void OnMouseDown(MouseDownEvent evt)

@@ -139,6 +139,19 @@ namespace AkanyaTools.SkillMaster.Editor.Track.DetectionTrack
             SkillMasterEditorWindow.instance.SaveConfig();
         }
 
+        public override void DrawGizmos()
+        {
+            var curFrameIndex = SkillMasterEditorWindow.instance.curSelectedFrameIndex;
+            foreach (var item in m_TrackItems)
+            {
+                if (curFrameIndex < item.detectionEvent.frameIndex || curFrameIndex > item.detectionEvent.frameIndex + item.detectionEvent.durationFrame)
+                {
+                    continue;
+                }
+                item.DrawGizmos();
+            }
+        }
+
         public override void Destroy()
         {
             m_TrackStyle.Destroy();

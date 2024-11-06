@@ -77,14 +77,9 @@ namespace AkanyaTools.SkillMaster.Editor.Track.EffectTrack
                 if (m_EffectPreviewObj == null)
                 {
                     var characterTrans = SkillMasterEditorWindow.instance.curPreviewCharacterObj.transform;
-                    var characterRootPos = SkillMasterEditorWindow.instance.GetPosFromRootMotion(effectEvent.frameIndex, true);
-                    var oldCharacterPos = characterTrans.position;
 
-                    // TODO: 此处有问题
-                    characterTrans.position = characterRootPos;
                     var pos = characterTrans.TransformPoint(effectEvent.positionOffset);
                     var rot = characterTrans.eulerAngles + effectEvent.rotation;
-                    characterTrans.position = oldCharacterPos;
 
                     m_EffectPreviewObj = Object.Instantiate(effectEvent.effectPrefab, pos, Quaternion.Euler(rot), EffectTrack.effectRoot);
                     m_EffectPreviewObj.transform.localScale = effectEvent.scale;
@@ -145,14 +140,14 @@ namespace AkanyaTools.SkillMaster.Editor.Track.EffectTrack
                 return;
             }
             var characterTrans = SkillMasterEditorWindow.instance.curPreviewCharacterObj.transform;
-            var characterRootPos = SkillMasterEditorWindow.instance.GetPosFromRootMotion(effectEvent.frameIndex, true);
-            var oldCharacterPos = characterTrans.position;
+            // var characterRootPos = SkillMasterEditorWindow.instance.GetPosFromRootMotion(effectEvent.frameIndex, true);
+            // var oldCharacterPos = characterTrans.position;
 
-            characterTrans.position = characterRootPos;
+            // characterTrans.position = characterRootPos;
             effectEvent.positionOffset = characterTrans.InverseTransformPoint(m_EffectPreviewObj.transform.position);
             effectEvent.rotation = m_EffectPreviewObj.transform.eulerAngles - characterTrans.eulerAngles;
             effectEvent.scale = m_EffectPreviewObj.transform.localScale;
-            characterTrans.position = oldCharacterPos;
+            // characterTrans.position = oldCharacterPos;
         }
 
         public void ClearEffectPreviewObj()

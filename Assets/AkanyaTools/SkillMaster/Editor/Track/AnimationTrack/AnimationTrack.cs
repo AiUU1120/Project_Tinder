@@ -211,10 +211,10 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AnimationTrack
                     break;
                 }
             }
-            if (isResume)
-            {
-                UpdatePosture(SkillMasterEditorWindow.instance.curSelectedFrameIndex);
-            }
+            // if (isResume)
+            // {
+            //     UpdatePosture(SkillMasterEditorWindow.instance.curSelectedFrameIndex);
+            // }
             return rootMotionTotalPos;
         }
 

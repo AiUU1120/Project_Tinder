@@ -5978,6 +5978,37 @@ Transform:
   - {fileID: 4781337058121326503}
   m_Father: {fileID: 349928256224531474}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4553725747835811777
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6176515517398389000}
+  m_Layer: 0
+  m_Name: WeaponPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6176515517398389000
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4553725747835811777}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.00068954716, y: 0.9587933, z: -0.20136234, w: -0.20041996}
+  m_LocalPosition: {x: -0.0531, y: -0.016, z: -0.0016}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2643354758059436683}
+  m_LocalEulerAnglesHint: {x: 22.697, y: 204.638, z: 5.102}
 --- !u!1 &4557086643034516300
 GameObject:
   m_ObjectHideFlags: 0
@@ -12954,6 +12985,7 @@ Transform:
   - {fileID: 1410122009037525481}
   - {fileID: 5604993098631313092}
   - {fileID: 3980753927144090959}
+  - {fileID: 6176515517398389000}
   m_Father: {fileID: 1968414620611817818}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8934934252487692937

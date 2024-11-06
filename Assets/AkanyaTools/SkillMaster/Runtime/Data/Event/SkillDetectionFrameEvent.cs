@@ -4,6 +4,8 @@
 * @AkanyaTech.SkillMaster
 */
 
+using UnityEngine;
+
 namespace AkanyaTools.SkillMaster.Runtime.Data.Event
 {
     public sealed class SkillDetectionFrameEvent : SkillFrameEventBase
@@ -83,6 +85,7 @@ namespace AkanyaTools.SkillMaster.Runtime.Data.Event
     /// </summary>
     public abstract class ShapeDetectionDataBase : DetectionDataBase
     {
+        public Vector3 position;
     }
 
     /// <summary>
@@ -97,6 +100,8 @@ namespace AkanyaTools.SkillMaster.Runtime.Data.Event
     /// </summary>
     public sealed class BoxDetectionData : ShapeDetectionDataBase
     {
+        public Vector3 rotation;
+        public Vector3 scale = Vector3.one;
     }
 
     /// <summary>
@@ -104,5 +109,6 @@ namespace AkanyaTools.SkillMaster.Runtime.Data.Event
     /// </summary>
     public sealed class SphereDetectionData : ShapeDetectionDataBase
     {
+        public float radius = 1f;
     }
 }
