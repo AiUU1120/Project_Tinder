@@ -12,7 +12,7 @@ A story about tinder and igniting flames.
 
 
 
-<img src="https://s2.loli.net/2024/09/15/4qp6J8umLngfjPG.gif" style="zoom:330%;" />
+<img src="https://s2.loli.net/2024/09/15/4qp6J8umLngfjPG.gif" width="100%">
 
 ### Skill Master（Developing）
 
@@ -20,10 +20,10 @@ A story about tinder and igniting flames.
 
 - Editor
 
-<img src="https://s2.loli.net/2024/11/09/7nJqkZpOTCjGlbV.gif" style="zoom: 44%;" />
+<img src="https://s2.loli.net/2024/11/09/7nJqkZpOTCjGlbV.gif" width="100%">
 
 - Runtime
 
-<img src="https://s2.loli.net/2024/11/09/n4UeOwCIpoZWxdN.gif" style="zoom:200%;" />
+<img src="https://s2.loli.net/2024/11/09/n4UeOwCIpoZWxdN.gif" width="100%">
 
 判定检测部分正在开发中...
