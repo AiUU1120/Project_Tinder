@@ -6,6 +6,7 @@
 
 using System.Collections.Generic;
 using AkanyaTools.SkillMaster.Editor.EditorWindow;
+using AkanyaTools.SkillMaster.Editor.Inspector;
 using AkanyaTools.SkillMaster.Editor.Track.Style.Common;
 using AkanyaTools.SkillMaster.Runtime.Data;
 using AkanyaTools.SkillMaster.Runtime.Data.Event;
@@ -149,6 +150,24 @@ namespace AkanyaTools.SkillMaster.Editor.Track.DetectionTrack
                     continue;
                 }
                 item.DrawGizmos();
+            }
+        }
+
+        public override void DrawSceneGUI()
+        {
+            var curFrameIndex = SkillMasterEditorWindow.instance.curSelectedFrameIndex;
+            foreach (var item in m_TrackItems)
+            {
+                if (curFrameIndex < item.detectionEvent.frameIndex || curFrameIndex > item.detectionEvent.frameIndex + item.detectionEvent.durationFrame)
+                {
+                    continue;
+                }
+                // 选中才绘制
+                if (SkillMasterInspector.curTrackItem != item)
+                {
+                    continue;
+                }
+                item.DrawSceneGUI();
             }
         }
 

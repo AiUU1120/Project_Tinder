@@ -96,15 +96,15 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
             m_AnimationClipFrameLabel.text = "Frame Count: " + (int) (clip.length * clip.frameRate);
             m_AnimationIsLoopLabel.text = "Is Loop: " + clip.isLooping;
 
-            ((AnimationTrackItem) s_CurTrackItem).animationEvent.animationClip = clip;
+            ((AnimationTrackItem) curTrackItem).animationEvent.animationClip = clip;
             SkillMasterEditorWindow.instance.SaveConfig();
 
-            s_CurTrackItem.ForceRefreshView();
+            curTrackItem.ForceRefreshView();
         }
 
         private void OnAnimationRootMotionToggleValueChanged(ChangeEvent<bool> evt)
         {
-            ((AnimationTrackItem) s_CurTrackItem).animationEvent.applyRootMotion = evt.newValue;
+            ((AnimationTrackItem) curTrackItem).animationEvent.applyRootMotion = evt.newValue;
             SkillMasterEditorWindow.instance.SaveConfig();
         }
 
@@ -122,10 +122,10 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
             // 安全校验
             if (((AnimationTrack) s_CurTrack).CheckFrame(m_TrackItemFrameIndex + m_AnimationDurationField.value, m_TrackItemFrameIndex, false))
             {
-                ((AnimationTrackItem) s_CurTrackItem).animationEvent.durationFrame = m_AnimationDurationField.value;
-                ((AnimationTrackItem) s_CurTrackItem)?.CheckBoundaryOverflow();
+                ((AnimationTrackItem) curTrackItem).animationEvent.durationFrame = m_AnimationDurationField.value;
+                ((AnimationTrackItem) curTrackItem)?.CheckBoundaryOverflow();
                 SkillMasterEditorWindow.instance.SaveConfig();
-                s_CurTrackItem?.ForceRefreshView();
+                curTrackItem?.ForceRefreshView();
             }
             else
             {
@@ -144,7 +144,7 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
             {
                 return;
             }
-            ((AnimationTrackItem) s_CurTrackItem).animationEvent.transitionTime = m_AnimationTransitionField.value;
+            ((AnimationTrackItem) curTrackItem).animationEvent.transitionTime = m_AnimationTransitionField.value;
             SkillMasterEditorWindow.instance.SaveConfig();
         }
 

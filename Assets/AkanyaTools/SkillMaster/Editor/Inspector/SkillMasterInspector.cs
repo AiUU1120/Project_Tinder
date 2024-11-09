@@ -18,9 +18,9 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
     [CustomEditor(typeof(SkillMasterEditorWindow))]
     public sealed partial class SkillMasterInspector : UnityEditor.Editor
     {
-        public static SkillMasterInspector instance;
+        public static TrackItemBase curTrackItem { get; private set; }
 
-        private static TrackItemBase s_CurTrackItem;
+        public static SkillMasterInspector instance;
 
         private static TrackBase s_CurTrack;
 
@@ -43,9 +43,9 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
         /// <param name="track"></param>
         public static void SetTrackItem(TrackItemBase item, TrackBase track)
         {
-            s_CurTrackItem?.OnUnSelect();
-            s_CurTrackItem = item;
-            s_CurTrackItem.OnSelect();
+            curTrackItem?.OnUnSelect();
+            curTrackItem = item;
+            curTrackItem.OnSelect();
             s_CurTrack = track;
             // 避免已经打开了监视器时数据不刷新
             if (instance != null)
@@ -65,7 +65,7 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
         private void Refresh()
         {
             Clear();
-            switch (s_CurTrackItem)
+            switch (curTrackItem)
             {
                 case AnimationTrackItem animationItem:
                     DrawAnimationTrackItem(animationItem);
@@ -92,12 +92,12 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
 
         private void OnDestroy()
         {
-            if (s_CurTrackItem == null)
+            if (curTrackItem == null)
             {
                 return;
             }
-            s_CurTrackItem.OnUnSelect();
-            s_CurTrackItem = null;
+            curTrackItem.OnUnSelect();
+            curTrackItem = null;
             s_CurTrack = null;
         }
     }

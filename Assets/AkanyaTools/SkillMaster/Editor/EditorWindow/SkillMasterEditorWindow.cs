@@ -28,6 +28,11 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
             }
         }
 
+        private void OnEnable()
+        {
+            SceneView.duringSceneGui += OnSceneGUI;
+        }
+
         [MenuItem("AkanyaTech/SkillMaster &K")]
         public static void ShowExample()
         {
@@ -90,6 +95,7 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
             {
                 SaveConfig();
             }
+            SceneView.duringSceneGui -= OnSceneGUI;
         }
     }
 }

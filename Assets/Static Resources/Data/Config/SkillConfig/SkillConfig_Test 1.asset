@@ -199,13 +199,13 @@ MonoBehaviour:
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: -0.06
+      Data: -0.0600000024
     - Name: 
       Entry: 4
       Data: 1.14
     - Name: 
       Entry: 4
-      Data: 1.02
+      Data: 1.1286571
     - Name: 
       Entry: 8
       Data: 
@@ -235,7 +235,7 @@ MonoBehaviour:
       Data: 2.46
     - Name: 
       Entry: 4
-      Data: 1.63
+      Data: 1.73955274
     - Name: 
       Entry: 8
       Data: 

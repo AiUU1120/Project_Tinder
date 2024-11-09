@@ -4,6 +4,7 @@
 * @AkanyaTech.SkillMaster
 */
 
+using System;
 using UnityEngine.UIElements;
 
 namespace AkanyaTools.SkillMaster.Editor.Track
@@ -71,6 +72,10 @@ namespace AkanyaTools.SkillMaster.Editor.Track
         }
 
         public virtual void DrawGizmos()
+        {
+        }
+
+        public virtual void DrawSceneGUI()
         {
         }
     }

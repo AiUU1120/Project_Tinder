@@ -86,7 +86,7 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
 
         private void CalculateEffectDurationTime()
         {
-            var item = (EffectTrackItem) s_CurTrackItem;
+            var item = (EffectTrackItem) curTrackItem;
             var particles = item.effectEvent.effectPrefab.GetComponentsInChildren<ParticleSystem>();
             var maxDurationTime = -1f;
             foreach (var p in particles)
@@ -99,12 +99,12 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
             item.effectEvent.durationTime = maxDurationTime;
             m_EffectDurationTimeField.value = item.effectEvent.durationTime;
             SkillMasterEditorWindow.instance.SaveConfig();
-            s_CurTrackItem.ForceRefreshView();
+            curTrackItem.ForceRefreshView();
         }
 
         private void ApplyEffectModelTransform()
         {
-            ((EffectTrackItem) s_CurTrackItem).ApplyEffectModelTransform();
+            ((EffectTrackItem) curTrackItem).ApplyEffectModelTransform();
             Refresh();
         }
 
@@ -113,33 +113,33 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
         private void OnEffectPrefabFieldValueChanged(ChangeEvent<UnityEngine.Object> evt)
         {
             var prefab = evt.newValue as GameObject;
-            ((EffectTrackItem) s_CurTrackItem).effectEvent.effectPrefab = prefab;
+            ((EffectTrackItem) curTrackItem).effectEvent.effectPrefab = prefab;
             CalculateEffectDurationTime();
             SkillMasterEditorWindow.instance.SaveConfig();
-            ((EffectTrackItem) s_CurTrackItem).ForceRefreshView();
+            ((EffectTrackItem) curTrackItem).ForceRefreshView();
         }
 
         private void OnEffectOffsetFieldValueChanged(ChangeEvent<Vector3> evt)
         {
-            ((EffectTrackItem) s_CurTrackItem).effectEvent.positionOffset = evt.newValue;
-            ((EffectTrackItem) s_CurTrackItem).ForceRefreshView();
+            ((EffectTrackItem) curTrackItem).effectEvent.positionOffset = evt.newValue;
+            ((EffectTrackItem) curTrackItem).ForceRefreshView();
         }
 
         private void OnEffectRotationFieldFieldValueChanged(ChangeEvent<Vector3> evt)
         {
-            ((EffectTrackItem) s_CurTrackItem).effectEvent.rotation = evt.newValue;
-            ((EffectTrackItem) s_CurTrackItem).ForceRefreshView();
+            ((EffectTrackItem) curTrackItem).effectEvent.rotation = evt.newValue;
+            ((EffectTrackItem) curTrackItem).ForceRefreshView();
         }
 
         private void OnEffectScaleFieldFieldValueChanged(ChangeEvent<Vector3> evt)
         {
-            ((EffectTrackItem) s_CurTrackItem).effectEvent.scale = evt.newValue;
-            ((EffectTrackItem) s_CurTrackItem).ForceRefreshView();
+            ((EffectTrackItem) curTrackItem).effectEvent.scale = evt.newValue;
+            ((EffectTrackItem) curTrackItem).ForceRefreshView();
         }
 
         private void OnEffectAutoDestroyToggleValueChanged(ChangeEvent<bool> evt)
         {
-            ((EffectTrackItem) s_CurTrackItem).effectEvent.autoDestroy = evt.newValue;
+            ((EffectTrackItem) curTrackItem).effectEvent.autoDestroy = evt.newValue;
             SkillMasterEditorWindow.instance.SaveConfig();
         }
 
@@ -154,9 +154,9 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
             {
                 return;
             }
-            ((EffectTrackItem) s_CurTrackItem).effectEvent.durationTime = m_EffectDurationTimeField.value;
+            ((EffectTrackItem) curTrackItem).effectEvent.durationTime = m_EffectDurationTimeField.value;
             SkillMasterEditorWindow.instance.SaveConfig();
-            s_CurTrackItem.ForceRefreshView();
+            curTrackItem.ForceRefreshView();
         }
 
         #endregion

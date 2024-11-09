@@ -29,5 +29,17 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
                 track.DrawGizmos();
             }
         }
+
+        private void OnSceneGUI(SceneView sceneView)
+        {
+            if (curPreviewCharacterObj == null)
+            {
+                return;
+            }
+            foreach (var track in instance.m_TrackList)
+            {
+                track.DrawSceneGUI();
+            }
+        }
     }
 }

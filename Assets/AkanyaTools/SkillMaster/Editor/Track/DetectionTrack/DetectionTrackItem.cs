@@ -4,17 +4,19 @@
 * @AkanyaTech.SkillMaster
 */
 
+using System;
 using AkanyaTools.SkillMaster.Editor.EditorWindow;
 using AkanyaTools.SkillMaster.Editor.Inspector;
 using AkanyaTools.SkillMaster.Editor.Track.Style;
 using AkanyaTools.SkillMaster.Editor.Track.Style.Common;
 using AkanyaTools.SkillMaster.Runtime.Data.Event;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace AkanyaTools.SkillMaster.Editor.Track.DetectionTrack
 {
-    public class DetectionTrackItem : TrackItemBase<DetectionTrack>
+    public sealed class DetectionTrackItem : TrackItemBase<DetectionTrack>
     {
         public SkillDetectionFrameEvent detectionEvent { get; private set; }
 
@@ -117,6 +119,39 @@ namespace AkanyaTools.SkillMaster.Editor.Track.DetectionTrack
             }
             Gizmos.color = Color.white;
             Gizmos.matrix = Matrix4x4.identity;
+        }
+
+        public void DrawSceneGUI()
+        {
+            switch (detectionEvent.detectionType)
+            {
+                case DetectionType.Box:
+                    var boxDetectionData = (BoxDetectionData) detectionEvent.detectionData;
+                    var boxPosition = SkillMasterEditorWindow.instance.curPreviewCharacterObj.transform.TransformPoint(boxDetectionData.position);
+                    var boxRotation = SkillMasterEditorWindow.instance.curPreviewCharacterObj.transform.rotation * Quaternion.Euler(boxDetectionData.rotation);
+                    EditorGUI.BeginChangeCheck();
+                    Handles.TransformHandle(ref boxPosition, ref boxRotation, ref boxDetectionData.scale);
+                    // 如果发生了修改
+                    if (EditorGUI.EndChangeCheck())
+                    {
+                        boxDetectionData.position = SkillMasterEditorWindow.instance.curPreviewCharacterObj.transform.InverseTransformPoint(boxPosition);
+                        boxDetectionData.rotation = (Quaternion.Inverse(SkillMasterEditorWindow.instance.curPreviewCharacterObj.transform.rotation) * boxRotation).eulerAngles;
+                        SkillMasterInspector.SetTrackItem(this, track);
+                    }
+                    break;
+                case DetectionType.Sphere:
+                    var sphereDetectionData = (SphereDetectionData) detectionEvent.detectionData;
+                    var oldSpherePosition = SkillMasterEditorWindow.instance.curPreviewCharacterObj.transform.TransformPoint(sphereDetectionData.position);
+                    var newSpherePosition = Handles.PositionHandle(oldSpherePosition, Quaternion.identity);
+                    var newRadius = Handles.ScaleSlider(sphereDetectionData.radius, newSpherePosition, Vector3.up, Quaternion.identity, sphereDetectionData.radius + 0.2f, 0.1f);
+                    if (oldSpherePosition != newSpherePosition || Math.Abs(sphereDetectionData.radius - newRadius) > 0.00001f)
+                    {
+                        sphereDetectionData.position = SkillMasterEditorWindow.instance.curPreviewCharacterObj.transform.InverseTransformPoint(newSpherePosition);
+                        sphereDetectionData.radius = newRadius;
+                        SkillMasterInspector.SetTrackItem(this, track);
+                    }
+                    break;
+            }
         }
 
         #region Callback

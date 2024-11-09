@@ -86,14 +86,14 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
             {
                 return;
             }
-            ((DetectionTrackItem) s_CurTrackItem).detectionEvent.durationFrame = m_DurationFrameField.value;
+            ((DetectionTrackItem) curTrackItem).detectionEvent.durationFrame = m_DurationFrameField.value;
             SkillMasterEditorWindow.instance.SaveConfig();
-            s_CurTrackItem?.ForceRefreshView();
+            curTrackItem?.ForceRefreshView();
         }
 
         private void OnDetectionDropdownFieldValueChanged(ChangeEvent<string> evt)
         {
-            var curItem = (DetectionTrackItem) s_CurTrackItem;
+            var curItem = (DetectionTrackItem) curTrackItem;
             curItem.detectionEvent.detectionType = (DetectionType) m_DetectionSelections.IndexOf(evt.newValue);
             SkillMasterEditorWindow.instance.SaveConfig();
             Refresh();
@@ -101,25 +101,25 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
 
         private void OnShapeDetectionPositionFieldValueChanged(ChangeEvent<Vector3> evt)
         {
-            var data = (ShapeDetectionDataBase) ((DetectionTrackItem) s_CurTrackItem).detectionEvent.detectionData;
+            var data = (ShapeDetectionDataBase) ((DetectionTrackItem) curTrackItem).detectionEvent.detectionData;
             data.position = evt.newValue;
         }
 
         private void OnBoxDetectionRotationFieldValueChanged(ChangeEvent<Vector3> evt)
         {
-            var data = (BoxDetectionData) ((DetectionTrackItem) s_CurTrackItem).detectionEvent.detectionData;
+            var data = (BoxDetectionData) ((DetectionTrackItem) curTrackItem).detectionEvent.detectionData;
             data.rotation = evt.newValue;
         }
 
         private void OnBoxDetectionScaleFieldValueChanged(ChangeEvent<Vector3> evt)
         {
-            var data = (BoxDetectionData) ((DetectionTrackItem) s_CurTrackItem).detectionEvent.detectionData;
+            var data = (BoxDetectionData) ((DetectionTrackItem) curTrackItem).detectionEvent.detectionData;
             data.scale = evt.newValue;
         }
 
         private void OnSphereDetectionRadiusFieldValueChanged(ChangeEvent<float> evt)
         {
-            var data = (SphereDetectionData) ((DetectionTrackItem) s_CurTrackItem).detectionEvent.detectionData;
+            var data = (SphereDetectionData) ((DetectionTrackItem) curTrackItem).detectionEvent.detectionData;
             data.radius = evt.newValue;
         }
 

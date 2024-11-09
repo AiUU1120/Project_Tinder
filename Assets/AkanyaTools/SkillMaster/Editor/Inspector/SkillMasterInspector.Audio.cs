@@ -43,9 +43,9 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
         private void OnAudioClipAssetFieldValueChanged(ChangeEvent<UnityEngine.Object> evt)
         {
             var clip = evt.newValue as AudioClip;
-            ((AudioTrackItem) s_CurTrackItem).audioEvent.audioClip = clip;
+            ((AudioTrackItem) curTrackItem).audioEvent.audioClip = clip;
             SkillMasterEditorWindow.instance.SaveConfig();
-            s_CurTrackItem.ForceRefreshView();
+            curTrackItem.ForceRefreshView();
         }
 
         private void OnAudioVolumeFieldFocusIn(FocusInEvent evt)
@@ -59,7 +59,7 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
             {
                 return;
             }
-            ((AudioTrackItem) s_CurTrackItem).audioEvent.volume = m_AudioVolumeField.value;
+            ((AudioTrackItem) curTrackItem).audioEvent.volume = m_AudioVolumeField.value;
             SkillMasterEditorWindow.instance.SaveConfig();
         }
 
