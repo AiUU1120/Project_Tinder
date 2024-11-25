@@ -35,6 +35,8 @@ namespace AkanyaTools.SkillMaster.Runtime.Data.Event
                         return DetectionType.Box;
                     case SphereDetectionData:
                         return DetectionType.Sphere;
+                    case SectorDetectionData:
+                        return DetectionType.Sector;
                     default:
                         return DetectionType.None;
                 }
@@ -59,6 +61,9 @@ namespace AkanyaTools.SkillMaster.Runtime.Data.Event
                     case DetectionType.Sphere:
                         detectionData = new SphereDetectionData();
                         break;
+                    case DetectionType.Sector:
+                        detectionData = new SectorDetectionData();
+                        break;
                 }
             }
         }
@@ -70,7 +75,8 @@ namespace AkanyaTools.SkillMaster.Runtime.Data.Event
         None,
         Weapon,
         Box,
-        Sphere
+        Sphere,
+        Sector,
     }
 
     /// <summary>
@@ -93,6 +99,7 @@ namespace AkanyaTools.SkillMaster.Runtime.Data.Event
     /// </summary>
     public sealed class WeaponDetectionData : DetectionDataBase
     {
+        public string weaponName;
     }
 
     /// <summary>
@@ -109,6 +116,18 @@ namespace AkanyaTools.SkillMaster.Runtime.Data.Event
     /// </summary>
     public sealed class SphereDetectionData : ShapeDetectionDataBase
     {
-        public float radius = 1f;
+        public float radius = 1;
+    }
+
+    /// <summary>
+    /// 扇形检测
+    /// </summary>
+    public sealed class SectorDetectionData : ShapeDetectionDataBase
+    {
+        public Vector3 rotation;
+        public float outerRadius = 2;
+        public float innerRadius = 1;
+        public float height = 1;
+        public float angle = 90;
     }
 }

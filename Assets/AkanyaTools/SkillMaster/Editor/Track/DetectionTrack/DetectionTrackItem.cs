@@ -5,10 +5,12 @@
 */
 
 using System;
+using AkanyaTools.EditorHelper;
 using AkanyaTools.SkillMaster.Editor.EditorWindow;
 using AkanyaTools.SkillMaster.Editor.Inspector;
 using AkanyaTools.SkillMaster.Editor.Track.Style;
 using AkanyaTools.SkillMaster.Editor.Track.Style.Common;
+using AkanyaTools.SkillMaster.Runtime.Component;
 using AkanyaTools.SkillMaster.Runtime.Data.Event;
 using UnityEditor;
 using UnityEngine;
@@ -97,12 +99,32 @@ namespace AkanyaTools.SkillMaster.Editor.Track.DetectionTrack
             }
         }
 
+        /// <summary>
+        /// 绘制绿框
+        /// </summary>
         public void DrawGizmos()
         {
             Gizmos.color = new Color(0, 1, 0, 0.5f);
             switch (detectionEvent.detectionType)
             {
                 case DetectionType.Weapon:
+                    var weaponDetectionData = (WeaponDetectionData) detectionEvent.detectionData;
+                    var skillPlayer = SkillMasterEditorWindow.instance.curPreviewCharacterObj.GetComponent<SkillPlayer>();
+                    if (!string.IsNullOrEmpty(weaponDetectionData.weaponName) && skillPlayer.skillWeaponsDic.TryGetValue(weaponDetectionData.weaponName, out var weapon))
+                    {
+                        var weaponCol = weapon.GetComponent<Collider>();
+                        var transform = weaponCol.transform;
+                        var weaponRotateAndPositionMatrix = Matrix4x4.TRS(transform.position, transform.rotation, transform.localScale);
+                        Gizmos.matrix = weaponRotateAndPositionMatrix;
+                        if (weaponCol is BoxCollider boxCol)
+                        {
+                            Gizmos.DrawCube(boxCol.center, boxCol.size);
+                        }
+                        else if (weaponCol is SphereCollider sphereCol)
+                        {
+                            Gizmos.DrawSphere(sphereCol.center, sphereCol.radius);
+                        }
+                    }
                     break;
                 case DetectionType.Box:
                     var boxDetectionData = (BoxDetectionData) detectionEvent.detectionData;
@@ -116,11 +138,21 @@ namespace AkanyaTools.SkillMaster.Editor.Track.DetectionTrack
                     var sphereDetectionData = (SphereDetectionData) detectionEvent.detectionData;
                     Gizmos.DrawSphere(SkillMasterEditorWindow.instance.curPreviewCharacterObj.transform.TransformPoint(sphereDetectionData.position), sphereDetectionData.radius);
                     break;
+                case DetectionType.Sector:
+                    var sectorDetectionData = (SectorDetectionData) detectionEvent.detectionData;
+                    var sectorMesh = MeshGenerator.GenerateSectorMesh(sectorDetectionData.outerRadius, sectorDetectionData.innerRadius, sectorDetectionData.height, sectorDetectionData.angle);
+                    var sectorPosition = SkillMasterEditorWindow.instance.curPreviewCharacterObj.transform.TransformPoint(sectorDetectionData.position);
+                    var sectorRotation = SkillMasterEditorWindow.instance.curPreviewCharacterObj.transform.rotation * Quaternion.Euler(sectorDetectionData.rotation);
+                    Gizmos.DrawMesh(sectorMesh, sectorPosition, sectorRotation);
+                    break;
             }
             Gizmos.color = Color.white;
             Gizmos.matrix = Matrix4x4.identity;
         }
 
+        /// <summary>
+        /// 绘制 Handle
+        /// </summary>
         public void DrawSceneGUI()
         {
             switch (detectionEvent.detectionType)
@@ -148,6 +180,27 @@ namespace AkanyaTools.SkillMaster.Editor.Track.DetectionTrack
                     {
                         sphereDetectionData.position = SkillMasterEditorWindow.instance.curPreviewCharacterObj.transform.InverseTransformPoint(newSpherePosition);
                         sphereDetectionData.radius = newRadius;
+                        SkillMasterInspector.SetTrackItem(this, track);
+                    }
+                    break;
+                case DetectionType.Sector:
+                    var sectorDetectionData = (SectorDetectionData) detectionEvent.detectionData;
+                    var sectorPosition = SkillMasterEditorWindow.instance.curPreviewCharacterObj.transform.TransformPoint(sectorDetectionData.position);
+                    var sectorRotation = SkillMasterEditorWindow.instance.curPreviewCharacterObj.transform.rotation * Quaternion.Euler(sectorDetectionData.rotation);
+                    var sectorScale = new Vector3(sectorDetectionData.angle, sectorDetectionData.height, sectorDetectionData.outerRadius);
+                    EditorGUI.BeginChangeCheck();
+                    Handles.TransformHandle(ref sectorPosition, ref sectorRotation, ref sectorScale);
+                    var innerRadiusHandle = Handles.ScaleSlider(sectorDetectionData.innerRadius, sectorPosition, -SkillMasterEditorWindow.instance.curPreviewCharacterObj.transform.forward,
+                        Quaternion.identity, 0.5f, 0.1f);
+                    // 如果发生了修改
+                    if (EditorGUI.EndChangeCheck())
+                    {
+                        sectorDetectionData.position = SkillMasterEditorWindow.instance.curPreviewCharacterObj.transform.InverseTransformPoint(sectorPosition);
+                        sectorDetectionData.rotation = (Quaternion.Inverse(SkillMasterEditorWindow.instance.curPreviewCharacterObj.transform.rotation) * sectorRotation).eulerAngles;
+                        sectorDetectionData.angle = sectorScale.x;
+                        sectorDetectionData.height = sectorScale.y;
+                        sectorDetectionData.outerRadius = sectorScale.z;
+                        sectorDetectionData.innerRadius = innerRadiusHandle;
                         SkillMasterInspector.SetTrackItem(this, track);
                     }
                     break;

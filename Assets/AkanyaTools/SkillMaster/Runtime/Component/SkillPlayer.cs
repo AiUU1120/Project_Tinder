@@ -6,20 +6,28 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using AkanyaTools.PlayableKami;
 using AkanyaTools.SkillMaster.Runtime.Data.Config;
 using FrameTools.AudioSystem;
 using FrameTools.Extension;
 using JKFrame;
+using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using UnityEngine;
 
 namespace AkanyaTools.SkillMaster.Runtime.Component
 {
-    public sealed class SkillPlayer : MonoBehaviour
+    public sealed class SkillPlayer : SerializedMonoBehaviour
     {
-        private AnimationController m_AnimationController;
+        [OdinSerialize]
+        private Dictionary<string, SkillWeapon> m_SkillWeaponsDic = new();
+
+        public Dictionary<string, SkillWeapon> skillWeaponsDic => m_SkillWeaponsDic;
 
         public bool isPlaying { get; private set; }
+
+        private AnimationController m_AnimationController;
 
         private SkillConfig m_SkillConfig;
 

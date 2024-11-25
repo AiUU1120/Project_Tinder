@@ -42,6 +42,8 @@ Editor 内的预览是 Gizmos 绘制的，同时通过为 SceneView.duringSceneG
 
 <img src="https://s2.loli.net/2024/11/10/mHj7QJW4eZKF6a8.png" width="80%">
 
+<img src="https://s2.loli.net/2024/11/30/NGTa4V6UjoACreS.gif" width="80%">
+
 <img src="https://s2.loli.net/2024/11/10/9gEHtK6IOvJkUCR.png" width="60%">
 
 > 判定片段选中时的 Inspector 编辑内容

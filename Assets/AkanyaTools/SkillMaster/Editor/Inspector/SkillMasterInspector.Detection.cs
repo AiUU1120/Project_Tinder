@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using AkanyaTools.SkillMaster.Editor.EditorWindow;
 using AkanyaTools.SkillMaster.Editor.Track.DetectionTrack;
+using AkanyaTools.SkillMaster.Runtime.Component;
 using AkanyaTools.SkillMaster.Runtime.Data.Event;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -33,6 +35,18 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
             switch (detectionItem.detectionEvent.detectionType)
             {
                 case DetectionType.Weapon:
+                    var weaponData = (WeaponDetectionData) detectionItem.detectionEvent.detectionData;
+                    var skillPlayer = SkillMasterEditorWindow.instance.curPreviewCharacterObj.GetComponent<SkillPlayer>();
+                    var weaponDropdownField = new DropdownField("Weapon")
+                    {
+                        choices = skillPlayer.skillWeaponsDic.Keys.ToList(),
+                    };
+                    if (!string.IsNullOrEmpty(weaponData.weaponName) && skillPlayer.skillWeaponsDic.ContainsKey(weaponData.weaponName))
+                    {
+                        weaponDropdownField.value = weaponData.weaponName;
+                    }
+                    weaponDropdownField.RegisterValueChangedCallback(OnWeaponDropdownFieldValueChanged);
+                    m_Root.Add(weaponDropdownField);
                     break;
                 case DetectionType.Box:
                     var boxData = (BoxDetectionData) detectionItem.detectionEvent.detectionData;
@@ -70,10 +84,55 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
                     sphereDetectionRadiusField.RegisterValueChangedCallback(OnSphereDetectionRadiusFieldValueChanged);
                     m_Root.Add(sphereDetectionRadiusField);
                     break;
+                case DetectionType.Sector:
+                    var sectorData = (SectorDetectionData) detectionItem.detectionEvent.detectionData;
+                    var sectorDetectionPositionField = new Vector3Field("Position")
+                    {
+                        value = sectorData.position
+                    };
+                    sectorDetectionPositionField.RegisterValueChangedCallback(OnShapeDetectionPositionFieldValueChanged);
+                    m_Root.Add(sectorDetectionPositionField);
+                    var sectorDetectionRotationField = new Vector3Field("Rotation")
+                    {
+                        value = sectorData.rotation
+                    };
+                    sectorDetectionRotationField.RegisterValueChangedCallback(OnSectorDetectionRotationFieldValueChanged);
+                    m_Root.Add(sectorDetectionRotationField);
+                    var sectorDetectionOuterRadiusField = new FloatField("OuterRadius")
+                    {
+                        value = sectorData.outerRadius
+                    };
+                    sectorDetectionOuterRadiusField.RegisterValueChangedCallback(OnSectorDetectionOuterRadiusFieldValueChanged);
+                    m_Root.Add(sectorDetectionOuterRadiusField);
+                    var sectorDetectionInnerRadiusField = new FloatField("InnerRadius")
+                    {
+                        value = sectorData.innerRadius
+                    };
+                    sectorDetectionInnerRadiusField.RegisterValueChangedCallback(OnSectorDetectionInnerRadiusFieldValueChanged);
+                    m_Root.Add(sectorDetectionInnerRadiusField);
+                    var sectorDetectionHeightField = new FloatField("Height")
+                    {
+                        value = sectorData.height
+                    };
+                    sectorDetectionHeightField.RegisterValueChangedCallback(OnSectorDetectionHeightFieldValueChanged);
+                    m_Root.Add(sectorDetectionHeightField);
+                    var sectorDetectionAngleField = new FloatField("Angle")
+                    {
+                        value = sectorData.angle
+                    };
+                    sectorDetectionAngleField.RegisterValueChangedCallback(OnSectorDetectionAngleFieldValueChanged);
+                    m_Root.Add(sectorDetectionAngleField);
+                    break;
             }
         }
 
         #region Callback
+
+        private void OnWeaponDropdownFieldValueChanged(ChangeEvent<string> evt)
+        {
+            var data = (WeaponDetectionData) ((DetectionTrackItem) curTrackItem).detectionEvent.detectionData;
+            data.weaponName = evt.newValue;
+        }
 
         private void OnDetectionDurationFieldFocusIn(FocusInEvent evt)
         {
@@ -121,6 +180,61 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
         {
             var data = (SphereDetectionData) ((DetectionTrackItem) curTrackItem).detectionEvent.detectionData;
             data.radius = evt.newValue;
+        }
+
+        private void OnSectorDetectionRotationFieldValueChanged(ChangeEvent<Vector3> evt)
+        {
+            var data = (SectorDetectionData) ((DetectionTrackItem) curTrackItem).detectionEvent.detectionData;
+            data.rotation = evt.newValue;
+        }
+
+        private void OnSectorDetectionOuterRadiusFieldValueChanged(ChangeEvent<float> evt)
+        {
+            var data = (SectorDetectionData) ((DetectionTrackItem) curTrackItem).detectionEvent.detectionData;
+            data.outerRadius = evt.newValue;
+            if (data.outerRadius <= data.innerRadius)
+            {
+                data.innerRadius = data.outerRadius - 0.1f;
+                Refresh();
+            }
+        }
+
+        private void OnSectorDetectionInnerRadiusFieldValueChanged(ChangeEvent<float> evt)
+        {
+            var data = (SectorDetectionData) ((DetectionTrackItem) curTrackItem).detectionEvent.detectionData;
+            data.innerRadius = evt.newValue;
+            if (data.outerRadius <= data.innerRadius)
+            {
+                data.innerRadius = data.outerRadius - 0.1f;
+                Refresh();
+            }
+        }
+
+        private void OnSectorDetectionHeightFieldValueChanged(ChangeEvent<float> evt)
+        {
+            var data = (SectorDetectionData) ((DetectionTrackItem) curTrackItem).detectionEvent.detectionData;
+            data.height = evt.newValue;
+            if (data.height <= 0)
+            {
+                data.height = 0.1f;
+                Refresh();
+            }
+        }
+
+        private void OnSectorDetectionAngleFieldValueChanged(ChangeEvent<float> evt)
+        {
+            var data = (SectorDetectionData) ((DetectionTrackItem) curTrackItem).detectionEvent.detectionData;
+            data.angle = evt.newValue;
+            if (data.angle < 0)
+            {
+                data.angle = 0.1f;
+                Refresh();
+            }
+            else if (data.angle > 360)
+            {
+                data.angle = 360;
+                Refresh();
+            }
         }
 
         #endregion
