@@ -5,13 +5,13 @@
 */
 
 using System;
-using AkanyaTools.EditorHelper;
 using AkanyaTools.SkillMaster.Editor.EditorWindow;
 using AkanyaTools.SkillMaster.Editor.Inspector;
 using AkanyaTools.SkillMaster.Editor.Track.Style;
 using AkanyaTools.SkillMaster.Editor.Track.Style.Common;
 using AkanyaTools.SkillMaster.Runtime.Component;
 using AkanyaTools.SkillMaster.Runtime.Data.Event;
+using AkanyaTools.SkillMaster.Runtime.Tool;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -104,50 +104,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.DetectionTrack
         /// </summary>
         public void DrawGizmos()
         {
-            Gizmos.color = new Color(0, 1, 0, 0.5f);
-            switch (detectionEvent.detectionType)
-            {
-                case DetectionType.Weapon:
-                    var weaponDetectionData = (WeaponDetectionData) detectionEvent.detectionData;
-                    var skillPlayer = SkillMasterEditorWindow.instance.curPreviewCharacterObj.GetComponent<SkillPlayer>();
-                    if (!string.IsNullOrEmpty(weaponDetectionData.weaponName) && skillPlayer.skillWeaponsDic.TryGetValue(weaponDetectionData.weaponName, out var weapon))
-                    {
-                        var weaponCol = weapon.GetComponent<Collider>();
-                        var transform = weaponCol.transform;
-                        var weaponRotateAndPositionMatrix = Matrix4x4.TRS(transform.position, transform.rotation, transform.localScale);
-                        Gizmos.matrix = weaponRotateAndPositionMatrix;
-                        if (weaponCol is BoxCollider boxCol)
-                        {
-                            Gizmos.DrawCube(boxCol.center, boxCol.size);
-                        }
-                        else if (weaponCol is SphereCollider sphereCol)
-                        {
-                            Gizmos.DrawSphere(sphereCol.center, sphereCol.radius);
-                        }
-                    }
-                    break;
-                case DetectionType.Box:
-                    var boxDetectionData = (BoxDetectionData) detectionEvent.detectionData;
-                    var boxPosition = SkillMasterEditorWindow.instance.curPreviewCharacterObj.transform.TransformPoint(boxDetectionData.position);
-                    var boxRotation = SkillMasterEditorWindow.instance.curPreviewCharacterObj.transform.rotation * Quaternion.Euler(boxDetectionData.rotation);
-                    var boxRotateAndPositionMatrix = Matrix4x4.TRS(boxPosition, boxRotation, Vector3.one);
-                    Gizmos.matrix = boxRotateAndPositionMatrix;
-                    Gizmos.DrawCube(Vector3.zero, boxDetectionData.scale);
-                    break;
-                case DetectionType.Sphere:
-                    var sphereDetectionData = (SphereDetectionData) detectionEvent.detectionData;
-                    Gizmos.DrawSphere(SkillMasterEditorWindow.instance.curPreviewCharacterObj.transform.TransformPoint(sphereDetectionData.position), sphereDetectionData.radius);
-                    break;
-                case DetectionType.Sector:
-                    var sectorDetectionData = (SectorDetectionData) detectionEvent.detectionData;
-                    var sectorMesh = MeshGenerator.GenerateSectorMesh(sectorDetectionData.outerRadius, sectorDetectionData.innerRadius, sectorDetectionData.height, sectorDetectionData.angle);
-                    var sectorPosition = SkillMasterEditorWindow.instance.curPreviewCharacterObj.transform.TransformPoint(sectorDetectionData.position);
-                    var sectorRotation = SkillMasterEditorWindow.instance.curPreviewCharacterObj.transform.rotation * Quaternion.Euler(sectorDetectionData.rotation);
-                    Gizmos.DrawMesh(sectorMesh, sectorPosition, sectorRotation);
-                    break;
-            }
-            Gizmos.color = Color.white;
-            Gizmos.matrix = Matrix4x4.identity;
+            SkillGizmosTool.DrawDetectionGizmos(detectionEvent, SkillMasterEditorWindow.instance.curPreviewCharacterObj.GetComponent<SkillPlayer>());
         }
 
         /// <summary>

@@ -6006,7 +6006,8 @@ Transform:
   m_LocalPosition: {x: -0.0531, y: -0.016, z: -0.0016}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8711416071406647466}
   m_Father: {fileID: 2643354758059436683}
   m_LocalEulerAnglesHint: {x: 22.697, y: 204.638, z: 5.102}
 --- !u!1 &4557086643034516300
@@ -10642,6 +10643,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1ae4abc8fde45b18f6bcdd687a4d6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 969566273787679750}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: m_SkillWeaponsDic
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[AkanyaTools.SkillMaster.Runtime.Component.SkillWeapon,
+        AkanyaTools.SkillMaster.Runtime]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: katana
+    - Name: $v
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  atkDetectionLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  m_DrawAttackDetectionGizmos: 1
 --- !u!114 &8036415932374362739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13151,3 +13198,78 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4799693780499114488}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &8711416071406804092
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6176515517398389000}
+    m_Modifications:
+    - target: {fileID: 147172, guid: 4c0fd8ec01100a94d9d1827a19a50eb1, type: 3}
+      propertyPath: m_Name
+      value: katana
+      objectReference: {fileID: 0}
+    - target: {fileID: 435414, guid: 4c0fd8ec01100a94d9d1827a19a50eb1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 435414, guid: 4c0fd8ec01100a94d9d1827a19a50eb1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 435414, guid: 4c0fd8ec01100a94d9d1827a19a50eb1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.247
+      objectReference: {fileID: 0}
+    - target: {fileID: 435414, guid: 4c0fd8ec01100a94d9d1827a19a50eb1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 435414, guid: 4c0fd8ec01100a94d9d1827a19a50eb1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 435414, guid: 4c0fd8ec01100a94d9d1827a19a50eb1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 435414, guid: 4c0fd8ec01100a94d9d1827a19a50eb1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 435414, guid: 4c0fd8ec01100a94d9d1827a19a50eb1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 435414, guid: 4c0fd8ec01100a94d9d1827a19a50eb1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 435414, guid: 4c0fd8ec01100a94d9d1827a19a50eb1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4c0fd8ec01100a94d9d1827a19a50eb1, type: 3}
+--- !u!114 &969566273787679750 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8471760871595739258, guid: 4c0fd8ec01100a94d9d1827a19a50eb1,
+    type: 3}
+  m_PrefabInstance: {fileID: 8711416071406804092}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bf8d6fcd6632944bb06bccf27326110, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &8711416071406647466 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 435414, guid: 4c0fd8ec01100a94d9d1827a19a50eb1,
+    type: 3}
+  m_PrefabInstance: {fileID: 8711416071406804092}
+  m_PrefabAsset: {fileID: 0}

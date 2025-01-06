@@ -1,8 +1,8 @@
 ﻿/*
-* @Author: AiUU
-* @Description: UnityChan移动状态
-* @AkanyaTech.Tinder
-*/
+ * @Author: AiUU
+ * @Description: UnityChan移动状态
+ * @AkanyaTech.Tinder
+ */
 
 using AkanyaTools.SkillMaster.Runtime.Data.Config;
 using Data.Enums.GameCore;
@@ -23,7 +23,7 @@ namespace GameCore.Character.UnityChan.State
                 return;
             }
             m_SkillConfig = ResourceManager.LoadAsset<SkillConfig>("SkillConfig_Test 1");
-            unityChanController.skillPlayer.PlaySkill(m_SkillConfig, OnSkillEnd, OnRootMotion);
+            unityChanController.skillPlayer.PlaySkill(m_SkillConfig, OnSkillEnd, OnWeaponDetection, OnRootMotion);
         }
 
         public override void Update()
@@ -52,6 +52,12 @@ namespace GameCore.Character.UnityChan.State
         private void OnSkillEnd()
         {
             unityChanController.ChangeState(PlayerMotionState.Idle);
+        }
+
+        // TODO: 没有实际技能行为
+        private void OnWeaponDetection(Collider obj)
+        {
+            Debug.Log(obj.name);
         }
 
         private void OnRootMotion(Vector3 deltaPosition, Quaternion deltaRotation)

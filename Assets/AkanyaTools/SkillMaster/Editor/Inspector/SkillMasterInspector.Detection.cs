@@ -36,12 +36,15 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
             {
                 case DetectionType.Weapon:
                     var weaponData = (WeaponDetectionData) detectionItem.detectionEvent.detectionData;
-                    var skillPlayer = SkillMasterEditorWindow.instance.curPreviewCharacterObj.GetComponent<SkillPlayer>();
-                    var weaponDropdownField = new DropdownField("Weapon")
+                    var weaponDropdownField = new DropdownField("Weapon");
+                    if (SkillMasterEditorWindow.instance.curPreviewCharacterObj != null)
                     {
-                        choices = skillPlayer.skillWeaponsDic.Keys.ToList(),
-                    };
-                    if (!string.IsNullOrEmpty(weaponData.weaponName) && skillPlayer.skillWeaponsDic.ContainsKey(weaponData.weaponName))
+                        var skillPlayer = SkillMasterEditorWindow.instance.curPreviewCharacterObj.GetComponent<SkillPlayer>();
+                        {
+                            weaponDropdownField.choices = skillPlayer.skillWeaponsDic.Keys.ToList();
+                        }
+                    }
+                    if (!string.IsNullOrEmpty(weaponData.weaponName))
                     {
                         weaponDropdownField.value = weaponData.weaponName;
                     }

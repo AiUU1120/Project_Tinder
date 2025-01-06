@@ -1,8 +1,8 @@
 ﻿/*
-* @Author: AiUU
-* @Description: SkillMaster 判定帧事件
-* @AkanyaTech.SkillMaster
-*/
+ * @Author: AiUU
+ * @Description: SkillMaster 判定帧事件
+ * @AkanyaTech.SkillMaster
+ */
 
 using UnityEngine;
 
@@ -20,27 +20,29 @@ namespace AkanyaTools.SkillMaster.Runtime.Data.Event
 
         public DetectionDataBase detectionData;
 
+        public DetectionType GetDetectionType()
+        {
+            switch (detectionData)
+            {
+                case null:
+                    return DetectionType.None;
+                case WeaponDetectionData:
+                    return DetectionType.Weapon;
+                case BoxDetectionData:
+                    return DetectionType.Box;
+                case SphereDetectionData:
+                    return DetectionType.Sphere;
+                case SectorDetectionData:
+                    return DetectionType.Sector;
+                default:
+                    return DetectionType.None;
+            }
+        }
+
 #if UNITY_EDITOR
         public DetectionType detectionType
         {
-            get
-            {
-                switch (detectionData)
-                {
-                    case null:
-                        return DetectionType.None;
-                    case WeaponDetectionData:
-                        return DetectionType.Weapon;
-                    case BoxDetectionData:
-                        return DetectionType.Box;
-                    case SphereDetectionData:
-                        return DetectionType.Sphere;
-                    case SectorDetectionData:
-                        return DetectionType.Sector;
-                    default:
-                        return DetectionType.None;
-                }
-            }
+            get => GetDetectionType();
             set
             {
                 if (value == detectionType)

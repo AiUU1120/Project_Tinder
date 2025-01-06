@@ -135,7 +135,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AnimationTrack
         public Vector3 GetPosFromRootMotion(int frameIndex, bool isResume = false)
         {
             var previewObj = SkillMasterEditorWindow.instance.curPreviewCharacterObj;
-            var animator = previewObj.GetComponent<Animator>();
+            var animator = previewObj.GetComponentInChildren<Animator>();
             var frameData = animationData.frameData;
 
             var frameDataSortedDic = new SortedDictionary<int, SkillAnimationFrameEvent>(frameData);
