@@ -1,8 +1,8 @@
 ﻿/*
-* @Author: AiUU
-* @Description: SkillMaster 特效轨道片段
-* @AkanyaTech.SkillMaster
-*/
+ * @Author: AiUU
+ * @Description: SkillMaster 特效轨道片段
+ * @AkanyaTech.SkillMaster
+ */
 
 using AkanyaTools.SkillMaster.Editor.EditorWindow;
 using AkanyaTools.SkillMaster.Editor.Inspector;
@@ -66,7 +66,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.EffectTrack
             {
                 return;
             }
-            var durationFrame = (int) (effectEvent.durationTime * SkillMasterEditorWindow.instance.skillConfig.frameRate);
+            var durationFrame = effectEvent.durationFrame;
             if (effectEvent.frameIndex <= frameIndex && frameIndex <= effectEvent.frameIndex + durationFrame)
             {
                 if (m_EffectPreviewObj != null && m_EffectPreviewObj.name != effectEvent.effectPrefab.name)
@@ -254,7 +254,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.EffectTrack
                     maxDurationTime = p.main.duration;
                 }
             }
-            effectEvent.durationTime = maxDurationTime;
+            effectEvent.durationFrame = (int) (maxDurationTime * SkillMasterEditorWindow.instance.skillConfig.frameRate);
 
             frameIndex = selectFrameIndex;
             ForceRefreshView();

@@ -40,7 +40,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Style
             }
             SetVisible(true);
             SetTitle(e.effectPrefab.name);
-            SetWidth(frameUnitWidth * e.durationTime * SkillMasterEditorWindow.instance.skillConfig.frameRate);
+            SetWidth(frameUnitWidth * e.durationFrame);
             SetPositionX(frameUnitWidth * e.frameIndex);
         }
 

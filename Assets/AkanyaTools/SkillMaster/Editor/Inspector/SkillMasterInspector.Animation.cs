@@ -85,6 +85,18 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
                 clickable = new Clickable(OnAnimationDeleteBtnClick),
             };
             m_Root.Add(deleteBtn);
+
+            // 设置持续帧数至选中帧
+            var setFrameBtn = new Button
+            {
+                text = "Set Duration Frame To Selected Frame",
+                style =
+                {
+                    backgroundColor = new Color(1f, 0f, 0f, 0.5f)
+                },
+                clickable = new Clickable(OnAnimationSetFrameBtnClick),
+            };
+            m_Root.Add(setFrameBtn);
         }
 
         #region Callback
@@ -152,6 +164,13 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
         {
             s_CurTrack.DeleteTrackItem(m_TrackItemFrameIndex);
             Selection.activeObject = null;
+        }
+
+        private void OnAnimationSetFrameBtnClick()
+        {
+            OnAnimationDurationFieldFocusIn(null);
+            m_AnimationDurationField.value = SkillMasterEditorWindow.instance.curSelectedFrameIndex - ((AnimationTrackItem) curTrackItem).frameIndex;
+            OnAnimationDurationFieldFocusOut(null);
         }
 
         #endregion

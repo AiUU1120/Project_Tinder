@@ -7,6 +7,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using AkanyaTools.AudioSystem;
 using AkanyaTools.PlayableKami;
 using AkanyaTools.SkillMaster.Runtime.Data.Config;
 using AkanyaTools.SkillMaster.Runtime.Data.Event;
@@ -150,7 +151,7 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
                     effectObj.transform.localScale = data.scale;
                     if (data.autoDestroy)
                     {
-                        StartCoroutine(AutoDestroyEffectGameObject(effectObj, data.durationTime));
+                        StartCoroutine(AutoDestroyEffectGameObject(effectObj, (float) data.durationFrame / m_SkillConfig.frameRate));
                     }
                 }
             }

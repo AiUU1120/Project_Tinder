@@ -14,17 +14,17 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
     {
         private List<string> m_DetectionSelections;
 
-        private IntegerField m_DurationFrameField;
+        private IntegerField m_DetectionDurationFrameField;
 
         private void DrawDetectionTrackItem(DetectionTrackItem detectionItem)
         {
-            m_DurationFrameField = new IntegerField("Duration Frame")
+            m_DetectionDurationFrameField = new IntegerField("Duration Frame")
             {
                 value = detectionItem.detectionEvent.durationFrame
             };
-            m_DurationFrameField.RegisterCallback<FocusInEvent>(OnDetectionDurationFieldFocusIn);
-            m_DurationFrameField.RegisterCallback<FocusOutEvent>(OnDetectionDurationFieldFocusOut);
-            m_Root.Add(m_DurationFrameField);
+            m_DetectionDurationFrameField.RegisterCallback<FocusInEvent>(OnDetectionDurationFieldFocusIn);
+            m_DetectionDurationFrameField.RegisterCallback<FocusOutEvent>(OnDetectionDurationFieldFocusOut);
+            m_Root.Add(m_DetectionDurationFrameField);
 
             m_DetectionSelections = new List<string>(Enum.GetNames(typeof(DetectionType)));
             var detectionDropdownField = new DropdownField("Detection Type", m_DetectionSelections, (int) detectionItem.detectionEvent.detectionType);
@@ -127,6 +127,18 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
                     m_Root.Add(sectorDetectionAngleField);
                     break;
             }
+
+            // 设置持续帧数至选中帧
+            var setFrameBtn = new Button
+            {
+                text = "Set Duration Frame To Selected Frame",
+                style =
+                {
+                    backgroundColor = new Color(1f, 0f, 0f, 0.5f)
+                },
+                clickable = new Clickable(OnDetectionSetFrameBtnClick),
+            };
+            m_Root.Add(setFrameBtn);
         }
 
         #region Callback
@@ -139,16 +151,16 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
 
         private void OnDetectionDurationFieldFocusIn(FocusInEvent evt)
         {
-            m_OldAnimationDurationValue = m_DurationFrameField.value;
+            m_OldAnimationDurationValue = m_DetectionDurationFrameField.value;
         }
 
         private void OnDetectionDurationFieldFocusOut(FocusOutEvent evt)
         {
-            if (m_OldAnimationDurationValue == m_DurationFrameField.value)
+            if (m_OldAnimationDurationValue == m_DetectionDurationFrameField.value)
             {
                 return;
             }
-            ((DetectionTrackItem) curTrackItem).detectionEvent.durationFrame = m_DurationFrameField.value;
+            ((DetectionTrackItem) curTrackItem).detectionEvent.durationFrame = m_DetectionDurationFrameField.value;
             SkillMasterEditorWindow.instance.SaveConfig();
             curTrackItem?.ForceRefreshView();
         }
@@ -238,6 +250,13 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
                 data.angle = 360;
                 Refresh();
             }
+        }
+
+        private void OnDetectionSetFrameBtnClick()
+        {
+            OnDetectionDurationFieldFocusIn(null);
+            m_DetectionDurationFrameField.value = SkillMasterEditorWindow.instance.curSelectedFrameIndex - ((DetectionTrackItem) curTrackItem).frameIndex;
+            OnDetectionDurationFieldFocusOut(null);
         }
 
         #endregion

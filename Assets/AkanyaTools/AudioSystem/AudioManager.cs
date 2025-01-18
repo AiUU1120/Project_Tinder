@@ -5,10 +5,11 @@
 */
 
 using System;
+using FrameTools.AudioSystem;
 using JKFrame;
 using UnityEngine;
 
-namespace FrameTools.AudioSystem
+namespace AkanyaTools.AudioSystem
 {
     public static class AudioManager
     {

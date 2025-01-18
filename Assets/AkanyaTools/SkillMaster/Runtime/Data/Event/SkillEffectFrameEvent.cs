@@ -24,7 +24,7 @@ namespace AkanyaTools.SkillMaster.Runtime.Data.Event
 
         public Vector3 scale;
 
-        public float durationTime;
+        public int durationFrame;
 
         public bool autoDestroy;
     }

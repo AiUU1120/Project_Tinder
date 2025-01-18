@@ -190,22 +190,22 @@ MonoBehaviour:
       Data: 21
     - Name: durationFrame
       Entry: 3
-      Data: 5
+      Data: 6
     - Name: detectionData
       Entry: 7
-      Data: 10|AkanyaTools.SkillMaster.Runtime.Data.Event.BoxDetectionData, AkanyaTools.SkillMaster.Runtime
+      Data: 10|AkanyaTools.SkillMaster.Runtime.Data.Event.SectorDetectionData, AkanyaTools.SkillMaster.Runtime
     - Name: position
       Entry: 7
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: -0.0600000024
+      Data: 0.0205538273
     - Name: 
       Entry: 4
-      Data: 1.14
+      Data: 0.805738032
     - Name: 
       Entry: 4
-      Data: 1.1286571
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -224,21 +224,18 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: scale
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
+    - Name: outerRadius
       Entry: 4
-      Data: 0.69
-    - Name: 
+      Data: 2
+    - Name: innerRadius
       Entry: 4
-      Data: 2.46
-    - Name: 
+      Data: 1
+    - Name: height
       Entry: 4
-      Data: 1.73955274
-    - Name: 
-      Entry: 8
-      Data: 
+      Data: 0.5570997
+    - Name: angle
+      Entry: 4
+      Data: 214.10733
     - Name: 
       Entry: 8
       Data: 
@@ -548,9 +545,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: durationTime
-      Entry: 4
-      Data: 1
+    - Name: durationFrame
+      Entry: 3
+      Data: 30
     - Name: autoDestroy
       Entry: 5
       Data: true
@@ -615,9 +612,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: durationTime
-      Entry: 4
-      Data: 1
+    - Name: durationFrame
+      Entry: 3
+      Data: 30
     - Name: autoDestroy
       Entry: 5
       Data: true
@@ -682,9 +679,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: durationTime
-      Entry: 4
-      Data: 1
+    - Name: durationFrame
+      Entry: 3
+      Data: 30
     - Name: autoDestroy
       Entry: 5
       Data: true
@@ -749,9 +746,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: durationTime
-      Entry: 4
-      Data: 1
+    - Name: durationFrame
+      Entry: 3
+      Data: 30
     - Name: autoDestroy
       Entry: 5
       Data: true
