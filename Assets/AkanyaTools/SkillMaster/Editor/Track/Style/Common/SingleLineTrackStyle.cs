@@ -6,6 +6,7 @@
 
 using FrameTools.Extension;
 using UnityEditor;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace AkanyaTools.SkillMaster.Editor.Track.Style.Common
@@ -16,11 +17,12 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Style.Common
 
         private const string track_asset_path = "Assets/AkanyaTools/SkillMaster/Static Resources/Style/Track/Common/SingleLineTrackContent.uxml";
 
-        public void Init(VisualElement menuParent, VisualElement contentParent, string title)
+        public void Init(VisualElement menuParent, VisualElement contentParent, string title, Color themeColor)
         {
             this.menuParent = menuParent;
             this.contentParent = contentParent;
             menuRoot = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(menu_asset_path).Instantiate().Query().ToList()[1];
+            SetMenuColor(themeColor);
             menuParent.Add(menuRoot);
             contentRoot = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(track_asset_path).Instantiate().Query().ToList()[1];
             contentParent.Add(contentRoot);

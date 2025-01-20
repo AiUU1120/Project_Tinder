@@ -1,8 +1,8 @@
 ﻿/*
-* @Author: AiUU
-* @Description: 技能配置
-* @AkanyaTech.SkillMaster
-*/
+ * @Author: AiUU
+ * @Description: 技能配置
+ * @AkanyaTech.SkillMaster
+ */
 
 using System;
 using AkanyaTools.Base.Config;
@@ -22,6 +22,9 @@ namespace AkanyaTools.SkillMaster.Runtime.Data.Config
 
         [Tooltip("帧率")]
         public int frameRate = 30;
+
+        [OdinSerialize]
+        public SkillCustomEventData skillCustomEventData = new();
 
         [OdinSerialize]
         public SkillAnimationData skillAnimationData = new();

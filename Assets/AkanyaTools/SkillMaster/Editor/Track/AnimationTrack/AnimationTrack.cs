@@ -1,8 +1,8 @@
 ﻿/*
-* @Author: AiUU
-* @Description: SkillMaster 动画轨道
-* @AkanyaTech.SkillMaster
-*/
+ * @Author: AiUU
+ * @Description: SkillMaster 动画轨道
+ * @AkanyaTech.SkillMaster
+ */
 
 using System.Collections.Generic;
 using System.Linq;
@@ -20,15 +20,19 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AnimationTrack
     {
         public SkillAnimationData animationData => SkillMasterEditorWindow.instance.skillConfig.skillAnimationData;
 
+        public Color themeColor => m_ThemeColor;
+
         private SingleLineTrackStyle m_TrackStyle;
 
         private readonly Dictionary<int, AnimationTrackItem> m_TrackItemDic = new();
+
+        private readonly Color m_ThemeColor = new(1f, 0.431f, 0.431f, 1f);
 
         public override void Init(VisualElement menuParent, VisualElement trackParent, float frameUnitWidth)
         {
             base.Init(menuParent, trackParent, frameUnitWidth);
             m_TrackStyle = new SingleLineTrackStyle();
-            m_TrackStyle.Init(menuParent, trackParent, "Animation");
+            m_TrackStyle.Init(menuParent, trackParent, "Animation", m_ThemeColor);
             m_TrackStyle.contentRoot.RegisterCallback<DragUpdatedEvent>(OnDragUpdated);
             m_TrackStyle.contentRoot.RegisterCallback<DragExitedEvent>(OnDragExited);
             RefreshView();

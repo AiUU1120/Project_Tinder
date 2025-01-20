@@ -1,8 +1,8 @@
 ﻿/*
-* @Author: AiUU
-* @Description: SkillMaster 多行轨道样式
-* @AkanyaTech.SkillMaster
-*/
+ * @Author: AiUU
+ * @Description: SkillMaster 多行轨道样式
+ * @AkanyaTech.SkillMaster
+ */
 
 using System;
 using System.Collections.Generic;
@@ -167,11 +167,6 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Style.Common
         private void UpdateSubTrackName(SubTrackStyle subTrackStyle, string name)
         {
             m_OnSubTrackNameChange?.Invoke(subTrackStyle, name);
-        }
-
-        private void SetMenuColor(Color color)
-        {
-            menuRoot.style.backgroundColor = color;
         }
 
         #region Callback

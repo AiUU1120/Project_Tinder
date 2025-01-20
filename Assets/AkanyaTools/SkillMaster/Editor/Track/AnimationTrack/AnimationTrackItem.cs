@@ -1,8 +1,8 @@
 ﻿/*
-* @Author: AiUU
-* @Description: SkillMaster 动画轨道片段
-* @AkanyaTech.SkillMaster
-*/
+ * @Author: AiUU
+ * @Description: SkillMaster 动画轨道片段
+ * @AkanyaTech.SkillMaster
+ */
 
 using AkanyaTools.SkillMaster.Editor.EditorWindow;
 using AkanyaTools.SkillMaster.Editor.Inspector;
@@ -37,7 +37,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AnimationTrack
             m_TrackItemStyle.Init(parentTrackStyle, startFrameIndex, frameUnitWidth);
             itemStyle = m_TrackItemStyle;
 
-            normalColor = m_TrackItemStyle.root.resolvedStyle.backgroundColor;
+            normalColor = new Color(track.themeColor.r, track.themeColor.g, track.themeColor.b, 0.7f);
             selectedColor = new Color(normalColor.r, normalColor.g, normalColor.b, 1f);
 
             OnUnSelect();
@@ -135,39 +135,40 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AnimationTrack
 
         private void OnMouseMove(MouseMoveEvent evt)
         {
-            if (m_IsMouseDrag)
+            if (!m_IsMouseDrag)
             {
-                var offsetPos = evt.mousePosition.x - m_StartDragPosX;
-                var offsetFrame = Mathf.RoundToInt(offsetPos / frameUnitWidth);
-                var targetFrame = m_StartDragFrame + offsetFrame;
-                if (targetFrame < 0)
-                {
-                    return;
-                }
-
-                bool checkDrag;
-                // 考虑拖动后是否与已有片段位置冲突
-                if (offsetFrame < 0)
-                {
-                    checkDrag = track.CheckFrame(targetFrame, m_StartDragFrame, true);
-                }
-                else if (offsetFrame > 0)
-                {
-                    checkDrag = track.CheckFrame(targetFrame + animationEvent.durationFrame, m_StartDragFrame, false);
-                }
-                else
-                {
-                    return;
-                }
-
-                if (!checkDrag)
-                {
-                    return;
-                }
-                frameIndex = targetFrame;
-                CheckBoundaryOverflow();
-                RefreshView(frameUnitWidth);
+                return;
             }
+            var offsetPos = evt.mousePosition.x - m_StartDragPosX;
+            var offsetFrame = Mathf.RoundToInt(offsetPos / frameUnitWidth);
+            var targetFrame = m_StartDragFrame + offsetFrame;
+            if (targetFrame < 0)
+            {
+                return;
+            }
+
+            bool checkDrag;
+            // 考虑拖动后是否与已有片段位置冲突
+            if (offsetFrame < 0)
+            {
+                checkDrag = track.CheckFrame(targetFrame, m_StartDragFrame, true);
+            }
+            else if (offsetFrame > 0)
+            {
+                checkDrag = track.CheckFrame(targetFrame + animationEvent.durationFrame, m_StartDragFrame, false);
+            }
+            else
+            {
+                return;
+            }
+
+            if (!checkDrag)
+            {
+                return;
+            }
+            frameIndex = targetFrame;
+            CheckBoundaryOverflow();
+            RefreshView(frameUnitWidth);
         }
 
         public override void OnConfigChanged()

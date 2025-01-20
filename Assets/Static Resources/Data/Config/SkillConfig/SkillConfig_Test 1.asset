@@ -30,12 +30,12 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: skillAnimationData
+    - Name: skillCustomEventData
       Entry: 7
-      Data: 0|AkanyaTools.SkillMaster.Runtime.Data.SkillAnimationData, AkanyaTools.SkillMaster.Runtime
+      Data: 0|AkanyaTools.SkillMaster.Runtime.Data.SkillCustomEventData, AkanyaTools.SkillMaster.Runtime
     - Name: frameData
       Entry: 7
-      Data: 1|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAnimationFrameEvent,
+      Data: 1|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[AkanyaTools.SkillMaster.Runtime.Data.Event.SkillCustomEventFrameEvent,
         AkanyaTools.SkillMaster.Runtime]], mscorlib
     - Name: comparer
       Entry: 7
@@ -52,10 +52,172 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
+      Data: 26
+    - Name: $v
+      Entry: 7
+      Data: 3|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillCustomEventFrameEvent,
+        AkanyaTools.SkillMaster.Runtime
+    - Name: eventType
+      Entry: 3
+      Data: 0
+    - Name: customEventName
+      Entry: 6
+      Data: 
+    - Name: intParam
+      Entry: 3
+      Data: 0
+    - Name: floatParam
+      Entry: 4
+      Data: 456
+    - Name: stringParam
+      Entry: 6
+      Data: 
+    - Name: objParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 20
+    - Name: $v
+      Entry: 7
+      Data: 4|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillCustomEventFrameEvent,
+        AkanyaTools.SkillMaster.Runtime
+    - Name: eventType
+      Entry: 3
+      Data: 0
+    - Name: customEventName
+      Entry: 6
+      Data: 
+    - Name: intParam
+      Entry: 3
+      Data: 0
+    - Name: floatParam
+      Entry: 4
+      Data: 0
+    - Name: stringParam
+      Entry: 6
+      Data: 
+    - Name: objParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 29
+    - Name: $v
+      Entry: 7
+      Data: 5|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillCustomEventFrameEvent,
+        AkanyaTools.SkillMaster.Runtime
+    - Name: eventType
+      Entry: 3
+      Data: 0
+    - Name: customEventName
+      Entry: 6
+      Data: 
+    - Name: intParam
+      Entry: 3
+      Data: 0
+    - Name: floatParam
+      Entry: 4
+      Data: 0
+    - Name: stringParam
+      Entry: 6
+      Data: 
+    - Name: objParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 36
+    - Name: $v
+      Entry: 7
+      Data: 6|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillCustomEventFrameEvent,
+        AkanyaTools.SkillMaster.Runtime
+    - Name: eventType
+      Entry: 3
+      Data: 0
+    - Name: customEventName
+      Entry: 1
+      Data: 
+    - Name: intParam
+      Entry: 3
+      Data: 0
+    - Name: floatParam
+      Entry: 4
+      Data: 0
+    - Name: stringParam
+      Entry: 6
+      Data: 
+    - Name: objParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: skillAnimationData
+      Entry: 7
+      Data: 7|AkanyaTools.SkillMaster.Runtime.Data.SkillAnimationData, AkanyaTools.SkillMaster.Runtime
+    - Name: frameData
+      Entry: 7
+      Data: 8|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAnimationFrameEvent,
+        AkanyaTools.SkillMaster.Runtime]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 9|System.Collections.Generic.GenericEqualityComparer`1[[System.Int32,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 4
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
       Data: 133
     - Name: $v
       Entry: 7
-      Data: 3|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAnimationFrameEvent,
+      Data: 10|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAnimationFrameEvent,
         AkanyaTools.SkillMaster.Runtime
     - Name: animationClip
       Entry: 10
@@ -83,7 +245,7 @@ MonoBehaviour:
       Data: 111
     - Name: $v
       Entry: 7
-      Data: 4|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAnimationFrameEvent,
+      Data: 11|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAnimationFrameEvent,
         AkanyaTools.SkillMaster.Runtime
     - Name: animationClip
       Entry: 10
@@ -111,7 +273,7 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 7
-      Data: 5|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAnimationFrameEvent,
+      Data: 12|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAnimationFrameEvent,
         AkanyaTools.SkillMaster.Runtime
     - Name: animationClip
       Entry: 10
@@ -139,7 +301,7 @@ MonoBehaviour:
       Data: 38
     - Name: $v
       Entry: 7
-      Data: 6|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAnimationFrameEvent,
+      Data: 13|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAnimationFrameEvent,
         AkanyaTools.SkillMaster.Runtime
     - Name: animationClip
       Entry: 10
@@ -170,30 +332,30 @@ MonoBehaviour:
       Data: 
     - Name: skillDetectionData
       Entry: 7
-      Data: 7|AkanyaTools.SkillMaster.Runtime.Data.SkillDetectionData, AkanyaTools.SkillMaster.Runtime
+      Data: 14|AkanyaTools.SkillMaster.Runtime.Data.SkillDetectionData, AkanyaTools.SkillMaster.Runtime
     - Name: frameData
       Entry: 7
-      Data: 8|System.Collections.Generic.List`1[[AkanyaTools.SkillMaster.Runtime.Data.Event.SkillDetectionFrameEvent,
+      Data: 15|System.Collections.Generic.List`1[[AkanyaTools.SkillMaster.Runtime.Data.Event.SkillDetectionFrameEvent,
         AkanyaTools.SkillMaster.Runtime]], mscorlib
     - Name: 
       Entry: 12
       Data: 5
     - Name: 
       Entry: 7
-      Data: 9|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillDetectionFrameEvent,
+      Data: 16|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillDetectionFrameEvent,
         AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
       Data: Detection Track
     - Name: frameIndex
       Entry: 3
-      Data: 21
+      Data: 20
     - Name: durationFrame
       Entry: 3
       Data: 6
     - Name: detectionData
       Entry: 7
-      Data: 10|AkanyaTools.SkillMaster.Runtime.Data.Event.SectorDetectionData, AkanyaTools.SkillMaster.Runtime
+      Data: 17|AkanyaTools.SkillMaster.Runtime.Data.Event.SectorDetectionData, AkanyaTools.SkillMaster.Runtime
     - Name: position
       Entry: 7
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
@@ -244,7 +406,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 11|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillDetectionFrameEvent,
+      Data: 18|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillDetectionFrameEvent,
         AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
@@ -257,7 +419,7 @@ MonoBehaviour:
       Data: 7
     - Name: detectionData
       Entry: 7
-      Data: 12|AkanyaTools.SkillMaster.Runtime.Data.Event.BoxDetectionData, AkanyaTools.SkillMaster.Runtime
+      Data: 19|AkanyaTools.SkillMaster.Runtime.Data.Event.BoxDetectionData, AkanyaTools.SkillMaster.Runtime
     - Name: position
       Entry: 7
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
@@ -311,7 +473,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 13|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillDetectionFrameEvent,
+      Data: 20|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillDetectionFrameEvent,
         AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
@@ -324,7 +486,7 @@ MonoBehaviour:
       Data: 4
     - Name: detectionData
       Entry: 7
-      Data: 14|AkanyaTools.SkillMaster.Runtime.Data.Event.BoxDetectionData, AkanyaTools.SkillMaster.Runtime
+      Data: 21|AkanyaTools.SkillMaster.Runtime.Data.Event.BoxDetectionData, AkanyaTools.SkillMaster.Runtime
     - Name: position
       Entry: 7
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
@@ -378,7 +540,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 15|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillDetectionFrameEvent,
+      Data: 22|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillDetectionFrameEvent,
         AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
@@ -391,7 +553,7 @@ MonoBehaviour:
       Data: 9
     - Name: detectionData
       Entry: 7
-      Data: 16|AkanyaTools.SkillMaster.Runtime.Data.Event.BoxDetectionData, AkanyaTools.SkillMaster.Runtime
+      Data: 23|AkanyaTools.SkillMaster.Runtime.Data.Event.BoxDetectionData, AkanyaTools.SkillMaster.Runtime
     - Name: position
       Entry: 7
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
@@ -445,7 +607,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 17|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillDetectionFrameEvent,
+      Data: 24|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillDetectionFrameEvent,
         AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
@@ -458,7 +620,7 @@ MonoBehaviour:
       Data: 10
     - Name: detectionData
       Entry: 7
-      Data: 18|AkanyaTools.SkillMaster.Runtime.Data.Event.WeaponDetectionData, AkanyaTools.SkillMaster.Runtime
+      Data: 25|AkanyaTools.SkillMaster.Runtime.Data.Event.WeaponDetectionData, AkanyaTools.SkillMaster.Runtime
     - Name: weaponName
       Entry: 1
       Data: katana
@@ -479,17 +641,17 @@ MonoBehaviour:
       Data: 
     - Name: skillEffectData
       Entry: 7
-      Data: 19|AkanyaTools.SkillMaster.Runtime.Data.SkillEffectData, AkanyaTools.SkillMaster.Runtime
+      Data: 26|AkanyaTools.SkillMaster.Runtime.Data.SkillEffectData, AkanyaTools.SkillMaster.Runtime
     - Name: frameData
       Entry: 7
-      Data: 20|System.Collections.Generic.List`1[[AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
+      Data: 27|System.Collections.Generic.List`1[[AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
         AkanyaTools.SkillMaster.Runtime]], mscorlib
     - Name: 
       Entry: 12
       Data: 4
     - Name: 
       Entry: 7
-      Data: 21|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
+      Data: 28|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
         AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
@@ -556,7 +718,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 22|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
+      Data: 29|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
         AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
@@ -623,7 +785,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 23|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
+      Data: 30|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
         AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
@@ -690,7 +852,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 24|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
+      Data: 31|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
         AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
@@ -766,17 +928,17 @@ MonoBehaviour:
       Data: 
     - Name: skillAudioData
       Entry: 7
-      Data: 25|AkanyaTools.SkillMaster.Runtime.Data.SkillAudioData, AkanyaTools.SkillMaster.Runtime
+      Data: 32|AkanyaTools.SkillMaster.Runtime.Data.SkillAudioData, AkanyaTools.SkillMaster.Runtime
     - Name: frameData
       Entry: 7
-      Data: 26|System.Collections.Generic.List`1[[AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent,
+      Data: 33|System.Collections.Generic.List`1[[AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent,
         AkanyaTools.SkillMaster.Runtime]], mscorlib
     - Name: 
       Entry: 12
       Data: 4
     - Name: 
       Entry: 7
-      Data: 27|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
+      Data: 34|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
       Data: attack1
@@ -797,7 +959,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 28|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
+      Data: 35|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
       Data: attack2
@@ -818,7 +980,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 29|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
+      Data: 36|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
       Data: attack3
@@ -839,7 +1001,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 30|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
+      Data: 37|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
       Data: attack4

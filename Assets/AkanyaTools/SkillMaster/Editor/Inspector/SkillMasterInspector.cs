@@ -1,13 +1,14 @@
 ﻿/*
-* @Author: AiUU
-* @Description: SkillMaster 监视器绘制
-* @AkanyaTech.SkillMaster
-*/
+ * @Author: AiUU
+ * @Description: SkillMaster 监视器绘制
+ * @AkanyaTech.SkillMaster
+ */
 
 using AkanyaTools.SkillMaster.Editor.EditorWindow;
 using AkanyaTools.SkillMaster.Editor.Track;
 using AkanyaTools.SkillMaster.Editor.Track.AnimationTrack;
 using AkanyaTools.SkillMaster.Editor.Track.AudioTrack;
+using AkanyaTools.SkillMaster.Editor.Track.CustomEventTrack;
 using AkanyaTools.SkillMaster.Editor.Track.DetectionTrack;
 using AkanyaTools.SkillMaster.Editor.Track.EffectTrack;
 using UnityEditor;
@@ -65,8 +66,12 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
         private void Refresh()
         {
             Clear();
+            m_TrackItemFrameIndex = curTrackItem.frameIndex;
             switch (curTrackItem)
             {
+                case CustomEventTrackItem customEventTrackItem:
+                    DrawCustomEventTrackItem(customEventTrackItem);
+                    break;
                 case AnimationTrackItem animationItem:
                     DrawAnimationTrackItem(animationItem);
                     break;

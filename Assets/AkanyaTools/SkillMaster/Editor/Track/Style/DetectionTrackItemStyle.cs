@@ -13,7 +13,7 @@ using UnityEngine.UIElements;
 
 namespace AkanyaTools.SkillMaster.Editor.Track.Style
 {
-    public class DetectionTrackItemStyle : TrackItemStyleBase
+    public sealed class DetectionTrackItemStyle : TrackItemStyleBase
     {
         public VisualElement mainDragArea { get; private set; }
 

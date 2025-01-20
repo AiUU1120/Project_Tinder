@@ -1,9 +1,10 @@
 ﻿/*
-* @Author: AiUU
-* @Description: SkillMaster 轨道样式
-* @AkanyaTech.SkillMaster
-*/
+ * @Author: AiUU
+ * @Description: SkillMaster 轨道样式
+ * @AkanyaTech.SkillMaster
+ */
 
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace AkanyaTools.SkillMaster.Editor.Track.Style.Common
@@ -36,6 +37,11 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Style.Common
         public virtual void DeleteItem(VisualElement obj)
         {
             contentRoot.Remove(obj);
+        }
+
+        protected void SetMenuColor(Color color)
+        {
+            menuRoot.style.backgroundColor = color;
         }
 
         /// <summary>

@@ -30,8 +30,6 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
         /// <param name="item"></param>
         private void DrawAnimationTrackItem(AnimationTrackItem item)
         {
-            m_TrackItemFrameIndex = item.frameIndex;
-
             // 动画资源
             var animationClipAssetField = new ObjectField("Animation Clip")
             {

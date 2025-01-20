@@ -1,8 +1,8 @@
 ﻿/*
-* @Author: AiUU
-* @Description: SkillMaster 编辑器主体轨道区域
-* @AkanyaTech.SkillMaster
-*/
+ * @Author: AiUU
+ * @Description: SkillMaster 编辑器主体轨道区域
+ * @AkanyaTech.SkillMaster
+ */
 
 using System;
 using System.Collections.Generic;
@@ -10,6 +10,7 @@ using AkanyaTools.SkillMaster.Editor.Inspector;
 using AkanyaTools.SkillMaster.Editor.Track;
 using AkanyaTools.SkillMaster.Editor.Track.AnimationTrack;
 using AkanyaTools.SkillMaster.Editor.Track.AudioTrack;
+using AkanyaTools.SkillMaster.Editor.Track.CustomEventTrack;
 using AkanyaTools.SkillMaster.Editor.Track.DetectionTrack;
 using AkanyaTools.SkillMaster.Editor.Track.EffectTrack;
 using FrameTools.Extension;
@@ -24,6 +25,8 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         private VisualElement m_TrackMenuList;
 
         private ScrollView m_MainContentView;
+
+        private ScrollView m_TrackMenuView;
 
         private VisualElement m_ContentListView;
 
@@ -41,7 +44,9 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
             m_TrackMenuList = rootVisualElement.NiceQ<VisualElement>("TrackMenuList");
 
             m_MainContentView = rootVisualElement.NiceQ<ScrollView>("MainContentView");
-            m_MainContentView.verticalScroller.valueChanged += OnMainContentViewScrollerValueChanged;
+            m_TrackMenuView = rootVisualElement.NiceQ<ScrollView>("TrackMenuScrollView");
+            m_MainContentView.verticalScroller.valueChanged += (value) => { m_TrackMenuView.verticalScroller.value = value; };
+            m_TrackMenuView.verticalScroller.valueChanged += (value) => { m_MainContentView.verticalScroller.value = value; };
 
             m_ContentListView = rootVisualElement.NiceQ<VisualElement>("ContentListView");
             UpdateContentSize();
@@ -57,10 +62,21 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
             {
                 return;
             }
+            InitCustomEventTrack();
             InitAnimationTrack();
             InitDetectionTrack();
             InitEffectTrack();
             InitAudioTrack();
+        }
+
+        /// <summary>
+        /// 初始化自定义事件轨道
+        /// </summary>
+        private void InitCustomEventTrack()
+        {
+            var customEventTrack = new CustomEventTrack();
+            customEventTrack.Init(m_TrackMenuList, m_ContentListView, m_SkillMasterEditorConfig.frameUnitWidth);
+            m_TrackList.Add(customEventTrack);
         }
 
         /// <summary>
@@ -156,20 +172,5 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         }
 
         public Vector3 GetPosFromRootMotion(int frameIndex, bool isResume = false) => m_OnGetPosFromRootMotion.Invoke(frameIndex, isResume);
-
-        #region Callback
-
-        /// <summary>
-        /// 同步 Track 主体与 TrackMenu 位置
-        /// </summary>
-        /// <param name="obj"></param>
-        private void OnMainContentViewScrollerValueChanged(float obj)
-        {
-            var pos = m_TrackMenuList.transform.position;
-            pos.y = m_ContentContainer.transform.position.y;
-            m_TrackMenuList.transform.position = pos;
-        }
-
-        #endregion
     }
 }

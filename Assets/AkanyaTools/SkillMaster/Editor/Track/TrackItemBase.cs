@@ -1,8 +1,8 @@
 ﻿/*
-* @Author: AiUU
-* @Description: SkillMaster 轨道片段基类
-* @AkanyaTech.SkillMaster
-*/
+ * @Author: AiUU
+ * @Description: SkillMaster 轨道片段基类
+ * @AkanyaTech.SkillMaster
+ */
 
 using AkanyaTools.SkillMaster.Editor.EditorWindow;
 using AkanyaTools.SkillMaster.Editor.Track.Style.Common;
@@ -12,6 +12,8 @@ namespace AkanyaTools.SkillMaster.Editor.Track
 {
     public abstract class TrackItemBase
     {
+        public int frameIndex { get; protected set; }
+
         protected float frameUnitWidth;
 
         /// <summary>
@@ -49,8 +51,6 @@ namespace AkanyaTools.SkillMaster.Editor.Track
 
     public abstract class TrackItemBase<T> : TrackItemBase where T : TrackBase
     {
-        public int frameIndex { get; protected set; }
-
         public TrackItemStyleBase itemStyle { get; protected set; }
 
         protected T track;

@@ -33,14 +33,14 @@ namespace AkanyaTools.SkillMaster.Runtime.Tool
         public static Collider[] BoxDetection(Transform sourceTransform, BoxDetectionData e, LayerMask layerMask)
         {
             ClearResCols();
-            Physics.OverlapBoxNonAlloc(sourceTransform.position + e.position, e.scale * 0.5f, s_DetectionResCols, sourceTransform.rotation * Quaternion.Euler(e.rotation), layerMask);
+            Physics.OverlapBoxNonAlloc(sourceTransform.TransformPoint(e.position), e.scale * 0.5f, s_DetectionResCols, sourceTransform.rotation * Quaternion.Euler(e.rotation), layerMask);
             return s_DetectionResCols;
         }
 
         public static Collider[] SphereDetection(Transform sourceTransform, SphereDetectionData e, LayerMask layerMask)
         {
             ClearResCols();
-            Physics.OverlapSphereNonAlloc(sourceTransform.position + e.position, e.radius, s_DetectionResCols, layerMask);
+            Physics.OverlapSphereNonAlloc(sourceTransform.TransformPoint(e.position), e.radius, s_DetectionResCols, layerMask);
             return s_DetectionResCols;
         }
 
@@ -52,7 +52,7 @@ namespace AkanyaTools.SkillMaster.Runtime.Tool
             var sectorForward = sourceRotation * Quaternion.Euler(e.rotation) * Vector3.forward;
             var sourcePosition = sourceTransform.position;
             // 先构建Box检测
-            Physics.OverlapBoxNonAlloc(sourcePosition + e.position, scale * 0.5f, s_DetectionResCols, sourceRotation * Quaternion.Euler(e.rotation), layerMask);
+            Physics.OverlapBoxNonAlloc(sourceTransform.TransformPoint(e.position), scale * 0.5f, s_DetectionResCols, sourceRotation * Quaternion.Euler(e.rotation), layerMask);
             // 过滤无效检测
             for (var i = 0; i < s_DetectionResCols.Length; i++)
             {
