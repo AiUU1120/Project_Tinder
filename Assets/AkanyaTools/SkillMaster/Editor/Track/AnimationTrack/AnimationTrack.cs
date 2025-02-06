@@ -18,7 +18,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AnimationTrack
 {
     public sealed class AnimationTrack : TrackBase
     {
-        public SkillAnimationData animationData => SkillMasterEditorWindow.instance.skillConfig.skillAnimationData;
+        public SkillAnimationData animationData => SkillMasterEditorWindow.instance.skillClip.skillAnimationData;
 
         public Color themeColor => m_ThemeColor;
 
@@ -48,7 +48,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AnimationTrack
             }
             m_TrackItemDic.Clear();
 
-            if (SkillMasterEditorWindow.instance.skillConfig == null)
+            if (SkillMasterEditorWindow.instance.skillClip == null)
             {
                 return;
             }
@@ -157,7 +157,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AnimationTrack
                     UpdatePosture(frameIndex);
                     continue;
                 }
-                var nextKeyFrameIndex = i + 1 < keys.Length ? keys[i + 1] : SkillMasterEditorWindow.instance.skillConfig.frameCount;
+                var nextKeyFrameIndex = i + 1 < keys.Length ? keys[i + 1] : SkillMasterEditorWindow.instance.skillClip.frameCount;
 
                 var isBreak = false;
                 // 手动点击 Timeline 时特判
@@ -171,7 +171,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AnimationTrack
                 var durationFrameCount = nextKeyFrameIndex - key;
                 if (durationFrameCount >= 0)
                 {
-                    var frameCount = e.animationClip.length * SkillMasterEditorWindow.instance.skillConfig.frameRate;
+                    var frameCount = e.animationClip.length * SkillMasterEditorWindow.instance.skillClip.frameRate;
                     // 播放进度
                     var totalProgress = durationFrameCount / frameCount;
                     // 播放次数
@@ -293,7 +293,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AnimationTrack
             var nextTrackItem = -1;
             var curOffset = int.MaxValue;
 
-            foreach (var item in SkillMasterEditorWindow.instance.skillConfig.skillAnimationData.frameData)
+            foreach (var item in SkillMasterEditorWindow.instance.skillClip.skillAnimationData.frameData)
             {
                 // 不允许选中帧在 trackItem 中间
                 if (selectFrameIndex > item.Key && selectFrameIndex < item.Value.durationFrame + item.Key)

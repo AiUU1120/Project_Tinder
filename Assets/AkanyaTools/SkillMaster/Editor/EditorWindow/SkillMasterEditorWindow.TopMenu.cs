@@ -1,8 +1,8 @@
 ﻿/*
-* @Author: AiUU
-* @Description: SkillMaster 编辑器顶部菜单
-* @AkanyaTech.SkillMaster
-*/
+ * @Author: AiUU
+ * @Description: SkillMaster 编辑器顶部菜单
+ * @AkanyaTech.SkillMaster
+ */
 
 using AkanyaTools.SkillMaster.Runtime.Component;
 using AkanyaTools.SkillMaster.Runtime.Data.Config;
@@ -23,7 +23,7 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
 
         public GameObject curPreviewCharacterPrefab { get; private set; }
 
-        public SkillConfig skillConfig { get; private set; }
+        public SkillClip skillClip { get; private set; }
 
         private const string skill_master_scene_path = "Assets/AkanyaTools/SkillMaster/Static Resources/SkillMasterScene.unity";
 
@@ -64,6 +64,7 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
             m_PreviewCharacterObjObjField.RegisterValueChangedCallback(OnPreviewCharacterObjObjFieldValueChanged);
 
             m_SkillConfigObjField = rootVisualElement.NiceQ<ObjectField>("SkillConfigObjField");
+            m_SkillConfigObjField.objectType = typeof(SkillClip);
             m_SkillConfigObjField.RegisterValueChangedCallback(OnSkillConfigObjFieldValueChanged);
         }
 
@@ -106,9 +107,9 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         /// </summary>
         private void OnShowSkillBasicInfoBtnClick()
         {
-            if (skillConfig != null)
+            if (skillClip != null)
             {
-                Selection.activeObject = skillConfig;
+                Selection.activeObject = skillClip;
             }
             else
             {
@@ -182,9 +183,9 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         /// <param name="evt"></param>
         private void OnSkillConfigObjFieldValueChanged(ChangeEvent<Object> evt)
         {
-            skillConfig = evt.newValue as SkillConfig;
+            skillClip = evt.newValue as SkillClip;
             curSelectedFrameIndex = 0;
-            curFrameCount = skillConfig == null ? 100 : skillConfig.frameCount;
+            curFrameCount = skillClip == null ? 100 : skillClip.frameCount;
             RefreshTrack();
         }
 
@@ -193,12 +194,12 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         /// </summary>
         public void SaveConfig()
         {
-            if (skillConfig == null)
+            if (skillClip == null)
             {
                 return;
             }
-            EditorUtility.SetDirty(skillConfig);
-            AssetDatabase.SaveAssetIfDirty(skillConfig);
+            EditorUtility.SetDirty(skillClip);
+            AssetDatabase.SaveAssetIfDirty(skillClip);
             ReReferenceData();
         }
 

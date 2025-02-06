@@ -108,7 +108,7 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
                     maxDurationTime = p.main.duration;
                 }
             }
-            item.effectEvent.durationFrame = (int) (maxDurationTime * SkillMasterEditorWindow.instance.skillConfig.frameRate);
+            item.effectEvent.durationFrame = (int) (maxDurationTime * SkillMasterEditorWindow.instance.skillClip.frameRate);
             m_EffectDurationFrameField.value = item.effectEvent.durationFrame;
             SkillMasterEditorWindow.instance.SaveConfig();
             curTrackItem.ForceRefreshView();

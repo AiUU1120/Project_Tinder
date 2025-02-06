@@ -58,7 +58,7 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         /// </summary>
         private void InitTrack()
         {
-            if (skillConfig == null)
+            if (skillClip == null)
             {
                 return;
             }
@@ -127,7 +127,7 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         /// </summary>
         private void RefreshTrack()
         {
-            if (skillConfig == null)
+            if (skillClip == null)
             {
                 DeleteAllTracks();
                 return;

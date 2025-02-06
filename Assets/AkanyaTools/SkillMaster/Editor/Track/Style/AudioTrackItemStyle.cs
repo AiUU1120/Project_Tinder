@@ -39,7 +39,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.Style
             }
             SetVisible(true);
             SetTitle(e.audioClip.name);
-            SetWidth(frameUnitWidth * e.audioClip.length * SkillMasterEditorWindow.instance.skillConfig.frameRate);
+            SetWidth(frameUnitWidth * e.audioClip.length * SkillMasterEditorWindow.instance.skillClip.frameRate);
             SetPositionX(frameUnitWidth * e.frameIndex);
         }
 

@@ -13,7 +13,7 @@ namespace GameCore.Character.UnityChan.State
 {
     public sealed class UnityChanSkillState : UnityChanStateBase
     {
-        private SkillConfig m_SkillConfig;
+        private SkillClip m_SkillClip;
 
         public override void Enter()
         {
@@ -22,8 +22,8 @@ namespace GameCore.Character.UnityChan.State
             {
                 return;
             }
-            m_SkillConfig = ResourceManager.LoadAsset<SkillConfig>("SkillConfig_Test 1");
-            unityChanController.skillPlayer.PlaySkill(m_SkillConfig, OnSkillEnd, OnWeaponDetection, OnRootMotion);
+            m_SkillClip = ResourceManager.LoadAsset<SkillClip>("SkillConfig_Test 1");
+            unityChanController.skillPlayer.PlaySkill(m_SkillClip, OnSkillEnd, OnWeaponDetection, OnRootMotion);
         }
 
         public override void Update()

@@ -17,7 +17,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.DetectionTrack
 {
     public sealed class DetectionTrack : TrackBase
     {
-        public SkillDetectionData detectionData => SkillMasterEditorWindow.instance.skillConfig.skillDetectionData;
+        public SkillDetectionData detectionData => SkillMasterEditorWindow.instance.skillClip.skillDetectionData;
 
         public Color themeColor => m_ThemeColor;
 
@@ -63,7 +63,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.DetectionTrack
             }
             m_TrackItems.Clear();
 
-            if (SkillMasterEditorWindow.instance.skillConfig == null)
+            if (SkillMasterEditorWindow.instance.skillClip == null)
             {
                 return;
             }
@@ -82,7 +82,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.DetectionTrack
             //     {
             //         continue;
             //     }
-            //     var clipFrameCount = (int) (data.audioClip.length * SkillMasterEditorWindow.instance.skillConfig.frameRate);
+            //     var clipFrameCount = (int) (data.audioClip.length * SkillMasterEditorWindow.instance.skillClip.frameRate);
             //     var clipEndFrameIndex = clipFrameCount + data.frameIndex;
             //     // 播放帧在 clip 中间
             //     if (data.frameIndex < startFrameIndex && clipEndFrameIndex > startFrameIndex)

@@ -60,7 +60,7 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
                 return;
             }
             var time = DateTime.Now.Subtract(m_StartTime).TotalSeconds;
-            var frameRate = skillConfig ? skillConfig.frameRate : SkillMasterEditorConfig.default_frame_rate;
+            var frameRate = skillClip ? skillClip.frameRate : SkillMasterEditorConfig.default_frame_rate;
             curSelectedFrameIndex = (int) (time * frameRate + m_StartFrameIndex);
             if (curSelectedFrameIndex == curFrameCount)
             {
@@ -91,7 +91,7 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         /// </summary>
         private void TickSkill()
         {
-            if (skillConfig == null || curPreviewCharacterObj == null)
+            if (skillClip == null || curPreviewCharacterObj == null)
             {
                 return;
             }

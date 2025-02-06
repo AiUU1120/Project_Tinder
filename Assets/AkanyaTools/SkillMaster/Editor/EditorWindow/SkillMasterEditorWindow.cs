@@ -44,7 +44,7 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         {
             instance = this;
 
-            SkillConfig.SetOnValidate(ForceRefreshView);
+            SkillClip.SetOnValidate(ForceRefreshView);
 
             var root = rootVisualElement;
 
@@ -56,10 +56,10 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
             InitConsole();
             InitContent();
 
-            if (skillConfig != null)
+            if (skillClip != null)
             {
-                m_SkillConfigObjField.value = skillConfig;
-                curFrameCount = skillConfig.frameCount;
+                m_SkillConfigObjField.value = skillClip;
+                curFrameCount = skillClip.frameCount;
             }
             else
             {
@@ -84,14 +84,14 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         /// </summary>
         private void ForceRefreshView()
         {
-            var tempConfig = skillConfig;
+            var tempConfig = skillClip;
             m_SkillConfigObjField.value = null;
             m_SkillConfigObjField.value = tempConfig;
         }
 
         private void OnDisable()
         {
-            if (skillConfig != null)
+            if (skillClip != null)
             {
                 SaveConfig();
             }

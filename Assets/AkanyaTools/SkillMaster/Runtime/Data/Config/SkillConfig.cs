@@ -4,9 +4,8 @@
  * @AkanyaTech.SkillMaster
  */
 
-using System;
 using AkanyaTools.Base.Config;
-using Sirenix.Serialization;
+using AkanyaTools.SkillMaster.Runtime.Behaviour;
 using UnityEngine;
 
 namespace AkanyaTools.SkillMaster.Runtime.Data.Config
@@ -14,46 +13,14 @@ namespace AkanyaTools.SkillMaster.Runtime.Data.Config
     [CreateAssetMenu(fileName = "SkillConfig_", menuName = "SkillMaster/Config/SkillConfig")]
     public sealed class SkillConfig : ConfigBase
     {
-        [Tooltip("技能名称")]
-        public string skillName;
-
-        [Tooltip("帧总数")]
-        public int frameCount = 100;
-
-        [Tooltip("帧率")]
-        public int frameRate = 30;
-
-        [OdinSerialize]
-        public SkillCustomEventData skillCustomEventData = new();
-
-        [OdinSerialize]
-        public SkillAnimationData skillAnimationData = new();
-
-        [OdinSerialize]
-        public SkillDetectionData skillDetectionData = new();
-
-        [OdinSerialize]
-        public SkillEffectData skillEffectData = new();
-
-        [OdinSerialize]
-        public SkillAudioData skillAudioData = new();
-
-#if UNITY_EDITOR
         /// <summary>
-        /// 设置 SkillConfig OnValidate 回调
+        /// 全部技能片段
         /// </summary>
-        /// <param name="action"></param>
-        public static void SetOnValidate(Action action)
-        {
-            s_OnValidate = action;
-        }
+        public SkillClip[] clips;
 
-        private static Action s_OnValidate;
-
-        private void OnValidate()
-        {
-            s_OnValidate?.Invoke();
-        }
-#endif
+        /// <summary>
+        /// 技能行为 运行逻辑
+        /// </summary>
+        public SkillBehaviourBase skillBehaviour;
     }
 }

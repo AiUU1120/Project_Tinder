@@ -89,7 +89,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.EffectTrack
                 foreach (var particle in particles)
                 {
                     var simulateFrame = frameIndex - effectEvent.frameIndex;
-                    var time = (float) simulateFrame / SkillMasterEditorWindow.instance.skillConfig.frameRate;
+                    var time = (float) simulateFrame / SkillMasterEditorWindow.instance.skillClip.frameRate;
                     particle.Simulate(time, true, true);
                 }
             }
@@ -254,7 +254,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.EffectTrack
                     maxDurationTime = p.main.duration;
                 }
             }
-            effectEvent.durationFrame = (int) (maxDurationTime * SkillMasterEditorWindow.instance.skillConfig.frameRate);
+            effectEvent.durationFrame = (int) (maxDurationTime * SkillMasterEditorWindow.instance.skillClip.frameRate);
 
             frameIndex = selectFrameIndex;
             ForceRefreshView();

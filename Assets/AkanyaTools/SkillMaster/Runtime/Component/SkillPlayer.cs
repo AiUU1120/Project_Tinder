@@ -36,7 +36,7 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
 
         private AnimationController m_AnimationController;
 
-        private SkillConfig m_SkillConfig;
+        private SkillClip m_SkillClip;
 
         private int m_CurFrameIndex;
 
@@ -75,7 +75,7 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
                 TickSkill();
             }
 
-            if (targetFrameIndex >= m_SkillConfig.frameCount)
+            if (targetFrameIndex >= m_SkillClip.frameCount)
             {
                 isPlaying = false;
                 m_OnSkillEnd?.Invoke();
@@ -86,18 +86,18 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
         /// <summary>
         /// 播放技能
         /// </summary>
-        /// <param name="skillConfig">技能配置</param>
+        /// <param name="skillClip">技能配置</param>
         /// <param name="skillEndAction">技能结束回调</param>
         /// <param name="onWeaponDetection">武器检测回调</param>
         /// <param name="rootMotionAction">根运动回调</param>
-        public void PlaySkill(SkillConfig skillConfig, Action skillEndAction, Action<Collider> onWeaponDetection, Action<Vector3, Quaternion> rootMotionAction = null)
+        public void PlaySkill(SkillClip skillClip, Action skillEndAction, Action<Collider> onWeaponDetection, Action<Vector3, Quaternion> rootMotionAction = null)
         {
-            m_SkillConfig = skillConfig;
+            m_SkillClip = skillClip;
             m_OnSkillEnd = skillEndAction;
             m_OnWeaponDetection = onWeaponDetection;
             m_OnRootMotion = rootMotionAction;
             m_CurFrameIndex = -1;
-            m_FrameRate = skillConfig.frameRate;
+            m_FrameRate = skillClip.frameRate;
             m_PlayTotalTime = 0;
             isPlaying = true;
             TickSkill();
@@ -115,7 +115,7 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
             }
             m_CurFrameIndex++;
             // 驱动动画
-            if (m_SkillConfig.skillAnimationData.frameData.TryGetValue(m_CurFrameIndex, out var frameData))
+            if (m_SkillClip.skillAnimationData.frameData.TryGetValue(m_CurFrameIndex, out var frameData))
             {
                 m_AnimationController.PlaySingleAnimation(frameData.animationClip, speed: 1f, blockSameAnim: false, mixingTime: frameData.transitionTime);
                 if (frameData.applyRootMotion)
@@ -128,7 +128,7 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
                 }
             }
             // 驱动音效
-            foreach (var data in m_SkillConfig.skillAudioData.frameData)
+            foreach (var data in m_SkillClip.skillAudioData.frameData)
             {
                 if (data.audioClip != null && data.frameIndex == m_CurFrameIndex)
                 {
@@ -136,7 +136,7 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
                 }
             }
             // 驱动特效
-            foreach (var data in m_SkillConfig.skillEffectData.frameData)
+            foreach (var data in m_SkillClip.skillEffectData.frameData)
             {
                 if (data.effectPrefab != null && data.frameIndex == m_CurFrameIndex)
                 {
@@ -151,7 +151,7 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
                     effectObj.transform.localScale = data.scale;
                     if (data.autoDestroy)
                     {
-                        StartCoroutine(AutoDestroyEffectGameObject(effectObj, (float) data.durationFrame / m_SkillConfig.frameRate));
+                        StartCoroutine(AutoDestroyEffectGameObject(effectObj, (float) data.durationFrame / m_SkillClip.frameRate));
                     }
                 }
             }
@@ -162,7 +162,7 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
             }
 #endif
             // 驱动伤害检测
-            foreach (var data in m_SkillConfig.skillDetectionData.frameData)
+            foreach (var data in m_SkillClip.skillDetectionData.frameData)
             {
                 var detectionType = data.GetDetectionType();
                 // 武器需要关注第一帧和结束帧
@@ -247,7 +247,7 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
             {
                 m_AnimationController.ClearOnRootMotion();
             }
-            m_SkillConfig = null;
+            m_SkillClip = null;
             m_OnSkillEnd = null;
             m_OnWeaponDetection = null;
             m_OnRootMotion = null;

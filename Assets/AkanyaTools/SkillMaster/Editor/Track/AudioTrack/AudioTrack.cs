@@ -16,7 +16,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AudioTrack
 {
     public sealed class AudioTrack : TrackBase
     {
-        public SkillAudioData audioData => SkillMasterEditorWindow.instance.skillConfig.skillAudioData;
+        public SkillAudioData audioData => SkillMasterEditorWindow.instance.skillClip.skillAudioData;
 
         public Color themeColor => m_ThemeColor;
 
@@ -62,7 +62,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AudioTrack
             }
             m_TrackItems.Clear();
 
-            if (SkillMasterEditorWindow.instance.skillConfig == null)
+            if (SkillMasterEditorWindow.instance.skillClip == null)
             {
                 return;
             }
@@ -81,7 +81,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AudioTrack
                 {
                     continue;
                 }
-                var clipFrameCount = (int) (data.audioClip.length * SkillMasterEditorWindow.instance.skillConfig.frameRate);
+                var clipFrameCount = (int) (data.audioClip.length * SkillMasterEditorWindow.instance.skillClip.frameRate);
                 var clipEndFrameIndex = clipFrameCount + data.frameIndex;
                 // 播放帧在 clip 中间
                 if (data.frameIndex < startFrameIndex && clipEndFrameIndex > startFrameIndex)

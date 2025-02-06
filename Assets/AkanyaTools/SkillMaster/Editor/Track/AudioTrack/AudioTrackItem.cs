@@ -91,7 +91,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AudioTrack
         /// </summary>
         private void CheckBoundaryOverflow()
         {
-            var frameCount = (int) (audioEvent.audioClip.length * SkillMasterEditorWindow.instance.skillConfig.frameRate);
+            var frameCount = (int) (audioEvent.audioClip.length * SkillMasterEditorWindow.instance.skillClip.frameRate);
             // 超过右边界则拓展
             if (frameIndex + frameCount > SkillMasterEditorWindow.instance.curFrameCount)
             {

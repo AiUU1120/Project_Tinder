@@ -1,6 +1,7 @@
 ﻿using AkanyaTools.SkillMaster.Runtime.Component;
 using AkanyaTools.SkillMaster.Runtime.Data.Config;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace GameCore.Character
 {
@@ -9,14 +10,15 @@ namespace GameCore.Character
         [SerializeField]
         private SkillPlayer m_SkillPlayer;
 
+        [FormerlySerializedAs("m_SkillConfig")]
         [SerializeField]
-        private SkillConfig m_SkillConfig;
+        private SkillClip m_SkillClip;
 
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.J))
             {
-                // m_SkillPlayer.PlaySkill(m_SkillConfig);
+                // m_SkillPlayer.PlaySkill(m_SkillClip);
             }
         }
     }

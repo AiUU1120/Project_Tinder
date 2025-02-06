@@ -17,7 +17,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.CustomEventTrack
 {
     public sealed class CustomEventTrack : TrackBase
     {
-        public SkillCustomEventData customEventData => SkillMasterEditorWindow.instance.skillConfig.skillCustomEventData;
+        public SkillCustomEventData customEventData => SkillMasterEditorWindow.instance.skillClip.skillCustomEventData;
 
         public Color themeColor => m_ThemeColor;
 
@@ -50,7 +50,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.CustomEventTrack
             }
             m_TrackItemDic.Clear();
 
-            if (SkillMasterEditorWindow.instance.skillConfig == null)
+            if (SkillMasterEditorWindow.instance.skillClip == null)
             {
                 return;
             }

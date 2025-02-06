@@ -63,9 +63,9 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
                 m_CurFrameCount = value;
                 m_FrameCountIntField.value = curFrameCount;
 
-                if (skillConfig != null)
+                if (skillClip != null)
                 {
-                    skillConfig.frameCount = curFrameCount;
+                    skillClip.frameCount = curFrameCount;
                 }
                 UpdateContentSize();
             }

@@ -16,7 +16,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.EffectTrack
 {
     public sealed class EffectTrack : TrackBase
     {
-        public SkillEffectData effectData => SkillMasterEditorWindow.instance.skillConfig.skillEffectData;
+        public SkillEffectData effectData => SkillMasterEditorWindow.instance.skillClip.skillEffectData;
 
         public Color themeColor => m_ThemeColor;
 
@@ -81,7 +81,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.EffectTrack
             //     {
             //         continue;
             //     }
-            //     var clipFrameCount = (int) (data.audioClip.length * SkillMasterEditorWindow.instance.skillConfig.frameRate);
+            //     var clipFrameCount = (int) (data.audioClip.length * SkillMasterEditorWindow.instance.skillClip.frameRate);
             //     var clipEndFrameIndex = clipFrameCount + data.frameIndex;
             //     // 播放帧在 clip 中间
             //     if (data.frameIndex < startFrameIndex && clipEndFrameIndex > startFrameIndex)
