@@ -5,7 +5,7 @@
  */
 
 using AkanyaTools.Base.Config;
-using AkanyaTools.SkillMaster.Runtime.Behaviour;
+using AkanyaTools.SkillMaster.Runtime.Core;
 using UnityEngine;
 
 namespace AkanyaTools.SkillMaster.Runtime.Data.Config

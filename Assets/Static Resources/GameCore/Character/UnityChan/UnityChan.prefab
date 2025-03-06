@@ -10584,6 +10584,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9062354772306261269}
   - component: {fileID: 941679442155278620}
+  - component: {fileID: 1759600652607522553}
   - component: {fileID: 2484238328680876814}
   - component: {fileID: 8036415932374362739}
   - component: {fileID: 796517168610075414}
@@ -10625,12 +10626,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CharacterController: {fileID: 951355479123982479}
   m_AnimationController: {fileID: 7134811486449007383}
-  m_SkillPlayer: {fileID: 2484238328680876814}
+  m_SkillBrain: {fileID: 1759600652607522553}
   m_InputController: {fileID: 8036415932374362739}
   m_CharacterConfig: {fileID: 11400000, guid: 067ec612a16b2ea45b455c94be93d0ea, type: 2}
   m_MoveSpeed: 6.5
   m_DashSpeed: 7.3
   m_TurnSpeed: 7
+--- !u!114 &1759600652607522553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7767508103479031859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49a258980d3d4fbeacfbb4c5f89fef7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillPlayer: {fileID: 2484238328680876814}
+  normalAttackConfig: {fileID: 0}
+  skillConfigs:
+  - {fileID: 11400000, guid: 8d73bf0d61ca2b148b50f4e902364cf0, type: 2}
 --- !u!114 &2484238328680876814
 MonoBehaviour:
   m_ObjectHideFlags: 0

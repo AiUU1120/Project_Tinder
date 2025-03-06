@@ -4,17 +4,10 @@
  * @AkanyaTech.Tinder
  */
 
-using AkanyaTools.SkillMaster.Runtime.Data.Config;
-using Data.Enums.GameCore;
-using FrameTools.ResourceSystem;
-using UnityEngine;
-
 namespace GameCore.Character.UnityChan.State
 {
     public sealed class UnityChanSkillState : UnityChanStateBase
     {
-        private SkillClip m_SkillClip;
-
         public override void Enter()
         {
             base.Enter();
@@ -22,48 +15,30 @@ namespace GameCore.Character.UnityChan.State
             {
                 return;
             }
-            m_SkillClip = ResourceManager.LoadAsset<SkillClip>("SkillConfig_Test 1");
-            unityChanController.skillPlayer.PlaySkill(m_SkillClip, OnSkillEnd, OnWeaponDetection, OnRootMotion);
+            // m_SkillClip = ResourceManager.LoadAsset<SkillClip>("SkillConfig_Test 1");
+            // unityChanController.skillPlayer.PlaySkillClip(m_SkillClip, OnSkillEnd, OnWeaponDetection, OnRootMotion);
+            unityChanController.skillBrain.ReleaseSkill(0);
         }
 
-        public override void Update()
-        {
-            base.Update();
-            if (CheckStateChange())
-            {
-                return;
-            }
-        }
-
-        public override void Exit()
-        {
-            base.Exit();
-            if (isPass)
-            {
-                return;
-            }
-        }
-
-        protected override bool CheckStateChange()
-        {
-            return false;
-        }
-
-        private void OnSkillEnd()
-        {
-            unityChanController.ChangeState(PlayerMotionState.Idle);
-        }
-
-        // TODO: 没有实际技能行为
-        private void OnWeaponDetection(Collider obj)
-        {
-            Debug.Log(obj.name);
-        }
-
-        private void OnRootMotion(Vector3 deltaPosition, Quaternion deltaRotation)
-        {
-            unityChanController.characterController.Move(deltaPosition);
-            unityChanController.transform.rotation *= deltaRotation;
-        }
+        //
+        // public override void Update()
+        // {
+        //     base.Update();
+        //     if (CheckStateChange())
+        //     {
+        //         return;
+        //     }
+        // }
+        //
+        // public override void Exit()
+        // {
+        //     base.Exit();
+        //     if (isPass)
+        //     {
+        //         return;
+        //     }
+        // }
+        //
+        protected override bool CheckStateChange() => false;
     }
 }

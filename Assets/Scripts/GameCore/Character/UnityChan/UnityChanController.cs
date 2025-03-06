@@ -1,8 +1,8 @@
 ﻿/*
-* @Author: AiUU
-* @Description: UnityChan角色控制器类
-* @AkanyaTech.Tinder
-*/
+ * @Author: AiUU
+ * @Description: UnityChan角色控制器类
+ * @AkanyaTech.Tinder
+ */
 
 using System;
 using AkanyaTools.PlayableKami;
@@ -17,7 +17,7 @@ using UnityEngine;
 
 namespace GameCore.Character.UnityChan
 {
-    public sealed class UnityChanController : MonoBehaviour, IStateMachineOwner
+    public sealed class UnityChanController : PlayerControllerBase, IStateMachineOwner
     {
         [Header("组件")]
         [SerializeField]
@@ -27,7 +27,7 @@ namespace GameCore.Character.UnityChan
         private AnimationController m_AnimationController;
 
         [SerializeField]
-        private SkillPlayer m_SkillPlayer;
+        private UnityChanSkillBrain m_SkillBrain;
 
         [SerializeField]
         private InputController m_InputController;
@@ -48,13 +48,15 @@ namespace GameCore.Character.UnityChan
         [SerializeField]
         private float m_TurnSpeed = 7f;
 
-        public SkillPlayer skillPlayer => m_SkillPlayer;
-
         public InputController input => m_InputController;
 
         public CharacterController characterController => m_CharacterController;
 
+        public AnimationController animationController => m_AnimationController;
+
         public CharacterConfig characterConfig => m_CharacterConfig;
+
+        public UnityChanSkillBrain skillBrain => m_SkillBrain;
 
         public float moveSpeed => m_MoveSpeed;
 
@@ -91,7 +93,7 @@ namespace GameCore.Character.UnityChan
             {
                 m_CameraTrans = Camera.main.transform;
             }
-            skillPlayer.Init(m_AnimationController, transform);
+            skillBrain.Init(this);
             InitStateMachine();
         }
 

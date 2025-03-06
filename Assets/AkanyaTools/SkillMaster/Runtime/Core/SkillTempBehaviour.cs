@@ -4,11 +4,9 @@
  * @AkanyaTech.SkillMaster
  */
 
-using System;
-
 #if UNITY_EDITOR
 
-namespace AkanyaTools.SkillMaster.Runtime.Behaviour
+namespace AkanyaTools.SkillMaster.Runtime.Core
 {
     public class SkillTempBehaviour : SkillBehaviourBase
     {

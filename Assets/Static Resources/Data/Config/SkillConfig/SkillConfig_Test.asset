@@ -23,7 +23,8 @@ MonoBehaviour:
     SerializationNodes:
     - Name: skillBehaviour
       Entry: 7
-      Data: 0|AkanyaTools.SkillMaster.Runtime.Behaviour.SkillTempBehaviour, AkanyaTools.SkillMaster.Runtime
+      Data: 0|GameCore.Character.UnityChan.Behaviour.UnityChanStdAttackBehaviour,
+        Tinder.GameCore
     - Name: 
       Entry: 8
       Data: 
