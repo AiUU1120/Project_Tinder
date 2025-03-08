@@ -1,8 +1,8 @@
 ﻿/*
-* @Author: AiUU
-* @Description: Playable 节点基类
-* @AkanyaTech.PlayableKami
-*/
+ * @Author: AiUU
+ * @Description: Playable 节点基类
+ * @AkanyaTech.PlayableKami
+ */
 
 using FrameTools.Extension;
 
@@ -28,5 +28,7 @@ namespace AkanyaTools.PlayableKami.PlayableNode
         {
             this.ObjectPushPool();
         }
+
+        public string clipName;
     }
 }

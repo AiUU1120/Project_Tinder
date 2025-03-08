@@ -1,8 +1,7 @@
 ﻿using AkanyaTools.SkillMaster.Runtime.Component;
 using AkanyaTools.SkillMaster.Runtime.Core;
-using GameCore.Character.UnityChan;
 
-namespace GameCore.Character
+namespace GameCore.Character.UnityChan
 {
     public sealed class UnityChanSkillBrain : SkillBrainBase
     {

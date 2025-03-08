@@ -4,8 +4,10 @@
  * @AkanyaTech.SkillMaster
  */
 
+using System.Collections.Generic;
 using AkanyaTools.Base.Config;
 using AkanyaTools.SkillMaster.Runtime.Core;
+using AkanyaTools.SkillMaster.Runtime.Data.Enum;
 using UnityEngine;
 
 namespace AkanyaTools.SkillMaster.Runtime.Data.Config
@@ -22,5 +24,10 @@ namespace AkanyaTools.SkillMaster.Runtime.Data.Config
         /// 技能行为 运行逻辑
         /// </summary>
         public SkillBehaviourBase skillBehaviour;
+
+        /// <summary>
+        /// 技能消耗代价
+        /// </summary>
+        public Dictionary<SkillCostType, float> releaseCostDic = new();
     }
 }

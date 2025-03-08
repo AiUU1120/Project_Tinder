@@ -1,8 +1,8 @@
 ﻿/*
-* @Author: AiUU
-* @Description: 混合 Playable 动画节点类
-* @AkanyaTech.PlayableKami
-*/
+ * @Author: AiUU
+ * @Description: 混合 Playable 动画节点类
+ * @AkanyaTech.PlayableKami
+ */
 
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,6 +35,7 @@ namespace AkanyaTools.PlayableKami.PlayableNode
             graph.Connect(m_BlendMixerPlayable, 0, outputMixer, inputPortIdx);
             CreateAndConnectBlendPlayable(graph, clip1, 0, speed);
             CreateAndConnectBlendPlayable(graph, clip2, 1, speed);
+            clipName = clip1.name + " and " + clip2.name;
         }
 
         /// <summary>

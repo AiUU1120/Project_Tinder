@@ -15,10 +15,10 @@ namespace GameCore.Character.UnityChan.State
         {
             base.Enter();
             // 播放待机动作
-            if (isPass)
-            {
-                return;
-            }
+            // if (isPass)
+            // {
+            //     return;
+            // }
             unityChanController.PlayAnimation("Idle", mixingTime: 0.3f);
         }
 
@@ -35,10 +35,10 @@ namespace GameCore.Character.UnityChan.State
         public override void Exit()
         {
             base.Exit();
-            if (isPass)
-            {
-                return;
-            }
+            // if (isPass)
+            // {
+            //     return;
+            // }
         }
 
         protected override bool CheckStateChange()
@@ -48,7 +48,7 @@ namespace GameCore.Character.UnityChan.State
                 unityChanController.ChangeState(PlayerMotionState.Move);
                 return true;
             }
-            if (unityChanController.input.isSpecial)
+            if (CheckAndEnterSkillState())
             {
                 unityChanController.ChangeState(PlayerMotionState.Skill);
                 return true;

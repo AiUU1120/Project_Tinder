@@ -10645,8 +10645,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillPlayer: {fileID: 2484238328680876814}
-  normalAttackConfig: {fileID: 0}
   skillConfigs:
+  - {fileID: 11400000, guid: 7763bc5480937ba4299919f78803682f, type: 2}
+  - {fileID: 11400000, guid: 180ce0253398b2545bb7eb87798f9ab2, type: 2}
+  - {fileID: 11400000, guid: 97ed72bc06325d94390f6020bc4a259a, type: 2}
   - {fileID: 11400000, guid: 8d73bf0d61ca2b148b50f4e902364cf0, type: 2}
 --- !u!114 &2484238328680876814
 MonoBehaviour:
@@ -10796,6 +10798,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 527a89fb-ae77-4c71-8bb6-52884deef47a
     m_ActionName: Player/Special[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8036415932374362739}
+        m_TargetAssemblyTypeName: GameCore.Common.InputController, Tinder.GameCore
+        m_MethodName: GetAttackLightInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9e05b13d-5e96-49fd-b41f-a29f65bcfe04
+    m_ActionName: Player/AttackLight[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8036415932374362739}
+        m_TargetAssemblyTypeName: GameCore.Common.InputController, Tinder.GameCore
+        m_MethodName: GetAttackHeavyInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 0ad54e2d-e3ff-42e0-8bfe-5c1a9f72932e
+    m_ActionName: Player/AttackHeavy[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: KeyBoard&Mouse
   m_DefaultActionMap: Player

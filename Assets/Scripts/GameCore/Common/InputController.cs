@@ -1,8 +1,8 @@
 ﻿/*
-* @Author: AiUU
-* @Description: 输入控制器
-* @AkanyaTech.Tinder
-*/
+ * @Author: AiUU
+ * @Description: 输入控制器
+ * @AkanyaTech.Tinder
+ */
 
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -17,6 +17,10 @@ namespace GameCore.Common
 
         public bool isJumping { get; private set; }
 
+        public bool isAttackLight { get; private set; }
+
+        public bool isAttackHeavy { get; private set; }
+
         public bool isSpecial { get; private set; }
 
         public void GetMoveInput(InputAction.CallbackContext ctx)
@@ -27,6 +31,16 @@ namespace GameCore.Common
         public void GetRunInput(InputAction.CallbackContext ctx)
         {
             isDashing = ctx.ReadValueAsButton();
+        }
+
+        public void GetAttackLightInput(InputAction.CallbackContext ctx)
+        {
+            isAttackLight = ctx.ReadValueAsButton();
+        }
+
+        public void GetAttackHeavyInput(InputAction.CallbackContext ctx)
+        {
+            isAttackHeavy = ctx.ReadValueAsButton();
         }
 
         public void GetSpecialInput(InputAction.CallbackContext ctx)

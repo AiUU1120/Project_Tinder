@@ -1,13 +1,12 @@
 ﻿/*
-* @Author: AiUU
-* @Description: UnityChan移动状态
-* @AkanyaTech.Tinder
-*/
+ * @Author: AiUU
+ * @Description: UnityChan移动状态
+ * @AkanyaTech.Tinder
+ */
 
 using System;
 using AkanyaTools.AudioSystem;
 using Data.Enums.GameCore;
-using FrameTools.AudioSystem;
 using FrameTools.StateMachine;
 using UnityEngine;
 
@@ -28,10 +27,10 @@ namespace GameCore.Character.UnityChan.State
         public override void Enter()
         {
             base.Enter();
-            if (isPass)
-            {
-                return;
-            }
+            // if (isPass)
+            // {
+            //     return;
+            // }
             unityChanController.AddAnimationEvent("FootStep", OnFootStep);
             Action<Vector3, Quaternion> onRootMotion = m_ApplyRootMotion ? OnRootMotion : null;
             unityChanController.PlayBlendAnimation("Walk", "Run", onRootMotion: onRootMotion);
@@ -45,20 +44,20 @@ namespace GameCore.Character.UnityChan.State
                 return;
             }
             unityChanController.SetBlendAnimationWeight(unityChanController.input.moveInput.magnitude);
+            Rotate();
             if (!m_ApplyRootMotion)
             {
                 Move();
             }
-            Rotate();
         }
 
         public override void Exit()
         {
             base.Exit();
-            if (isPass)
-            {
-                return;
-            }
+            // if (isPass)
+            // {
+            //     return;
+            // }
             unityChanController.ClearOnRootMotion();
             unityChanController.RemoveAnimationEvent("FootStep", OnFootStep);
         }
@@ -76,6 +75,11 @@ namespace GameCore.Character.UnityChan.State
             if (unityChanController.input.isDashing)
             {
                 unityChanController.ChangeState(PlayerMotionState.Dash);
+                return true;
+            }
+            if (CheckAndEnterSkillState())
+            {
+                unityChanController.ChangeState(PlayerMotionState.Skill);
                 return true;
             }
             return false;
@@ -96,11 +100,11 @@ namespace GameCore.Character.UnityChan.State
         /// </summary>
         private void Rotate()
         {
-            var playerMoveDir = unityChanController.playerMoveDir;
-            if (playerMoveDir.magnitude == 0)
-            {
-                return;
-            }
+            // var playerMoveDir = unityChanController.playerMoveDir;
+            // if (playerMoveDir.magnitude == 0)
+            // {
+            //     return;
+            // }
             // 先快后慢旋转
             // 转换到玩家本地坐标系
             // m_PlayerMoveDir = transform.InverseTransformDirection(m_PlayerMoveDir).normalized;
@@ -108,7 +112,9 @@ namespace GameCore.Character.UnityChan.State
             // transform.Rotate(0, rad * 200 * Time.deltaTime, 0);
 
             // 匀速旋转
-            unityChanController.transform.rotation = Quaternion.Slerp(unityChanController.transform.rotation, Quaternion.LookRotation(playerMoveDir), Time.deltaTime * unityChanController.turnSpeed);
+            // unityChanController.transform.rotation = Quaternion.Slerp(unityChanController.transform.rotation, Quaternion.LookRotation(playerMoveDir), Time.deltaTime * unityChanController.turnSpeed);
+
+            unityChanController.Rotate();
         }
 
         /// <summary>

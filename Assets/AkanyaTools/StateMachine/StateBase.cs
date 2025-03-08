@@ -7,13 +7,13 @@ namespace FrameTools.StateMachine
     /// </summary>
     public abstract class StateBase
     {
-        protected FrameTools.StateMachine.StateMachine stateMachine;
+        protected AkanyaTools.StateMachine.StateMachine stateMachine;
 
         /// <summary>
         /// 初始化内部数据，系统使用
         /// </summary>
         /// <param name="sm"></param>
-        public void InitInternalData(FrameTools.StateMachine.StateMachine sm)
+        public void InitInternalData(AkanyaTools.StateMachine.StateMachine sm)
         {
             stateMachine = sm;
         }

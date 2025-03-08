@@ -23,7 +23,24 @@ namespace AkanyaTools.SkillMaster.Runtime.Data.Event
 
     public enum SkillEventType
     {
+        /// <summary>
+        /// 自定义事件
+        /// </summary>
         Custom,
+
+        /// <summary>
+        /// 取消后摇
+        /// </summary>
         UnFreezeRelease,
+
+        /// <summary>
+        /// 锁定旋转
+        /// </summary>
+        LockRotation,
+
+        /// <summary>
+        /// 解锁旋转
+        /// </summary>
+        UnlockRotation,
     }
 }

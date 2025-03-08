@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be02cef065514f70859b704ee2790e65, type: 3}
-  m_Name: SkillConfig_Test
+  m_Name: SkillConfig_AttackLight
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -23,7 +23,8 @@ MonoBehaviour:
     SerializationNodes:
     - Name: skillBehaviour
       Entry: 7
-      Data: 0|AkanyaTools.SkillMaster.Runtime.Core.SkillTempBehaviour, AkanyaTools.SkillMaster.Runtime
+      Data: 0|GameCore.Character.UnityChan.SkillBehaviour.UnityChanAttackLightBehaviour,
+        Tinder.GameCore
     - Name: 
       Entry: 8
       Data: 
@@ -54,4 +55,4 @@ MonoBehaviour:
       Entry: 8
       Data: 
   clips:
-  - {fileID: 11400000, guid: 6b197d60b9a26b743a9d8dbdfe748266, type: 2}
+  - {fileID: 11400000, guid: 96e12801437ca444bbd68c66061c4f20, type: 2}

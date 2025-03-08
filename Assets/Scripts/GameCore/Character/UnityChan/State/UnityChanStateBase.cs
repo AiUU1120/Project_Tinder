@@ -1,8 +1,8 @@
 ﻿/*
-* @Author: AiUU
-* @Description: Unity酱状态基类
-* @AkanyaTech.Tinder
-*/
+ * @Author: AiUU
+ * @Description: Unity酱状态基类
+ * @AkanyaTech.Tinder
+ */
 
 using FrameTools.StateMachine;
 
@@ -12,10 +12,13 @@ namespace GameCore.Character.UnityChan.State
     {
         protected UnityChanController unityChanController;
 
-        /// <summary>
-        /// 是否旁通 (不执行状态逻辑)
-        /// </summary>
-        protected bool isPass { get; private set; }
+        protected static int curReleaseSkillIndex;
+
+        // TODO: 旁通？
+        // /// <summary>
+        // /// 是否旁通 (不执行状态逻辑)
+        // /// </summary>
+        // protected bool isPass { get; private set; }
 
         public override void Init(IStateMachineOwner owner)
         {
@@ -25,7 +28,27 @@ namespace GameCore.Character.UnityChan.State
         public override void Enter()
         {
             base.Enter();
-            isPass = CheckStateChange();
+            // isPass = CheckStateChange();
+        }
+
+        protected bool CheckAndEnterSkillState()
+        {
+            if (unityChanController.input.isAttackLight && unityChanController.skillBrain.CheckReleaseSkill(0))
+            {
+                curReleaseSkillIndex = 0;
+                return true;
+            }
+            else if (unityChanController.input.isAttackHeavy && unityChanController.skillBrain.CheckReleaseSkill(1))
+            {
+                curReleaseSkillIndex = 1;
+                return true;
+            }
+            else if (unityChanController.input.isSpecial && unityChanController.skillBrain.CheckReleaseSkill(2))
+            {
+                curReleaseSkillIndex = 2;
+                return true;
+            }
+            return false;
         }
 
         /// <summary>

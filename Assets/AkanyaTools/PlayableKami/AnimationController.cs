@@ -220,7 +220,7 @@ namespace AkanyaTools.PlayableKami
             }
             else
             {
-                Debug.LogError("该 node 不是混合动画节点!");
+                Debug.LogError($"该 node {m_CurrNode.clipName} 不是混合动画节点!");
             }
         }
 

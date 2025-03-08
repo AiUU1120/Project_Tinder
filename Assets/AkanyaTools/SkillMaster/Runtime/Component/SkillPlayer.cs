@@ -72,9 +72,9 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
 
             if (targetFrameIndex >= m_SkillClip.frameCount)
             {
+                Clear();
                 isPlaying = false;
                 m_CurSkillBehaviour.OnSkillClipEnd();
-                Clear();
             }
         }
 

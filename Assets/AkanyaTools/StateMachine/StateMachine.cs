@@ -1,15 +1,16 @@
 ﻿/*
-* @Author: AiUU
-* @Description: 状态机控制器
-* @AkanyaTech.FrameTools
-*/
+ * @Author: AiUU
+ * @Description: 状态机控制器
+ * @AkanyaTech.FrameTools
+ */
 
 using System;
 using System.Collections.Generic;
 using FrameTools.Extension;
 using FrameTools.ResourceSystem;
+using FrameTools.StateMachine;
 
-namespace FrameTools.StateMachine
+namespace AkanyaTools.StateMachine
 {
     /// <summary>
     /// 状态机控制器

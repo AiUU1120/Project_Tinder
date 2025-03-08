@@ -1,8 +1,8 @@
 ﻿/*
-* @Author: AiUU
-* @Description: 单个 Playable 动画节点类
-* @AkanyaTech.PlayableKami
-*/
+ * @Author: AiUU
+ * @Description: 单个 Playable 动画节点类
+ * @AkanyaTech.PlayableKami
+ */
 
 using UnityEngine;
 using UnityEngine.Animations;
@@ -17,6 +17,7 @@ namespace AkanyaTools.PlayableKami.PlayableNode
         public void Init(PlayableGraph graph, AnimationMixerPlayable outputMixer, AnimationClip clip, float speed, int inputPortIdx)
         {
             m_ClipPlayable = AnimationClipPlayable.Create(graph, clip);
+            clipName = clip.name;
             m_ClipPlayable.SetSpeed(speed);
             inputPort = inputPortIdx;
             graph.Connect(m_ClipPlayable, 0, outputMixer, inputPortIdx);

@@ -7,6 +7,7 @@
 using System;
 using AkanyaTools.PlayableKami;
 using AkanyaTools.SkillMaster.Runtime.Component;
+using AkanyaTools.StateMachine;
 using GameCore.Character.UnityChan.State;
 using GameCore.Common;
 using Data.Config;
@@ -76,7 +77,7 @@ namespace GameCore.Character.UnityChan
 
         private readonly float m_StandingThreshold = 0f;
 
-        private readonly float m_HoveringThreshld = 1f;
+        private readonly float m_HoveringThreshold = 1f;
 
         private static class AnimationHash
         {
@@ -113,28 +114,49 @@ namespace GameCore.Character.UnityChan
             CalculateMoveInputDirection();
         }
 
+        /// <summary>
+        /// 旋转角色（待优化）
+        /// </summary>
+        public void Rotate(float rotateSpeed = 0)
+        {
+            if (rotateSpeed == 0)
+            {
+                rotateSpeed = turnSpeed;
+            }
+            // var forward = m_CameraTrans.forward;
+            // var camForwardProjection = new Vector3(forward.x, 0, forward.z).normalized;
+            // playerMoveDir = camForwardProjection * dir.z + m_CameraTrans.right * dir.x;
+            if (playerMoveDir.magnitude == 0)
+            {
+                return;
+            }
+            // 匀速旋转
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(playerMoveDir), Time.deltaTime * rotateSpeed);
+        }
+
         #region 状态机与动画
 
         /// <summary>
         /// 修改状态
         /// </summary>
         /// <param name="playerMotionState">目标状态</param>
-        public void ChangeState(PlayerMotionState playerMotionState)
+        /// <param name="reCurState">同一状态是否切换</param>
+        public void ChangeState(PlayerMotionState playerMotionState, bool reCurState = false)
         {
             m_CurrPlayerMotionState = playerMotionState;
             switch (playerMotionState)
             {
                 case PlayerMotionState.Idle:
-                    m_StateMachine.ChangeState<UnityChanIdleState>();
+                    m_StateMachine.ChangeState<UnityChanIdleState>(reCurState);
                     break;
                 case PlayerMotionState.Move:
-                    m_StateMachine.ChangeState<UnityChanMoveState>();
+                    m_StateMachine.ChangeState<UnityChanMoveState>(reCurState);
                     break;
                 case PlayerMotionState.Dash:
-                    m_StateMachine.ChangeState<UnityChanDashState>();
+                    m_StateMachine.ChangeState<UnityChanDashState>(reCurState);
                     break;
                 case PlayerMotionState.Skill:
-                    m_StateMachine.ChangeState<UnityChanSkillState>();
+                    m_StateMachine.ChangeState<UnityChanSkillState>(reCurState);
                     break;
             }
         }

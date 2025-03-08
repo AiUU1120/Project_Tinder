@@ -11,34 +11,26 @@ namespace GameCore.Character.UnityChan.State
         public override void Enter()
         {
             base.Enter();
-            if (isPass)
-            {
-                return;
-            }
-            // m_SkillClip = ResourceManager.LoadAsset<SkillClip>("SkillConfig_Test 1");
-            // unityChanController.skillPlayer.PlaySkillClip(m_SkillClip, OnSkillEnd, OnWeaponDetection, OnRootMotion);
-            unityChanController.skillBrain.ReleaseSkill(0);
+            // if (isPass)
+            // {
+            //     return;
+            // }
+            PlaySkill();
         }
 
-        //
-        // public override void Update()
-        // {
-        //     base.Update();
-        //     if (CheckStateChange())
-        //     {
-        //         return;
-        //     }
-        // }
-        //
-        // public override void Exit()
-        // {
-        //     base.Exit();
-        //     if (isPass)
-        //     {
-        //         return;
-        //     }
-        // }
-        //
         protected override bool CheckStateChange() => false;
+
+        public override void Update()
+        {
+            if (CheckAndEnterSkillState())
+            {
+                PlaySkill();
+            }
+        }
+
+        private void PlaySkill()
+        {
+            unityChanController.skillBrain.ReleaseSkill(curReleaseSkillIndex);
+        }
     }
 }

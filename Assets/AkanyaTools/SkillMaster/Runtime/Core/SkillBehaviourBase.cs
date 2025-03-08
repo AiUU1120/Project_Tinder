@@ -21,6 +21,8 @@ namespace AkanyaTools.SkillMaster.Runtime.Core
 
         protected SkillPlayer skillPlayer;
 
+        protected bool canRotate;
+
         public abstract SkillBehaviourBase DeepCopy();
 
         public virtual void Init(PlayerControllerBase playerController, SkillConfig skillConfig, SkillBrainBase skillBrain, SkillPlayer skillPlayer)
@@ -33,9 +35,46 @@ namespace AkanyaTools.SkillMaster.Runtime.Core
 
         public virtual void Update()
         {
+            RotateOnUpdate();
         }
 
+        /// <summary>
+        /// 基类实现包含消耗代价
+        /// </summary>
         public virtual void Release()
+        {
+            canRotate = false;
+            skillBrain.SetCanReleaseFlag(false);
+            ApplyCost();
+        }
+
+        public virtual void ApplyCost()
+        {
+            foreach (var cost in skillConfig.releaseCostDic)
+            {
+                skillBrain.ApplyCost(cost.Key, cost.Value);
+            }
+        }
+
+        public virtual bool CheckRelease() => CheckReleaseCost();
+
+        /// <summary>
+        /// 检测技能消耗是否满足 默认实现遍历消耗字典
+        /// </summary>
+        /// <returns></returns>
+        public virtual bool CheckReleaseCost()
+        {
+            foreach (var cost in skillConfig.releaseCostDic)
+            {
+                if (!skillBrain.CheckCost(cost.Key, cost.Value))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        protected virtual void RotateOnUpdate()
         {
         }
 
@@ -53,6 +92,7 @@ namespace AkanyaTools.SkillMaster.Runtime.Core
 
         public virtual void OnSkillClipEnd()
         {
+            skillBrain.SetCanReleaseFlag(true);
         }
 
         public virtual void OnAttackDetection(Collider collider)
@@ -65,6 +105,20 @@ namespace AkanyaTools.SkillMaster.Runtime.Core
 
         public virtual void AfterSkillCustomEventFrameEvent(SkillCustomEventFrameEvent customEventFrameEvent)
         {
+            switch (customEventFrameEvent.eventType)
+            {
+                case SkillEventType.UnFreezeRelease:
+                    skillBrain.SetCanReleaseFlag(true);
+                    break;
+                case SkillEventType.LockRotation:
+                    canRotate = false;
+                    break;
+                case SkillEventType.UnlockRotation:
+                    canRotate = true;
+                    break;
+                case SkillEventType.Custom:
+                    break;
+            }
         }
 
         public virtual void AfterSkillAnimationFrameEvent(SkillAnimationFrameEvent animationFrameEvent)
