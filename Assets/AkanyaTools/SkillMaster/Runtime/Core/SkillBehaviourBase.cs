@@ -13,6 +13,8 @@ namespace AkanyaTools.SkillMaster.Runtime.Core
 {
     public abstract class SkillBehaviourBase
     {
+        protected float cdTime => skillConfig.cdTime;
+
         protected PlayerControllerBase playerController;
 
         protected SkillConfig skillConfig;
@@ -22,6 +24,10 @@ namespace AkanyaTools.SkillMaster.Runtime.Core
         protected SkillPlayer skillPlayer;
 
         protected bool canRotate;
+
+        protected bool isPlaying;
+
+        protected float cdTimer;
 
         public abstract SkillBehaviourBase DeepCopy();
 
@@ -35,7 +41,17 @@ namespace AkanyaTools.SkillMaster.Runtime.Core
 
         public virtual void Update()
         {
+            UpdateCDTimer();
             RotateOnUpdate();
+        }
+
+        public virtual void UpdateCDTimer()
+        {
+            if (cdTime <= 0 || cdTimer <= 0)
+            {
+                return;
+            }
+            cdTimer = Mathf.Clamp(cdTimer - Time.deltaTime, 0, float.MaxValue);
         }
 
         /// <summary>
@@ -44,6 +60,7 @@ namespace AkanyaTools.SkillMaster.Runtime.Core
         public virtual void Release()
         {
             canRotate = false;
+            isPlaying = true;
             skillBrain.SetCanReleaseFlag(false);
             ApplyCost();
         }
@@ -78,6 +95,32 @@ namespace AkanyaTools.SkillMaster.Runtime.Core
         {
         }
 
+        /// <summary>
+        /// 技能行为切换时调用
+        /// </summary>
+        public virtual void OnSkillBehaviourSwitch()
+        {
+            OnSkillBehaviourSwitchOrClipEnd();
+        }
+
+        /// <summary>
+        /// 技能片段播放完毕时调用
+        /// 注意如果技能中途切换 该技能不会调用此方法
+        /// </summary>
+        public virtual void OnSkillClipEnd()
+        {
+            skillBrain.SetCanReleaseFlag(true);
+            OnSkillBehaviourSwitchOrClipEnd();
+        }
+
+        /// <summary>
+        /// OnSkillBehaviourSwitch 与 OnSkillClipEnd 的公共逻辑
+        /// </summary>
+        public virtual void OnSkillBehaviourSwitchOrClipEnd()
+        {
+            isPlaying = false;
+        }
+
         #region 技能驱动事件
 
         public virtual SkillCustomEventFrameEvent BeforeSkillCustomEventFrameEvent(SkillCustomEventFrameEvent customEventFrameEvent) => customEventFrameEvent;
@@ -88,11 +131,6 @@ namespace AkanyaTools.SkillMaster.Runtime.Core
 
         public virtual void OnTick(int frameIndex)
         {
-        }
-
-        public virtual void OnSkillClipEnd()
-        {
-            skillBrain.SetCanReleaseFlag(true);
         }
 
         public virtual void OnAttackDetection(Collider collider)

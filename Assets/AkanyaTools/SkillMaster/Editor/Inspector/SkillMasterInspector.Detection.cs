@@ -35,21 +35,21 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
             switch (detectionItem.detectionEvent.detectionType)
             {
                 case DetectionType.Weapon:
-                    var weaponData = (WeaponDetectionData) detectionItem.detectionEvent.detectionData;
-                    var weaponDropdownField = new DropdownField("Weapon");
-                    if (SkillMasterEditorWindow.instance.curPreviewCharacterObj != null)
-                    {
-                        var skillPlayer = SkillMasterEditorWindow.instance.curPreviewCharacterObj.GetComponent<SkillPlayer>();
-                        {
-                            weaponDropdownField.choices = skillPlayer.skillWeaponsDic.Keys.ToList();
-                        }
-                    }
-                    if (!string.IsNullOrEmpty(weaponData.weaponName))
-                    {
-                        weaponDropdownField.value = weaponData.weaponName;
-                    }
-                    weaponDropdownField.RegisterValueChangedCallback(OnWeaponDropdownFieldValueChanged);
-                    m_Root.Add(weaponDropdownField);
+                    // var weaponData = (WeaponDetectionData) detectionItem.detectionEvent.detectionData;
+                    // var weaponDropdownField = new DropdownField("Weapon");
+                    // if (SkillMasterEditorWindow.instance.curPreviewCharacterObj != null)
+                    // {
+                    //     var skillPlayer = SkillMasterEditorWindow.instance.curPreviewCharacterObj.GetComponent<SkillPlayer>();
+                    //     {
+                    //         weaponDropdownField.choices = skillPlayer.skillWeaponsDic.Keys.ToList();
+                    //     }
+                    // }
+                    // if (!string.IsNullOrEmpty(weaponData.weaponName))
+                    // {
+                    //     weaponDropdownField.value = weaponData.weaponName;
+                    // }
+                    // weaponDropdownField.RegisterValueChangedCallback(OnWeaponDropdownFieldValueChanged);
+                    // m_Root.Add(weaponDropdownField);
                     break;
                 case DetectionType.Box:
                     var boxData = (BoxDetectionData) detectionItem.detectionEvent.detectionData;
@@ -146,7 +146,7 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
         private void OnWeaponDropdownFieldValueChanged(ChangeEvent<string> evt)
         {
             var data = (WeaponDetectionData) ((DetectionTrackItem) curTrackItem).detectionEvent.detectionData;
-            data.weaponName = evt.newValue;
+            // data.weaponName = evt.newValue;
         }
 
         private void OnDetectionDurationFieldFocusIn(FocusInEvent evt)

@@ -23,6 +23,10 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
 
         public GameObject curPreviewCharacterPrefab { get; private set; }
 
+        public GameObject curPreviewWeaponPrefab { get; private set; }
+
+        public GameObject curPreviewWeaponObj { get; private set; }
+
         public SkillClip skillClip { get; private set; }
 
         private const string skill_master_scene_path = "Assets/AkanyaTools/SkillMaster/Static Resources/SkillMasterScene.unity";
@@ -43,6 +47,8 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
 
         private ObjectField m_PreviewCharacterObjObjField;
 
+        private ObjectField m_PreviewWeaponPrefabObjField;
+
         private ObjectField m_SkillConfigObjField;
 
         private void InitTopMenu()
@@ -62,6 +68,9 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
 
             m_PreviewCharacterObjObjField = rootVisualElement.NiceQ<ObjectField>("PreviewCharacterObjObjField");
             m_PreviewCharacterObjObjField.RegisterValueChangedCallback(OnPreviewCharacterObjObjFieldValueChanged);
+
+            m_PreviewWeaponPrefabObjField = rootVisualElement.NiceQ<ObjectField>("PreviewWeaponPrefabObjField");
+            m_PreviewWeaponPrefabObjField.RegisterValueChangedCallback(OnPreviewWeaponObjObjFieldValueChanged);
 
             m_SkillConfigObjField = rootVisualElement.NiceQ<ObjectField>("SkillConfigObjField");
             m_SkillConfigObjField.objectType = typeof(SkillClip);
@@ -178,11 +187,69 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         }
 
         /// <summary>
+        /// 预览武器修改
+        /// </summary>
+        /// <param name="evt"></param>
+        private void OnPreviewWeaponObjObjFieldValueChanged(ChangeEvent<Object> evt)
+        {
+            // 避免在非编辑器场景下操作
+            var curScenePath = SceneManager.GetActiveScene().path;
+            if (curScenePath != skill_master_scene_path)
+            {
+                m_PreviewWeaponPrefabObjField.value = null;
+                return;
+            }
+
+            if (curPreviewCharacterObj == null)
+            {
+                m_PreviewWeaponPrefabObjField.value = null;
+                Debug.LogWarning("请先选择预览角色!");
+                return;
+            }
+
+            if (evt.newValue == null)
+            {
+                return;
+            }
+
+            if (evt.newValue == curPreviewWeaponPrefab)
+            {
+                return;
+            }
+
+            curPreviewWeaponPrefab = evt.newValue as GameObject;
+
+            // 删除现有预览武器
+            if (curPreviewWeaponObj != null)
+            {
+                DestroyImmediate(curPreviewWeaponObj);
+            }
+
+            var characterRoot = GameObject.Find(preview_character_parent_name).transform;
+            if (characterRoot == null)
+            {
+                var go = new GameObject(preview_character_parent_name);
+                Instantiate(go, Vector3.zero, Quaternion.identity);
+            }
+            var skillPlayer = curPreviewCharacterObj.GetComponent<SkillPlayer>();
+            if (skillPlayer == null)
+            {
+                skillPlayer = curPreviewCharacterObj.AddComponent<SkillPlayer>();
+            }
+            if (skillPlayer.weaponPointTransform.childCount > 0)
+            {
+                DestroyImmediate(skillPlayer.weaponPointTransform.GetChild(0).gameObject);
+            }
+            curPreviewWeaponObj = skillPlayer.CreateWeaponOnWeaponPoint(curPreviewWeaponPrefab);
+        }
+
+        /// <summary>
         /// 技能配置修改
         /// </summary>
         /// <param name="evt"></param>
         private void OnSkillConfigObjFieldValueChanged(ChangeEvent<Object> evt)
         {
+            SaveConfig();
             skillClip = evt.newValue as SkillClip;
             curSelectedFrameIndex = 0;
             curFrameCount = skillClip == null ? 100 : skillClip.frameCount;

@@ -15,17 +15,22 @@ using AkanyaTools.SkillMaster.Runtime.Tool;
 using FrameTools.Extension;
 using JKFrame;
 using Sirenix.OdinInspector;
-using Sirenix.Serialization;
 using UnityEngine;
 
 namespace AkanyaTools.SkillMaster.Runtime.Component
 {
     public sealed class SkillPlayer : SerializedMonoBehaviour
     {
-        [OdinSerialize]
-        private Dictionary<string, SkillWeapon> m_SkillWeaponsDic = new();
+        [SerializeField]
+        private Transform m_WeaponPoint;
 
-        public Dictionary<string, SkillWeapon> skillWeaponsDic => m_SkillWeaponsDic;
+        [SerializeField]
+        private WeaponsConfig m_WeaponsConfig;
+
+        [SerializeField]
+        private GameObject m_DefaultWeaponPrefab;
+
+        public Dictionary<string, SkillWeapon> skillWeaponsDic => m_WeaponsConfig.skillWeaponsDic;
 
         public bool isPlaying { get; private set; }
 
@@ -33,9 +38,15 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
 
         public Transform modelTransform { get; private set; }
 
+        public Transform weaponPointTransform => m_WeaponPoint;
+
+        public SkillWeapon curWeapon => m_CurWeapon;
+
         private AnimationController m_AnimationController;
 
         private SkillClip m_SkillClip;
+
+        private SkillWeapon m_CurWeapon;
 
         private int m_CurFrameIndex;
 
@@ -53,6 +64,13 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
             {
                 weapon.Init(atkDetectionLayerMask, OnWeaponDetection);
             }
+
+#if UNITY_EDITOR
+            if (m_DefaultWeaponPrefab != null)
+            {
+                CreateWeaponOnWeaponPoint();
+            }
+#endif
         }
 
         private void Update()
@@ -76,6 +94,49 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
                 isPlaying = false;
                 m_CurSkillBehaviour.OnSkillClipEnd();
             }
+        }
+
+        /// <summary>
+        /// 将武器生成到角色武器抓取点并对齐
+        /// </summary>
+        public GameObject CreateWeaponOnWeaponPoint(GameObject weaponObj = null)
+        {
+            if (m_CurWeapon != null)
+            {
+                DestroyImmediate(m_CurWeapon.gameObject);
+            }
+            if (m_WeaponPoint == null)
+            {
+                Debug.LogWarning("未设置角色武器抓取点！");
+                return null;
+            }
+            if (weaponObj == null)
+            {
+                if (m_DefaultWeaponPrefab == null)
+                {
+                    Debug.LogWarning("没有可生成的武器，缺乏预制体并传入空对象！");
+                    return null;
+                }
+            }
+
+            var weapon = Instantiate(weaponObj == null ? m_DefaultWeaponPrefab : weaponObj, m_WeaponPoint, true); // 不设置父对象
+            m_CurWeapon = weapon.GetComponent<SkillWeapon>();
+            var weaponGrabPoint = m_CurWeapon.mainGridPoint;
+
+            // 获取抓取点相对于武器的本地位置和旋转
+            var grabLocalPos = weaponGrabPoint.localPosition;
+            var grabLocalRot = weaponGrabPoint.localRotation;
+
+            // 计算目标旋转：手部旋转与抓取点本地旋转的逆相乘
+            var targetRotation = m_WeaponPoint.rotation * Quaternion.Inverse(grabLocalRot);
+            // 计算目标位置：手部位置减去旋转后的本地偏移
+            var targetPosition = m_WeaponPoint.position - targetRotation * grabLocalPos;
+
+            // 应用新的旋转和位置
+            weapon.transform.rotation = targetRotation;
+            weapon.transform.position = targetPosition;
+
+            return weapon;
         }
 
         public void StartPlaySkillConfig(SkillBehaviourBase skillBehaviour)
@@ -226,27 +287,37 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
                     if (frameData.frameIndex == m_CurFrameIndex)
                     {
                         // 驱动武器开启
-                        var weaponDetectionData = (WeaponDetectionData) frameData.detectionData;
-                        if (m_SkillWeaponsDic.TryGetValue(weaponDetectionData.weaponName, out var weapon))
+                        // var weaponDetectionData = (WeaponDetectionData) frameData.detectionData;
+                        // if (m_WeaponsConfig.skillWeaponsDic.TryGetValue(weaponDetectionData.weaponName, out var weapon))
+                        // {
+                        //     weapon.StartDetection();
+                        // }
+                        if (m_CurWeapon != null)
                         {
-                            weapon.StartDetection();
+                            m_CurWeapon.StartDetection();
                         }
                         else
                         {
-                            Debug.LogError($"SkillMaster: Can't find weapon {weaponDetectionData.weaponName}!");
+                            // Debug.LogError($"SkillMaster: Can't find weapon {weaponDetectionData.weaponName}!");
+                            Debug.LogError("SkillMaster: Can't find weapon!");
                         }
                     }
                     if (m_CurFrameIndex == frameData.frameIndex + frameData.durationFrame)
                     {
                         // 武器关闭
-                        var weaponDetectionData = (WeaponDetectionData) frameData.detectionData;
-                        if (m_SkillWeaponsDic.TryGetValue(weaponDetectionData.weaponName, out var weapon))
+                        // var weaponDetectionData = (WeaponDetectionData) frameData.detectionData;
+                        // if (m_WeaponsConfig.skillWeaponsDic.TryGetValue(weaponDetectionData.weaponName, out var weapon))
+                        // {
+                        //     weapon.StopDetection();
+                        // }
+                        if (m_CurWeapon != null)
                         {
-                            weapon.StopDetection();
+                            m_CurWeapon.StopDetection();
                         }
                         else
                         {
-                            Debug.LogError($"SkillMaster: Can't find weapon {weaponDetectionData.weaponName}!");
+                            // Debug.LogError($"SkillMaster: Can't find weapon {weaponDetectionData.weaponName}!");
+                            Debug.LogError("SkillMaster: Can't find weapon!");
                         }
                     }
                 }
@@ -318,7 +389,7 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
             }
             foreach (var e in m_DebugSkillDetectionFrameEvents)
             {
-                SkillGizmosTool.DrawDetectionGizmos(e, this);
+                SkillGizmosTool.DrawDetectionGizmos(e, this, m_CurWeapon);
             }
         }
 #endif

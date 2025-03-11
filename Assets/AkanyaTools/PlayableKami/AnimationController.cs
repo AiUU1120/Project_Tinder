@@ -1,12 +1,13 @@
 /*
-* @Author: AiUU
-* @Description: Playable 动画控制器
-* @AkanyaTech.PlayableKami
-*/
+ * @Author: AiUU
+ * @Description: Playable 动画控制器
+ * @AkanyaTech.PlayableKami
+ */
 
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using AkanyaTools.PlayableKami.CustomPlayableBehaviour;
 using AkanyaTools.PlayableKami.PlayableNode;
 using FrameTools.ResourceSystem;
 using UnityEngine;
@@ -39,6 +40,8 @@ namespace AkanyaTools.PlayableKami
         private PlayableGraph m_PlayableGraph;
 
         private AnimationMixerPlayable m_MixerPlayable;
+
+        private IKPlayableBehaviour m_IKPlayableBehaviour;
 
         private PlayableNodeBase m_PreNode;
 
@@ -73,10 +76,17 @@ namespace AkanyaTools.PlayableKami
             m_PlayableGraph.SetTimeUpdateMode(DirectorUpdateMode.GameTime);
             // 创建混合器
             m_MixerPlayable = AnimationMixerPlayable.Create(m_PlayableGraph, 3);
+            // 创建IK控制器
+            var ikPlayable = ScriptPlayable<IKPlayableBehaviour>.Create(m_PlayableGraph, 1);
+            m_IKPlayableBehaviour = ikPlayable.GetBehaviour();
+            m_IKPlayableBehaviour.Init(m_Animator);
             // 创建输出
             var playableOutput = AnimationPlayableOutput.Create(m_PlayableGraph, "Animation", m_Animator);
+            // var ikPlayableOutput = ScriptPlayableOutput.Create(m_PlayableGraph, "IK");
             // 让混合器连接输出
             playableOutput.SetSourcePlayable(m_MixerPlayable);
+            // m_PlayableGraph.Connect(m_MixerPlayable, 0, ikPlayable, 0);
+            // ikPlayable.AddInput(m_MixerPlayable, 0, 1f);
         }
 
         #region Animation

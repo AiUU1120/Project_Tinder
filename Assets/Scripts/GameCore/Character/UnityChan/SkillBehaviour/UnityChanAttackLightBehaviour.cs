@@ -6,11 +6,12 @@
 
 using AkanyaTools.SkillMaster.Runtime.Core;
 using Data.Enums.GameCore;
+using GameCore.Skills.SkillBehaviour;
 using UnityEngine;
 
 namespace GameCore.Character.UnityChan.SkillBehaviour
 {
-    public class UnityChanAttackLightBehaviour : UnityChanSkillBehaviourBase
+    public class UnityChanAttackLightBehaviour : PlayerSkillBehaviourBase
     {
         public override SkillBehaviourBase DeepCopy() => new UnityChanAttackLightBehaviour();
 
@@ -29,7 +30,7 @@ namespace GameCore.Character.UnityChan.SkillBehaviour
 
         public override void OnRootMotion(Vector3 deltaPosition, Quaternion deltaRotation)
         {
-            unityChanController.characterController.Move(new Vector3(deltaPosition.x, -9.8f * Time.deltaTime, deltaPosition.z));
+            unityChanController.characterController.Move(deltaPosition);
             unityChanController.transform.rotation *= deltaRotation;
         }
     }

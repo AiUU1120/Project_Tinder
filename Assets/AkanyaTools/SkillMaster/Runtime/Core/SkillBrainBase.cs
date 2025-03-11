@@ -32,6 +32,8 @@ namespace AkanyaTools.SkillMaster.Runtime.Core
         /// </summary>
         public virtual bool canReleaseSkill { get; protected set; }
 
+        public int lastReleaseSkillIndex { get; protected set; } = -1;
+
         private readonly Dictionary<string, ISkillShareData> m_ShareDataDic = new();
 
         private readonly Dictionary<string, ISharedDataEventData> m_ShareDataEventDic = new();
@@ -119,6 +121,11 @@ namespace AkanyaTools.SkillMaster.Runtime.Core
         /// <param name="index">skillBehaviours 索引</param>
         public virtual void ReleaseSkill(int index)
         {
+            if (lastReleaseSkillIndex != -1 && lastReleaseSkillIndex != index)
+            {
+                skillBehaviours[lastReleaseSkillIndex].OnSkillBehaviourSwitch();
+            }
+            lastReleaseSkillIndex = index;
             skillBehaviours[index].Release();
         }
 

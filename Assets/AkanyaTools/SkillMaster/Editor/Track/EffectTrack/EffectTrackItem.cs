@@ -69,22 +69,15 @@ namespace AkanyaTools.SkillMaster.Editor.Track.EffectTrack
             var durationFrame = effectEvent.durationFrame;
             if (effectEvent.frameIndex <= frameIndex && frameIndex <= effectEvent.frameIndex + durationFrame)
             {
-                if (m_EffectPreviewObj != null && m_EffectPreviewObj.name != effectEvent.effectPrefab.name)
-                {
-                    Object.DestroyImmediate(m_EffectPreviewObj);
-                    m_EffectPreviewObj = null;
-                }
-                if (m_EffectPreviewObj == null)
-                {
-                    var characterTrans = SkillMasterEditorWindow.instance.curPreviewCharacterObj.transform;
+                Object.DestroyImmediate(m_EffectPreviewObj);
+                var characterTrans = SkillMasterEditorWindow.instance.curPreviewCharacterObj.transform;
 
-                    var pos = characterTrans.TransformPoint(effectEvent.positionOffset);
-                    var rot = characterTrans.eulerAngles + effectEvent.rotation;
+                var pos = characterTrans.TransformPoint(effectEvent.positionOffset);
+                var rot = characterTrans.eulerAngles + effectEvent.rotation;
 
-                    m_EffectPreviewObj = Object.Instantiate(effectEvent.effectPrefab, pos, Quaternion.Euler(rot), EffectTrack.effectRoot);
-                    m_EffectPreviewObj.transform.localScale = effectEvent.scale;
-                    m_EffectPreviewObj.name = effectEvent.effectPrefab.name;
-                }
+                m_EffectPreviewObj = Object.Instantiate(effectEvent.effectPrefab, pos, Quaternion.Euler(rot), EffectTrack.effectRoot);
+                m_EffectPreviewObj.transform.localScale = effectEvent.scale;
+                m_EffectPreviewObj.name = effectEvent.effectPrefab.name;
                 var particles = m_EffectPreviewObj.GetComponentsInChildren<ParticleSystem>();
                 foreach (var particle in particles)
                 {

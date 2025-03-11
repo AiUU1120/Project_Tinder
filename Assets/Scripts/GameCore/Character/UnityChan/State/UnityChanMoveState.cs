@@ -127,12 +127,5 @@ namespace GameCore.Character.UnityChan.State
             deltaPosition.y = -9.8f * Time.deltaTime;
             unityChanController.characterController.Move(deltaPosition);
         }
-
-        private void OnFootStep()
-        {
-            var clips = unityChanController.characterConfig.footStepAudioClips;
-            var index = UnityEngine.Random.Range(0, clips.Length);
-            AudioManager.PlayOneShot(clips[index], unityChanController.transform.position, volumeScale: 0.2f);
-        }
     }
 }

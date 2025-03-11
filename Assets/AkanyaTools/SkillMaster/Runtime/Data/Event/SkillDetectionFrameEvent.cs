@@ -101,7 +101,7 @@ namespace AkanyaTools.SkillMaster.Runtime.Data.Event
     /// </summary>
     public sealed class WeaponDetectionData : DetectionDataBase
     {
-        public string weaponName;
+        // public string weaponName;
     }
 
     /// <summary>

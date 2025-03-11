@@ -110,12 +110,14 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
             SkillMasterEditorWindow.instance.SaveConfig();
 
             curTrackItem.ForceRefreshView();
+            SkillMasterEditorWindow.instance.TickSkill();
         }
 
         private void OnAnimationRootMotionToggleValueChanged(ChangeEvent<bool> evt)
         {
             ((AnimationTrackItem) curTrackItem).animationEvent.applyRootMotion = evt.newValue;
             SkillMasterEditorWindow.instance.SaveConfig();
+            SkillMasterEditorWindow.instance.TickSkill();
         }
 
         private void OnAnimationDurationFieldFocusIn(FocusInEvent evt)
@@ -141,6 +143,7 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
             {
                 m_AnimationDurationField.value = m_OldAnimationDurationValue;
             }
+            SkillMasterEditorWindow.instance.TickSkill();
         }
 
         private void OnAnimationTransitionFieldFocusIn(FocusInEvent evt)
@@ -162,6 +165,7 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
         {
             s_CurTrack.DeleteTrackItem(m_TrackItemFrameIndex);
             Selection.activeObject = null;
+            SkillMasterEditorWindow.instance.TickSkill();
         }
 
         private void OnAnimationSetFrameBtnClick()

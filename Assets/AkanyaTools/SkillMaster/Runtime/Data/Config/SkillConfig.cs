@@ -26,6 +26,11 @@ namespace AkanyaTools.SkillMaster.Runtime.Data.Config
         public SkillBehaviourBase skillBehaviour;
 
         /// <summary>
+        /// 技能CD时间
+        /// </summary>
+        public float cdTime;
+
+        /// <summary>
         /// 技能消耗代价
         /// </summary>
         public Dictionary<SkillCostType, float> releaseCostDic = new();

@@ -66,7 +66,10 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
         private void Refresh()
         {
             Clear();
-            m_TrackItemFrameIndex = curTrackItem.frameIndex;
+            if (curTrackItem != null)
+            {
+                m_TrackItemFrameIndex = curTrackItem.frameIndex;
+            }
             switch (curTrackItem)
             {
                 case CustomEventTrackItem customEventTrackItem:

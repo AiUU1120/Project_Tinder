@@ -1,8 +1,8 @@
 ﻿/*
-* @Author: AiUU
-* @Description: SkillMaster 判定轨道片段
-* @AkanyaTech.SkillMaster
-*/
+ * @Author: AiUU
+ * @Description: SkillMaster 判定轨道片段
+ * @AkanyaTech.SkillMaster
+ */
 
 using System;
 using AkanyaTools.SkillMaster.Editor.EditorWindow;
@@ -104,7 +104,9 @@ namespace AkanyaTools.SkillMaster.Editor.Track.DetectionTrack
         /// </summary>
         public void DrawGizmos()
         {
-            SkillGizmosTool.DrawDetectionGizmos(detectionEvent, SkillMasterEditorWindow.instance.curPreviewCharacterObj.GetComponent<SkillPlayer>());
+            var skillWeapon = SkillMasterEditorWindow.instance.curPreviewWeaponObj ? SkillMasterEditorWindow.instance.curPreviewWeaponObj.GetComponent<SkillWeapon>() : null;
+            SkillGizmosTool.DrawDetectionGizmos(detectionEvent, SkillMasterEditorWindow.instance.curPreviewCharacterObj.GetComponent<SkillPlayer>(),
+                skillWeapon);
         }
 
         /// <summary>

@@ -15,17 +15,33 @@ namespace AkanyaTools.SkillMaster.Runtime.Tool
 {
     public static class SkillGizmosTool
     {
-        public static void DrawDetectionGizmos(SkillDetectionFrameEvent e, SkillPlayer skillPlayer)
+        public static void DrawDetectionGizmos(SkillDetectionFrameEvent e, SkillPlayer skillPlayer, SkillWeapon curWeapon = null)
         {
             Gizmos.color = new Color(0, 1, 0, 0.5f);
             var modelTransform = skillPlayer.modelTransform == null ? skillPlayer.transform : skillPlayer.modelTransform;
             switch (e.detectionType)
             {
                 case DetectionType.Weapon:
-                    var weaponDetectionData = (WeaponDetectionData) e.detectionData;
-                    if (!string.IsNullOrEmpty(weaponDetectionData.weaponName) && skillPlayer.skillWeaponsDic.TryGetValue(weaponDetectionData.weaponName, out var weapon))
+                    // var weaponDetectionData = (WeaponDetectionData) e.detectionData;
+                    // if (!string.IsNullOrEmpty(weaponDetectionData.weaponName) && skillPlayer.skillWeaponsDic.TryGetValue(weaponDetectionData.weaponName, out var weapon))
+                    // {
+                    //     var weaponCol = weapon.GetComponent<Collider>();
+                    //     var transform = weaponCol.transform;
+                    //     var weaponRotateAndPositionMatrix = Matrix4x4.TRS(transform.position, transform.rotation, transform.localScale);
+                    //     Gizmos.matrix = weaponRotateAndPositionMatrix;
+                    //     if (weaponCol is BoxCollider boxCol)
+                    //     {
+                    //         Gizmos.DrawCube(boxCol.center, boxCol.size);
+                    //     }
+                    //     else if (weaponCol is SphereCollider sphereCol)
+                    //     {
+                    //         Gizmos.DrawSphere(sphereCol.center, sphereCol.radius);
+                    //     }
+                    // }
+                    // var weaponDetectionData = (WeaponDetectionData) e.detectionData;
+                    if (curWeapon != null)
                     {
-                        var weaponCol = weapon.GetComponent<Collider>();
+                        var weaponCol = curWeapon.GetComponent<Collider>();
                         var transform = weaponCol.transform;
                         var weaponRotateAndPositionMatrix = Matrix4x4.TRS(transform.position, transform.rotation, transform.localScale);
                         Gizmos.matrix = weaponRotateAndPositionMatrix;

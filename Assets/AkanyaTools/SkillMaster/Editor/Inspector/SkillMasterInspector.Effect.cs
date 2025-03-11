@@ -129,24 +129,28 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
             CalculateEffectDurationTime();
             SkillMasterEditorWindow.instance.SaveConfig();
             ((EffectTrackItem) curTrackItem).ForceRefreshView();
+            SkillMasterEditorWindow.instance.TickSkill();
         }
 
         private void OnEffectOffsetFieldValueChanged(ChangeEvent<Vector3> evt)
         {
             ((EffectTrackItem) curTrackItem).effectEvent.positionOffset = evt.newValue;
             ((EffectTrackItem) curTrackItem).ForceRefreshView();
+            SkillMasterEditorWindow.instance.TickSkill();
         }
 
         private void OnEffectRotationFieldFieldValueChanged(ChangeEvent<Vector3> evt)
         {
             ((EffectTrackItem) curTrackItem).effectEvent.rotation = evt.newValue;
             ((EffectTrackItem) curTrackItem).ForceRefreshView();
+            SkillMasterEditorWindow.instance.TickSkill();
         }
 
         private void OnEffectScaleFieldFieldValueChanged(ChangeEvent<Vector3> evt)
         {
             ((EffectTrackItem) curTrackItem).effectEvent.scale = evt.newValue;
             ((EffectTrackItem) curTrackItem).ForceRefreshView();
+            SkillMasterEditorWindow.instance.TickSkill();
         }
 
         private void OnEffectAutoDestroyToggleValueChanged(ChangeEvent<bool> evt)
@@ -169,6 +173,7 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
             ((EffectTrackItem) curTrackItem).effectEvent.durationFrame = m_EffectDurationFrameField.value;
             SkillMasterEditorWindow.instance.SaveConfig();
             curTrackItem.ForceRefreshView();
+            SkillMasterEditorWindow.instance.TickSkill();
         }
 
         private void OnEffectSetFrameBtnClick()

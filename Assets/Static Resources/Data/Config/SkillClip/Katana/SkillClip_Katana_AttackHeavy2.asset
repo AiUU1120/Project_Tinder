@@ -1,0 +1,371 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68515d0b14164d3a8012ad59773d086a, type: 3}
+  m_Name: SkillClip_Katana_AttackHeavy2
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 7400000, guid: f726fe1e532366f4a81db26008d0e962, type: 2}
+    - {fileID: 8300000, guid: aa31b402728b3764999095ef0ad3b4b5, type: 3}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: skillCustomEventData
+      Entry: 7
+      Data: 0|AkanyaTools.SkillMaster.Runtime.Data.SkillCustomEventData, AkanyaTools.SkillMaster.Runtime
+    - Name: frameData
+      Entry: 7
+      Data: 1|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[AkanyaTools.SkillMaster.Runtime.Data.Event.SkillCustomEventFrameEvent,
+        AkanyaTools.SkillMaster.Runtime]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 2|System.Collections.Generic.GenericEqualityComparer`1[[System.Int32,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 39
+    - Name: $v
+      Entry: 7
+      Data: 3|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillCustomEventFrameEvent,
+        AkanyaTools.SkillMaster.Runtime
+    - Name: eventType
+      Entry: 3
+      Data: 1
+    - Name: customEventName
+      Entry: 1
+      Data: 
+    - Name: intParam
+      Entry: 3
+      Data: 0
+    - Name: floatParam
+      Entry: 4
+      Data: 0
+    - Name: stringParam
+      Entry: 6
+      Data: 
+    - Name: objParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: skillAnimationData
+      Entry: 7
+      Data: 4|AkanyaTools.SkillMaster.Runtime.Data.SkillAnimationData, AkanyaTools.SkillMaster.Runtime
+    - Name: frameData
+      Entry: 7
+      Data: 5|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAnimationFrameEvent,
+        AkanyaTools.SkillMaster.Runtime]], mscorlib
+    - Name: comparer
+      Entry: 9
+      Data: 2
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 7
+      Data: 6|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAnimationFrameEvent,
+        AkanyaTools.SkillMaster.Runtime
+    - Name: animationClip
+      Entry: 10
+      Data: 0
+    - Name: applyRootMotion
+      Entry: 5
+      Data: true
+    - Name: transitionTime
+      Entry: 4
+      Data: 0.25
+    - Name: durationFrame
+      Entry: 3
+      Data: 68
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: skillDetectionData
+      Entry: 7
+      Data: 7|AkanyaTools.SkillMaster.Runtime.Data.SkillDetectionData, AkanyaTools.SkillMaster.Runtime
+    - Name: frameData
+      Entry: 7
+      Data: 8|System.Collections.Generic.List`1[[AkanyaTools.SkillMaster.Runtime.Data.Event.SkillDetectionFrameEvent,
+        AkanyaTools.SkillMaster.Runtime]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 9|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillDetectionFrameEvent,
+        AkanyaTools.SkillMaster.Runtime
+    - Name: trackName
+      Entry: 1
+      Data: Detection Track
+    - Name: frameIndex
+      Entry: 3
+      Data: 20
+    - Name: durationFrame
+      Entry: 3
+      Data: 3
+    - Name: detectionData
+      Entry: 7
+      Data: 10|AkanyaTools.SkillMaster.Runtime.Data.Event.BoxDetectionData, AkanyaTools.SkillMaster.Runtime
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0.785031438
+    - Name: 
+      Entry: 4
+      Data: 0.5338786
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: rotation
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: scale
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.5076289
+    - Name: 
+      Entry: 4
+      Data: 1.00911045
+    - Name: 
+      Entry: 4
+      Data: 1.15306485
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 11|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillDetectionFrameEvent,
+        AkanyaTools.SkillMaster.Runtime
+    - Name: trackName
+      Entry: 1
+      Data: Detection Track
+    - Name: frameIndex
+      Entry: 3
+      Data: 26
+    - Name: durationFrame
+      Entry: 3
+      Data: 3
+    - Name: detectionData
+      Entry: 7
+      Data: 12|AkanyaTools.SkillMaster.Runtime.Data.Event.BoxDetectionData, AkanyaTools.SkillMaster.Runtime
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0.752446651
+    - Name: 
+      Entry: 4
+      Data: 0.5634959
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: rotation
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: scale
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.479377717
+    - Name: 
+      Entry: 4
+      Data: 1.24959815
+    - Name: 
+      Entry: 4
+      Data: 1.17503691
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: skillEffectData
+      Entry: 7
+      Data: 13|AkanyaTools.SkillMaster.Runtime.Data.SkillEffectData, AkanyaTools.SkillMaster.Runtime
+    - Name: frameData
+      Entry: 7
+      Data: 14|System.Collections.Generic.List`1[[AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
+        AkanyaTools.SkillMaster.Runtime]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: skillAudioData
+      Entry: 7
+      Data: 15|AkanyaTools.SkillMaster.Runtime.Data.SkillAudioData, AkanyaTools.SkillMaster.Runtime
+    - Name: frameData
+      Entry: 7
+      Data: 16|System.Collections.Generic.List`1[[AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent,
+        AkanyaTools.SkillMaster.Runtime]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 17|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
+    - Name: trackName
+      Entry: 1
+      Data: Audio Track
+    - Name: frameIndex
+      Entry: 3
+      Data: 17
+    - Name: audioClip
+      Entry: 10
+      Data: 1
+    - Name: playCount
+      Entry: 3
+      Data: 1
+    - Name: volume
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 18|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
+    - Name: trackName
+      Entry: 1
+      Data: Audio Track
+    - Name: frameIndex
+      Entry: 3
+      Data: 21
+    - Name: audioClip
+      Entry: 10
+      Data: 1
+    - Name: playCount
+      Entry: 3
+      Data: 1
+    - Name: volume
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  skillName: 
+  frameCount: 68
+  frameRate: 30

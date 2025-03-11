@@ -4,6 +4,7 @@
  * @AkanyaTech.Tinder
  */
 
+using AkanyaTools.AudioSystem;
 using FrameTools.StateMachine;
 
 namespace GameCore.Character.UnityChan.State
@@ -56,5 +57,15 @@ namespace GameCore.Character.UnityChan.State
         /// </summary>
         /// <returns></returns>
         protected abstract bool CheckStateChange();
+
+        /// <summary>
+        /// 脚步声方法回调
+        /// </summary>
+        protected virtual void OnFootStep()
+        {
+            var clips = unityChanController.characterConfig.footStepAudioClips;
+            var index = UnityEngine.Random.Range(0, clips.Length);
+            AudioManager.PlayOneShot(clips[index], unityChanController.transform.position, volumeScale: 0.2f);
+        }
     }
 }

@@ -89,7 +89,7 @@ namespace AkanyaTools.SkillMaster.Editor.EditorWindow
         /// <summary>
         /// 驱动技能表现
         /// </summary>
-        private void TickSkill()
+        public void TickSkill()
         {
             if (skillClip == null || curPreviewCharacterObj == null)
             {

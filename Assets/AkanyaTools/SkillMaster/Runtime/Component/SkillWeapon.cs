@@ -14,6 +14,16 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
         [SerializeField]
         private Collider m_DetectionCol;
 
+        [SerializeField]
+        private Transform m_MainGridPoint;
+
+        [SerializeField]
+        private Transform m_SecGridPoint;
+
+        public Transform mainGridPoint => m_MainGridPoint;
+
+        public Transform secGridPoint => m_SecGridPoint;
+
         private LayerMask m_DetectionLayerMask;
 
         private Action<Collider> m_OnDetection;

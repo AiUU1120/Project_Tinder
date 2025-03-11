@@ -6,11 +6,12 @@
 
 using AkanyaTools.SkillMaster.Runtime.Core;
 using Data.Enums.GameCore;
+using GameCore.Skills.SkillBehaviour;
 using UnityEngine;
 
 namespace GameCore.Character.UnityChan.SkillBehaviour
 {
-    public class UnityChanAttackHeavyBehaviour : UnityChanSkillBehaviourBase
+    public class UnityChanAttackHeavyBehaviour : PlayerSkillBehaviourBase
     {
         public override SkillBehaviourBase DeepCopy() => new UnityChanAttackHeavyBehaviour();
 

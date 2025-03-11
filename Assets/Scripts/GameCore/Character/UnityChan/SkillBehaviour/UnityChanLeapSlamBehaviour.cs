@@ -6,40 +6,77 @@
 
 using AkanyaTools.SkillMaster.Runtime.Core;
 using Data.Enums.GameCore;
+using GameCore.Skills;
+using GameCore.Skills.SkillBehaviour;
 using UnityEngine;
 
 namespace GameCore.Character.UnityChan.SkillBehaviour
 {
-    public class UnityChanLeapSlamBehaviour : UnityChanSkillBehaviourBase
+    public class UnityChanLeapSlamBehaviour : PlayerSkillBehaviourBase
     {
-        public float cdTime = 10;
+        private readonly float m_StandingTime = 5;
 
-        protected float cdTimer;
+        private int m_CurAttackIndex = -1;
 
-        public override SkillBehaviourBase DeepCopy() => new UnityChanLeapSlamBehaviour() { cdTime = cdTime };
+        public override SkillBehaviourBase DeepCopy() => new UnityChanLeapSlamBehaviour() { };
 
         public override void Release()
         {
             base.Release();
+            m_CurAttackIndex++;
+            if (m_CurAttackIndex == skillConfig.clips.Length - 1)
+            {
+                cdTimer = cdTime;
+            }
             skillPlayer.StartPlaySkillConfig(this);
-            skillPlayer.PlaySkillClip(skillConfig.clips[0]);
-            cdTimer = cdTime;
+            skillPlayer.PlaySkillClip(skillConfig.clips[m_CurAttackIndex]);
+            skillBrain.AddOrUpdateSkillShareData(PlayerSkillBrain.continuous_attack_mode_data_key, true);
         }
 
-        public override bool CheckRelease() => cdTimer <= 0 && base.CheckRelease();
+        public override bool CheckRelease()
+        {
+            var checkCd = true;
+            if (m_CurAttackIndex == -1)
+            {
+                checkCd = cdTimer <= 0;
+            }
+            else if (m_CurAttackIndex == skillConfig.clips.Length - 1)
+            {
+                checkCd = cdTimer <= 0;
+            }
+            return checkCd && base.CheckRelease();
+        }
 
         public override void Update()
         {
             base.Update();
-            cdTimer -= Time.deltaTime;
-            if (cdTimer < 0)
+        }
+
+        public override void UpdateCDTimer()
+        {
+            if (isPlaying)
             {
-                cdTimer = 0;
+                // 技能播放到最后一段
+                if (m_CurAttackIndex == skillConfig.clips.Length - 1)
+                {
+                    cdTimer = Mathf.Clamp(cdTimer - Time.deltaTime, 0, float.MaxValue);
+                }
+                return;
+            }
+            cdTimer = Mathf.Clamp(cdTimer - Time.deltaTime, 0, float.MaxValue);
+            if (m_CurAttackIndex != -1)
+            {
+                if (cdTimer <= 0)
+                {
+                    cdTimer = cdTime;
+                    m_CurAttackIndex = -1;
+                }
             }
         }
 
         public override void OnSkillClipEnd()
         {
+            base.OnSkillClipEnd();
             unityChanController.ChangeState(PlayerMotionState.Idle);
         }
 
@@ -53,6 +90,19 @@ namespace GameCore.Character.UnityChan.SkillBehaviour
         {
             unityChanController.characterController.Move(deltaPosition);
             unityChanController.transform.rotation *= deltaRotation;
+        }
+
+        public override void OnSkillBehaviourSwitchOrClipEnd()
+        {
+            base.OnSkillBehaviourSwitchOrClipEnd();
+            if (m_CurAttackIndex == skillConfig.clips.Length - 1)
+            {
+                m_CurAttackIndex = -1;
+            }
+            else
+            {
+                cdTimer = m_StandingTime;
+            }
         }
     }
 }

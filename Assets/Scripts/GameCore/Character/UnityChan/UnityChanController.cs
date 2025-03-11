@@ -14,6 +14,7 @@ using Data.Config;
 using Data.Enums.GameCore;
 using FrameTools.ResourceSystem;
 using FrameTools.StateMachine;
+using GameCore.Skills;
 using UnityEngine;
 
 namespace GameCore.Character.UnityChan
@@ -28,7 +29,7 @@ namespace GameCore.Character.UnityChan
         private AnimationController m_AnimationController;
 
         [SerializeField]
-        private UnityChanSkillBrain m_SkillBrain;
+        private PlayerSkillBrain m_SkillBrain;
 
         [SerializeField]
         private InputController m_InputController;
@@ -49,6 +50,7 @@ namespace GameCore.Character.UnityChan
         [SerializeField]
         private float m_TurnSpeed = 7f;
 
+
         public InputController input => m_InputController;
 
         public CharacterController characterController => m_CharacterController;
@@ -57,7 +59,7 @@ namespace GameCore.Character.UnityChan
 
         public CharacterConfig characterConfig => m_CharacterConfig;
 
-        public UnityChanSkillBrain skillBrain => m_SkillBrain;
+        public PlayerSkillBrain skillBrain => m_SkillBrain;
 
         public float moveSpeed => m_MoveSpeed;
 

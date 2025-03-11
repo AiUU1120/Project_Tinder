@@ -150,7 +150,6 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AnimationTrack
             {
                 var key = keys[i];
                 var e = frameDataSortedDic[key];
-                animator.applyRootMotion = e.applyRootMotion;
                 // 只考虑应用根运动的动画
                 if (!e.applyRootMotion)
                 {
@@ -197,14 +196,14 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AnimationTrack
                             playTimes = 0;
                         }
                     }
-
+                    animator.applyRootMotion = true;
                     // 采样计算
                     if (playTimes >= 1)
                     {
                         e.animationClip.SampleAnimation(previewObj, e.animationClip.length);
                         rootMotionTotalPos += previewObj.transform.position * playTimes;
                     }
-                    if (lastPlayProgress >= 0)
+                    if (lastPlayProgress > 0)
                     {
                         e.animationClip.SampleAnimation(previewObj, lastPlayProgress * e.animationClip.length);
                         rootMotionTotalPos += previewObj.transform.position;
@@ -215,16 +214,17 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AnimationTrack
                     break;
                 }
             }
-            // if (isResume)
-            // {
-            //     UpdatePosture(SkillMasterEditorWindow.instance.curSelectedFrameIndex);
-            // }
+            if (isResume)
+            {
+                UpdatePosture(SkillMasterEditorWindow.instance.curSelectedFrameIndex);
+            }
             return rootMotionTotalPos;
         }
 
         private void UpdatePosture(int frameIndex)
         {
             var previewObj = SkillMasterEditorWindow.instance.curPreviewCharacterObj;
+            var animator = previewObj.GetComponentInChildren<Animator>();
             var frameData = animationData.frameData;
 
             // curOffset: 当前帧距离最近的动画片段的偏移
@@ -250,6 +250,7 @@ namespace AkanyaTools.SkillMaster.Editor.Track.AnimationTrack
             {
                 progress -= (int) progress;
             }
+            animator.applyRootMotion = animationEvent.animationClip.hasRootCurves;
             animationEvent.animationClip.SampleAnimation(previewObj, progress * animationEvent.animationClip.length);
         }
 
