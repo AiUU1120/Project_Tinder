@@ -25,9 +25,6 @@ MonoBehaviour:
       Entry: 7
       Data: 0|GameCore.Character.UnityChan.SkillBehaviour.UnityChanLeapSlamBehaviour,
         Tinder.GameCore
-    - Name: cdTime
-      Entry: 4
-      Data: 10
     - Name: 
       Entry: 8
       Data: 
@@ -71,3 +68,4 @@ MonoBehaviour:
       Data: 
   clips:
   - {fileID: 11400000, guid: 4cc3b476d8b857045b0fc59174e6644f, type: 2}
+  cdTime: 10

@@ -4,7 +4,8 @@
 * @AkanyaTech.Tinder
 */
 
-using Data.Enums.GameCore;
+using Common.System;
+using GameCore.Data.Enums;
 using UnityEngine;
 
 namespace GameCore.Character.UnityChan.State
@@ -43,7 +44,7 @@ namespace GameCore.Character.UnityChan.State
 
         protected override bool CheckStateChange()
         {
-            if (unityChanController.input.moveInput.magnitude >= 0.1f)
+            if (InputManager.instance.moveInput.magnitude >= 0.1f)
             {
                 unityChanController.ChangeState(PlayerMotionState.Move);
                 return true;

@@ -5,7 +5,7 @@
  */
 
 using AkanyaTools.SkillMaster.Runtime.Core;
-using Data.Enums.GameCore;
+using GameCore.Data.Enums;
 using GameCore.Skills.SkillBehaviour;
 using UnityEngine;
 

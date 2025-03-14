@@ -10586,8 +10586,6 @@ GameObject:
   - component: {fileID: 941679442155278620}
   - component: {fileID: 1759600652607522553}
   - component: {fileID: 2484238328680876814}
-  - component: {fileID: 8036415932374362739}
-  - component: {fileID: 796517168610075414}
   - component: {fileID: 951355479123982479}
   m_Layer: 0
   m_Name: UnityChan
@@ -10627,7 +10625,6 @@ MonoBehaviour:
   m_CharacterController: {fileID: 951355479123982479}
   m_AnimationController: {fileID: 7134811486449007383}
   m_SkillBrain: {fileID: 1759600652607522553}
-  m_InputController: {fileID: 8036415932374362739}
   m_CharacterConfig: {fileID: 11400000, guid: 067ec612a16b2ea45b455c94be93d0ea, type: 2}
   m_MoveSpeed: 6.5
   m_DashSpeed: 7.3
@@ -10646,8 +10643,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillPlayer: {fileID: 2484238328680876814}
   skillConfigs:
-  - {fileID: 11400000, guid: 7763bc5480937ba4299919f78803682f, type: 2}
-  - {fileID: 11400000, guid: 180ce0253398b2545bb7eb87798f9ab2, type: 2}
+  - {fileID: 11400000, guid: 179e55b1da91671409ddd8d52899979d, type: 2}
+  - {fileID: 11400000, guid: 8cab4873e50021b43972a7ccad3d9b6f, type: 2}
   - {fileID: 11400000, guid: 97ed72bc06325d94390f6020bc4a259a, type: 2}
   - {fileID: 11400000, guid: 8d73bf0d61ca2b148b50f4e902364cf0, type: 2}
 --- !u!114 &2484238328680876814
@@ -10679,133 +10676,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   m_DrawAttackDetectionGizmos: 1
---- !u!114 &8036415932374362739
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7767508103479031859}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da8a35af96bd4fc6bab33b528d23e92f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &796517168610075414
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7767508103479031859}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 28c626547f524fa43b938ba11b682dce,
-    type: 3}
-  m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8036415932374362739}
-        m_TargetAssemblyTypeName: GameCore.Common.InputController, Tinder.GameCore
-        m_MethodName: GetMoveInput
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 830cdfa8-c782-416d-9391-cd3f0f89a478
-    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 2e895c93-50c2-47c7-bfa5-b055a52d2cc6
-    m_ActionName: Player/Look[/Mouse/delta]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8036415932374362739}
-        m_TargetAssemblyTypeName: GameCore.Common.InputController, Tinder.GameCore
-        m_MethodName: GetRunInput
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: f0826b86-42f8-409d-8b66-6bb443c3633f
-    m_ActionName: Player/Run[/Keyboard/leftShift]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8036415932374362739}
-        m_TargetAssemblyTypeName: GameCore.Common.InputController, Tinder.GameCore
-        m_MethodName: GetSpecialInput
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 527a89fb-ae77-4c71-8bb6-52884deef47a
-    m_ActionName: Player/Special[/Keyboard/e]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8036415932374362739}
-        m_TargetAssemblyTypeName: GameCore.Common.InputController, Tinder.GameCore
-        m_MethodName: GetAttackLightInput
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 9e05b13d-5e96-49fd-b41f-a29f65bcfe04
-    m_ActionName: Player/AttackLight[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8036415932374362739}
-        m_TargetAssemblyTypeName: GameCore.Common.InputController, Tinder.GameCore
-        m_MethodName: GetAttackHeavyInput
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 0ad54e2d-e3ff-42e0-8bfe-5c1a9f72932e
-    m_ActionName: Player/AttackHeavy[/Mouse/rightButton]
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: KeyBoard&Mouse
-  m_DefaultActionMap: Player
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!143 &951355479123982479
 CharacterController:
   m_ObjectHideFlags: 0

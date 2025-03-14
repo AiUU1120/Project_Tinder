@@ -1,8 +1,9 @@
 {
-    "name": "Tinder.Data",
+    "name": "Tinder.Common",
     "rootNamespace": "",
     "references": [
-        "GUID:7cb2814e6655d904f952bf240b160d11"
+        "GUID:7cb2814e6655d904f952bf240b160d11",
+        "GUID:75469ad4d38634e559750d17036d5f7c"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

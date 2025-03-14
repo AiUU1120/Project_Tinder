@@ -8,12 +8,12 @@ using System;
 using AkanyaTools.PlayableKami;
 using AkanyaTools.SkillMaster.Runtime.Component;
 using AkanyaTools.StateMachine;
+using Common.System;
 using GameCore.Character.UnityChan.State;
-using GameCore.Common;
-using Data.Config;
-using Data.Enums.GameCore;
 using FrameTools.ResourceSystem;
 using FrameTools.StateMachine;
+using GameCore.Data.Config;
+using GameCore.Data.Enums;
 using GameCore.Skills;
 using UnityEngine;
 
@@ -32,9 +32,6 @@ namespace GameCore.Character.UnityChan
         private PlayerSkillBrain m_SkillBrain;
 
         [SerializeField]
-        private InputController m_InputController;
-
-        [SerializeField]
         private CharacterConfig m_CharacterConfig;
 
         [Space]
@@ -49,9 +46,6 @@ namespace GameCore.Character.UnityChan
 
         [SerializeField]
         private float m_TurnSpeed = 7f;
-
-
-        public InputController input => m_InputController;
 
         public CharacterController characterController => m_CharacterController;
 
@@ -257,7 +251,7 @@ namespace GameCore.Character.UnityChan
             var forward = m_CameraTrans.forward;
             var camForwardProjection = new Vector3(forward.x, 0, forward.z).normalized;
             // 玩家移动方向即为 相机前向 * 前后输入 + 相机侧向 * 左右输入
-            playerMoveDir = camForwardProjection * m_InputController.moveInput.y + m_CameraTrans.right * m_InputController.moveInput.x;
+            playerMoveDir = camForwardProjection * InputManager.instance.moveInput.y + m_CameraTrans.right * InputManager.instance.moveInput.x;
         }
 
         #endregion

@@ -5,7 +5,9 @@
  */
 
 using AkanyaTools.AudioSystem;
+using Common.System;
 using FrameTools.StateMachine;
+using GameCore.Common;
 
 namespace GameCore.Character.UnityChan.State
 {
@@ -34,17 +36,17 @@ namespace GameCore.Character.UnityChan.State
 
         protected bool CheckAndEnterSkillState()
         {
-            if (unityChanController.input.isAttackLight && unityChanController.skillBrain.CheckReleaseSkill(0))
+            if (InputManager.instance.isAttackLight && unityChanController.skillBrain.CheckReleaseSkill(0))
             {
                 curReleaseSkillIndex = 0;
                 return true;
             }
-            else if (unityChanController.input.isAttackHeavy && unityChanController.skillBrain.CheckReleaseSkill(1))
+            else if (InputManager.instance.isAttackHeavy && unityChanController.skillBrain.CheckReleaseSkill(1))
             {
                 curReleaseSkillIndex = 1;
                 return true;
             }
-            else if (unityChanController.input.isSpecial && unityChanController.skillBrain.CheckReleaseSkill(2))
+            else if (InputManager.instance.isSpecial && unityChanController.skillBrain.CheckReleaseSkill(2))
             {
                 curReleaseSkillIndex = 2;
                 return true;

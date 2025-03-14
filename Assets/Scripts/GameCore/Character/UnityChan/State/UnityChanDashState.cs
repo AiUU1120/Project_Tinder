@@ -6,8 +6,10 @@
 
 using System;
 using AkanyaTools.AudioSystem;
-using Data.Enums.GameCore;
+using Common.System;
 using FrameTools.StateMachine;
+using GameCore.Common;
+using GameCore.Data.Enums;
 using UnityEngine;
 
 namespace GameCore.Character.UnityChan.State
@@ -66,12 +68,12 @@ namespace GameCore.Character.UnityChan.State
         protected override bool CheckStateChange()
         {
             // 输入值接近 0 时回到 idle 状态
-            if (unityChanController.input.moveInput.magnitude <= 0.1f)
+            if (InputManager.instance.moveInput.magnitude <= 0.1f)
             {
                 unityChanController.ChangeState(PlayerMotionState.Idle);
                 return true;
             }
-            if (!unityChanController.input.isDashing)
+            if (!InputManager.instance.isDashing)
             {
                 unityChanController.ChangeState(PlayerMotionState.Move);
                 return true;
