@@ -10586,6 +10586,8 @@ GameObject:
   - component: {fileID: 941679442155278620}
   - component: {fileID: 1759600652607522553}
   - component: {fileID: 2484238328680876814}
+  - component: {fileID: 9068817381400313741}
+  - component: {fileID: 2080414618117247269}
   - component: {fileID: 951355479123982479}
   m_Layer: 0
   m_Name: UnityChan
@@ -10676,6 +10678,32 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   m_DrawAttackDetectionGizmos: 1
+--- !u!114 &9068817381400313741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7767508103479031859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d30990dbb3ff4cc6817bbe177ce1ad51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BuffParser: {fileID: 2080414618117247269}
+--- !u!114 &2080414618117247269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7767508103479031859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbbe1093e37b4870af1ffb38c59714cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlayerController: {fileID: 941679442155278620}
 --- !u!143 &951355479123982479
 CharacterController:
   m_ObjectHideFlags: 0
