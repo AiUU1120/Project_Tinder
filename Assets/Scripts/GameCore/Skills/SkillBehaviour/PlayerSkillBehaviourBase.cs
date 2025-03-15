@@ -1,26 +1,36 @@
 ﻿using AkanyaTools.SkillMaster.Runtime.Component;
 using AkanyaTools.SkillMaster.Runtime.Core;
 using AkanyaTools.SkillMaster.Runtime.Data.Config;
-using GameCore.Character.UnityChan;
+using Data.GameCore;
+using GameCore.Character.Player;
 
 namespace GameCore.Skills.SkillBehaviour
 {
     public abstract class PlayerSkillBehaviourBase : SkillBehaviourBase
     {
-        protected UnityChanController unityChanController;
+        protected PlayerController playerController;
 
-        public override void Init(PlayerControllerBase playerController, SkillConfig skillConfig, SkillBrainBase skillBrain, SkillPlayer skillPlayer)
+        protected SkillLearnedData skillLearnedData = new();
+
+        public override void Init(PlayerControllerBase playerControllerBase, SkillConfig skillConfig, SkillBrainBase skillBrain, SkillPlayer skillPlayer)
         {
-            base.Init(playerController, skillConfig, skillBrain, skillPlayer);
-            unityChanController = playerController as UnityChanController;
+            base.Init(playerControllerBase, skillConfig, skillBrain, skillPlayer);
+            playerController = playerControllerBase as PlayerController;
+        }
+
+        public void InitSkillLearnedData(SkillLearnedData skillLearnedData)
+        {
+            this.skillLearnedData = skillLearnedData;
         }
 
         protected override void RotateOnUpdate()
         {
             if (canRotate)
             {
-                unityChanController.Rotate();
+                playerController.Rotate();
             }
         }
+
+        public override float GetCDTime() => skillConfig.GetCDByLevel(skillLearnedData.level);
     }
 }

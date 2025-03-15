@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Data_Config_WeaponConfig
+  m_EditorClassIdentifier: 
+  m_GroupName: Data_Config_WeaponConfig
+  m_Data:
+    m_SerializedData: []
+  m_GUID: e1c468a2458d1c04387b98125f15842d
+  m_SerializeEntries:
+  - m_GUID: 067ec612a16b2ea45b455c94be93d0ea
+    m_Address: WeaponConfig_Katana
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 97bb62127f50e814c8256319851267dd, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 0779aaab42d6c3d4a822f8a0534d8a6f, type: 2}
+    - {fileID: 11400000, guid: fd9aee94acf66ae41a940720e5603d73, type: 2}

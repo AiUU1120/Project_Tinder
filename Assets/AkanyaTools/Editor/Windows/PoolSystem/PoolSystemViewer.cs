@@ -5,6 +5,7 @@ using UnityEditor.UIElements;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using AkanyaTools;
 using JKFrame;
 namespace JKFrame.Editor
 {
@@ -75,17 +76,17 @@ namespace JKFrame.Editor
             #endregion
 
             #region 绑定编辑器事件
-            JKFrameRoot.EditorEventModule.AddEventListener<Action<string, int>>(nameof(OnPushObject), OnPushObject);
-            JKFrameRoot.EditorEventModule.AddEventListener<Action<string, int>>(nameof(OnGetObject), OnGetObject);
-            JKFrameRoot.EditorEventModule.AddEventListener<Action<string, int>>(nameof(OnPushGameObject), OnPushGameObject);
-            JKFrameRoot.EditorEventModule.AddEventListener<Action<string, int>>(nameof(OnGetGameObject), OnGetGameObject);
-            JKFrameRoot.EditorEventModule.AddEventListener<Action<string>>(nameof(OnClearnObject), OnClearnObject);
-            JKFrameRoot.EditorEventModule.AddEventListener<Action<string>>(nameof(OnClearGameObject), OnClearGameObject);
-            JKFrameRoot.EditorEventModule.AddEventListener(nameof(OnClearAllObject), OnClearAllObject);
-            JKFrameRoot.EditorEventModule.AddEventListener(nameof(OnClearAllGameObject), OnClearAllGameObject);
-            JKFrameRoot.EditorEventModule.AddEventListener(nameof(OnClearAll), OnClearAll);
-            JKFrameRoot.EditorEventModule.AddEventListener<Action<string, int>>(nameof(OnInitObjectPool), OnInitObjectPool);
-            JKFrameRoot.EditorEventModule.AddEventListener<Action<string, int>>(nameof(OnInitGameObjectPool), OnInitGameObjectPool);
+            FrameRoot.EditorEventModule.AddEventListener<Action<string, int>>(nameof(OnPushObject), OnPushObject);
+            FrameRoot.EditorEventModule.AddEventListener<Action<string, int>>(nameof(OnGetObject), OnGetObject);
+            FrameRoot.EditorEventModule.AddEventListener<Action<string, int>>(nameof(OnPushGameObject), OnPushGameObject);
+            FrameRoot.EditorEventModule.AddEventListener<Action<string, int>>(nameof(OnGetGameObject), OnGetGameObject);
+            FrameRoot.EditorEventModule.AddEventListener<Action<string>>(nameof(OnClearnObject), OnClearnObject);
+            FrameRoot.EditorEventModule.AddEventListener<Action<string>>(nameof(OnClearGameObject), OnClearGameObject);
+            FrameRoot.EditorEventModule.AddEventListener(nameof(OnClearAllObject), OnClearAllObject);
+            FrameRoot.EditorEventModule.AddEventListener(nameof(OnClearAllGameObject), OnClearAllGameObject);
+            FrameRoot.EditorEventModule.AddEventListener(nameof(OnClearAll), OnClearAll);
+            FrameRoot.EditorEventModule.AddEventListener<Action<string, int>>(nameof(OnInitObjectPool), OnInitObjectPool);
+            FrameRoot.EditorEventModule.AddEventListener<Action<string, int>>(nameof(OnInitGameObjectPool), OnInitGameObjectPool);
             #endregion
             objectLayerListView.RefreshItems();
             gameObjectLayerListView.RefreshItems();

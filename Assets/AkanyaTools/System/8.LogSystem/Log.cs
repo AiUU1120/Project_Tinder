@@ -1,4 +1,5 @@
-﻿using JK.Log;
+﻿using AkanyaTools;
+using JK.Log;
 using UnityEngine;
 using static FrameTools.Setting.FrameToolsSetting;
 
@@ -13,9 +14,9 @@ namespace JKFrame
 
         public static void Init()
         {
-            if (JKFrameRoot.toolsSetting != null)
+            if (FrameRoot.toolsSetting != null)
             {
-                Init(JKFrameRoot.toolsSetting.logConfig);
+                Init(FrameRoot.toolsSetting.logConfig);
             }
         }
 

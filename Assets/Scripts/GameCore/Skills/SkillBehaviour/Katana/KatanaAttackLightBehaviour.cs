@@ -5,7 +5,7 @@
  */
 
 using AkanyaTools.SkillMaster.Runtime.Core;
-using GameCore.Data.Enums;
+using Data.GameCore.Enums;
 using UnityEngine;
 
 namespace GameCore.Skills.SkillBehaviour.Katana
@@ -21,9 +21,9 @@ namespace GameCore.Skills.SkillBehaviour.Katana
 
         public override SkillBehaviourBase DeepCopy() => new KatanaAttackLightBehaviour() { m_ComboCount = m_ComboCount };
 
-        public override void Release()
+        public override void Release(bool calCDTimer = true)
         {
-            base.Release();
+            base.Release(false);
             skillBrain.TryGetSkillShareData(PlayerSkillBrain.continuous_attack_mode_data_key, out bool canContinuousAttack);
             if (canContinuousAttack)
             {
@@ -41,7 +41,7 @@ namespace GameCore.Skills.SkillBehaviour.Katana
         public override void OnSkillClipEnd()
         {
             base.OnSkillClipEnd();
-            unityChanController.ChangeState(PlayerMotionState.Idle);
+            playerController.ChangeState(PlayerMotionState.Idle);
         }
 
         public override void OnSkillBehaviourSwitchOrClipEnd()
@@ -54,8 +54,8 @@ namespace GameCore.Skills.SkillBehaviour.Katana
 
         public override void OnRootMotion(Vector3 deltaPosition, Quaternion deltaRotation)
         {
-            unityChanController.characterController.Move(new Vector3(deltaPosition.x, deltaPosition.y, deltaPosition.z));
-            unityChanController.transform.rotation *= deltaRotation;
+            playerController.characterController.Move(new Vector3(deltaPosition.x, deltaPosition.y, deltaPosition.z));
+            playerController.transform.rotation *= deltaRotation;
         }
     }
 }

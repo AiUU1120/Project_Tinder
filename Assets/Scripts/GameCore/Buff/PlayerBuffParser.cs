@@ -7,7 +7,7 @@
 using AkanyaTools.BuffGuy.Core;
 using AkanyaTools.BuffGuy.Data;
 using AkanyaTools.BuffGuy.Data.Enum;
-using GameCore.Character.UnityChan;
+using GameCore.Character.Player;
 using UnityEngine;
 
 namespace GameCore.Buff
@@ -15,7 +15,7 @@ namespace GameCore.Buff
     public sealed class PlayerBuffParser : BuffParserBase
     {
         [SerializeField]
-        private UnityChanController m_PlayerController;
+        private PlayerController m_PlayerController;
 
         public override void Parse(BuffEntity buff, BuffEffectDataBase data)
         {

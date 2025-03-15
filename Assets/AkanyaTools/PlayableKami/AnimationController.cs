@@ -12,6 +12,7 @@ using AkanyaTools.PlayableKami.PlayableNode;
 using FrameTools.ResourceSystem;
 using UnityEngine;
 using UnityEngine.Animations;
+using UnityEngine.Assertions;
 using UnityEngine.Playables;
 
 namespace AkanyaTools.PlayableKami

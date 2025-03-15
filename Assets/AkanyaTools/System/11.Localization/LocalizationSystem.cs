@@ -1,5 +1,6 @@
 ﻿using JKFrame;
 using System;
+using AkanyaTools;
 using UnityEngine;
 
 public class LocalizationSystem : MonoBehaviour
@@ -22,7 +23,7 @@ public class LocalizationSystem : MonoBehaviour
     }
     public static void Init()
     {
-        instance = JKFrameRoot.RootTransform.GetComponentInChildren<LocalizationSystem>();
+        instance = FrameRoot.RootTransform.GetComponentInChildren<LocalizationSystem>();
     }
 
     /// <summary>

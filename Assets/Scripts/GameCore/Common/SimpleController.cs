@@ -4,7 +4,7 @@
 * @AkanyaTech.Tinder
 */
 
-using GameCore.Data.Enums;
+using Data.GameCore.Enums;
 using UnityEngine;
 using UnityEngine.InputSystem;
 

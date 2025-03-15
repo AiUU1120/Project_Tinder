@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using AkanyaTools.CoroutineTool;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 namespace JKFrame

@@ -90,7 +90,8 @@ namespace Common.System
             Jump,
             AttackLight,
             AttackHeavy,
-            Special
+            Special,
+            SkillMenu
         }
 
         public Vector2 moveInput => GetInputValue<Vector2>(InputType.Move);
@@ -104,6 +105,10 @@ namespace Common.System
         public bool isAttackHeavy => GetInputValue<bool>(InputType.AttackHeavy);
 
         public bool isSpecial => GetInputValue<bool>(InputType.Special);
+
+        public bool isSkillMenu => GetInputValue<bool>(InputType.SkillMenu);
+
+        public bool isLock;
 
         protected override void Awake()
         {
@@ -124,27 +129,52 @@ namespace Common.System
 
         public void SetMoveInput(InputAction.CallbackContext ctx)
         {
+            if (isLock)
+            {
+                return;
+            }
             SetInputValue(InputType.Move, ctx.ReadValue<Vector2>());
         }
 
         public void SetRunInput(InputAction.CallbackContext ctx)
         {
+            if (isLock)
+            {
+                return;
+            }
             SetInputValue(InputType.Run, ctx.ReadValueAsButton());
         }
 
         public void SetAttackLightInput(InputAction.CallbackContext ctx)
         {
+            if (isLock)
+            {
+                return;
+            }
             SetInputValue(InputType.AttackLight, ctx.ReadValueAsButton());
         }
 
         public void SetAttackHeavyInput(InputAction.CallbackContext ctx)
         {
+            if (isLock)
+            {
+                return;
+            }
             SetInputValue(InputType.AttackHeavy, ctx.ReadValueAsButton());
         }
 
         public void SetSpecialInput(InputAction.CallbackContext ctx)
         {
+            if (isLock)
+            {
+                return;
+            }
             SetInputValue(InputType.Special, ctx.ReadValueAsButton());
+        }
+
+        public void SetSkillMenuInput(InputAction.CallbackContext ctx)
+        {
+            SetInputValue(InputType.SkillMenu, ctx.ReadValueAsButton());
         }
 
         private T GetInputValue<T>(InputType type) where T : struct

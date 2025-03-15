@@ -56,8 +56,17 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  skillName: 
+  icon: {fileID: 0}
   clips:
   - {fileID: 11400000, guid: a3c7d32b276712e448fc9dfc883eb436, type: 2}
   - {fileID: 11400000, guid: 7f1521813902cf644a48cd05511a9d29, type: 2}
   - {fileID: 11400000, guid: 04eb23004b2264044b270b62452f7305, type: 2}
-  cdTime: 0
+  baseCD: 0
+  baseAtk: 8
+  isPassive: 0
+  skillDescription: 
+  skillPrice: 0
+  maxLevel: 0
+  cdReduceRate: 0.9
+  atkIncreaseRate: 1.2

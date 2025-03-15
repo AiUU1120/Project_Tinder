@@ -2,6 +2,7 @@
 using JKFrame;
 using System;
 using System.Collections.Generic;
+using AkanyaTools;
 using UnityEngine;
 
 public class RuntimeScreeLogger : MonoBehaviour
@@ -219,7 +220,7 @@ public class RuntimeScreeLogger : MonoBehaviour
                 if (logMessage.fromJKLog)
                 {
                     // 根据框架设置决定是否显示时间
-                    if (!JKFrameRoot.toolsSetting.logConfig.writeTime) timeAndLog = $"[{logMessage.time}]:{logMessage.log}";
+                    if (!FrameRoot.toolsSetting.logConfig.writeTime) timeAndLog = $"[{logMessage.time}]:{logMessage.log}";
                     else timeAndLog = logMessage.log;
 
                 }

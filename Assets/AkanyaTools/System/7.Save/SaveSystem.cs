@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using AkanyaTools;
 using FrameTools.Setting;
 using UnityEngine;
 
@@ -99,7 +100,7 @@ namespace JKFrame
         // 初始化的事情
         public static void Init()
         {
-            binarySerializer = JKFrameRoot.toolsSetting.binarySerializer;
+            binarySerializer = FrameRoot.toolsSetting.binarySerializer;
             saveDirPath = Application.persistentDataPath + "/" + saveDirName;
             settingDirPath = Application.persistentDataPath + "/" + settingDirName;
 #if UNITY_EDITOR
@@ -637,7 +638,7 @@ namespace JKFrame
         /// <param name="path">保存的路径</param>
         private static void SaveFile(object saveObject, string path)
         {
-            switch (JKFrameRoot.toolsSetting.saveSystemType)
+            switch (FrameRoot.toolsSetting.saveSystemType)
             {
                 case SaveSystemType.Binary:
                     if (binarySerializer == null || saveObject.GetType() == typeof(SaveSystemData)) IOTool.SaveFile(saveObject, path);
@@ -661,7 +662,7 @@ namespace JKFrame
         /// <param name="path">加载路径</param>
         private static T LoadFile<T>(string path) where T : class
         {
-            switch (JKFrameRoot.toolsSetting.saveSystemType)
+            switch (FrameRoot.toolsSetting.saveSystemType)
             {
                 case SaveSystemType.Binary:
                     // 避免框架内部的数据类型也使用外部序列化工具序列化，这一般都会出现问题

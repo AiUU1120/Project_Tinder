@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be02cef065514f70859b704ee2790e65, type: 3}
+  m_Name: SkillConfig_Katana_LeapSlam
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: skillBehaviour
+      Entry: 7
+      Data: 0|GameCore.Skills.SkillBehaviour.Katana.KatanaLeapSlamBehaviour, Tinder.GameCore
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: releaseCostDic
+      Entry: 7
+      Data: 1|System.Collections.Generic.Dictionary`2[[AkanyaTools.SkillMaster.Runtime.Data.Enum.SkillCostType,
+        AkanyaTools.SkillMaster.Runtime],[System.Single, mscorlib]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 2|System.Collections.Generic.EnumEqualityComparer`1[[AkanyaTools.SkillMaster.Runtime.Data.Enum.SkillCostType,
+        AkanyaTools.SkillMaster.Runtime]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 4
+      Data: 100
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  skillName: "\u70C8\u7130\u8DF3\u5288"
+  icon: {fileID: 21300000, guid: 6c8f4fde537ca344f88d3876c6c3d5e9, type: 3}
+  clips:
+  - {fileID: 11400000, guid: 4cc3b476d8b857045b0fc59174e6644f, type: 2}
+  baseCD: 10
+  baseAtk: 30
+  isPassive: 0
+  skillDescription: "\u9AD8\u9AD8\u8DF3\u8D77\u7136\u540E\u4EE5\u70C8\u7130\u4E4B\u52BF\u5927\u529B\u4E0B\u5288\uFF0C\u662F\u9AD8\u98CE\u9669\u9AD8\u56DE\u62A5\u7684\u820D\u8EAB\u62DB\u5F0F\u3002"
+  skillPrice: 20
+  maxLevel: 5
+  cdReduceRate: 0.9
+  atkIncreaseRate: 1.2

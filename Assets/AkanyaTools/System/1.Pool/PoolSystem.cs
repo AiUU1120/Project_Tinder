@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
+using AkanyaTools;
 using FrameTools.Extension;
 using static JKFrame.GameObjectPoolModule;
 using Unity.Collections;
@@ -32,7 +33,7 @@ namespace JKFrame
             ObjectPoolModule = new ObjectPoolModule();
             poolRootTransform = new GameObject("PoolRoot").transform;
             poolRootTransform.position = Vector3.zero;
-            poolRootTransform.SetParent(JKFrameRoot.RootTransform);
+            poolRootTransform.SetParent(FrameRoot.RootTransform);
             GameObjectPoolModule.Init(poolRootTransform);
         }
 
@@ -51,8 +52,8 @@ namespace JKFrame
         {
             GameObjectPoolModule.InitObjectPool(keyName, maxCapacity, prefab, defaultQuantity);
 #if UNITY_EDITOR
-            if (JKFrameRoot.EditorEventModule != null)
-                JKFrameRoot.EditorEventModule.EventTrigger<string, int>("OnInitGameObjectPool", keyName, defaultQuantity);
+            if (FrameRoot.EditorEventModule != null)
+                FrameRoot.EditorEventModule.EventTrigger<string, int>("OnInitGameObjectPool", keyName, defaultQuantity);
 #endif
         }
 
@@ -66,8 +67,8 @@ namespace JKFrame
         {
             GameObjectPoolModule.InitObjectPool(keyName, maxCapacity, gameObjects);
 #if UNITY_EDITOR
-            if (JKFrameRoot.EditorEventModule != null)
-                JKFrameRoot.EditorEventModule.EventTrigger<string, int>("OnInitGameObjectPool", keyName, gameObjects.Length);
+            if (FrameRoot.EditorEventModule != null)
+                FrameRoot.EditorEventModule.EventTrigger<string, int>("OnInitGameObjectPool", keyName, gameObjects.Length);
 #endif
         }
 
@@ -89,7 +90,7 @@ namespace JKFrame
         {
             GameObject go = GameObjectPoolModule.GetObject(keyName, parent);
 #if UNITY_EDITOR
-            if (go != null && JKFrameRoot.EditorEventModule != null) JKFrameRoot.EditorEventModule.EventTrigger<string, int>("OnGetGameObject", keyName, 1);
+            if (go != null && FrameRoot.EditorEventModule != null) FrameRoot.EditorEventModule.EventTrigger<string, int>("OnGetGameObject", keyName, 1);
 #endif
             return go;
         }
@@ -116,8 +117,8 @@ namespace JKFrame
             {
                 bool res = GameObjectPoolModule.PushObject(keyName, obj);
 #if UNITY_EDITOR
-                if (JKFrameRoot.EditorEventModule != null && res)
-                    JKFrameRoot.EditorEventModule.EventTrigger<string, int>("OnPushGameObject", keyName, 1);
+                if (FrameRoot.EditorEventModule != null && res)
+                    FrameRoot.EditorEventModule.EventTrigger<string, int>("OnPushGameObject", keyName, 1);
 #endif
                 return res;
             }
@@ -144,8 +145,8 @@ namespace JKFrame
         {
             GameObjectPoolModule.Clear(keyName);
 #if UNITY_EDITOR
-            if (JKFrameRoot.EditorEventModule != null)
-                JKFrameRoot.EditorEventModule.EventTrigger<string>("OnClearGameObject", keyName);
+            if (FrameRoot.EditorEventModule != null)
+                FrameRoot.EditorEventModule.EventTrigger<string>("OnClearGameObject", keyName);
 #endif
         }
 
@@ -163,8 +164,8 @@ namespace JKFrame
         {
             ObjectPoolModule.InitObjectPool<T>(keyName, maxCapacity, defaultQuantity);
 #if UNITY_EDITOR
-            if (JKFrameRoot.EditorEventModule != null)
-                JKFrameRoot.EditorEventModule.EventTrigger<string, int>("OnInitObjectPool", keyName, defaultQuantity);
+            if (FrameRoot.EditorEventModule != null)
+                FrameRoot.EditorEventModule.EventTrigger<string, int>("OnInitObjectPool", keyName, defaultQuantity);
 #endif
         }
 
@@ -187,8 +188,8 @@ namespace JKFrame
         {
             ObjectPoolModule.InitObjectPool(keyName, maxCapacity);
 #if UNITY_EDITOR
-            if (JKFrameRoot.EditorEventModule != null)
-                JKFrameRoot.EditorEventModule.EventTrigger<string, int>("OnInitObjectPool", keyName, 0);
+            if (FrameRoot.EditorEventModule != null)
+                FrameRoot.EditorEventModule.EventTrigger<string, int>("OnInitObjectPool", keyName, 0);
 #endif
         }
 
@@ -201,8 +202,8 @@ namespace JKFrame
         {
             ObjectPoolModule.InitObjectPool(type, maxCapacity);
 #if UNITY_EDITOR
-            if (JKFrameRoot.EditorEventModule != null)
-                JKFrameRoot.EditorEventModule.EventTrigger<string, int>("OnInitObjectPool", type.FullName, 0);
+            if (FrameRoot.EditorEventModule != null)
+                FrameRoot.EditorEventModule.EventTrigger<string, int>("OnInitObjectPool", type.FullName, 0);
 #endif
         }
 
@@ -241,8 +242,8 @@ namespace JKFrame
 #if UNITY_EDITOR
             if (obj != null)
             {
-                if (JKFrameRoot.EditorEventModule != null)
-                    JKFrameRoot.EditorEventModule.EventTrigger<string, int>("OnGetObject", keyName, 1);
+                if (FrameRoot.EditorEventModule != null)
+                    FrameRoot.EditorEventModule.EventTrigger<string, int>("OnGetObject", keyName, 1);
             }
 #endif
             return obj;
@@ -272,9 +273,9 @@ namespace JKFrame
             {
                 bool res = ObjectPoolModule.PushObject(obj, keyName);
 #if UNITY_EDITOR
-                if (JKFrameRoot.EditorEventModule != null && res)
+                if (FrameRoot.EditorEventModule != null && res)
                 {
-                    JKFrameRoot.EditorEventModule.EventTrigger<string, int>("OnPushObject", keyName, 1);
+                    FrameRoot.EditorEventModule.EventTrigger<string, int>("OnPushObject", keyName, 1);
                 }
 #endif
                 return res;
@@ -303,9 +304,9 @@ namespace JKFrame
         public static void ClearObject(string keyName)
         {
 #if UNITY_EDITOR
-            if (JKFrameRoot.EditorEventModule != null)
+            if (FrameRoot.EditorEventModule != null)
             {
-                JKFrameRoot.EditorEventModule.EventTrigger<string>("OnClearnObject", keyName);
+                FrameRoot.EditorEventModule.EventTrigger<string>("OnClearnObject", keyName);
             }
 #endif
             ObjectPoolModule.ClearObject(keyName);
@@ -324,16 +325,16 @@ namespace JKFrame
             {
                 GameObjectPoolModule.ClearAll();
 #if UNITY_EDITOR
-                JKFrameRoot.EditorEventModule.EventTrigger("OnClearAllGameObject");
+                FrameRoot.EditorEventModule.EventTrigger("OnClearAllGameObject");
 #endif
             }
             if (clearCSharpObject)
             {
                 ObjectPoolModule.ClearAll();
 #if UNITY_EDITOR
-                if (JKFrameRoot.EditorEventModule != null)
+                if (FrameRoot.EditorEventModule != null)
                 {
-                    JKFrameRoot.EditorEventModule.EventTrigger("OnClearAllObject");
+                    FrameRoot.EditorEventModule.EventTrigger("OnClearAllObject");
                 }
 #endif
             }

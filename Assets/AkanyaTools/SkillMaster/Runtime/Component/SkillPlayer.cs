@@ -16,6 +16,7 @@ using FrameTools.Extension;
 using JKFrame;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace AkanyaTools.SkillMaster.Runtime.Component
 {
@@ -25,12 +26,12 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
         private Transform m_WeaponPoint;
 
         [SerializeField]
-        private WeaponsConfig m_WeaponsConfig;
+        private WeaponsMapConfig m_WeaponsMapConfig;
 
         [SerializeField]
         private GameObject m_DefaultWeaponPrefab;
 
-        public Dictionary<string, SkillWeapon> skillWeaponsDic => m_WeaponsConfig.skillWeaponsDic;
+        public Dictionary<string, SkillWeapon> skillWeaponsDic => m_WeaponsMapConfig.skillWeaponsDic;
 
         public bool isPlaying { get; private set; }
 

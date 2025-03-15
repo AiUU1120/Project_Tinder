@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9b718a2d1aff2c47a5c670f51335772, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiLayers:
+  m_UILayers:
   - root: {fileID: 4081342566049753021}
     enableMask: 1
     maskImage: {fileID: 5299498809312262115}
@@ -131,16 +131,12 @@ MonoBehaviour:
   - root: {fileID: 6536267891402734866}
     enableMask: 1
     maskImage: {fileID: 383712221527020664}
-  - root: {fileID: 1413165872596567487}
-    enableMask: 1
-    maskImage: {fileID: 6066443418592990689}
   - root: {fileID: 8593087385479084827}
     enableMask: 1
     maskImage: {fileID: 1390487538669073251}
-  dragLayer: {fileID: 5792477773102748304}
-  UITipsItemPrefab: {fileID: 5576551346889183294, guid: 92067e7503942fc408f1d71e97ad2d58,
-    type: 3}
-  UITipsItemParent: {fileID: 1390557527363706918}
+  m_DragLayer: {fileID: 5792477773102748304}
+  m_UITipsItemPrefab: {fileID: 0}
+  m_UITipsItemParent: {fileID: 0}
 --- !u!1 &181742617139831671
 GameObject:
   m_ObjectHideFlags: 0

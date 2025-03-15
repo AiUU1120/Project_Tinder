@@ -10627,7 +10627,6 @@ MonoBehaviour:
   m_CharacterController: {fileID: 951355479123982479}
   m_AnimationController: {fileID: 7134811486449007383}
   m_SkillBrain: {fileID: 1759600652607522553}
-  m_CharacterConfig: {fileID: 11400000, guid: 067ec612a16b2ea45b455c94be93d0ea, type: 2}
   m_MoveSpeed: 6.5
   m_DashSpeed: 7.3
   m_TurnSpeed: 7
@@ -10648,7 +10647,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 179e55b1da91671409ddd8d52899979d, type: 2}
   - {fileID: 11400000, guid: 8cab4873e50021b43972a7ccad3d9b6f, type: 2}
   - {fileID: 11400000, guid: 97ed72bc06325d94390f6020bc4a259a, type: 2}
-  - {fileID: 11400000, guid: 8d73bf0d61ca2b148b50f4e902364cf0, type: 2}
+  - {fileID: 11400000, guid: 25cae6093b81c004489391f1abd56cff, type: 2}
 --- !u!114 &2484238328680876814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10671,7 +10670,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   m_WeaponPoint: {fileID: 6176515517398389000}
-  m_WeaponsConfig: {fileID: 11400000, guid: 60f9470e773641f45a24bf0be26bb848, type: 2}
+  m_WeaponsMapConfig: {fileID: 11400000, guid: 60f9470e773641f45a24bf0be26bb848, type: 2}
   m_DefaultWeaponPrefab: {fileID: 4025278149938408953, guid: 35057c06369d5fa49b5f11c332b43800,
     type: 3}
   atkDetectionLayerMask:

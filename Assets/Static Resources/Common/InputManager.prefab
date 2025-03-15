@@ -156,6 +156,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 0ad54e2d-e3ff-42e0-8bfe-5c1a9f72932e
     m_ActionName: Player/AttackHeavy[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9128411007973919522}
+        m_TargetAssemblyTypeName: Common.System.InputManager, Tinder.Common
+        m_MethodName: SetSkillMenuInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 20f0a581-e28b-4f9a-ac22-18df364b8233
+    m_ActionName: Player/SkillMenu[/Keyboard/tab]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: KeyBoard&Mouse
   m_DefaultActionMap: Player

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using AkanyaTools;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,7 +20,7 @@ namespace JKFrame
 
         public static void Init()
         {
-            instance = JKFrameRoot.RootTransform.GetComponent<MonoSystem>();
+            instance = FrameRoot.RootTransform.GetComponent<MonoSystem>();
             instance.updateEvent = null;
             instance.lateUpdateEvent = null;
             instance.fixedUpdateEvent = null;

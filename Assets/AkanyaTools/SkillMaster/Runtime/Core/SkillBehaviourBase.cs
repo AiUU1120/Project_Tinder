@@ -4,6 +4,7 @@
  * @AkanyaTech.SkillMaster
  */
 
+using System;
 using AkanyaTools.SkillMaster.Runtime.Component;
 using AkanyaTools.SkillMaster.Runtime.Data.Config;
 using AkanyaTools.SkillMaster.Runtime.Data.Event;
@@ -11,11 +12,10 @@ using UnityEngine;
 
 namespace AkanyaTools.SkillMaster.Runtime.Core
 {
+    [Serializable]
     public abstract class SkillBehaviourBase
     {
-        protected float cdTime => skillConfig.cdTime;
-
-        protected PlayerControllerBase playerController;
+        protected PlayerControllerBase playerControllerBase;
 
         protected SkillConfig skillConfig;
 
@@ -33,7 +33,7 @@ namespace AkanyaTools.SkillMaster.Runtime.Core
 
         public virtual void Init(PlayerControllerBase playerController, SkillConfig skillConfig, SkillBrainBase skillBrain, SkillPlayer skillPlayer)
         {
-            this.playerController = playerController;
+            this.playerControllerBase = playerController;
             this.skillConfig = skillConfig;
             this.skillBrain = skillBrain;
             this.skillPlayer = skillPlayer;
@@ -47,7 +47,7 @@ namespace AkanyaTools.SkillMaster.Runtime.Core
 
         public virtual void UpdateCDTimer()
         {
-            if (cdTime <= 0 || cdTimer <= 0)
+            if (GetCDTime() <= 0 || cdTimer <= 0)
             {
                 return;
             }
@@ -57,8 +57,12 @@ namespace AkanyaTools.SkillMaster.Runtime.Core
         /// <summary>
         /// 基类实现包含消耗代价
         /// </summary>
-        public virtual void Release()
+        public virtual void Release(bool calCDTimer = true)
         {
+            if (calCDTimer)
+            {
+                cdTimer = GetCDTime();
+            }
             canRotate = false;
             isPlaying = true;
             skillBrain.SetCanReleaseFlag(false);
@@ -73,7 +77,9 @@ namespace AkanyaTools.SkillMaster.Runtime.Core
             }
         }
 
-        public virtual bool CheckRelease() => CheckReleaseCost();
+        public virtual bool CheckRelease() => CheckReleaseCost() && CheckCD();
+
+        public virtual bool CheckCD() => cdTimer <= 0;
 
         /// <summary>
         /// 检测技能消耗是否满足 默认实现遍历消耗字典
@@ -120,6 +126,8 @@ namespace AkanyaTools.SkillMaster.Runtime.Core
         {
             isPlaying = false;
         }
+
+        public virtual float GetCDTime() => skillConfig.baseCD;
 
         #region 技能驱动事件
 

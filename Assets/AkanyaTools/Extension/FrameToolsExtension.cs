@@ -1,14 +1,15 @@
 ﻿/*
-* @Author: AiUU
-* @Description: 框架拓展方法
-* @AkanyaTech.FrameTools
-*/
+ * @Author: AiUU
+ * @Description: 框架拓展方法
+ * @AkanyaTech.FrameTools
+ */
 
 using System;
 using System.Collections;
 using JKFrame;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Cursor = UnityEngine.Cursor;
 
 namespace FrameTools.Extension
 {
@@ -171,6 +172,22 @@ namespace FrameTools.Extension
             }
             Debug.LogError($"SkillMaster: 没有在 {ve.name} 中找到 {name}!\n请检查是否修改了 UI Builder 组件名称!");
             return null;
+        }
+
+        #endregion
+
+        #region MyRegion
+
+        public static void LockCursor()
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+
+        public static void UnlockCursor()
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
 
         #endregion

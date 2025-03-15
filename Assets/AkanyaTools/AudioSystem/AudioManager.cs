@@ -17,7 +17,7 @@ namespace AkanyaTools.AudioSystem
 
         public static void Init()
         {
-            s_AudioModule = JKFrameRoot.RootTransform.GetComponentInChildren<AudioModule>();
+            s_AudioModule = FrameRoot.RootTransform.GetComponentInChildren<AudioModule>();
             s_AudioModule.Init();
         }
 
