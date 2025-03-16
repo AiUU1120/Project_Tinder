@@ -22,13 +22,10 @@ namespace GameCore.Skills.SkillBehaviour.Katana
         {
             base.Release(false);
             m_CurAttackIndex++;
-            if (m_CurAttackIndex == skillConfig.clips.Length - 1)
-            {
-                cdTimer = GetCDTime();
-            }
+            cdTimer = m_CurAttackIndex == skillConfig.clips.Length - 1 ? GetCDTime() : m_StandingTime;
             skillPlayer.StartPlaySkillConfig(this);
             skillPlayer.PlaySkillClip(skillConfig.clips[m_CurAttackIndex]);
-            skillBrain.AddOrUpdateSkillShareData(PlayerSkillBrain.continuous_attack_mode_data_key, true);
+            // skillBrain.AddOrUpdateSkillShareData(PlayerSkillBrain.continuous_attack_mode_data_key, true);
         }
 
         public override bool CheckRelease()

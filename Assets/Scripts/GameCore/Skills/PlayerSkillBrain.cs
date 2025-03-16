@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using AkanyaTools.SkillMaster.Runtime.Component;
 using AkanyaTools.SkillMaster.Runtime.Core;
+using AkanyaTools.SkillMaster.Runtime.Data.Config;
 using Data.GameCore;
 using GameCore.Character.Player;
 using GameCore.Skills.SkillBehaviour;
@@ -14,35 +15,30 @@ namespace GameCore.Skills
         /// </summary>
         public const string continuous_attack_mode_data_key = "ContinuousAttackMode";
 
-        private PlayerController m_UnityChanController;
+        private PlayerController m_PlayerController;
 
-        public void Init(PlayerControllerBase playerController, SkillLearnedDatas learnedDatas)
+        public void Init(PlayerControllerBase playerControllerBase, SkillLearnedDatas learnedDatas)
         {
-            m_UnityChanController = playerController as PlayerController;
-            if (m_UnityChanController != null)
+            m_PlayerController = playerControllerBase as PlayerController;
+            if (m_PlayerController != null)
             {
-                skillPlayer.Init(m_UnityChanController.animationController, m_UnityChanController.transform);
+                skillPlayer.Init(m_PlayerController.animationController, m_PlayerController.transform);
             }
             canReleaseSkill = true;
-            skillBehaviours = new List<SkillBehaviourBase>(learnedDatas.learnedSkillsDic.Dictionary.Count + 2);
-            InitNormalAttack();
+            var skillConfigs = PlayerManager.instance.GetSkillConfigList();
             foreach (var item in learnedDatas.learnedSkillsDic.Dictionary)
             {
-                var skillBehaviour = skillConfigs[item.Key + 2].skillBehaviour.DeepCopy();
-                skillBehaviour.Init(playerController, skillConfigs[item.Key + 2], this, skillPlayer);
-                ((PlayerSkillBehaviourBase) skillBehaviour).InitSkillLearnedData(item.Value);
-                skillBehaviours.Add(skillBehaviour);
+                AddSkill(playerControllerBase, skillConfigs, item.Key, item.Value);
             }
         }
 
-        private void InitNormalAttack()
+        public void AddSkill(PlayerControllerBase playerControllerBase, List<SkillConfig> skillConfigs, int skillIndex, SkillLearnedData skillLearnedData)
         {
-            var skillBehaviour0 = skillConfigs[0].skillBehaviour.DeepCopy();
-            skillBehaviour0.Init(m_UnityChanController, skillConfigs[0], this, skillPlayer);
-            skillBehaviours.Add(skillBehaviour0);
-            var skillBehaviour1 = skillConfigs[1].skillBehaviour.DeepCopy();
-            skillBehaviour1.Init(m_UnityChanController, skillConfigs[1], this, skillPlayer);
-            skillBehaviours.Add(skillBehaviour1);
+            var skillConfig = skillConfigs[skillIndex];
+            var skillBehaviour = skillConfig.skillBehaviour.DeepCopy();
+            skillBehaviour.Init(playerControllerBase, skillConfig, this, skillPlayer, skillIndex);
+            ((PlayerSkillBehaviourBase) skillBehaviour).InitSkillLearnedData(skillLearnedData);
+            skillBehaviours.Add(skillBehaviour);
         }
     }
 }

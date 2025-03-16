@@ -4,9 +4,11 @@
  * @AkanyaTech.Tinder
  */
 
+using Common.System;
+
 namespace GameCore.Character.Player.State
 {
-    public sealed class UnityChanSkillState : UnityChanStateBase
+    public sealed class PlayerSkillState : PlayerStateBase
     {
         public override void Enter()
         {
@@ -24,6 +26,7 @@ namespace GameCore.Character.Player.State
         {
             if (CheckAndEnterSkillState())
             {
+                InputManager.instance.ResetAllCacheTimer();
                 PlaySkill();
             }
         }

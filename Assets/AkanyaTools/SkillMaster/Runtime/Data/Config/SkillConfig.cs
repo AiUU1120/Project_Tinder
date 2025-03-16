@@ -26,6 +26,11 @@ namespace AkanyaTools.SkillMaster.Runtime.Data.Config
         public Sprite icon;
 
         /// <summary>
+        /// 备用图标
+        /// </summary>
+        public Sprite[] icons;
+
+        /// <summary>
         /// 全部技能片段
         /// </summary>
         public SkillClip[] clips;

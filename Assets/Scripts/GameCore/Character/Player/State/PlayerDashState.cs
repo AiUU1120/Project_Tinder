@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace GameCore.Character.Player.State
 {
-    public sealed class UnityChanDashState : UnityChanStateBase
+    public sealed class PlayerDashState : PlayerStateBase
     {
         private bool m_ApplyRootMotion;
 

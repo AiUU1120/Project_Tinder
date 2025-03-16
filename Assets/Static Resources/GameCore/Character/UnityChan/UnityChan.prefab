@@ -10643,11 +10643,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillPlayer: {fileID: 2484238328680876814}
-  skillConfigs:
-  - {fileID: 11400000, guid: 179e55b1da91671409ddd8d52899979d, type: 2}
-  - {fileID: 11400000, guid: 8cab4873e50021b43972a7ccad3d9b6f, type: 2}
-  - {fileID: 11400000, guid: 97ed72bc06325d94390f6020bc4a259a, type: 2}
-  - {fileID: 11400000, guid: 25cae6093b81c004489391f1abd56cff, type: 2}
 --- !u!114 &2484238328680876814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10670,7 +10665,8 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   m_WeaponPoint: {fileID: 6176515517398389000}
-  m_WeaponsMapConfig: {fileID: 11400000, guid: 60f9470e773641f45a24bf0be26bb848, type: 2}
+  m_SkillWeaponsMapConfig: {fileID: 11400000, guid: 60f9470e773641f45a24bf0be26bb848,
+    type: 2}
   m_DefaultWeaponPrefab: {fileID: 4025278149938408953, guid: 35057c06369d5fa49b5f11c332b43800,
     type: 3}
   atkDetectionLayerMask:

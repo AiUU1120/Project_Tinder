@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace GameCore.Character.Player.State
 {
-    public sealed class UnityChanIdleState : UnityChanStateBase
+    public sealed class PlayerIdleState : PlayerStateBase
     {
         public override void Enter()
         {

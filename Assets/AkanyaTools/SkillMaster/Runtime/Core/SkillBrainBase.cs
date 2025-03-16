@@ -7,13 +7,11 @@
 using System;
 using System.Collections.Generic;
 using AkanyaTools.SkillMaster.Runtime.Component;
-using AkanyaTools.SkillMaster.Runtime.Data.Config;
 using AkanyaTools.SkillMaster.Runtime.Data.Enum;
 using FrameTools.Extension;
 using FrameTools.ResourceSystem;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Assertions;
 
 namespace AkanyaTools.SkillMaster.Runtime.Core
 {
@@ -22,11 +20,8 @@ namespace AkanyaTools.SkillMaster.Runtime.Core
         [SerializeField]
         protected SkillPlayer skillPlayer;
 
-        [SerializeField]
-        protected List<SkillConfig> skillConfigs = new();
-
         [ShowInInspector]
-        protected List<SkillBehaviourBase> skillBehaviours;
+        protected List<SkillBehaviourBase> skillBehaviours = new();
 
         /// <summary>
         /// 是否可以释放技能
@@ -34,6 +29,8 @@ namespace AkanyaTools.SkillMaster.Runtime.Core
         public virtual bool canReleaseSkill { get; protected set; }
 
         public int lastReleaseSkillIndex { get; protected set; } = -1;
+
+        public int skillCount => skillBehaviours.Count;
 
         private readonly Dictionary<string, ISkillShareData> m_ShareDataDic = new();
 
@@ -70,14 +67,14 @@ namespace AkanyaTools.SkillMaster.Runtime.Core
 
         public virtual void Init(PlayerControllerBase playerController)
         {
-            canReleaseSkill = true;
-            skillBehaviours = new List<SkillBehaviourBase>(skillConfigs.Count);
-            foreach (var skillConfig in skillConfigs)
-            {
-                var skillBehaviour = skillConfig.skillBehaviour.DeepCopy();
-                skillBehaviour.Init(playerController, skillConfig, this, skillPlayer);
-                skillBehaviours.Add(skillBehaviour);
-            }
+            // canReleaseSkill = true;
+            // skillBehaviours = new List<SkillBehaviourBase>(skillConfigs.Count);
+            // foreach (var skillConfig in skillConfigs)
+            // {
+            //     var skillBehaviour = skillConfig.skillBehaviour.DeepCopy();
+            //     skillBehaviour.Init(playerController, skillConfig, this, skillPlayer);
+            //     skillBehaviours.Add(skillBehaviour);
+            // }
         }
 
         protected virtual void Update()
@@ -112,9 +109,13 @@ namespace AkanyaTools.SkillMaster.Runtime.Core
         /// <summary>
         /// 技能释放检查
         /// </summary>
-        /// <param name="i"></param>
+        /// <param name="skillIndex"></param>
         /// <returns></returns>
-        public bool CheckReleaseSkill(int i) => canReleaseSkill && skillBehaviours[i].CheckRelease();
+        public bool CheckReleaseSkill(int skillIndex)
+        {
+            var skillBehaviour = skillBehaviours.Find(s => s.skillIndex == skillIndex);
+            return canReleaseSkill && skillBehaviour != null && skillBehaviour.CheckRelease();
+        }
 
         /// <summary>
         /// 释放技能
@@ -122,12 +123,14 @@ namespace AkanyaTools.SkillMaster.Runtime.Core
         /// <param name="index">skillBehaviours 索引</param>
         public virtual void ReleaseSkill(int index)
         {
+            var skillBehaviour = skillBehaviours.Find(s => s.skillIndex == index);
             if (lastReleaseSkillIndex != -1 && lastReleaseSkillIndex != index)
             {
-                skillBehaviours[lastReleaseSkillIndex].OnSkillBehaviourSwitch();
+                var lastSkillBehaviour = skillBehaviours.Find(s => s.skillIndex == lastReleaseSkillIndex);
+                lastSkillBehaviour.OnSkillBehaviourSwitch();
             }
             lastReleaseSkillIndex = index;
-            skillBehaviours[index].Release();
+            skillBehaviour.Release();
         }
 
         /// <summary>

@@ -9,5 +9,6 @@ namespace AkanyaTools.BuffGuy.Data.Enum
     public enum BuffEffectType
     {
         Hp,
+        AtkPercentBonus,
     }
 }

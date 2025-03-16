@@ -9,6 +9,7 @@ using AkanyaTools.PlayableKami;
 using AkanyaTools.SkillMaster.Runtime.Component;
 using AkanyaTools.StateMachine;
 using Common.System;
+using Data.GameCore;
 using Data.GameCore.Config;
 using Data.GameCore.Enums;
 using Data.GameCore.Save;
@@ -59,26 +60,28 @@ namespace GameCore.Character.Player
 
         public float turnSpeed => m_TurnSpeed;
 
+        public CharacterProperties characterProperties { get; private set; }
+
         public Vector3 playerMoveDir { get; private set; }
 
         private Transform m_CameraTrans;
 
         private StateMachine m_StateMachine;
 
-        private PlayerPostureState m_CurrPlayerPostureState = PlayerPostureState.Stand;
+        // private PlayerPostureState m_CurrPlayerPostureState = PlayerPostureState.Stand;
+        //
+        // private PlayerMotionState m_CurrPlayerMotionState = PlayerMotionState.Idle;
+        //
+        // private readonly float m_StandingThreshold = 0f;
+        //
+        // private readonly float m_HoveringThreshold = 1f;
 
-        private PlayerMotionState m_CurrPlayerMotionState = PlayerMotionState.Idle;
-
-        private readonly float m_StandingThreshold = 0f;
-
-        private readonly float m_HoveringThreshold = 1f;
-
-        private static class AnimationHash
-        {
-            public static readonly int posture = Animator.StringToHash("Posture");
-            public static readonly int moveSpeed = Animator.StringToHash("Move Speed");
-            public static readonly int turnSpeed = Animator.StringToHash("Turn Speed");
-        }
+        // private static class AnimationHash
+        // {
+        //     public static readonly int posture = Animator.StringToHash("Posture");
+        //     public static readonly int moveSpeed = Animator.StringToHash("Move Speed");
+        //     public static readonly int turnSpeed = Animator.StringToHash("Turn Speed");
+        // }
 
         #region 初始化
 
@@ -90,6 +93,8 @@ namespace GameCore.Character.Player
             }
             this.weaponConfig = weaponConfig;
             skillBrain.Init(this, playerData.skillLearnedDatas);
+            characterProperties = new CharacterProperties();
+            characterProperties.Init(weaponConfig);
             InitStateMachine();
         }
 
@@ -99,7 +104,7 @@ namespace GameCore.Character.Player
         private void InitStateMachine()
         {
             m_StateMachine = ResourceManager.GetOrNew<StateMachine>();
-            m_StateMachine.Init<UnityChanIdleState>(this);
+            m_StateMachine.Init<PlayerIdleState>(this);
         }
 
         #endregion
@@ -138,20 +143,20 @@ namespace GameCore.Character.Player
         /// <param name="reCurState">同一状态是否切换</param>
         public void ChangeState(PlayerMotionState playerMotionState, bool reCurState = false)
         {
-            m_CurrPlayerMotionState = playerMotionState;
+            // m_CurrPlayerMotionState = playerMotionState;
             switch (playerMotionState)
             {
                 case PlayerMotionState.Idle:
-                    m_StateMachine.ChangeState<UnityChanIdleState>(reCurState);
+                    m_StateMachine.ChangeState<PlayerIdleState>(reCurState);
                     break;
                 case PlayerMotionState.Move:
-                    m_StateMachine.ChangeState<UnityChanMoveState>(reCurState);
+                    m_StateMachine.ChangeState<PlayerMoveState>(reCurState);
                     break;
                 case PlayerMotionState.Dash:
-                    m_StateMachine.ChangeState<UnityChanDashState>(reCurState);
+                    m_StateMachine.ChangeState<PlayerDashState>(reCurState);
                     break;
                 case PlayerMotionState.Skill:
-                    m_StateMachine.ChangeState<UnityChanSkillState>(reCurState);
+                    m_StateMachine.ChangeState<PlayerSkillState>(reCurState);
                     break;
             }
         }

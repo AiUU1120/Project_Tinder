@@ -7,6 +7,7 @@
 using System;
 using Common.Data.Config;
 using FrameTools.Base.Singleton;
+using FrameTools.Extension;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -51,6 +52,11 @@ namespace Common.System
 
             public override void Update()
             {
+            }
+
+            public void ResetCacheTimer()
+            {
+                lastInputTime = float.MinValue;
             }
         }
 
@@ -108,7 +114,24 @@ namespace Common.System
 
         public bool isSkillMenu => GetInputValue<bool>(InputType.SkillMenu);
 
-        public bool isLock;
+        public bool isUIControl
+        {
+            get => m_IsUIControl;
+            set
+            {
+                m_IsUIControl = value;
+                if (m_IsUIControl)
+                {
+                    FrameToolsExtension.UnlockCursor();
+                }
+                else
+                {
+                    FrameToolsExtension.LockCursor();
+                }
+            }
+        }
+
+        private bool m_IsUIControl;
 
         protected override void Awake()
         {
@@ -129,7 +152,7 @@ namespace Common.System
 
         public void SetMoveInput(InputAction.CallbackContext ctx)
         {
-            if (isLock)
+            if (m_IsUIControl)
             {
                 return;
             }
@@ -138,7 +161,7 @@ namespace Common.System
 
         public void SetRunInput(InputAction.CallbackContext ctx)
         {
-            if (isLock)
+            if (m_IsUIControl)
             {
                 return;
             }
@@ -147,7 +170,7 @@ namespace Common.System
 
         public void SetAttackLightInput(InputAction.CallbackContext ctx)
         {
-            if (isLock)
+            if (m_IsUIControl)
             {
                 return;
             }
@@ -156,7 +179,7 @@ namespace Common.System
 
         public void SetAttackHeavyInput(InputAction.CallbackContext ctx)
         {
-            if (isLock)
+            if (m_IsUIControl)
             {
                 return;
             }
@@ -165,7 +188,7 @@ namespace Common.System
 
         public void SetSpecialInput(InputAction.CallbackContext ctx)
         {
-            if (isLock)
+            if (m_IsUIControl)
             {
                 return;
             }
@@ -203,6 +226,17 @@ namespace Common.System
                 Debug.LogError($"Input type {type} is not matched.");
             }
             Debug.LogError("InputType not found");
+        }
+
+        public void ResetAllCacheTimer()
+        {
+            foreach (var key in m_InputConfig.inputConfigDic)
+            {
+                if (key.Value is Key<bool> boolKey)
+                {
+                    boolKey.ResetCacheTimer();
+                }
+            }
         }
     }
 }

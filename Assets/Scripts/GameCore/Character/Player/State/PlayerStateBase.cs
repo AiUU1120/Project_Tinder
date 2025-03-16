@@ -6,11 +6,12 @@
 
 using AkanyaTools.AudioSystem;
 using Common.System;
+using Data;
 using FrameTools.StateMachine;
 
 namespace GameCore.Character.Player.State
 {
-    public abstract class UnityChanStateBase : StateBase
+    public abstract class PlayerStateBase : StateBase
     {
         protected PlayerController unityChanController;
 
@@ -40,14 +41,18 @@ namespace GameCore.Character.Player.State
                 curReleaseSkillIndex = 0;
                 return true;
             }
-            else if (InputManager.instance.isAttackHeavy && unityChanController.skillBrain.CheckReleaseSkill(1))
+            if (InputManager.instance.isAttackHeavy && unityChanController.skillBrain.CheckReleaseSkill(1))
             {
                 curReleaseSkillIndex = 1;
                 return true;
             }
-            else if (InputManager.instance.isSpecial && unityChanController.skillBrain.CheckReleaseSkill(2))
+            if (InputManager.instance.isSpecial)
             {
-                curReleaseSkillIndex = 2;
+                if (!unityChanController.skillBrain.CheckReleaseSkill(DataManager.playerData.shortcutSkillData.skillIndex))
+                {
+                    return false;
+                }
+                curReleaseSkillIndex = DataManager.playerData.shortcutSkillData.skillIndex;
                 return true;
             }
             return false;

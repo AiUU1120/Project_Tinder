@@ -14,6 +14,12 @@ namespace Data.GameCore.Config
     [CreateAssetMenu(fileName = "WeaponConfig_", menuName = "Tinder/Config/GameCore/WeaponConfig")]
     public sealed class WeaponConfig : ConfigBase
     {
+        [Header("属性")]
+        public int baseAtk;
+
+        public int baseDef;
+
+        [Space]
         [Header("全部技能")]
         public List<SkillConfig> skillConfigs = new();
 

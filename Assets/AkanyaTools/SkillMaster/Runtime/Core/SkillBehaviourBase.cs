@@ -29,14 +29,17 @@ namespace AkanyaTools.SkillMaster.Runtime.Core
 
         protected float cdTimer;
 
+        public int skillIndex { get; protected set; }
+
         public abstract SkillBehaviourBase DeepCopy();
 
-        public virtual void Init(PlayerControllerBase playerController, SkillConfig skillConfig, SkillBrainBase skillBrain, SkillPlayer skillPlayer)
+        public virtual void Init(PlayerControllerBase playerController, SkillConfig skillConfig, SkillBrainBase skillBrain, SkillPlayer skillPlayer, int skillIndex = -1)
         {
             this.playerControllerBase = playerController;
             this.skillConfig = skillConfig;
             this.skillBrain = skillBrain;
             this.skillPlayer = skillPlayer;
+            this.skillIndex = skillIndex;
         }
 
         public virtual void Update()

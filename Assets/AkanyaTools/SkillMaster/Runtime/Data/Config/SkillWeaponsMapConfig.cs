@@ -12,8 +12,8 @@ using UnityEngine;
 
 namespace AkanyaTools.SkillMaster.Runtime.Data.Config
 {
-    [CreateAssetMenu(fileName = "WeaponsMapConfig_", menuName = "SkillMaster/Config/WeaponsMapConfig")]
-    public sealed class WeaponsMapConfig : ConfigBase
+    [CreateAssetMenu(fileName = "SkillWeaponsMapConfig_", menuName = "SkillMaster/Config/SkillWeaponsMapConfig")]
+    public sealed class SkillWeaponsMapConfig : ConfigBase
     {
         [OdinSerialize]
         private Dictionary<string, SkillWeapon> m_SkillWeaponsDic = new();

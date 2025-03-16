@@ -61,7 +61,11 @@ namespace Data
                 }
             };
             playerData.skillLearnedDatas.learnedSkillsDic.Dictionary.Add(0, new SkillLearnedData() { level = 1 });
-            playerData.skillLearnedDatas.learnedSkillsDic.Dictionary.Add(1, new SkillLearnedData() { level = 2 });
+            playerData.skillLearnedDatas.learnedSkillsDic.Dictionary.Add(1, new SkillLearnedData() { level = 1 });
+            playerData.shortcutSkillData = new ShortcutSkillData()
+            {
+                skillIndex = -1,
+            };
         }
 
         /// <summary>

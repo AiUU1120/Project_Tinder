@@ -19,6 +19,8 @@ namespace GameCore.Skills.SkillBehaviour.Katana
 
         private int m_LastAttackIndex = -1;
 
+        protected override bool autoUpdateSlot => false;
+
         public override SkillBehaviourBase DeepCopy() => new KatanaAttackLightBehaviour() { m_ComboCount = m_ComboCount };
 
         public override void Release(bool calCDTimer = true)

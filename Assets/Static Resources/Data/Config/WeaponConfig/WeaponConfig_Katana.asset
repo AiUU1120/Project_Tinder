@@ -93,7 +93,11 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  baseAtk: 15
+  baseDef: 0
   skillConfigs:
+  - {fileID: 11400000, guid: 179e55b1da91671409ddd8d52899979d, type: 2}
+  - {fileID: 11400000, guid: 8cab4873e50021b43972a7ccad3d9b6f, type: 2}
   - {fileID: 11400000, guid: 97ed72bc06325d94390f6020bc4a259a, type: 2}
   - {fileID: 11400000, guid: 25cae6093b81c004489391f1abd56cff, type: 2}
   applyRootMotion: 1

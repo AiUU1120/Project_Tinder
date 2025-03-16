@@ -38,7 +38,7 @@ namespace GameCore.Skills.SkillBehaviour.Katana
 
         public override void OnRootMotion(Vector3 deltaPosition, Quaternion deltaRotation)
         {
-            playerController.characterController.Move(new Vector3(deltaPosition.x, deltaPosition.y, deltaPosition.z * 1.5f));
+            playerController.characterController.Move(new Vector3(deltaPosition.x * 2.5f, deltaPosition.y, deltaPosition.z * 2.5f));
             playerController.transform.rotation *= deltaRotation;
         }
     }
