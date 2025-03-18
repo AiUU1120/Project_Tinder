@@ -12,9 +12,9 @@ namespace Data.GameCore
 {
     public sealed class CharacterProperties
     {
-        public float curHp;
+        public int curHp;
 
-        public float curMp;
+        public int curMp;
 
         public IntegerProperties maxHp = new();
 
@@ -27,14 +27,43 @@ namespace Data.GameCore
         public void Init(WeaponConfig weaponConfig)
         {
             maxHp.Init(100, onBaseValueChange: OnMaxHpChange);
+            maxMp.Init(100, onBaseValueChange: OnMaxMpChange);
             atk.Init(weaponConfig.baseAtk);
             def.Init(weaponConfig.baseDef);
+            curHp = maxHp.baseValue;
+            curMp = maxMp.baseValue;
+        }
+
+        public void AddHp(int value)
+        {
+            SetHp(curHp + value);
+        }
+
+        public void AddMp(int value)
+        {
+            SetMp(curMp + value);
+        }
+
+        public void SetHp(int value)
+        {
+            curHp = Mathf.Clamp(value, 0, maxHp.curValue);
+        }
+
+        public void SetMp(int value)
+        {
+            curMp = Mathf.Clamp(value, 0, maxMp.curValue);
         }
 
         private void OnMaxHpChange(int oldValue, int newValue)
         {
             var percent = curHp / oldValue;
             curHp = newValue * percent;
+        }
+
+        private void OnMaxMpChange(int oldValue, int newValue)
+        {
+            var percent = curMp / oldValue;
+            curMp = newValue * percent;
         }
 
         public sealed class FloatProperties : PropertiesBase
@@ -69,7 +98,7 @@ namespace Data.GameCore
                 get => m_FixedBonus;
                 set
                 {
-                    onFixedBonusValueChange?.Invoke(m_FixedBonus, value);
+                    m_OnFixedBonusValueChange?.Invoke(m_FixedBonus, value);
                     if (m_OnCurValueChange != null)
                     {
                         var oldValue = curValue;
@@ -91,7 +120,7 @@ namespace Data.GameCore
                 get => m_PercentBonus;
                 set
                 {
-                    onPercentBonusValueChange?.Invoke(m_PercentBonus, value);
+                    m_OnPercentBonusValueChange?.Invoke(m_PercentBonus, value);
                     if (m_OnCurValueChange != null)
                     {
                         var oldValue = curValue;
@@ -123,8 +152,8 @@ namespace Data.GameCore
                 this.baseValue = baseValue;
                 m_OnBaseValueChange = onBaseValueChange;
                 m_OnCurValueChange = onCurValueChange;
-                this.onFixedBonusValueChange = onFixedBonusValueChange;
-                this.onPercentBonusValueChange = onPercentBonusValueChange;
+                this.m_OnFixedBonusValueChange = onFixedBonusValueChange;
+                this.m_OnPercentBonusValueChange = onPercentBonusValueChange;
             }
         }
 
@@ -160,7 +189,7 @@ namespace Data.GameCore
                 get => m_FixedBonus;
                 set
                 {
-                    onFixedBonusValueChange?.Invoke(m_FixedBonus, value);
+                    m_OnFixedBonusValueChange?.Invoke(m_FixedBonus, value);
                     if (m_OnCurValueChange != null)
                     {
                         var oldValue = curValue;
@@ -182,7 +211,7 @@ namespace Data.GameCore
                 get => m_PercentBonus;
                 set
                 {
-                    onPercentBonusValueChange?.Invoke(m_PercentBonus, value);
+                    m_OnPercentBonusValueChange?.Invoke(m_PercentBonus, value);
                     if (m_OnCurValueChange != null)
                     {
                         var oldValue = curValue;
@@ -214,16 +243,16 @@ namespace Data.GameCore
                 this.baseValue = baseValue;
                 m_OnBaseValueChange = onBaseValueChange;
                 m_OnCurValueChange = onCurValueChange;
-                this.onFixedBonusValueChange = onFixedBonusValueChange;
-                this.onPercentBonusValueChange = onPercentBonusValueChange;
+                this.m_OnFixedBonusValueChange = onFixedBonusValueChange;
+                this.m_OnPercentBonusValueChange = onPercentBonusValueChange;
             }
         }
 
         public abstract class PropertiesBase
         {
-            protected Action<float, float> onFixedBonusValueChange;
+            protected Action<float, float> m_OnFixedBonusValueChange;
 
-            protected Action<float, float> onPercentBonusValueChange;
+            protected Action<float, float> m_OnPercentBonusValueChange;
         }
     }
 }

@@ -49,5 +49,14 @@ namespace GameCore.UI.PnlGameMain
         {
             m_CDMaskImg.fillAmount = fillAmount;
         }
+
+        /// <summary>
+        /// 更新技能栏状态
+        /// </summary>
+        /// <param name="canRelease"></param>
+        public void UpdateSkillSlotState(bool canRelease)
+        {
+            m_ShortcutSkillIconImg.color = canRelease ? Color.white : Color.gray;
+        }
     }
 }

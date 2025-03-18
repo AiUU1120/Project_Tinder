@@ -6,22 +6,26 @@
 
 using System;
 using AkanyaTools.PlayableKami;
+using AkanyaTools.ResourceSystem;
 using AkanyaTools.SkillMaster.Runtime.Component;
+using AkanyaTools.SkillMaster.Runtime.Data;
+using AkanyaTools.SkillMaster.Runtime.Data.Event;
 using AkanyaTools.StateMachine;
 using Common.System;
 using Data.GameCore;
 using Data.GameCore.Config;
 using Data.GameCore.Enums;
 using Data.GameCore.Save;
-using FrameTools.ResourceSystem;
 using FrameTools.StateMachine;
 using GameCore.Character.Player.State;
 using GameCore.Skills;
+using GameCore.Skills.SkillBehaviour;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace GameCore.Character.Player
 {
-    public sealed class PlayerController : PlayerControllerBase, IStateMachineOwner
+    public sealed class PlayerController : PlayerControllerBase, IStateMachineOwner, ISkillCharacter
     {
         [Header("组件")]
         [SerializeField]
@@ -60,6 +64,7 @@ namespace GameCore.Character.Player
 
         public float turnSpeed => m_TurnSpeed;
 
+        [ShowInInspector]
         public CharacterProperties characterProperties { get; private set; }
 
         public Vector3 playerMoveDir { get; private set; }
@@ -67,21 +72,6 @@ namespace GameCore.Character.Player
         private Transform m_CameraTrans;
 
         private StateMachine m_StateMachine;
-
-        // private PlayerPostureState m_CurrPlayerPostureState = PlayerPostureState.Stand;
-        //
-        // private PlayerMotionState m_CurrPlayerMotionState = PlayerMotionState.Idle;
-        //
-        // private readonly float m_StandingThreshold = 0f;
-        //
-        // private readonly float m_HoveringThreshold = 1f;
-
-        // private static class AnimationHash
-        // {
-        //     public static readonly int posture = Animator.StringToHash("Posture");
-        //     public static readonly int moveSpeed = Animator.StringToHash("Move Speed");
-        //     public static readonly int turnSpeed = Animator.StringToHash("Turn Speed");
-        // }
 
         #region 初始化
 
@@ -259,5 +249,36 @@ namespace GameCore.Character.Player
         }
 
         #endregion
+
+        public void BeHit(AttackData attackData)
+        {
+        }
+
+        public int GetAtkValue(SkillDetectionFrameEvent e)
+        {
+            var curSkill = (PlayerSkillBehaviourBase) skillBrain.curSkillBehaviour;
+            var skillAtk = skillBrain.curSkillBehaviour.skillConfig.GetAtkByLevel(curSkill.skillLearnedData.level);
+            return Mathf.RoundToInt((characterProperties.atk.curValue + skillAtk) * e.attackHitConfig.atkFactor);
+        }
+
+        public void OnSkillRotate()
+        {
+            Rotate();
+        }
+
+        public void ChangeToIdleState()
+        {
+            ChangeState(PlayerMotionState.Idle);
+        }
+
+        public void OnSkillMove(Vector3 deltaPosition)
+        {
+            m_CharacterController.Move(deltaPosition);
+        }
+
+        public void OnSkillRotate(Quaternion deltaRotation)
+        {
+            transform.rotation *= deltaRotation;
+        }
     }
 }

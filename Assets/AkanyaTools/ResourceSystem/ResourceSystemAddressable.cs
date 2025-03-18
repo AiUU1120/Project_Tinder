@@ -1,8 +1,8 @@
 ﻿/*
-* @Author: AiUU
-* @Description: Addressable下资源管理系统
-* @AkanyaTech.FrameTools
-*/
+ * @Author: AiUU
+ * @Description: Addressable下资源管理系统
+ * @AkanyaTech.FrameTools
+ */
 
 #if ENABLE_ADDRESSABLES
 using System;
@@ -13,7 +13,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-namespace FrameTools.ResourceSystem
+namespace AkanyaTools.ResourceSystem
 {
     public static class ResourceManager
     {
@@ -247,6 +247,23 @@ namespace FrameTools.ResourceSystem
         }
 
         /// <summary>
+        /// 获取游戏物体 如果对象池中没有 会自动实例化
+        /// </summary>
+        /// <param name="prefab"></param>
+        /// <param name="parent"></param>
+        /// <returns></returns>
+        public static GameObject GetOrInstantiateGameObject(GameObject prefab, Transform parent = null)
+        {
+            var go = PoolSystem.GetGameObject(prefab.name, parent);
+            if (go.IsNull())
+            {
+                go = UnityEngine.Object.Instantiate(prefab, parent);
+                go.name = prefab.name;
+            }
+            return go;
+        }
+
+        /// <summary>
         /// 异步加载游戏物体
         /// 会自动检查对象池中是否包含，如果包含则返回对象池中的
         /// </summary>
@@ -265,10 +282,7 @@ namespace FrameTools.ResourceSystem
             }
             else
             {
-                Addressables.InstantiateAsync(assetName, parent).Completed += (handle) =>
-                {
-                    OnInstantiateGameObjectAsyncCompleted(handle, callback, keyName ?? assetName, autoRelease);
-                };
+                Addressables.InstantiateAsync(assetName, parent).Completed += (handle) => { OnInstantiateGameObjectAsyncCompleted(handle, callback, keyName ?? assetName, autoRelease); };
             }
         }
 

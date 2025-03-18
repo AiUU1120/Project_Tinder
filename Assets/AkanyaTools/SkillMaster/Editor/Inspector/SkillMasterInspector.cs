@@ -17,7 +17,7 @@ using UnityEngine.UIElements;
 namespace AkanyaTools.SkillMaster.Editor.Inspector
 {
     [CustomEditor(typeof(SkillMasterEditorWindow))]
-    public sealed partial class SkillMasterInspector : UnityEditor.Editor
+    public sealed class SkillMasterInspector : UnityEditor.Editor
     {
         public static TrackItemBase curTrackItem { get; private set; }
 
@@ -28,6 +28,8 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
         private VisualElement m_Root;
 
         private int m_TrackItemFrameIndex;
+
+        private SkillEventDataInspectorBase m_SkillEventDataInspector;
 
         public override VisualElement CreateInspectorGUI()
         {
@@ -58,12 +60,13 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
         public void SetTrackItemFrameIndex(int index)
         {
             m_TrackItemFrameIndex = index;
+            m_SkillEventDataInspector.SetFrameIndex(index);
         }
 
         /// <summary>
         /// 刷新监视器显示内容
         /// </summary>
-        private void Refresh()
+        public void Refresh()
         {
             Clear();
             if (curTrackItem != null)
@@ -72,22 +75,23 @@ namespace AkanyaTools.SkillMaster.Editor.Inspector
             }
             switch (curTrackItem)
             {
-                case CustomEventTrackItem customEventTrackItem:
-                    DrawCustomEventTrackItem(customEventTrackItem);
+                case CustomEventTrackItem:
+                    m_SkillEventDataInspector = new SkillCustomEventDataInspector();
                     break;
-                case AnimationTrackItem animationItem:
-                    DrawAnimationTrackItem(animationItem);
+                case AnimationTrackItem:
+                    m_SkillEventDataInspector = new SkillAnimationEventDataInspector();
                     break;
-                case AudioTrackItem audioItem:
-                    DrawAudioTrackItem(audioItem);
+                case AudioTrackItem:
+                    m_SkillEventDataInspector = new SkillAudioEventDataInspector();
                     break;
-                case EffectTrackItem effectItem:
-                    DrawEffectTrackItem(effectItem);
+                case EffectTrackItem:
+                    m_SkillEventDataInspector = new SkillEffectEventDataInspector();
                     break;
-                case DetectionTrackItem detectionItem:
-                    DrawDetectionTrackItem(detectionItem);
+                case DetectionTrackItem:
+                    m_SkillEventDataInspector = new SkillDetectionEventDataInspector();
                     break;
             }
+            m_SkillEventDataInspector?.Draw(m_Root, curTrackItem, s_CurTrack);
         }
 
         /// <summary>

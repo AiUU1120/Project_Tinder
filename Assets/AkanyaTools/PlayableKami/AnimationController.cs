@@ -9,7 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using AkanyaTools.PlayableKami.CustomPlayableBehaviour;
 using AkanyaTools.PlayableKami.PlayableNode;
-using FrameTools.ResourceSystem;
+using AkanyaTools.ResourceSystem;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Assertions;

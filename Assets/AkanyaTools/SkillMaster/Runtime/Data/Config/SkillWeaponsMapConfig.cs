@@ -16,8 +16,8 @@ namespace AkanyaTools.SkillMaster.Runtime.Data.Config
     public sealed class SkillWeaponsMapConfig : ConfigBase
     {
         [OdinSerialize]
-        private Dictionary<string, SkillWeapon> m_SkillWeaponsDic = new();
+        private Dictionary<string, GameObject> m_SkillWeaponsDic = new();
 
-        public Dictionary<string, SkillWeapon> skillWeaponsDic => m_SkillWeaponsDic;
+        public Dictionary<string, GameObject> skillWeaponsDic => m_SkillWeaponsDic;
     }
 }

@@ -10642,7 +10642,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49a258980d3d4fbeacfbb4c5f89fef7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillPlayer: {fileID: 2484238328680876814}
+  m_SkillPlayer: {fileID: 2484238328680876814}
 --- !u!114 &2484238328680876814
 MonoBehaviour:
   m_ObjectHideFlags: 0

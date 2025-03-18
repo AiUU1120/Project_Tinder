@@ -6,7 +6,7 @@
 
 using System.Collections.Generic;
 using AkanyaTools.BuffGuy.Data.Config;
-using FrameTools.ResourceSystem;
+using AkanyaTools.ResourceSystem;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

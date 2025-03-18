@@ -20,12 +20,12 @@ namespace AkanyaTools.SkillMaster.Runtime.Data.Event
 
         public DetectionDataBase detectionData;
 
+        public AttackHitConfig attackHitConfig = new();
+
         public DetectionType GetDetectionType()
         {
             switch (detectionData)
             {
-                case null:
-                    return DetectionType.None;
                 case WeaponDetectionData:
                     return DetectionType.Weapon;
                 case BoxDetectionData:
@@ -71,6 +71,19 @@ namespace AkanyaTools.SkillMaster.Runtime.Data.Event
         }
     }
 #endif
+
+    public sealed class AttackHitConfig
+    {
+        public float atkFactor = 1;
+
+        public Vector3 repelForce = Vector3.zero;
+
+        public float repelTime = 0.2f;
+
+        public GameObject hitEffectPrefab;
+
+        public AudioClip hitAudioClip;
+    }
 
     public enum DetectionType
     {

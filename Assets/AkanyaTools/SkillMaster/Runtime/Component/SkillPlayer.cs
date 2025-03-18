@@ -8,12 +8,13 @@ using System.Collections;
 using System.Collections.Generic;
 using AkanyaTools.AudioSystem;
 using AkanyaTools.PlayableKami;
+using AkanyaTools.ResourceSystem;
 using AkanyaTools.SkillMaster.Runtime.Core;
+using AkanyaTools.SkillMaster.Runtime.Data;
 using AkanyaTools.SkillMaster.Runtime.Data.Config;
 using AkanyaTools.SkillMaster.Runtime.Data.Event;
 using AkanyaTools.SkillMaster.Runtime.Tool;
 using FrameTools.Extension;
-using JKFrame;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -29,8 +30,6 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
 
         [SerializeField]
         private GameObject m_DefaultWeaponPrefab;
-
-        public Dictionary<string, SkillWeapon> skillWeaponsDic => m_SkillWeaponsMapConfig.skillWeaponsDic;
 
         public bool isPlaying { get; private set; }
 
@@ -56,14 +55,13 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
 
         private SkillBehaviourBase m_CurSkillBehaviour;
 
-        public void Init(AnimationController animationController, Transform modelTransform)
+        private ISkillCharacter m_SkillOwner;
+
+        public void Init(ISkillCharacter skillOwner, AnimationController animationController, Transform modelTransform)
         {
+            m_SkillOwner = skillOwner;
             m_AnimationController = animationController;
             this.modelTransform = modelTransform;
-            foreach (var weapon in skillWeaponsDic.Values)
-            {
-                weapon.Init(atkDetectionLayerMask, OnWeaponDetection);
-            }
 
 #if UNITY_EDITOR
             if (m_DefaultWeaponPrefab != null)
@@ -121,6 +119,7 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
 
             var weapon = Instantiate(weaponObj == null ? m_DefaultWeaponPrefab : weaponObj, m_WeaponPoint, true); // 不设置父对象
             m_CurWeapon = weapon.GetComponent<SkillWeapon>();
+            m_CurWeapon.Init(atkDetectionLayerMask, OnWeaponDetection);
             var weaponGrabPoint = m_CurWeapon.mainGridPoint;
 
             // 获取抓取点相对于武器的本地位置和旋转
@@ -139,7 +138,7 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
             return weapon;
         }
 
-        public void StartPlaySkillConfig(SkillBehaviourBase skillBehaviour)
+        public void StartPlaySkillBehaviour(SkillBehaviourBase skillBehaviour)
         {
             m_CurSkillBehaviour = skillBehaviour;
         }
@@ -184,36 +183,38 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
 
         private void TickSkillCustomEvent()
         {
-            if (m_SkillClip.skillCustomEventData.frameData.TryGetValue(m_CurFrameIndex, out var frameData))
+            if (!m_SkillClip.skillCustomEventData.frameData.TryGetValue(m_CurFrameIndex, out var frameData))
             {
-                frameData = m_CurSkillBehaviour?.BeforeSkillCustomEventFrameEvent(frameData);
-                if (frameData != null)
-                {
-                    m_CurSkillBehaviour?.AfterSkillCustomEventFrameEvent(frameData);
-                }
+                return;
+            }
+            frameData = m_CurSkillBehaviour?.BeforeSkillCustomEventFrameEvent(frameData);
+            if (frameData != null)
+            {
+                m_CurSkillBehaviour?.AfterSkillCustomEventFrameEvent(frameData);
             }
         }
 
         private void TickSkillAnimation()
         {
-            if (m_SkillClip.skillAnimationData.frameData.TryGetValue(m_CurFrameIndex, out var frameData))
+            if (!m_SkillClip.skillAnimationData.frameData.TryGetValue(m_CurFrameIndex, out var frameData))
             {
-                frameData = m_CurSkillBehaviour?.BeforeSkillAnimationFrameEvent(frameData);
-                if (frameData == null)
-                {
-                    return;
-                }
-                m_AnimationController.PlaySingleAnimation(frameData.animationClip, speed: 1f, blockSameAnim: false, mixingTime: frameData.transitionTime);
-                if (frameData.applyRootMotion)
-                {
-                    m_AnimationController.SetOnRootMotion(m_CurSkillBehaviour.OnRootMotion);
-                }
-                else
-                {
-                    m_AnimationController.ClearOnRootMotion();
-                }
-                m_CurSkillBehaviour?.AfterSkillAnimationFrameEvent(frameData);
+                return;
             }
+            frameData = m_CurSkillBehaviour?.BeforeSkillAnimationFrameEvent(frameData);
+            if (frameData == null)
+            {
+                return;
+            }
+            m_AnimationController.PlaySingleAnimation(frameData.animationClip, speed: 1f, blockSameAnim: false, mixingTime: frameData.transitionTime);
+            if (frameData.applyRootMotion)
+            {
+                m_AnimationController.SetOnRootMotion(m_CurSkillBehaviour.OnRootMotion);
+            }
+            else
+            {
+                m_AnimationController.ClearOnRootMotion();
+            }
+            m_CurSkillBehaviour?.AfterSkillAnimationFrameEvent(frameData);
         }
 
         private void TickSkillAudio()
@@ -221,12 +222,16 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
             foreach (var data in m_SkillClip.skillAudioData.frameData)
             {
                 var frameData = data;
-                frameData = m_CurSkillBehaviour?.BeforeSkillAudioFrameEvent(frameData);
                 if (frameData == null)
                 {
                     continue;
                 }
-                if (frameData.audioClip != null && frameData.frameIndex == m_CurFrameIndex)
+                if (frameData.frameIndex != m_CurFrameIndex)
+                {
+                    continue;
+                }
+                frameData = m_CurSkillBehaviour?.BeforeSkillAudioFrameEvent(frameData);
+                if (frameData != null && frameData.audioClip != null)
                 {
                     AudioManager.PlayOneShot(frameData.audioClip, transform.position, volumeScale: frameData.volume);
                 }
@@ -239,26 +244,26 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
             foreach (var data in m_SkillClip.skillEffectData.frameData)
             {
                 var frameData = data;
-                frameData = m_CurSkillBehaviour?.BeforeSkillEffectFrameEvent(frameData);
                 if (frameData == null)
                 {
                     continue;
                 }
-                if (frameData.effectPrefab != null && frameData.frameIndex == m_CurFrameIndex)
+                if (frameData.frameIndex != m_CurFrameIndex)
                 {
-                    var effectObj = PoolSystem.GetGameObject(frameData.effectPrefab.name);
-                    if (effectObj == null)
-                    {
-                        effectObj = Instantiate(frameData.effectPrefab);
-                        effectObj.name = frameData.effectPrefab.name;
-                    }
-                    effectObj.transform.position = modelTransform.TransformPoint(frameData.positionOffset);
-                    effectObj.transform.rotation = Quaternion.Euler(modelTransform.eulerAngles + frameData.rotation);
-                    effectObj.transform.localScale = frameData.scale;
-                    if (frameData.autoDestroy)
-                    {
-                        StartCoroutine(AutoDestroyEffectGameObject(effectObj, (float) frameData.durationFrame / m_SkillClip.frameRate));
-                    }
+                    continue;
+                }
+                frameData = m_CurSkillBehaviour?.BeforeSkillEffectFrameEvent(frameData);
+                if (frameData == null || frameData.effectPrefab == null)
+                {
+                    continue;
+                }
+                var effectObj = ResourceManager.GetOrInstantiateGameObject(frameData.effectPrefab);
+                effectObj.transform.position = modelTransform.TransformPoint(frameData.positionOffset);
+                effectObj.transform.rotation = Quaternion.Euler(modelTransform.eulerAngles + frameData.rotation);
+                effectObj.transform.localScale = frameData.scale;
+                if (frameData.autoDestroy)
+                {
+                    StartCoroutine(AutoDestroyEffectGameObject(effectObj, (float) frameData.durationFrame / m_SkillClip.frameRate));
                 }
                 m_CurSkillBehaviour?.AfterSkillEffectFrameEvent(frameData);
             }
@@ -275,79 +280,71 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
             foreach (var data in m_SkillClip.skillDetectionData.frameData)
             {
                 var frameData = data;
-                frameData = m_CurSkillBehaviour?.BeforeSkillDetectionFrameEvent(frameData);
                 if (frameData == null)
                 {
                     continue;
                 }
                 var detectionType = frameData.GetDetectionType();
-                // 武器需要关注第一帧和结束帧
                 if (detectionType == DetectionType.Weapon)
                 {
-                    if (frameData.frameIndex == m_CurFrameIndex)
+                    // 第一帧开启触发器
+                    if (m_CurFrameIndex == frameData.frameIndex)
                     {
-                        // 驱动武器开启
-                        // var weaponDetectionData = (WeaponDetectionData) frameData.detectionData;
-                        // if (m_WeaponsConfig.skillWeaponsDic.TryGetValue(weaponDetectionData.weaponName, out var weapon))
-                        // {
-                        //     weapon.StartDetection();
-                        // }
-                        if (m_CurWeapon != null)
+                        if (m_CurWeapon == null)
                         {
-                            m_CurWeapon.StartDetection();
-                        }
-                        else
-                        {
-                            // Debug.LogError($"SkillMaster: Can't find weapon {weaponDetectionData.weaponName}!");
                             Debug.LogError("SkillMaster: Can't find weapon!");
+                            continue;
                         }
+                        frameData = m_CurSkillBehaviour?.BeforeSkillDetectionFrameEvent(frameData);
+                        var attackData = new AttackData
+                        {
+                            e = frameData,
+                            atkSource = m_SkillOwner,
+                            atkValue = m_SkillOwner.GetAtkValue(frameData),
+                        };
+                        m_CurWeapon.StartDetection(attackData);
                     }
-                    if (m_CurFrameIndex == frameData.frameIndex + frameData.durationFrame)
+                    // 结束帧关闭触发器
+                    else if (m_CurFrameIndex == frameData.frameIndex + frameData.durationFrame)
                     {
-                        // 武器关闭
-                        // var weaponDetectionData = (WeaponDetectionData) frameData.detectionData;
-                        // if (m_WeaponsConfig.skillWeaponsDic.TryGetValue(weaponDetectionData.weaponName, out var weapon))
-                        // {
-                        //     weapon.StopDetection();
-                        // }
-                        if (m_CurWeapon != null)
-                        {
-                            m_CurWeapon.StopDetection();
-                        }
-                        else
-                        {
-                            // Debug.LogError($"SkillMaster: Can't find weapon {weaponDetectionData.weaponName}!");
-                            Debug.LogError("SkillMaster: Can't find weapon!");
-                        }
+                        m_CurWeapon.StopDetection();
+                        m_CurSkillBehaviour?.AfterSkillDetectionFrameEvent(frameData);
                     }
                 }
                 else
                 {
-                    // 当前帧在范围内
-                    if (m_CurFrameIndex >= frameData.frameIndex && m_CurFrameIndex <= frameData.frameIndex + frameData.durationFrame)
+                    if (m_CurFrameIndex < frameData.frameIndex || m_CurFrameIndex > frameData.frameIndex + frameData.durationFrame)
                     {
-                        var cols = SkillDetectionTool.ShapeDetection(transform, frameData.detectionData, detectionType, atkDetectionLayerMask);
-                        if (cols == null)
+                        continue;
+                    }
+                    if (m_CurFrameIndex == frameData.frameIndex)
+                    {
+                        frameData = m_CurSkillBehaviour?.BeforeSkillDetectionFrameEvent(frameData);
+                        if (frameData == null)
                         {
-                            break;
+                            continue;
                         }
-                        foreach (var col in cols)
-                        {
-                            if (col != null)
-                            {
-                                m_CurSkillBehaviour.OnAttackDetection(col);
-                            }
-                        }
+                    }
+                    // 当前帧在范围内
+                    var cols = SkillDetectionTool.ShapeDetection(transform, frameData.detectionData, detectionType, atkDetectionLayerMask);
+                    if (cols == null)
+                    {
+                        break;
+                    }
+                    CheckDetectionCols(cols, frameData);
+                    if (m_CurFrameIndex == frameData.frameIndex + frameData.durationFrame)
+                    {
+                        m_CurSkillBehaviour?.AfterSkillDetectionFrameEvent(frameData);
                     }
                 }
-                m_CurSkillBehaviour?.AfterSkillDetectionFrameEvent(frameData);
 #if UNITY_EDITOR
-                if (m_DrawAttackDetectionGizmos)
+                if (!m_DrawAttackDetectionGizmos || frameData == null)
                 {
-                    if (m_CurFrameIndex >= frameData.frameIndex && m_CurFrameIndex <= frameData.frameIndex + frameData.durationFrame)
-                    {
-                        m_DebugSkillDetectionFrameEvents.Add(frameData);
-                    }
+                    continue;
+                }
+                if (m_CurFrameIndex >= frameData.frameIndex && m_CurFrameIndex <= frameData.frameIndex + frameData.durationFrame)
+                {
+                    m_DebugSkillDetectionFrameEvents.Add(frameData);
                 }
 #endif
             }
@@ -363,14 +360,44 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
             obj.GameObjectPushPool();
         }
 
-        private void OnWeaponDetection(Collider col)
+        private void OnWeaponDetection(IHitTarget hitTarget, AttackData attackData)
         {
-            m_CurSkillBehaviour.OnAttackDetection(col);
+            m_CurSkillBehaviour.OnAttackDetection(hitTarget, attackData);
         }
 
         private void Clear()
         {
             m_SkillClip = null;
+        }
+
+        private void CheckDetectionCols(Collider[] cols, SkillDetectionFrameEvent frameData)
+        {
+            foreach (var col in cols)
+            {
+                if (col == null)
+                {
+                    continue;
+                }
+                if ((atkDetectionLayerMask & 1 << col.gameObject.layer) <= 0)
+                {
+                    continue;
+                }
+                var hitTarget = col.GetComponentInChildren<IHitTarget>();
+                if (hitTarget == null)
+                {
+                    continue;
+                }
+                var pos = ((ShapeDetectionDataBase) frameData.detectionData).position;
+                var attackData = new AttackData
+                {
+                    e = frameData,
+                    atkSource = m_SkillOwner,
+                    hitPoint = col.ClosestPoint(transform.TransformPoint(pos)),
+                    hitNormal = col.ClosestPoint(transform.TransformPoint(pos)) - col.gameObject.transform.position,
+                    atkValue = m_SkillOwner.GetAtkValue(frameData),
+                };
+                m_CurSkillBehaviour.OnAttackDetection(hitTarget, attackData);
+            }
         }
 
         #region Debug
@@ -381,6 +408,7 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
         private bool m_DrawAttackDetectionGizmos;
 
         private List<SkillDetectionFrameEvent> m_DebugSkillDetectionFrameEvents = new();
+
         private void OnDrawGizmos()
         {
             if (!m_DrawAttackDetectionGizmos || m_DebugSkillDetectionFrameEvents.Count == 0)

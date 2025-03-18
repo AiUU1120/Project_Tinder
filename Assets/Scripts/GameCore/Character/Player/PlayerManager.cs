@@ -5,6 +5,7 @@
  */
 
 using System.Collections.Generic;
+using AkanyaTools.ResourceSystem;
 using AkanyaTools.SkillMaster.Runtime.Data.Config;
 using AkanyaTools.UISystem;
 using Common.System;
@@ -12,7 +13,6 @@ using Data;
 using Data.GameCore;
 using Data.GameCore.Config;
 using FrameTools.Base.Singleton;
-using FrameTools.ResourceSystem;
 using GameCore.UI.PnlGameMain;
 using GameCore.UI.PnlLearnSkill;
 using UnityEngine;

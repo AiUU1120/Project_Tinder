@@ -39,6 +39,8 @@ namespace AkanyaTools.SkillMaster.Editor.Track.DetectionTrack
             detectionEvent = e;
             m_SubTrackStyle = subTrackStyle;
 
+            e.attackHitConfig ??= new AttackHitConfig();
+
             SetTrackName(e.trackName);
 
             m_TrackItemStyle = new DetectionTrackItemStyle();

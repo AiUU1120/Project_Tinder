@@ -1,5 +1,6 @@
 ﻿using AkanyaTools.SkillMaster.Runtime.Component;
 using AkanyaTools.SkillMaster.Runtime.Core;
+using AkanyaTools.SkillMaster.Runtime.Data;
 using AkanyaTools.SkillMaster.Runtime.Data.Config;
 using AkanyaTools.UISystem;
 using Data;
@@ -11,21 +12,19 @@ namespace GameCore.Skills.SkillBehaviour
 {
     public abstract class PlayerSkillBehaviourBase : SkillBehaviourBase
     {
-        protected PlayerController playerController;
+        public SkillLearnedData skillLearnedData => m_SkillLearnedData;
 
-        protected SkillLearnedData skillLearnedData = new();
+        protected SkillLearnedData m_SkillLearnedData = new();
+
+        protected PlayerController m_PlayerController;
 
         protected virtual bool autoUpdateSlot => true;
 
-        public override void Init(PlayerControllerBase playerControllerBase, SkillConfig skillConfig, SkillBrainBase skillBrain, SkillPlayer skillPlayer, int skillIndex = -1)
+        public void Init(ISkillCharacter skillOwner, SkillConfig skillConfig, SkillBrainBase skillBrain, SkillPlayer skillPlayer, SkillLearnedData skillLearnedData, int skillIndex = -1)
         {
-            base.Init(playerControllerBase, skillConfig, skillBrain, skillPlayer, skillIndex);
-            playerController = playerControllerBase as PlayerController;
-        }
-
-        public void InitSkillLearnedData(SkillLearnedData skillLearnedData)
-        {
-            this.skillLearnedData = skillLearnedData;
+            base.Init(skillOwner, skillConfig, skillBrain, skillPlayer, skillIndex);
+            m_PlayerController = (PlayerController) skillOwner;
+            m_SkillLearnedData = skillLearnedData;
         }
 
         public override void Update()
@@ -39,13 +38,13 @@ namespace GameCore.Skills.SkillBehaviour
 
         protected override void RotateOnUpdate()
         {
-            if (canRotate)
+            if (m_CanRotate)
             {
-                playerController.Rotate();
+                m_SkillOwner.OnSkillRotate();
             }
         }
 
-        public override float GetCDTime() => skillConfig.GetCDByLevel(skillLearnedData.level);
+        public override float GetCDTime() => m_SkillConfig.GetCDByLevel(m_SkillLearnedData.level);
 
         private void UpdateSkillSlot()
         {
@@ -57,7 +56,10 @@ namespace GameCore.Skills.SkillBehaviour
 
         protected virtual void OnUpdateSkillSlot()
         {
-            UISystem.GetWindow<PnlGameMain>().UpdateCDMask(cdTimer / skillConfig.GetCDByLevel(skillLearnedData.level));
+            var maxCD = m_SkillConfig.GetCDByLevel(m_SkillLearnedData.level);
+            var fillAmount = maxCD == 0 ? 0 : m_CDTimer / maxCD;
+            UISystem.GetWindow<PnlGameMain>().UpdateCDMask(fillAmount);
+            UISystem.GetWindow<PnlGameMain>().UpdateSkillSlotState(CheckReleaseCost());
         }
     }
 }

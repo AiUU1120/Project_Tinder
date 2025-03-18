@@ -5,6 +5,7 @@
  */
 
 using System;
+using AkanyaTools.SkillMaster.Runtime.Data;
 using UnityEngine;
 
 namespace AkanyaTools.SkillMaster.Runtime.Component
@@ -26,17 +27,20 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
 
         private LayerMask m_DetectionLayerMask;
 
-        private Action<Collider> m_OnDetection;
+        private Action<IHitTarget, AttackData> m_OnDetection;
 
-        public void Init(LayerMask detectionLayerMask, Action<Collider> onDetection)
+        private AttackData m_AttackData;
+
+        public void Init(LayerMask detectionLayerMask, Action<IHitTarget, AttackData> onDetection)
         {
             m_DetectionCol.enabled = false;
             m_DetectionLayerMask = detectionLayerMask;
             m_OnDetection = onDetection;
         }
 
-        public void StartDetection()
+        public void StartDetection(AttackData attackData)
         {
+            m_AttackData = attackData;
             m_DetectionCol.enabled = true;
         }
 
@@ -47,10 +51,18 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
 
         private void OnTriggerStay(Collider other)
         {
-            if ((m_DetectionLayerMask & 1 << other.gameObject.layer) > 0)
+            if ((m_DetectionLayerMask & 1 << other.gameObject.layer) <= 0)
             {
-                m_OnDetection?.Invoke(other);
+                return;
             }
+            var hitTarget = other.GetComponentInChildren<IHitTarget>();
+            if (hitTarget == null)
+            {
+                return;
+            }
+            m_AttackData.hitPoint = other.ClosestPoint(transform.position);
+            m_AttackData.hitNormal = m_AttackData.hitPoint - other.transform.position;
+            m_OnDetection?.Invoke(hitTarget, m_AttackData);
         }
     }
 }

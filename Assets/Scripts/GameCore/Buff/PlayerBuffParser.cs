@@ -25,7 +25,7 @@ namespace GameCore.Buff
                 {
                     case BuffEffectType.Hp:
                         Debug.Log("Buff: " + buffData.type + " Value: " + buffData.value);
-                        m_PlayerController.characterProperties.curHp += buffData.value;
+                        m_PlayerController.characterProperties.curHp = Mathf.RoundToInt(m_PlayerController.characterProperties.curHp + buffData.value);
                         break;
                     case BuffEffectType.AtkPercentBonus:
                         Debug.Log("Buff: " + buffData.type + " Value: " + buffData.value);

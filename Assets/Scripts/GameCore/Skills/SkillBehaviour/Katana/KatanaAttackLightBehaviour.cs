@@ -5,7 +5,6 @@
  */
 
 using AkanyaTools.SkillMaster.Runtime.Core;
-using Data.GameCore.Enums;
 using UnityEngine;
 
 namespace GameCore.Skills.SkillBehaviour.Katana
@@ -26,24 +25,24 @@ namespace GameCore.Skills.SkillBehaviour.Katana
         public override void Release(bool calCDTimer = true)
         {
             base.Release(false);
-            skillBrain.TryGetSkillShareData(PlayerSkillBrain.continuous_attack_mode_data_key, out bool canContinuousAttack);
+            m_SkillBrain.TryGetSkillShareData(PlayerSkillBrain.continuous_attack_mode_data_key, out bool canContinuousAttack);
             if (canContinuousAttack)
             {
                 m_CurAttackIndex = m_LastAttackIndex;
             }
             m_CurAttackIndex++;
-            if (m_CurAttackIndex > m_ComboCount - 1 || m_CurAttackIndex > skillConfig.clips.Length - 1)
+            if (m_CurAttackIndex > m_ComboCount - 1 || m_CurAttackIndex > m_SkillConfig.clips.Length - 1)
             {
                 m_CurAttackIndex = 0;
             }
-            skillPlayer.StartPlaySkillConfig(this);
-            skillPlayer.PlaySkillClip(skillConfig.clips[m_CurAttackIndex]);
+            m_SkillPlayer.StartPlaySkillBehaviour(this);
+            m_SkillPlayer.PlaySkillClip(m_SkillConfig.clips[m_CurAttackIndex]);
         }
 
         public override void OnSkillClipEnd()
         {
             base.OnSkillClipEnd();
-            playerController.ChangeState(PlayerMotionState.Idle);
+            m_SkillOwner.ChangeToIdleState();
         }
 
         public override void OnSkillBehaviourSwitchOrClipEnd()
@@ -51,13 +50,13 @@ namespace GameCore.Skills.SkillBehaviour.Katana
             base.OnSkillBehaviourSwitchOrClipEnd();
             m_LastAttackIndex = m_CurAttackIndex;
             m_CurAttackIndex = -1;
-            skillBrain.AddOrUpdateSkillShareData(PlayerSkillBrain.continuous_attack_mode_data_key, false);
+            m_SkillBrain.AddOrUpdateSkillShareData(PlayerSkillBrain.continuous_attack_mode_data_key, false);
         }
 
         public override void OnRootMotion(Vector3 deltaPosition, Quaternion deltaRotation)
         {
-            playerController.characterController.Move(new Vector3(deltaPosition.x, deltaPosition.y, deltaPosition.z));
-            playerController.transform.rotation *= deltaRotation;
+            m_SkillOwner.OnSkillMove(deltaPosition);
+            m_SkillOwner.OnSkillRotate(deltaRotation);
         }
     }
 }

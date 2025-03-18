@@ -5,6 +5,7 @@
  */
 
 using AkanyaTools.SkillMaster.Runtime.Core;
+using AkanyaTools.SkillMaster.Runtime.Data;
 using Data.GameCore.Enums;
 using UnityEngine;
 
@@ -22,9 +23,9 @@ namespace GameCore.Skills.SkillBehaviour.Katana
         {
             base.Release(false);
             m_CurAttackIndex++;
-            cdTimer = m_CurAttackIndex == skillConfig.clips.Length - 1 ? GetCDTime() : m_StandingTime;
-            skillPlayer.StartPlaySkillConfig(this);
-            skillPlayer.PlaySkillClip(skillConfig.clips[m_CurAttackIndex]);
+            m_CDTimer = m_CurAttackIndex == m_SkillConfig.clips.Length - 1 ? GetCDTime() : m_StandingTime;
+            m_SkillPlayer.StartPlaySkillBehaviour(this);
+            m_SkillPlayer.PlaySkillClip(m_SkillConfig.clips[m_CurAttackIndex]);
             // skillBrain.AddOrUpdateSkillShareData(PlayerSkillBrain.continuous_attack_mode_data_key, true);
         }
 
@@ -33,32 +34,32 @@ namespace GameCore.Skills.SkillBehaviour.Katana
             var checkCd = true;
             if (m_CurAttackIndex == -1)
             {
-                checkCd = cdTimer <= 0;
+                checkCd = m_CDTimer <= 0;
             }
-            else if (m_CurAttackIndex == skillConfig.clips.Length - 1)
+            else if (m_CurAttackIndex == m_SkillConfig.clips.Length - 1)
             {
-                checkCd = cdTimer <= 0;
+                checkCd = m_CDTimer <= 0;
             }
             return checkCd && base.CheckReleaseCost();
         }
 
         public override void UpdateCDTimer()
         {
-            if (isPlaying)
+            if (m_IsPlaying)
             {
                 // 技能播放到最后一段
-                if (m_CurAttackIndex == skillConfig.clips.Length - 1)
+                if (m_CurAttackIndex == m_SkillConfig.clips.Length - 1)
                 {
-                    cdTimer = Mathf.Clamp(cdTimer - Time.deltaTime, 0, float.MaxValue);
+                    m_CDTimer = Mathf.Clamp(m_CDTimer - Time.deltaTime, 0, float.MaxValue);
                 }
                 return;
             }
-            cdTimer = Mathf.Clamp(cdTimer - Time.deltaTime, 0, float.MaxValue);
+            m_CDTimer = Mathf.Clamp(m_CDTimer - Time.deltaTime, 0, float.MaxValue);
             if (m_CurAttackIndex != -1)
             {
-                if (cdTimer <= 0)
+                if (m_CDTimer <= 0)
                 {
-                    cdTimer = GetCDTime();
+                    m_CDTimer = GetCDTime();
                     m_CurAttackIndex = -1;
                 }
             }
@@ -67,31 +68,25 @@ namespace GameCore.Skills.SkillBehaviour.Katana
         public override void OnSkillClipEnd()
         {
             base.OnSkillClipEnd();
-            playerController.ChangeState(PlayerMotionState.Idle);
-        }
-
-        // TODO: 暂时没有实际行为
-        public override void OnAttackDetection(Collider obj)
-        {
-            Debug.Log(obj.name);
+            m_SkillOwner.ChangeToIdleState();
         }
 
         public override void OnRootMotion(Vector3 deltaPosition, Quaternion deltaRotation)
         {
-            playerController.characterController.Move(deltaPosition);
-            playerController.transform.rotation *= deltaRotation;
+            m_SkillOwner.OnSkillMove(deltaPosition);
+            m_SkillOwner.OnSkillRotate(deltaRotation);
         }
 
         public override void OnSkillBehaviourSwitchOrClipEnd()
         {
             base.OnSkillBehaviourSwitchOrClipEnd();
-            if (m_CurAttackIndex == skillConfig.clips.Length - 1)
+            if (m_CurAttackIndex == m_SkillConfig.clips.Length - 1)
             {
                 m_CurAttackIndex = -1;
             }
             else
             {
-                cdTimer = m_StandingTime;
+                m_CDTimer = m_StandingTime;
             }
         }
     }

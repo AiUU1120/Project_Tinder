@@ -55,7 +55,7 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 4
-      Data: 100
+      Data: 20
     - Name: 
       Entry: 8
       Data: 
@@ -67,6 +67,7 @@ MonoBehaviour:
       Data: 
   skillName: "\u70C8\u7130\u8DF3\u5288"
   icon: {fileID: 21300000, guid: 6c8f4fde537ca344f88d3876c6c3d5e9, type: 3}
+  icons: []
   clips:
   - {fileID: 11400000, guid: 4cc3b476d8b857045b0fc59174e6644f, type: 2}
   baseCD: 10

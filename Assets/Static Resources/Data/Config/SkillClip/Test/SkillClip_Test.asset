@@ -401,12 +401,45 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: attackHitConfig
+      Entry: 7
+      Data: 18|AkanyaTools.SkillMaster.Runtime.Data.Event.AttackHitConfig, AkanyaTools.SkillMaster.Runtime
+    - Name: atkFactor
+      Entry: 4
+      Data: 1
+    - Name: repelForce
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: repelTime
+      Entry: 4
+      Data: 0.2
+    - Name: hitEffectPrefab
+      Entry: 6
+      Data: 
+    - Name: hitAudioClip
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 18|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillDetectionFrameEvent,
+      Data: 19|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillDetectionFrameEvent,
         AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
@@ -419,7 +452,7 @@ MonoBehaviour:
       Data: 7
     - Name: detectionData
       Entry: 7
-      Data: 19|AkanyaTools.SkillMaster.Runtime.Data.Event.BoxDetectionData, AkanyaTools.SkillMaster.Runtime
+      Data: 20|AkanyaTools.SkillMaster.Runtime.Data.Event.BoxDetectionData, AkanyaTools.SkillMaster.Runtime
     - Name: position
       Entry: 7
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
@@ -468,12 +501,45 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: attackHitConfig
+      Entry: 7
+      Data: 21|AkanyaTools.SkillMaster.Runtime.Data.Event.AttackHitConfig, AkanyaTools.SkillMaster.Runtime
+    - Name: atkFactor
+      Entry: 4
+      Data: 1
+    - Name: repelForce
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: repelTime
+      Entry: 4
+      Data: 0.2
+    - Name: hitEffectPrefab
+      Entry: 6
+      Data: 
+    - Name: hitAudioClip
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 20|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillDetectionFrameEvent,
+      Data: 22|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillDetectionFrameEvent,
         AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
@@ -486,7 +552,7 @@ MonoBehaviour:
       Data: 4
     - Name: detectionData
       Entry: 7
-      Data: 21|AkanyaTools.SkillMaster.Runtime.Data.Event.BoxDetectionData, AkanyaTools.SkillMaster.Runtime
+      Data: 23|AkanyaTools.SkillMaster.Runtime.Data.Event.BoxDetectionData, AkanyaTools.SkillMaster.Runtime
     - Name: position
       Entry: 7
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
@@ -535,12 +601,45 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: attackHitConfig
+      Entry: 7
+      Data: 24|AkanyaTools.SkillMaster.Runtime.Data.Event.AttackHitConfig, AkanyaTools.SkillMaster.Runtime
+    - Name: atkFactor
+      Entry: 4
+      Data: 1
+    - Name: repelForce
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: repelTime
+      Entry: 4
+      Data: 0.2
+    - Name: hitEffectPrefab
+      Entry: 6
+      Data: 
+    - Name: hitAudioClip
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 22|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillDetectionFrameEvent,
+      Data: 25|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillDetectionFrameEvent,
         AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
@@ -553,7 +652,7 @@ MonoBehaviour:
       Data: 9
     - Name: detectionData
       Entry: 7
-      Data: 23|AkanyaTools.SkillMaster.Runtime.Data.Event.BoxDetectionData, AkanyaTools.SkillMaster.Runtime
+      Data: 26|AkanyaTools.SkillMaster.Runtime.Data.Event.BoxDetectionData, AkanyaTools.SkillMaster.Runtime
     - Name: position
       Entry: 7
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
@@ -602,12 +701,45 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: attackHitConfig
+      Entry: 7
+      Data: 27|AkanyaTools.SkillMaster.Runtime.Data.Event.AttackHitConfig, AkanyaTools.SkillMaster.Runtime
+    - Name: atkFactor
+      Entry: 4
+      Data: 1
+    - Name: repelForce
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: repelTime
+      Entry: 4
+      Data: 0.2
+    - Name: hitEffectPrefab
+      Entry: 6
+      Data: 
+    - Name: hitAudioClip
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 24|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillDetectionFrameEvent,
+      Data: 28|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillDetectionFrameEvent,
         AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
@@ -620,7 +752,40 @@ MonoBehaviour:
       Data: 10
     - Name: detectionData
       Entry: 7
-      Data: 25|AkanyaTools.SkillMaster.Runtime.Data.Event.WeaponDetectionData, AkanyaTools.SkillMaster.Runtime
+      Data: 29|AkanyaTools.SkillMaster.Runtime.Data.Event.WeaponDetectionData, AkanyaTools.SkillMaster.Runtime
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: attackHitConfig
+      Entry: 7
+      Data: 30|AkanyaTools.SkillMaster.Runtime.Data.Event.AttackHitConfig, AkanyaTools.SkillMaster.Runtime
+    - Name: atkFactor
+      Entry: 4
+      Data: 1
+    - Name: repelForce
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: repelTime
+      Entry: 4
+      Data: 0.2
+    - Name: hitEffectPrefab
+      Entry: 6
+      Data: 
+    - Name: hitAudioClip
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -638,17 +803,17 @@ MonoBehaviour:
       Data: 
     - Name: skillEffectData
       Entry: 7
-      Data: 26|AkanyaTools.SkillMaster.Runtime.Data.SkillEffectData, AkanyaTools.SkillMaster.Runtime
+      Data: 31|AkanyaTools.SkillMaster.Runtime.Data.SkillEffectData, AkanyaTools.SkillMaster.Runtime
     - Name: frameData
       Entry: 7
-      Data: 27|System.Collections.Generic.List`1[[AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
+      Data: 32|System.Collections.Generic.List`1[[AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
         AkanyaTools.SkillMaster.Runtime]], mscorlib
     - Name: 
       Entry: 12
       Data: 4
     - Name: 
       Entry: 7
-      Data: 28|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
+      Data: 33|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
         AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
@@ -715,7 +880,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 29|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
+      Data: 34|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
         AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
@@ -782,7 +947,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 30|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
+      Data: 35|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
         AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
@@ -849,7 +1014,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 31|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
+      Data: 36|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
         AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
@@ -925,17 +1090,17 @@ MonoBehaviour:
       Data: 
     - Name: skillAudioData
       Entry: 7
-      Data: 32|AkanyaTools.SkillMaster.Runtime.Data.SkillAudioData, AkanyaTools.SkillMaster.Runtime
+      Data: 37|AkanyaTools.SkillMaster.Runtime.Data.SkillAudioData, AkanyaTools.SkillMaster.Runtime
     - Name: frameData
       Entry: 7
-      Data: 33|System.Collections.Generic.List`1[[AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent,
+      Data: 38|System.Collections.Generic.List`1[[AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent,
         AkanyaTools.SkillMaster.Runtime]], mscorlib
     - Name: 
       Entry: 12
       Data: 4
     - Name: 
       Entry: 7
-      Data: 34|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
+      Data: 39|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
       Data: attack1
@@ -956,7 +1121,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 35|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
+      Data: 40|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
       Data: attack2
@@ -977,7 +1142,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 36|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
+      Data: 41|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
       Data: attack3
@@ -998,7 +1163,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 37|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
+      Data: 42|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
       Data: attack4

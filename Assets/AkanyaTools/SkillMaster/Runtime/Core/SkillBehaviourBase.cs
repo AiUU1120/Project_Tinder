@@ -5,40 +5,49 @@
  */
 
 using System;
+using System.Collections.Generic;
+using AkanyaTools.AudioSystem;
 using AkanyaTools.SkillMaster.Runtime.Component;
+using AkanyaTools.SkillMaster.Runtime.Data;
 using AkanyaTools.SkillMaster.Runtime.Data.Config;
 using AkanyaTools.SkillMaster.Runtime.Data.Event;
+using JKFrame;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace AkanyaTools.SkillMaster.Runtime.Core
 {
     [Serializable]
     public abstract class SkillBehaviourBase
     {
-        protected PlayerControllerBase playerControllerBase;
-
-        protected SkillConfig skillConfig;
-
-        protected SkillBrainBase skillBrain;
-
-        protected SkillPlayer skillPlayer;
-
-        protected bool canRotate;
-
-        protected bool isPlaying;
-
-        protected float cdTimer;
-
         public int skillIndex { get; protected set; }
+
+        public SkillConfig skillConfig => m_SkillConfig;
+
+        protected ISkillCharacter m_SkillOwner;
+
+        protected SkillConfig m_SkillConfig;
+
+        protected SkillBrainBase m_SkillBrain;
+
+        protected SkillPlayer m_SkillPlayer;
+
+        protected bool m_CanRotate;
+
+        protected bool m_IsPlaying;
+
+        protected float m_CDTimer;
+
+        private HashSet<IHitTarget> m_HitTargets = new();
 
         public abstract SkillBehaviourBase DeepCopy();
 
-        public virtual void Init(PlayerControllerBase playerController, SkillConfig skillConfig, SkillBrainBase skillBrain, SkillPlayer skillPlayer, int skillIndex = -1)
+        public virtual void Init(ISkillCharacter skillOwner, SkillConfig skillConfig, SkillBrainBase skillBrain, SkillPlayer skillPlayer, int skillIndex = -1)
         {
-            this.playerControllerBase = playerController;
-            this.skillConfig = skillConfig;
-            this.skillBrain = skillBrain;
-            this.skillPlayer = skillPlayer;
+            m_SkillOwner = skillOwner;
+            m_SkillConfig = skillConfig;
+            m_SkillBrain = skillBrain;
+            m_SkillPlayer = skillPlayer;
             this.skillIndex = skillIndex;
         }
 
@@ -50,11 +59,11 @@ namespace AkanyaTools.SkillMaster.Runtime.Core
 
         public virtual void UpdateCDTimer()
         {
-            if (GetCDTime() <= 0 || cdTimer <= 0)
+            if (GetCDTime() <= 0 || m_CDTimer <= 0)
             {
                 return;
             }
-            cdTimer = Mathf.Clamp(cdTimer - Time.deltaTime, 0, float.MaxValue);
+            m_CDTimer = Mathf.Clamp(m_CDTimer - Time.deltaTime, 0, float.MaxValue);
         }
 
         /// <summary>
@@ -64,25 +73,26 @@ namespace AkanyaTools.SkillMaster.Runtime.Core
         {
             if (calCDTimer)
             {
-                cdTimer = GetCDTime();
+                m_CDTimer = GetCDTime();
             }
-            canRotate = false;
-            isPlaying = true;
-            skillBrain.SetCanReleaseFlag(false);
+            m_HitTargets.Clear();
+            m_CanRotate = false;
+            m_IsPlaying = true;
+            m_SkillBrain.SetCanReleaseFlag(false);
             ApplyCost();
         }
 
         public virtual void ApplyCost()
         {
-            foreach (var cost in skillConfig.releaseCostDic)
+            foreach (var cost in m_SkillConfig.releaseCostDic)
             {
-                skillBrain.ApplyCost(cost.Key, cost.Value);
+                m_SkillBrain.ApplyCost(cost.Key, cost.Value);
             }
         }
 
         public virtual bool CheckRelease() => CheckReleaseCost() && CheckCD();
 
-        public virtual bool CheckCD() => cdTimer <= 0;
+        public virtual bool CheckCD() => m_CDTimer <= 0;
 
         /// <summary>
         /// 检测技能消耗是否满足 默认实现遍历消耗字典
@@ -90,9 +100,9 @@ namespace AkanyaTools.SkillMaster.Runtime.Core
         /// <returns></returns>
         public virtual bool CheckReleaseCost()
         {
-            foreach (var cost in skillConfig.releaseCostDic)
+            foreach (var cost in m_SkillConfig.releaseCostDic)
             {
-                if (!skillBrain.CheckCost(cost.Key, cost.Value))
+                if (!m_SkillBrain.CheckCost(cost.Key, cost.Value))
                 {
                     return false;
                 }
@@ -118,7 +128,7 @@ namespace AkanyaTools.SkillMaster.Runtime.Core
         /// </summary>
         public virtual void OnSkillClipEnd()
         {
-            skillBrain.SetCanReleaseFlag(true);
+            m_SkillBrain.SetCanReleaseFlag(true);
             OnSkillBehaviourSwitchOrClipEnd();
         }
 
@@ -127,10 +137,11 @@ namespace AkanyaTools.SkillMaster.Runtime.Core
         /// </summary>
         public virtual void OnSkillBehaviourSwitchOrClipEnd()
         {
-            isPlaying = false;
+            m_IsPlaying = false;
+            m_HitTargets.Clear();
         }
 
-        public virtual float GetCDTime() => skillConfig.baseCD;
+        public virtual float GetCDTime() => m_SkillConfig.baseCD;
 
         #region 技能驱动事件
 
@@ -144,8 +155,42 @@ namespace AkanyaTools.SkillMaster.Runtime.Core
         {
         }
 
-        public virtual void OnAttackDetection(Collider collider)
+        public virtual void OnAttackDetection(IHitTarget hitTarget, AttackData attackData)
         {
+            // 防止重复命中
+            if (m_HitTargets.Add(hitTarget))
+            {
+                OnHitTarget(hitTarget, attackData);
+            }
+        }
+
+        public virtual void OnHitTarget(IHitTarget hitTarget, AttackData attackData)
+        {
+            if (attackData.e.attackHitConfig != null)
+            {
+                PlayHitEffect(attackData);
+            }
+            hitTarget.BeHit(attackData);
+        }
+
+        private void PlayHitEffect(AttackData attackData)
+        {
+            var hitConfig = attackData.e.attackHitConfig;
+            if (hitConfig.hitEffectPrefab != null)
+            {
+                var hitEffect = PoolSystem.GetGameObject(hitConfig.hitEffectPrefab.name);
+                if (hitEffect == null)
+                {
+                    hitEffect = Object.Instantiate(hitConfig.hitEffectPrefab);
+                }
+                hitEffect.transform.position = attackData.hitPoint;
+                hitEffect.transform.rotation = Quaternion.LookRotation(attackData.hitNormal);
+                hitEffect.GetComponent<EffectController>().Init();
+            }
+            if (hitConfig.hitAudioClip != null)
+            {
+                AudioManager.PlayOneShot(hitConfig.hitAudioClip, attackData.hitPoint);
+            }
         }
 
         public virtual void OnRootMotion(Vector3 deltaPosition, Quaternion deltaRotation)
@@ -157,13 +202,13 @@ namespace AkanyaTools.SkillMaster.Runtime.Core
             switch (customEventFrameEvent.eventType)
             {
                 case SkillEventType.UnFreezeRelease:
-                    skillBrain.SetCanReleaseFlag(true);
+                    m_SkillBrain.SetCanReleaseFlag(true);
                     break;
                 case SkillEventType.LockRotation:
-                    canRotate = false;
+                    m_CanRotate = false;
                     break;
                 case SkillEventType.UnlockRotation:
-                    canRotate = true;
+                    m_CanRotate = true;
                     break;
                 case SkillEventType.Custom:
                     break;

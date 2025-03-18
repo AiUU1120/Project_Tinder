@@ -17,6 +17,8 @@ MonoBehaviour:
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 7400000, guid: ff36e687637798d43b9c5d116cecd28b, type: 2}
+    - {fileID: 1855497614338780, guid: 5873496c4ce8ed84cbf522e42db4e9c4, type: 3}
+    - {fileID: 8300000, guid: f61ff4d11c6afc84aa734630eca78cb9, type: 3}
     - {fileID: 8300000, guid: d7485b836e9c3974e9f3035464790492, type: 3}
     - {fileID: 8300000, guid: aa31b402728b3764999095ef0ad3b4b5, type: 3}
     SerializedBytesString: 
@@ -129,6 +131,39 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: attackHitConfig
+      Entry: 7
+      Data: 10|AkanyaTools.SkillMaster.Runtime.Data.Event.AttackHitConfig, AkanyaTools.SkillMaster.Runtime
+    - Name: atkFactor
+      Entry: 4
+      Data: 1
+    - Name: repelForce
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: repelTime
+      Entry: 4
+      Data: 0.2
+    - Name: hitEffectPrefab
+      Entry: 10
+      Data: 1
+    - Name: hitAudioClip
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -143,10 +178,10 @@ MonoBehaviour:
       Data: 
     - Name: skillEffectData
       Entry: 7
-      Data: 10|AkanyaTools.SkillMaster.Runtime.Data.SkillEffectData, AkanyaTools.SkillMaster.Runtime
+      Data: 11|AkanyaTools.SkillMaster.Runtime.Data.SkillEffectData, AkanyaTools.SkillMaster.Runtime
     - Name: frameData
       Entry: 7
-      Data: 11|System.Collections.Generic.List`1[[AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
+      Data: 12|System.Collections.Generic.List`1[[AkanyaTools.SkillMaster.Runtime.Data.Event.SkillEffectFrameEvent,
         AkanyaTools.SkillMaster.Runtime]], mscorlib
     - Name: 
       Entry: 12
@@ -162,17 +197,17 @@ MonoBehaviour:
       Data: 
     - Name: skillAudioData
       Entry: 7
-      Data: 12|AkanyaTools.SkillMaster.Runtime.Data.SkillAudioData, AkanyaTools.SkillMaster.Runtime
+      Data: 13|AkanyaTools.SkillMaster.Runtime.Data.SkillAudioData, AkanyaTools.SkillMaster.Runtime
     - Name: frameData
       Entry: 7
-      Data: 13|System.Collections.Generic.List`1[[AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent,
+      Data: 14|System.Collections.Generic.List`1[[AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent,
         AkanyaTools.SkillMaster.Runtime]], mscorlib
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 14|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
+      Data: 15|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
       Data: Audio Track
@@ -181,7 +216,7 @@ MonoBehaviour:
       Data: 12
     - Name: audioClip
       Entry: 10
-      Data: 1
+      Data: 3
     - Name: playCount
       Entry: 3
       Data: 1
@@ -193,7 +228,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 15|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
+      Data: 16|AkanyaTools.SkillMaster.Runtime.Data.Event.SkillAudioFrameEvent, AkanyaTools.SkillMaster.Runtime
     - Name: trackName
       Entry: 1
       Data: Audio Track
@@ -202,7 +237,7 @@ MonoBehaviour:
       Data: 0
     - Name: audioClip
       Entry: 10
-      Data: 2
+      Data: 4
     - Name: playCount
       Entry: 3
       Data: 1

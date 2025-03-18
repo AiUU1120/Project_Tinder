@@ -6,8 +6,8 @@
 
 using System;
 using System.Collections.Generic;
+using AkanyaTools.ResourceSystem;
 using FrameTools.Extension;
-using FrameTools.ResourceSystem;
 using FrameTools.StateMachine;
 
 namespace AkanyaTools.StateMachine
