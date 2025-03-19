@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: GameCore_Weapon
+  m_EditorClassIdentifier: 
+  m_GroupName: GameCore_Weapon
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 7b2754a21357f05468eb627c8b8828de
+  m_SerializeEntries:
+  - m_GUID: 35057c06369d5fa49b5f11c332b43800
+    m_Address: Katana_Normal
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: efd3c495ed63833488e4fd2881067494
+    m_Address: GreatSword_Normal
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 97bb62127f50e814c8256319851267dd, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 5c90e4d5c1ad0b949a5714e81176759a, type: 2}
+    - {fileID: 11400000, guid: cf572485181ed4f46a60724504f93cec, type: 2}

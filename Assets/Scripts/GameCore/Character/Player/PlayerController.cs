@@ -11,6 +11,7 @@ using AkanyaTools.SkillMaster.Runtime.Component;
 using AkanyaTools.SkillMaster.Runtime.Data;
 using AkanyaTools.SkillMaster.Runtime.Data.Event;
 using AkanyaTools.StateMachine;
+using AkanyaTools.UISystem;
 using Common.System;
 using Data.GameCore;
 using Data.GameCore.Config;
@@ -20,6 +21,7 @@ using FrameTools.StateMachine;
 using GameCore.Character.Player.State;
 using GameCore.Skills;
 using GameCore.Skills.SkillBehaviour;
+using GameCore.UI.PnlGameMain;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -50,6 +52,9 @@ namespace GameCore.Character.Player
         [SerializeField]
         private float m_TurnSpeed = 7f;
 
+        [SerializeField]
+        private SkillWeaponsMapConfig m_SkillWeaponsMapConfig;
+
         public CharacterController characterController => m_CharacterController;
 
         public AnimationController animationController => m_AnimationController;
@@ -58,6 +63,8 @@ namespace GameCore.Character.Player
 
         public PlayerSkillBrain skillBrain => m_SkillBrain;
 
+        public SkillWeaponsMapConfig skillWeaponsMapConfig => m_SkillWeaponsMapConfig;
+
         public float moveSpeed => m_MoveSpeed;
 
         public float dashSpeed => m_DashSpeed;
@@ -65,7 +72,7 @@ namespace GameCore.Character.Player
         public float turnSpeed => m_TurnSpeed;
 
         [ShowInInspector]
-        public CharacterProperties characterProperties { get; private set; }
+        public CharacterProperties characterProperties { get; private set; } = new();
 
         public Vector3 playerMoveDir { get; private set; }
 
@@ -75,17 +82,22 @@ namespace GameCore.Character.Player
 
         #region 初始化
 
-        public void Init(WeaponConfig weaponConfig, PlayerData playerData)
+        public void Init(PlayerData playerData)
         {
             if (Camera.main != null)
             {
                 m_CameraTrans = Camera.main.transform;
             }
-            this.weaponConfig = weaponConfig;
-            skillBrain.Init(this, playerData.skillLearnedDatas);
-            characterProperties = new CharacterProperties();
-            characterProperties.Init(weaponConfig);
+            skillBrain.Init(this);
+            m_AnimationController.Init();
             InitStateMachine();
+            if (m_SkillWeaponsMapConfig.skillWeaponsDic.TryGetValue(playerData.curWeaponId, out var weapon))
+            {
+                if (playerData.skillLearnedDatasDic.Dictionary.TryGetValue(playerData.curWeaponId, out var learnedDatas))
+                {
+                    ChangeWeapon(weapon, learnedDatas);
+                }
+            }
         }
 
         /// <summary>
@@ -94,7 +106,17 @@ namespace GameCore.Character.Player
         private void InitStateMachine()
         {
             m_StateMachine = ResourceManager.GetOrNew<StateMachine>();
-            m_StateMachine.Init<PlayerIdleState>(this);
+            m_StateMachine.Init(this);
+        }
+
+        /// <summary>
+        /// 初始化属性
+        /// </summary>
+        private void InitProperties()
+        {
+            characterProperties.Init(weaponConfig);
+            characterProperties.SetOnHpChange(OnHpChange);
+            characterProperties.SetOnMpChange(OnMpChange);
         }
 
         #endregion
@@ -105,7 +127,7 @@ namespace GameCore.Character.Player
         }
 
         /// <summary>
-        /// 旋转角色（待优化）
+        /// 旋转角色
         /// </summary>
         public void Rotate(float rotateSpeed = 0)
         {
@@ -113,15 +135,20 @@ namespace GameCore.Character.Player
             {
                 rotateSpeed = turnSpeed;
             }
-            // var forward = m_CameraTrans.forward;
-            // var camForwardProjection = new Vector3(forward.x, 0, forward.z).normalized;
-            // playerMoveDir = camForwardProjection * dir.z + m_CameraTrans.right * dir.x;
             if (playerMoveDir.magnitude == 0)
             {
                 return;
             }
             // 匀速旋转
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(playerMoveDir), Time.deltaTime * rotateSpeed);
+        }
+
+        public void ChangeWeapon(WeaponConfig weaponConfig, SkillLearnedDatas learnedDatas)
+        {
+            this.weaponConfig = weaponConfig;
+            m_SkillBrain.ChangeWeapon(weaponConfig, learnedDatas);
+            m_StateMachine.ChangeState<PlayerIdleState>(true);
+            InitProperties();
         }
 
         #region 状态机与动画
@@ -144,6 +171,9 @@ namespace GameCore.Character.Player
                     break;
                 case PlayerMotionState.Dash:
                     m_StateMachine.ChangeState<PlayerDashState>(reCurState);
+                    break;
+                case PlayerMotionState.Dodge:
+                    m_StateMachine.ChangeState<PlayerDodgeState>(reCurState);
                     break;
                 case PlayerMotionState.Skill:
                     m_StateMachine.ChangeState<PlayerSkillState>(reCurState);
@@ -232,6 +262,8 @@ namespace GameCore.Character.Player
             m_AnimationController.ClearAllAnimationEvent();
         }
 
+        public float GetCurAnimationProgress() => m_AnimationController.curProgress;
+
         #endregion
 
         #region 内部计算
@@ -279,6 +311,18 @@ namespace GameCore.Character.Player
         public void OnSkillRotate(Quaternion deltaRotation)
         {
             transform.rotation *= deltaRotation;
+        }
+
+        private void OnHpChange()
+        {
+            var fillAmount = (float) characterProperties.curHp / characterProperties.maxHp.curValue;
+            UISystem.GetWindow<PnlGameMain>().UpdateHpBar(fillAmount);
+        }
+
+        private void OnMpChange()
+        {
+            var fillAmount = (float) characterProperties.curMp / characterProperties.maxMp.curValue;
+            UISystem.GetWindow<PnlGameMain>().UpdateMpBar(fillAmount);
         }
     }
 }

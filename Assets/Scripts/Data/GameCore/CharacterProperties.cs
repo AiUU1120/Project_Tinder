@@ -5,12 +5,13 @@
  */
 
 using System;
+using AkanyaTools.SkillMaster.Runtime.Data.Config;
 using Data.GameCore.Config;
 using UnityEngine;
 
 namespace Data.GameCore
 {
-    public sealed class CharacterProperties
+    public class CharacterProperties
     {
         public int curHp;
 
@@ -24,7 +25,11 @@ namespace Data.GameCore
 
         public IntegerProperties def = new();
 
-        public void Init(WeaponConfig weaponConfig)
+        private Action m_OnHpChange;
+
+        private Action m_OnMpChange;
+
+        public virtual void Init(WeaponConfig weaponConfig)
         {
             maxHp.Init(100, onBaseValueChange: OnMaxHpChange);
             maxMp.Init(100, onBaseValueChange: OnMaxMpChange);
@@ -34,36 +39,48 @@ namespace Data.GameCore
             curMp = maxMp.baseValue;
         }
 
-        public void AddHp(int value)
+        public virtual void AddHp(int value)
         {
             SetHp(curHp + value);
         }
 
-        public void AddMp(int value)
+        public virtual void AddMp(int value)
         {
             SetMp(curMp + value);
         }
 
-        public void SetHp(int value)
+        public virtual void SetHp(int value)
         {
             curHp = Mathf.Clamp(value, 0, maxHp.curValue);
+            m_OnHpChange?.Invoke();
         }
 
-        public void SetMp(int value)
+        public virtual void SetMp(int value)
         {
             curMp = Mathf.Clamp(value, 0, maxMp.curValue);
+            m_OnMpChange?.Invoke();
         }
 
-        private void OnMaxHpChange(int oldValue, int newValue)
+        public void SetOnHpChange(Action onHpChange)
+        {
+            m_OnHpChange = onHpChange;
+        }
+
+        public void SetOnMpChange(Action onMpChange)
+        {
+            m_OnMpChange = onMpChange;
+        }
+
+        protected virtual void OnMaxHpChange(int oldValue, int newValue)
         {
             var percent = curHp / oldValue;
-            curHp = newValue * percent;
+            SetHp(newValue * percent);
         }
 
-        private void OnMaxMpChange(int oldValue, int newValue)
+        protected virtual void OnMaxMpChange(int oldValue, int newValue)
         {
             var percent = curMp / oldValue;
-            curMp = newValue * percent;
+            SetMp(newValue * percent);
         }
 
         public sealed class FloatProperties : PropertiesBase

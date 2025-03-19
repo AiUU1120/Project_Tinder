@@ -40,7 +40,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 7
+      Data: 9
     - Name: 
       Entry: 7
       Data: 
@@ -50,10 +50,10 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: 2|Common.System.InputManager+Vector2Key, Tinder.Common
-    - Name: isCache
+    - Name: m_IsCache
       Entry: 5
       Data: false
-    - Name: cacheTime
+    - Name: m_CacheTime
       Entry: 4
       Data: 0
     - Name: 
@@ -71,10 +71,10 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: 3|Common.System.InputManager+BoolKey, Tinder.Common
-    - Name: isCache
+    - Name: m_IsCache
       Entry: 5
       Data: false
-    - Name: cacheTime
+    - Name: m_CacheTime
       Entry: 4
       Data: 0
     - Name: 
@@ -92,10 +92,10 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: 4|Common.System.InputManager+BoolKey, Tinder.Common
-    - Name: isCache
+    - Name: m_IsCache
       Entry: 5
       Data: true
-    - Name: cacheTime
+    - Name: m_CacheTime
       Entry: 4
       Data: 0.2
     - Name: 
@@ -113,10 +113,10 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: 5|Common.System.InputManager+BoolKey, Tinder.Common
-    - Name: isCache
+    - Name: m_IsCache
       Entry: 5
       Data: true
-    - Name: cacheTime
+    - Name: m_CacheTime
       Entry: 4
       Data: 0.2
     - Name: 
@@ -134,10 +134,10 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: 6|Common.System.InputManager+BoolKey, Tinder.Common
-    - Name: isCache
+    - Name: m_IsCache
       Entry: 5
       Data: true
-    - Name: cacheTime
+    - Name: m_CacheTime
       Entry: 4
       Data: 0.2
     - Name: 
@@ -155,10 +155,10 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: 7|Common.System.InputManager+BoolKey, Tinder.Common
-    - Name: isCache
+    - Name: m_IsCache
       Entry: 5
       Data: true
-    - Name: cacheTime
+    - Name: m_CacheTime
       Entry: 4
       Data: 0.2
     - Name: 
@@ -176,10 +176,52 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: 8|Common.System.InputManager+BoolKey, Tinder.Common
-    - Name: isCache
+    - Name: m_IsCache
+      Entry: 5
+      Data: true
+    - Name: m_CacheTime
+      Entry: 4
+      Data: 0.2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 7
+    - Name: $v
+      Entry: 7
+      Data: 9|Common.System.InputManager+BoolKey, Tinder.Common
+    - Name: m_IsCache
       Entry: 5
       Data: false
-    - Name: cacheTime
+    - Name: m_CacheTime
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 8
+    - Name: $v
+      Entry: 7
+      Data: 10|Common.System.InputManager+BoolKey, Tinder.Common
+    - Name: m_IsCache
+      Entry: 5
+      Data: false
+    - Name: m_CacheTime
       Entry: 4
       Data: 0
     - Name: 

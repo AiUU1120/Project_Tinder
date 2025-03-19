@@ -29,5 +29,7 @@ namespace AkanyaTools.PlayableKami.PlayableNode
         {
             m_ClipPlayable.SetSpeed(speed);
         }
+
+        public float GetProgress() => (float) (m_ClipPlayable.GetTime() / m_ClipPlayable.GetAnimationClip().length);
     }
 }

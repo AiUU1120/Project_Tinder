@@ -5,14 +5,12 @@
  */
 
 using System;
-using UnityEngine.Serialization;
 
 namespace Data.GameCore
 {
     [Serializable]
     public class ShortcutSkillData
     {
-        [FormerlySerializedAs("skillId")]
-        public int skillIndex;
+        public int skillIndex = -1;
     }
 }

@@ -13,9 +13,9 @@ namespace GameCore.Character.Player.State
 {
     public abstract class PlayerStateBase : StateBase
     {
-        protected PlayerController unityChanController;
+        protected PlayerController m_PlayerController;
 
-        protected static int curReleaseSkillIndex;
+        protected static int m_CurReleaseSkillIndex;
 
         // TODO: 旁通？
         // /// <summary>
@@ -25,7 +25,7 @@ namespace GameCore.Character.Player.State
 
         public override void Init(IStateMachineOwner owner)
         {
-            unityChanController = owner as PlayerController;
+            m_PlayerController = owner as PlayerController;
         }
 
         public override void Enter()
@@ -36,23 +36,23 @@ namespace GameCore.Character.Player.State
 
         protected bool CheckAndEnterSkillState()
         {
-            if (InputManager.instance.isAttackLight && unityChanController.skillBrain.CheckReleaseSkill(0))
+            if (InputManager.instance.isAttackLight && m_PlayerController.skillBrain.CheckReleaseSkill(0))
             {
-                curReleaseSkillIndex = 0;
+                m_CurReleaseSkillIndex = 0;
                 return true;
             }
-            if (InputManager.instance.isAttackHeavy && unityChanController.skillBrain.CheckReleaseSkill(1))
+            if (InputManager.instance.isAttackHeavy && m_PlayerController.skillBrain.CheckReleaseSkill(1))
             {
-                curReleaseSkillIndex = 1;
+                m_CurReleaseSkillIndex = 1;
                 return true;
             }
             if (InputManager.instance.isSpecial)
             {
-                if (!unityChanController.skillBrain.CheckReleaseSkill(DataManager.playerData.shortcutSkillData.skillIndex))
+                if (!m_PlayerController.skillBrain.CheckReleaseSkill(DataManager.playerData.shortcutSkillDataDic.Dictionary[DataManager.playerData.curWeaponId].skillIndex))
                 {
                     return false;
                 }
-                curReleaseSkillIndex = DataManager.playerData.shortcutSkillData.skillIndex;
+                m_CurReleaseSkillIndex = DataManager.playerData.shortcutSkillDataDic.Dictionary[DataManager.playerData.curWeaponId].skillIndex;
                 return true;
             }
             return false;
@@ -69,9 +69,9 @@ namespace GameCore.Character.Player.State
         /// </summary>
         protected virtual void OnFootStep()
         {
-            var clips = unityChanController.weaponConfig.footStepAudioClips;
+            var clips = m_PlayerController.weaponConfig.footStepAudioClips;
             var index = UnityEngine.Random.Range(0, clips.Length);
-            AudioManager.PlayOneShot(clips[index], unityChanController.transform.position, volumeScale: 0.2f);
+            AudioManager.PlayOneShot(clips[index], m_PlayerController.transform.position, volumeScale: 0.2f);
         }
     }
 }

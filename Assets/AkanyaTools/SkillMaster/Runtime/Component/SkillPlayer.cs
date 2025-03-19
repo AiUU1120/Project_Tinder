@@ -26,10 +26,7 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
         private Transform m_WeaponPoint;
 
         [SerializeField]
-        private SkillWeaponsMapConfig m_SkillWeaponsMapConfig;
-
-        [SerializeField]
-        private GameObject m_DefaultWeaponPrefab;
+        private Transform m_SecWeaponPoint;
 
         public bool isPlaying { get; private set; }
 
@@ -47,6 +44,8 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
 
         private SkillWeapon m_CurWeapon;
 
+        private SkillWeapon m_CurSecWeapon;
+
         private int m_CurFrameIndex;
 
         private float m_FrameRate;
@@ -62,13 +61,6 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
             m_SkillOwner = skillOwner;
             m_AnimationController = animationController;
             this.modelTransform = modelTransform;
-
-#if UNITY_EDITOR
-            if (m_DefaultWeaponPrefab != null)
-            {
-                CreateWeaponOnWeaponPoint();
-            }
-#endif
         }
 
         private void Update()
@@ -97,27 +89,23 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
         /// <summary>
         /// 将武器生成到角色武器抓取点并对齐
         /// </summary>
-        public GameObject CreateWeaponOnWeaponPoint(GameObject weaponObj = null)
+        public GameObject CreateWeaponOnWeaponPoint(GameObject weaponObj)
         {
             if (m_CurWeapon != null)
             {
                 DestroyImmediate(m_CurWeapon.gameObject);
+            }
+            if (m_CurSecWeapon != null)
+            {
+                DestroyImmediate(m_CurSecWeapon.gameObject);
             }
             if (m_WeaponPoint == null)
             {
                 Debug.LogWarning("未设置角色武器抓取点！");
                 return null;
             }
-            if (weaponObj == null)
-            {
-                if (m_DefaultWeaponPrefab == null)
-                {
-                    Debug.LogWarning("没有可生成的武器，缺乏预制体并传入空对象！");
-                    return null;
-                }
-            }
 
-            var weapon = Instantiate(weaponObj == null ? m_DefaultWeaponPrefab : weaponObj, m_WeaponPoint, true); // 不设置父对象
+            var weapon = Instantiate(weaponObj, m_WeaponPoint, true); // 不设置父对象
             m_CurWeapon = weapon.GetComponent<SkillWeapon>();
             m_CurWeapon.Init(atkDetectionLayerMask, OnWeaponDetection);
             var weaponGrabPoint = m_CurWeapon.mainGridPoint;
@@ -136,6 +124,64 @@ namespace AkanyaTools.SkillMaster.Runtime.Component
             weapon.transform.position = targetPosition;
 
             return weapon;
+        }
+
+        /// <summary>
+        /// 将双武器生成到角色武器抓取点并对齐
+        /// </summary>
+        public GameObject[] CreateDoubleWeaponOnWeaponPoint(GameObject weaponObj)
+        {
+            if (m_CurWeapon != null)
+            {
+                DestroyImmediate(m_CurWeapon.gameObject);
+            }
+            if (m_CurSecWeapon != null)
+            {
+                DestroyImmediate(m_CurSecWeapon.gameObject);
+            }
+            if (m_WeaponPoint == null || m_SecWeaponPoint == null)
+            {
+                Debug.LogWarning("未设置角色武器抓取点！");
+                return null;
+            }
+
+            var firWeapon = Instantiate(weaponObj, m_WeaponPoint, true); // 不设置父对象
+            m_CurWeapon = firWeapon.GetComponent<SkillWeapon>();
+            m_CurWeapon.Init(atkDetectionLayerMask, OnWeaponDetection);
+            var firWeaponGrabPoint = m_CurWeapon.mainGridPoint;
+
+            // 获取抓取点相对于武器的本地位置和旋转
+            var firGrabLocalPos = firWeaponGrabPoint.localPosition;
+            var firGrabLocalRot = firWeaponGrabPoint.localRotation;
+
+            // 计算目标旋转：手部旋转与抓取点本地旋转的逆相乘
+            var firTargetRotation = m_WeaponPoint.rotation * Quaternion.Inverse(firGrabLocalRot);
+            // 计算目标位置：手部位置减去旋转后的本地偏移
+            var firTargetPosition = m_WeaponPoint.position - firTargetRotation * firGrabLocalPos;
+
+            // 应用新的旋转和位置
+            firWeapon.transform.rotation = firTargetRotation;
+            firWeapon.transform.position = firTargetPosition;
+
+            var secWeapon = Instantiate(weaponObj, m_SecWeaponPoint, true); // 不设置父对象
+            m_CurSecWeapon = secWeapon.GetComponent<SkillWeapon>();
+            m_CurSecWeapon.Init(atkDetectionLayerMask, OnWeaponDetection);
+            var secWeaponGrabPoint = m_CurSecWeapon.mainGridPoint;
+
+            // 获取抓取点相对于武器的本地位置和旋转
+            var secGrabLocalPos = secWeaponGrabPoint.localPosition;
+            var secGrabLocalRot = secWeaponGrabPoint.localRotation;
+
+            // 计算目标旋转：手部旋转与抓取点本地旋转的逆相乘
+            var secTargetRotation = m_SecWeaponPoint.rotation * Quaternion.Inverse(secGrabLocalRot);
+            // 计算目标位置：手部位置减去旋转后的本地偏移
+            var secTargetPosition = m_SecWeaponPoint.position - secTargetRotation * secGrabLocalPos;
+
+            // 应用新的旋转和位置
+            secWeapon.transform.rotation = secTargetRotation;
+            secWeapon.transform.position = secTargetPosition;
+
+            return new[] { firWeapon, secWeapon };
         }
 
         public void StartPlaySkillBehaviour(SkillBehaviourBase skillBehaviour)

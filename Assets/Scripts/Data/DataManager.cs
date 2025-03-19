@@ -55,17 +55,17 @@ namespace Data
         {
             playerData = new PlayerData
             {
-                skillLearnedDatas = new SkillLearnedDatas()
-                {
-                    skillPoint = 999,
-                }
+                curWeaponId = "Katana_Normal",
+                skillPoint = 1000,
+                skillLearnedDatasDic = new Serialized_Dic<string, SkillLearnedDatas>(),
+                shortcutSkillDataDic = new Serialized_Dic<string, ShortcutSkillData>(),
             };
-            playerData.skillLearnedDatas.learnedSkillsDic.Dictionary.Add(0, new SkillLearnedData() { level = 1 });
-            playerData.skillLearnedDatas.learnedSkillsDic.Dictionary.Add(1, new SkillLearnedData() { level = 1 });
-            playerData.shortcutSkillData = new ShortcutSkillData()
-            {
-                skillIndex = -1,
-            };
+            // 初始化技能学习数据
+            playerData.skillLearnedDatasDic.Dictionary.Add("Katana_Normal", new SkillLearnedDatas());
+            playerData.skillLearnedDatasDic.Dictionary.Add("GreatSword_Normal", new SkillLearnedDatas());
+            // 初始化快捷栏技能数据
+            playerData.shortcutSkillDataDic.Dictionary.Add("Katana_Normal", new ShortcutSkillData());
+            playerData.shortcutSkillDataDic.Dictionary.Add("GreatSword_Normal", new ShortcutSkillData());
         }
 
         /// <summary>

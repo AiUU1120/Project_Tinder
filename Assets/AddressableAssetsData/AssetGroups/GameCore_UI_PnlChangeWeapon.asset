@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: GameCore_UI_PnlChangeWeapon
+  m_EditorClassIdentifier: 
+  m_GroupName: GameCore_UI_PnlChangeWeapon
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 2d84a0cd76356c247b9d94b56ae2be34
+  m_SerializeEntries:
+  - m_GUID: 4e6330e99a48a7043b5df2570fe3c36c
+    m_Address: PnlChangeWeapon
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 97bb62127f50e814c8256319851267dd, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: c169de9e9718db4498c87d52105f57e0, type: 2}
+    - {fileID: 11400000, guid: 1e535d06d9d97f34fb626747f4103f63, type: 2}

@@ -14,8 +14,9 @@ namespace Data.GameCore
         /// <summary>
         /// Key - 技能 Index
         /// </summary>
-        public Serialized_Dic<int, SkillLearnedData> learnedSkillsDic = new();
-
-        public int skillPoint;
+        public Serialized_Dic<int, SkillLearnedData> learnedSkillsDic = new()
+        {
+            Dictionary = { { 0, new SkillLearnedData() { level = 1 } }, { 1, new SkillLearnedData() { level = 1 } } }
+        };
     }
 }

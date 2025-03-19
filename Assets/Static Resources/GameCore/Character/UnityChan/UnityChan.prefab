@@ -2628,6 +2628,7 @@ Transform:
   - {fileID: 3475498265630594603}
   - {fileID: 8528188824185879202}
   - {fileID: 8944763127865152553}
+  - {fileID: 8504853009209286824}
   m_Father: {fileID: 8001353827481796197}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1759597484766280928
@@ -5878,7 +5879,7 @@ ParentConstraint:
   m_TranslationAtRest: {x: 0.0558, y: 1.4818997, z: 0.076199986}
   m_RotationAtRest: {x: 0, y: 0, z: 0}
   m_TranslationOffsets:
-  - {x: 0.05572126, y: 0.07585728, z: 0.09893798}
+  - {x: 0.055725098, y: 0.07585907, z: 0.09893799}
   m_RotationOffsets:
   - {x: -6.829918, y: 0, z: 0}
   m_AffectTranslationX: 1
@@ -7164,7 +7165,7 @@ ParentConstraint:
   m_TranslationAtRest: {x: -0.0558, y: 1.4818997, z: 0.076199986}
   m_RotationAtRest: {x: 0, y: 0, z: 0}
   m_TranslationOffsets:
-  - {x: -0.055878736, y: 0.07585728, z: 0.09893798}
+  - {x: -0.055877686, y: 0.07585907, z: 0.09893799}
   m_RotationOffsets:
   - {x: -6.829918, y: 0, z: 0}
   m_AffectTranslationX: 1
@@ -9919,6 +9920,37 @@ Transform:
   - {fileID: 5147726263533980103}
   m_Father: {fileID: 7491158363612696853}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6916760350528005439
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8504853009209286824}
+  m_Layer: 0
+  m_Name: WeaponPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8504853009209286824
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6916760350528005439}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.045258317, y: 0, z: 0.99897534, w: -0}
+  m_LocalPosition: {x: -0.058, y: -0.012, z: 0.007}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8248328207755631216}
+  m_LocalEulerAnglesHint: {x: 180, y: -185.188, z: 0}
 --- !u!1 &6917921413867347335
 GameObject:
   m_ObjectHideFlags: 0
@@ -10630,6 +10662,8 @@ MonoBehaviour:
   m_MoveSpeed: 6.5
   m_DashSpeed: 7.3
   m_TurnSpeed: 7
+  m_SkillWeaponsMapConfig: {fileID: 11400000, guid: 60f9470e773641f45a24bf0be26bb848,
+    type: 2}
 --- !u!114 &1759600652607522553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10665,10 +10699,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   m_WeaponPoint: {fileID: 6176515517398389000}
-  m_SkillWeaponsMapConfig: {fileID: 11400000, guid: 60f9470e773641f45a24bf0be26bb848,
-    type: 2}
-  m_DefaultWeaponPrefab: {fileID: 4025278149938408953, guid: 35057c06369d5fa49b5f11c332b43800,
-    type: 3}
+  m_SecWeaponPoint: {fileID: 8504853009209286824}
   atkDetectionLayerMask:
     serializedVersion: 2
     m_Bits: 256

@@ -14,6 +14,17 @@ namespace Data.GameCore.Config
     [CreateAssetMenu(fileName = "WeaponConfig_", menuName = "Tinder/Config/GameCore/WeaponConfig")]
     public sealed class WeaponConfig : ConfigBase
     {
+        public string weaponName;
+
+        public Sprite icon;
+
+        [Multiline]
+        public string weaponDescription;
+
+        public GameObject weaponPrefab;
+
+        public bool isDoubleWeapon;
+
         [Header("属性")]
         public int baseAtk;
 

@@ -172,6 +172,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 20f0a581-e28b-4f9a-ac22-18df364b8233
     m_ActionName: Player/SkillMenu[/Keyboard/tab]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9128411007973919522}
+        m_TargetAssemblyTypeName: Common.System.InputManager, Tinder.Common
+        m_MethodName: SetDodgeInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 11cbde7e-6e7f-4f0b-a9a9-19468be2fa4d
+    m_ActionName: Player/Dodge[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9128411007973919522}
+        m_TargetAssemblyTypeName: Common.System.InputManager, Tinder.Common
+        m_MethodName: SetWeaponMenuInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 3688908a-24ad-4751-ba1c-717be812fca7
+    m_ActionName: Player/WeaponMenu[/Keyboard/backquote]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: KeyBoard&Mouse
   m_DefaultActionMap: Player

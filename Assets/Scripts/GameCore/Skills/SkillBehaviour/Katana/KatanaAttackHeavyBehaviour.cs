@@ -5,7 +5,6 @@
  */
 
 using AkanyaTools.SkillMaster.Runtime.Core;
-using Data.GameCore.Enums;
 using UnityEngine;
 
 namespace GameCore.Skills.SkillBehaviour.Katana

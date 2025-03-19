@@ -20,7 +20,7 @@ namespace GameCore.Character.Player.State
             // {
             //     return;
             // }
-            unityChanController.PlayAnimation("Idle", mixingTime: 0.3f);
+            m_PlayerController.PlayAnimation("Idle", mixingTime: 0.3f);
         }
 
         public override void Update()
@@ -30,7 +30,7 @@ namespace GameCore.Character.Player.State
             {
                 return;
             }
-            unityChanController.characterController.Move(new Vector3(0, -9.8f * Time.deltaTime, 0));
+            m_PlayerController.characterController.Move(new Vector3(0, -9.8f * Time.deltaTime, 0));
         }
 
         public override void Exit()
@@ -46,12 +46,17 @@ namespace GameCore.Character.Player.State
         {
             if (InputManager.instance.moveInput.magnitude >= 0.1f)
             {
-                unityChanController.ChangeState(PlayerMotionState.Move);
+                m_PlayerController.ChangeState(PlayerMotionState.Move);
+                return true;
+            }
+            if (InputManager.instance.isDodge)
+            {
+                m_PlayerController.ChangeState(PlayerMotionState.Dodge);
                 return true;
             }
             if (CheckAndEnterSkillState())
             {
-                unityChanController.ChangeState(PlayerMotionState.Skill);
+                m_PlayerController.ChangeState(PlayerMotionState.Skill);
                 return true;
             }
             return false;

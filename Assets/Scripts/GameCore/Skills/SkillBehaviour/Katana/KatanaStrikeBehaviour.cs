@@ -1,6 +1,6 @@
 ﻿/*
  * @Author: AiUU
- * @Description: UnityChan 技能 突袭 行为
+ * @Description: Katana 技能 突袭 行为
  * @AkanyaTech.Tinder
  */
 

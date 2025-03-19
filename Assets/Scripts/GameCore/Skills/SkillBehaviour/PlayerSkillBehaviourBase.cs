@@ -48,7 +48,7 @@ namespace GameCore.Skills.SkillBehaviour
 
         private void UpdateSkillSlot()
         {
-            if (skillIndex == DataManager.playerData.shortcutSkillData.skillIndex)
+            if (skillIndex == DataManager.playerData.shortcutSkillDataDic.Dictionary[DataManager.playerData.curWeaponId].skillIndex)
             {
                 OnUpdateSkillSlot();
             }

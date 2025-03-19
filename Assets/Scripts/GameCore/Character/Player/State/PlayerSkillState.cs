@@ -33,7 +33,7 @@ namespace GameCore.Character.Player.State
 
         private void PlaySkill()
         {
-            unityChanController.skillBrain.ReleaseSkill(curReleaseSkillIndex);
+            m_PlayerController.skillBrain.ReleaseSkill(m_CurReleaseSkillIndex);
         }
     }
 }

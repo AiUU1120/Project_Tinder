@@ -33,7 +33,7 @@ namespace AkanyaTools.SkillMaster.Runtime.Core
 
         public int skillCount => m_SkillBehaviours.Count;
 
-        public virtual SkillBehaviourBase curSkillBehaviour => m_SkillBehaviours[lastReleaseSkillIndex];
+        public virtual SkillBehaviourBase curSkillBehaviour => m_SkillBehaviours.Find(s => s.skillIndex == lastReleaseSkillIndex);
 
         private readonly Dictionary<string, ISkillShareData> m_ShareDataDic = new();
 

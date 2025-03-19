@@ -96,7 +96,7 @@ namespace GameCore.UI.PnlLearnSkill
                     OnSelectItem(null, itemInfo);
                 }
             }
-            UpdateSkillPoint(m_SkillLearnedDatas.skillPoint);
+            UpdateSkillPoint(DataManager.playerData.skillPoint);
         }
 
         private PnlLearnSkillSkillItem CreateItem() => Instantiate(m_ItemPrefab, m_ItemRoot).GetComponent<PnlLearnSkillSkillItem>();
@@ -118,7 +118,7 @@ namespace GameCore.UI.PnlLearnSkill
                 m_BtnLearn.interactable = false;
                 m_TxtSkillPrice.text = "已满级";
             }
-            else if (m_SkillLearnedDatas.skillPoint < info.skillConfig.skillPrice)
+            else if (DataManager.playerData.skillPoint < info.skillConfig.skillPrice)
             {
                 m_BtnLearn.interactable = false;
             }
@@ -131,7 +131,7 @@ namespace GameCore.UI.PnlLearnSkill
                 m_BtnEquip.interactable = false;
                 m_TxtSkillEquip.text = "未获得";
             }
-            else if (DataManager.playerData.shortcutSkillData.skillIndex == info.skillIndex)
+            else if (DataManager.playerData.shortcutSkillDataDic.Dictionary[DataManager.playerData.curWeaponId].skillIndex == info.skillIndex)
             {
                 m_BtnEquip.interactable = false;
                 m_TxtSkillEquip.text = "已装备";
@@ -166,11 +166,11 @@ namespace GameCore.UI.PnlLearnSkill
             {
                 skillLearnedData.level++;
             }
-            m_SkillLearnedDatas.skillPoint -= m_CurSelectItemInfo.skillConfig.skillPrice;
-            UpdateSkillPoint(m_SkillLearnedDatas.skillPoint);
+            DataManager.playerData.skillPoint -= m_CurSelectItemInfo.skillConfig.skillPrice;
+            UpdateSkillPoint(DataManager.playerData.skillPoint);
             m_CurSelectItemInfo.skillItem.Init(m_CurSelectItemInfo.skillConfig, skillLearnedData);
             UpdateSkillInfo(m_CurSelectItemInfo);
-            DataManager.playerData.skillLearnedDatas = m_SkillLearnedDatas;
+            DataManager.playerData.skillLearnedDatasDic.Dictionary[DataManager.playerData.curWeaponId] = m_SkillLearnedDatas;
         }
 
         private void OnSelectItem(PointerEventData data, ItemInfo info)
@@ -191,8 +191,8 @@ namespace GameCore.UI.PnlLearnSkill
             {
                 return;
             }
-            DataManager.playerData.shortcutSkillData.skillIndex = m_CurSelectItemInfo.skillIndex;
-            UISystem.GetWindow<PnlGameMain.PnlGameMain>().Init(DataManager.playerData.shortcutSkillData);
+            DataManager.playerData.shortcutSkillDataDic.Dictionary[DataManager.playerData.curWeaponId].skillIndex = m_CurSelectItemInfo.skillIndex;
+            UISystem.GetWindow<PnlGameMain.PnlGameMain>().Init(DataManager.playerData.shortcutSkillDataDic.Dictionary[DataManager.playerData.curWeaponId]);
             UpdateSkillInfo(m_CurSelectItemInfo);
         }
 

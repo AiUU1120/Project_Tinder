@@ -4,6 +4,7 @@ using AkanyaTools.SkillMaster.Runtime.Data;
 using AkanyaTools.SkillMaster.Runtime.Data.Config;
 using AkanyaTools.SkillMaster.Runtime.Data.Enum;
 using Data.GameCore;
+using Data.GameCore.Config;
 using GameCore.Character.Player;
 using GameCore.Skills.SkillBehaviour;
 using UnityEngine;
@@ -21,15 +22,10 @@ namespace GameCore.Skills
 
         private PlayerController m_PlayerController;
 
-        public void Init(PlayerController playerController, SkillLearnedDatas learnedDatas)
+        public void Init(PlayerController playerController)
         {
             base.Init(playerController);
             m_PlayerController = playerController;
-            var skillConfigs = PlayerManager.instance.GetSkillConfigList();
-            foreach (var item in learnedDatas.learnedSkillsDic.Dictionary)
-            {
-                AddSkill(playerController, skillConfigs, item.Key, item.Value);
-            }
         }
 
         public void AddSkill(ISkillCharacter skillOwner, List<SkillConfig> skillConfigs, int skillIndex, SkillLearnedData skillLearnedData)
@@ -58,6 +54,25 @@ namespace GameCore.Skills
                 case SkillCostType.Mp:
                     m_PlayerController.characterProperties.AddMp(-Mathf.RoundToInt(costValue));
                     break;
+            }
+        }
+
+        public void ChangeWeapon(WeaponConfig weaponConfig, SkillLearnedDatas learnedDatas)
+        {
+            m_SkillBehaviours.Clear();
+            lastReleaseSkillIndex = -1;
+            var skillConfigs = weaponConfig.skillConfigs;
+            foreach (var item in learnedDatas.learnedSkillsDic.Dictionary)
+            {
+                AddSkill(m_PlayerController, skillConfigs, item.Key, item.Value);
+            }
+            if (!weaponConfig.isDoubleWeapon)
+            {
+                m_SkillPlayer.CreateWeaponOnWeaponPoint(weaponConfig.weaponPrefab);
+            }
+            else
+            {
+                m_SkillPlayer.CreateDoubleWeaponOnWeaponPoint(weaponConfig.weaponPrefab);
             }
         }
     }

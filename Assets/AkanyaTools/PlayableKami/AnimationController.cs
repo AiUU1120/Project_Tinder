@@ -12,7 +12,6 @@ using AkanyaTools.PlayableKami.PlayableNode;
 using AkanyaTools.ResourceSystem;
 using UnityEngine;
 using UnityEngine.Animations;
-using UnityEngine.Assertions;
 using UnityEngine.Playables;
 
 namespace AkanyaTools.PlayableKami
@@ -38,6 +37,8 @@ namespace AkanyaTools.PlayableKami
             }
         }
 
+        public float curProgress => GetCurProgress();
+
         private PlayableGraph m_PlayableGraph;
 
         private AnimationMixerPlayable m_MixerPlayable;
@@ -60,7 +61,7 @@ namespace AkanyaTools.PlayableKami
 
         private float m_PlaySpeed;
 
-        private void Start()
+        public void Init()
         {
             if (m_Animator == null)
             {
@@ -83,11 +84,8 @@ namespace AkanyaTools.PlayableKami
             m_IKPlayableBehaviour.Init(m_Animator);
             // 创建输出
             var playableOutput = AnimationPlayableOutput.Create(m_PlayableGraph, "Animation", m_Animator);
-            // var ikPlayableOutput = ScriptPlayableOutput.Create(m_PlayableGraph, "IK");
             // 让混合器连接输出
             playableOutput.SetSourcePlayable(m_MixerPlayable);
-            // m_PlayableGraph.Connect(m_MixerPlayable, 0, ikPlayable, 0);
-            // ikPlayable.AddInput(m_MixerPlayable, 0, 1f);
         }
 
         #region Animation
@@ -293,6 +291,15 @@ namespace AkanyaTools.PlayableKami
             node.Recycle();
         }
 
+        private float GetCurProgress()
+        {
+            if (m_CurrNode is SingleAnimationNode singleNode)
+            {
+                return singleNode.GetProgress();
+            }
+            return 0;
+        }
+
         #endregion
 
         #region Animation Event
@@ -312,13 +319,9 @@ namespace AkanyaTools.PlayableKami
         /// <param name="action">具体 Action</param>
         public void AddAnimationEvent(string eventName, Action action)
         {
-            if (m_AnimEventDic.ContainsKey(eventName))
+            if (!m_AnimEventDic.TryAdd(eventName, action))
             {
                 m_AnimEventDic[eventName] += action;
-            }
-            else
-            {
-                m_AnimEventDic.Add(eventName, action);
             }
         }
 

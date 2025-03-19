@@ -22,6 +22,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1a07d6a34c427b348af0449690274376
+    m_Address: WeaponConfig_GreatSword
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: efb64e2faf8559f4ca2324893d669f16
+    m_Address: WeaponConfig_DualBlade
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 97bb62127f50e814c8256319851267dd, type: 2}
   m_SchemaSet:

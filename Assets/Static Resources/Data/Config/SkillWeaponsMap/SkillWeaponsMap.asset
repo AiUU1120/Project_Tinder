@@ -16,8 +16,9 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 8471760871595739258, guid: 4c0fd8ec01100a94d9d1827a19a50eb1, type: 3}
-    - {fileID: 7371693517535123591, guid: 35057c06369d5fa49b5f11c332b43800, type: 3}
+    - {fileID: 11400000, guid: 067ec612a16b2ea45b455c94be93d0ea, type: 2}
+    - {fileID: 11400000, guid: 1a07d6a34c427b348af0449690274376, type: 2}
+    - {fileID: 11400000, guid: efb64e2faf8559f4ca2324893d669f16, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -25,8 +26,8 @@ MonoBehaviour:
     SerializationNodes:
     - Name: m_SkillWeaponsDic
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[AkanyaTools.SkillMaster.Runtime.Component.SkillWeapon,
-        AkanyaTools.SkillMaster.Runtime]], mscorlib
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[Data.GameCore.Config.WeaponConfig,
+        Tinder.Data]], mscorlib
     - Name: comparer
       Entry: 7
       Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
@@ -36,13 +37,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 3
     - Name: 
       Entry: 7
       Data: 
     - Name: $k
       Entry: 1
-      Data: katana
+      Data: Katana_Normal
     - Name: $v
       Entry: 10
       Data: 0
@@ -54,10 +55,22 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Katana_Normal
+      Data: GreatSword_Normal
     - Name: $v
       Entry: 10
       Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: DualBlade
+    - Name: $v
+      Entry: 10
+      Data: 2
     - Name: 
       Entry: 8
       Data: 

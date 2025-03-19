@@ -16,10 +16,10 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 7400000, guid: 8ac2e116f26699a42a109332800ac839, type: 2}
-    - {fileID: 7400000, guid: d42537b3c62d44c41a102ea9cce76f87, type: 2}
-    - {fileID: 7400000, guid: e81d842ec60cbae46913b6e5bfb0b0fa, type: 2}
-    - {fileID: 7400000, guid: ea73d28f2a34e8d49b73c51218de3b8e, type: 2}
+    - {fileID: 7400000, guid: 570b046e12977c0418bd28e27cfeb53b, type: 2}
+    - {fileID: 7400000, guid: 5e4eaaceeee02c94aa12675338d8fcd1, type: 2}
+    - {fileID: 7400000, guid: 9373b17c7faa20f49ae0c1a9755d0aa2, type: 2}
+    - {fileID: 7400000, guid: 5c7e05ad3c7b6234e8ff2fb079520ca4, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -38,7 +38,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 4
+      Data: 5
     - Name: 
       Entry: 7
       Data: 
@@ -83,6 +83,18 @@ MonoBehaviour:
       Data: Dash
     - Name: $v
       Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Dodge
+    - Name: $v
+      Entry: 10
       Data: 3
     - Name: 
       Entry: 8
@@ -93,6 +105,11 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  weaponName: "\u6B66\u58EB\u5200"
+  icon: {fileID: 21300000, guid: 76570b4d52cecac4aa55d9adc2b69e50, type: 3}
+  weaponDescription: "\u7531\u767E\u70BC\u7389\u94A2\u953B\u9020\u7684\u5F27\u5F62\u5355\u5203\u5200\u3002\u4FEE\u957F\u5200\u8EAB\u517C\u987E\u901F\u5EA6\u4E0E\u65A9\u5207\u529B\uFF0C\u53EF\u77AC\u95F4\u7206\u53D1\u75BE\u98CE\u822C\u7684\u5288\u780D\uFF0C\u9002\u5408\u8FFD\u6C42\u7CBE\u51C6\u81F4\u547D\u4E00\u51FB\u7684\u7075\u5DE7\u578B\u6218\u58EB\uFF0C\u5200\u5203\u5BD2\u5149\u53EF\u7834\u7532\u88C2\u9AA8\u3002"
+  weaponPrefab: {fileID: 4025278149938408953, guid: 35057c06369d5fa49b5f11c332b43800,
+    type: 3}
   baseAtk: 15
   baseDef: 0
   skillConfigs:

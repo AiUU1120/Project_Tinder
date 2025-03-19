@@ -33,6 +33,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Dodge",
+                    "type": "Button",
+                    "id": "11cbde7e-6e7f-4f0b-a9a9-19468be2fa4d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Special",
                     "type": "Button",
                     "id": "527a89fb-ae77-4c71-8bb6-52884deef47a",
@@ -63,6 +72,15 @@
                     "name": "SkillMenu",
                     "type": "Button",
                     "id": "20f0a581-e28b-4f9a-ac22-18df364b8233",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "WeaponMenu",
+                    "type": "Button",
+                    "id": "3688908a-24ad-4751-ba1c-717be812fca7",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -188,6 +206,28 @@
                     "processors": "",
                     "groups": "KeyBoard&Mouse",
                     "action": "SkillMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9dad24fb-dd16-4aa4-8307-9b3a73e6ba7c",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyBoard&Mouse",
+                    "action": "Dodge",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4b887fc2-e78f-44c7-b26e-ff4cadf7ac73",
+                    "path": "<Keyboard>/backquote",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyBoard&Mouse",
+                    "action": "WeaponMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -29,25 +29,25 @@ namespace Common.System
         public class Key<T> : KeyBase
         {
             [SerializeField]
-            protected bool isCache;
+            protected bool m_IsCache;
 
             [SerializeField]
-            protected float cacheTime;
+            protected float m_CacheTime;
 
-            protected T value;
+            protected T m_Value;
 
-            protected float lastInputTime;
+            protected float m_LastInputTime;
 
             public virtual T GetState() => default;
 
             public void SetResultValue(T value)
             {
-                this.value = value;
+                this.m_Value = value;
             }
 
             public override void Init()
             {
-                lastInputTime = float.MinValue;
+                m_LastInputTime = float.MinValue;
             }
 
             public override void Update()
@@ -56,7 +56,7 @@ namespace Common.System
 
             public void ResetCacheTimer()
             {
-                lastInputTime = float.MinValue;
+                m_LastInputTime = float.MinValue;
             }
         }
 
@@ -64,29 +64,29 @@ namespace Common.System
         {
             public override bool GetState()
             {
-                if (!isCache)
+                if (!m_IsCache)
                 {
-                    return value;
+                    return m_Value;
                 }
-                return value || (Time.time - lastInputTime) < cacheTime;
+                return m_Value || (Time.time - m_LastInputTime) < m_CacheTime;
             }
 
             public override void Update()
             {
-                if (!isCache)
+                if (!m_IsCache)
                 {
                     return;
                 }
-                if (value)
+                if (m_Value)
                 {
-                    lastInputTime = Time.time;
+                    m_LastInputTime = Time.time;
                 }
             }
         }
 
         public sealed class Vector2Key : Key<Vector2>
         {
-            public override Vector2 GetState() => value;
+            public override Vector2 GetState() => m_Value;
         }
 
         public enum InputType
@@ -94,10 +94,12 @@ namespace Common.System
             Move,
             Run,
             Jump,
+            Dodge,
             AttackLight,
             AttackHeavy,
             Special,
-            SkillMenu
+            SkillMenu,
+            WeaponMenu,
         }
 
         public Vector2 moveInput => GetInputValue<Vector2>(InputType.Move);
@@ -110,9 +112,13 @@ namespace Common.System
 
         public bool isAttackHeavy => GetInputValue<bool>(InputType.AttackHeavy);
 
+        public bool isDodge => GetInputValue<bool>(InputType.Dodge);
+
         public bool isSpecial => GetInputValue<bool>(InputType.Special);
 
         public bool isSkillMenu => GetInputValue<bool>(InputType.SkillMenu);
+
+        public bool isWeaponMenu => GetInputValue<bool>(InputType.WeaponMenu);
 
         public bool isUIControl
         {
@@ -195,9 +201,32 @@ namespace Common.System
             SetInputValue(InputType.Special, ctx.ReadValueAsButton());
         }
 
+        public void SetJumpInput(InputAction.CallbackContext ctx)
+        {
+            if (m_IsUIControl)
+            {
+                return;
+            }
+            SetInputValue(InputType.Jump, ctx.ReadValueAsButton());
+        }
+
+        public void SetDodgeInput(InputAction.CallbackContext ctx)
+        {
+            if (m_IsUIControl)
+            {
+                return;
+            }
+            SetInputValue(InputType.Dodge, ctx.ReadValueAsButton());
+        }
+
         public void SetSkillMenuInput(InputAction.CallbackContext ctx)
         {
             SetInputValue(InputType.SkillMenu, ctx.ReadValueAsButton());
+        }
+
+        public void SetWeaponMenuInput(InputAction.CallbackContext ctx)
+        {
+            SetInputValue(InputType.WeaponMenu, ctx.ReadValueAsButton());
         }
 
         private T GetInputValue<T>(InputType type) where T : struct

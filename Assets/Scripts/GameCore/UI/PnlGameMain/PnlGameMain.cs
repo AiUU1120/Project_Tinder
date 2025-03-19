@@ -15,6 +15,14 @@ namespace GameCore.UI.PnlGameMain
     [UIWindowData(nameof(PnlGameMain), true, nameof(PnlGameMain), 0)]
     public sealed class PnlGameMain : GameCoreUIWindowBase
     {
+        [Header("PlayerInfo")]
+        [SerializeField]
+        private Image m_HpBarImg;
+
+        [SerializeField]
+        private Image m_MpBarImg;
+
+        [Header("SkillSlot")]
         [SerializeField]
         private Image m_ShortcutSkillIconImg;
 
@@ -39,6 +47,24 @@ namespace GameCore.UI.PnlGameMain
                 m_ShortcutSkillIconImg.gameObject.SetActive(false);
             }
             UpdateCDMask(0);
+        }
+
+        /// <summary>
+        /// 更新血量条
+        /// </summary>
+        /// <param name="fillAmount"></param>
+        public void UpdateHpBar(float fillAmount)
+        {
+            m_HpBarImg.fillAmount = fillAmount;
+        }
+
+        /// <summary>
+        /// 更新 MP 条
+        /// </summary>
+        /// <param name="fillAmount"></param>
+        public void UpdateMpBar(float fillAmount)
+        {
+            m_MpBarImg.fillAmount = fillAmount;
         }
 
         /// <summary>
