@@ -283,6 +283,11 @@ namespace GameCore.Character.Player
 
         public void BeHit(AttackData attackData)
         {
+            characterProperties.AddHp(-Mathf.RoundToInt(attackData.atkValue));
+            if (characterProperties.curHp <= 0)
+            {
+                // ChangeState(PlayerMotionState.Die);
+            }
         }
 
         public int GetAtkValue(SkillDetectionFrameEvent e)

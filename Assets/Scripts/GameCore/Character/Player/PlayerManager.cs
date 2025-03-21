@@ -65,5 +65,7 @@ namespace GameCore.Character.Player
             m_PlayerController.ChangeWeapon(weaponConfig, DataManager.playerData.skillLearnedDatasDic.Dictionary[DataManager.playerData.curWeaponId]);
             UISystem.Show<PnlGameMain>().Init(DataManager.playerData.shortcutSkillDataDic.Dictionary[DataManager.playerData.curWeaponId]);
         }
+
+        public Transform GetPlayerTransform() => m_PlayerController.transform;
     }
 }

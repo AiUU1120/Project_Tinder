@@ -16,9 +16,11 @@ using Data.GameCore.Enums;
 using FrameTools.StateMachine;
 using GameCore.Character.Enemy.Skills;
 using GameCore.Character.Enemy.State;
+using GameCore.Character.Player;
 using GameCore.UI.PnlEnemyHpBar;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace GameCore.Character.Enemy
 {
@@ -33,6 +35,9 @@ namespace GameCore.Character.Enemy
 
         [SerializeField]
         private EnemySkillBrain m_SkillBrain;
+
+        [SerializeField]
+        private NavMeshAgent m_NavMeshAgent;
 
         [Space]
         [Header("属性")]
@@ -50,9 +55,25 @@ namespace GameCore.Character.Enemy
         [SerializeField]
         private WeaponConfig m_WeaponConfig;
 
+        [Space]
+        [Header("AI")]
+        [SerializeField]
+        private float m_StopDistance;
+
+        [SerializeField]
+        private float m_ViewRadius;
+
+        [SerializeField]
+        private float m_ViewAngle;
+
+        [SerializeField]
+        private float m_ChaseMinDistance;
+
         public CharacterController characterController => m_CharacterController;
 
         public AnimationController animationController => m_AnimationController;
+
+        public NavMeshAgent navMeshAgent => m_NavMeshAgent;
 
         public WeaponConfig weaponConfig => m_WeaponConfig;
 
@@ -69,9 +90,9 @@ namespace GameCore.Character.Enemy
         [ShowInInspector]
         public CharacterProperties characterProperties { get; private set; } = new();
 
-        public Vector3 playerMoveDir { get; private set; }
-
         private StateMachine m_StateMachine;
+
+        public Transform playerNavTarget { get; private set; }
 
         private void Start()
         {
@@ -84,6 +105,7 @@ namespace GameCore.Character.Enemy
             InitStateMachine();
             m_SkillBrain.Init(this, m_WeaponConfig);
             InitProperties();
+            playerNavTarget = PlayerManager.instance.GetPlayerTransform();
         }
 
         private void InitStateMachine()
@@ -114,10 +136,12 @@ namespace GameCore.Character.Enemy
                 case EnemyMotionState.Patrol:
                     break;
                 case EnemyMotionState.Chase:
+                    m_StateMachine.ChangeState<EnemyChaseState>(reCurState);
                     break;
                 case EnemyMotionState.BeHit:
                     break;
                 case EnemyMotionState.Skill:
+                    m_StateMachine.ChangeState<EnemySkillState>(reCurState);
                     break;
                 case EnemyMotionState.Die:
                     m_StateMachine.ChangeState<EnemyDieState>(reCurState);
@@ -149,14 +173,26 @@ namespace GameCore.Character.Enemy
             }
         }
 
-        public int GetAtkValue(SkillDetectionFrameEvent e) => 0;
+        public int GetAtkValue(SkillDetectionFrameEvent e)
+        {
+            var skillAtk = skillBrain.curSkillBehaviour.skillConfig.baseAtk;
+            return Mathf.RoundToInt((characterProperties.atk.curValue + skillAtk) * e.attackHitConfig.atkFactor);
+        }
 
         public void OnSkillRotate()
         {
+            var playerDir = (playerNavTarget.position - transform.position).normalized;
+            if (playerDir.magnitude == 0)
+            {
+                return;
+            }
+            // 匀速旋转
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(playerDir), Time.deltaTime * m_TurnSpeed);
         }
 
         public void ChangeToIdleState()
         {
+            ChangeState(EnemyMotionState.Idle);
         }
 
         public void OnSkillMove(Vector3 deltaPosition)
@@ -172,5 +208,106 @@ namespace GameCore.Character.Enemy
             var fillAmount = (float) characterProperties.curHp / characterProperties.maxHp.curValue;
             GetComponentInChildren<PnlEnemyHpBar>().SetHpBar(fillAmount);
         }
+
+        #region AI
+
+        public void MoveToPlayer()
+        {
+            m_NavMeshAgent.isStopped = false;
+            m_NavMeshAgent.speed = m_MoveSpeed;
+            m_NavMeshAgent.destination = playerNavTarget.position;
+        }
+
+        public void StopMove()
+        {
+            m_NavMeshAgent.isStopped = true;
+            m_NavMeshAgent.speed = 0;
+        }
+
+        /// <summary>
+        /// 检测玩家是否在扇形视野内
+        /// </summary>
+        /// <returns></returns>
+        public bool PlayerInSight()
+        {
+            if (playerNavTarget == null)
+            {
+                return false;
+            }
+            var directionToPlayer = playerNavTarget.position - transform.position;
+            var distanceToPlayer = directionToPlayer.magnitude;
+            // 距离检测
+            if (distanceToPlayer > m_ViewRadius)
+            {
+                return false;
+            }
+            // 角度检测
+            var angleToPlayer = Vector3.Angle(transform.forward, directionToPlayer.normalized);
+            if (angleToPlayer > m_ViewAngle * 0.5f)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// 检测玩家是否在追击范围内
+        /// </summary>
+        /// <returns></returns>
+        public bool PlayerInChaseRange()
+        {
+            if (playerNavTarget == null)
+            {
+                return false;
+            }
+            var directionToPlayer = playerNavTarget.position - transform.position;
+            var distanceToPlayer = directionToPlayer.magnitude;
+            // 距离检测
+            return distanceToPlayer <= m_ViewRadius && distanceToPlayer > m_StopDistance;
+        }
+
+        public bool PlayerInAttackRange()
+        {
+            if (playerNavTarget == null)
+            {
+                return false;
+            }
+            var directionToPlayer = playerNavTarget.position - transform.position;
+            var distanceToPlayer = directionToPlayer.magnitude;
+            // 距离检测
+            return distanceToPlayer <= m_ChaseMinDistance;
+        }
+
+        public bool LostPlayer()
+        {
+            if (playerNavTarget == null)
+            {
+                return true;
+            }
+            var directionToPlayer = playerNavTarget.position - transform.position;
+            var distanceToPlayer = directionToPlayer.magnitude;
+            // 距离检测
+            return distanceToPlayer > m_ViewRadius;
+        }
+
+#if UNITY_EDITOR
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.magenta;
+            var position = transform.position;
+            Gizmos.DrawWireSphere(position, m_ViewRadius);
+            var forward = transform.forward;
+            var leftDir = Quaternion.Euler(0, -m_ViewAngle / 2, 0) * forward;
+            var rightDir = Quaternion.Euler(0, m_ViewAngle / 2, 0) * forward;
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawRay(position, leftDir * m_ViewRadius);
+            Gizmos.DrawRay(position, rightDir * m_ViewRadius);
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(position, m_ChaseMinDistance);
+            Gizmos.DrawWireSphere(position, m_StopDistance);
+        }
+#endif
+
+        #endregion
     }
 }

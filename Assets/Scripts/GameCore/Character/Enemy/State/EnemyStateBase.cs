@@ -13,12 +13,24 @@ namespace GameCore.Character.Enemy.State
     {
         protected EnemyController m_EnemyController;
 
+        protected static int m_CurReleaseSkillIndex;
+
+        protected static bool m_IsFighting;
+
         public override void Init(IStateMachineOwner owner)
         {
             m_EnemyController = owner as EnemyController;
         }
 
-        protected bool CheckAndEnterSkillState() => false;
+        protected bool CheckAndEnterSkillState()
+        {
+            if (m_EnemyController.skillBrain.CheckReleaseSkill(0))
+            {
+                m_CurReleaseSkillIndex = 0;
+                return true;
+            }
+            return false;
+        }
 
         /// <summary>
         /// 检查状态切换

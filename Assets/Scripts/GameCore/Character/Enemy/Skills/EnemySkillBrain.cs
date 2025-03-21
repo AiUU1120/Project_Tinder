@@ -16,10 +16,10 @@ namespace GameCore.Character.Enemy.Skills
         {
             base.Init(enemyController);
             var skillConfigs = weaponConfig.skillConfigs;
-            foreach (var skillConfig in skillConfigs)
+            for (var i = 0; i < skillConfigs.Count; i++)
             {
-                var skillBehaviour = skillConfig.skillBehaviour.DeepCopy();
-                ((EnemySkillBehaviourBase) skillBehaviour).Init(enemyController, skillConfig, this, m_SkillPlayer);
+                var skillBehaviour = skillConfigs[i].skillBehaviour.DeepCopy();
+                ((EnemySkillBehaviourBase) skillBehaviour).Init(enemyController, skillConfigs[i], this, m_SkillPlayer, i);
                 m_SkillBehaviours.Add(skillBehaviour);
             }
             if (!weaponConfig.isDoubleWeapon)

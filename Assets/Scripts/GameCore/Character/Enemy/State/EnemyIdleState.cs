@@ -14,6 +14,8 @@ namespace GameCore.Character.Enemy.State
         public override void Enter()
         {
             base.Enter();
+            Debug.Log("Idle");
+            m_EnemyController.StopMove();
             m_EnemyController.PlayAnimation("Idle", mixingTime: 0.3f);
         }
 
@@ -34,9 +36,18 @@ namespace GameCore.Character.Enemy.State
                 m_EnemyController.ChangeState(EnemyMotionState.Die);
                 return true;
             }
-            if (CheckAndEnterSkillState())
+            if (m_EnemyController.PlayerInAttackRange())
             {
-                m_EnemyController.ChangeState(EnemyMotionState.Skill);
+                if (CheckAndEnterSkillState())
+                {
+                    m_EnemyController.ChangeState(EnemyMotionState.Skill);
+                    return true;
+                }
+                m_EnemyController.OnSkillRotate();
+            }
+            else if ((m_EnemyController.PlayerInSight() && m_EnemyController.PlayerInChaseRange()) || (m_IsFighting && m_EnemyController.PlayerInChaseRange()))
+            {
+                m_EnemyController.ChangeState(EnemyMotionState.Chase);
                 return true;
             }
             return false;
