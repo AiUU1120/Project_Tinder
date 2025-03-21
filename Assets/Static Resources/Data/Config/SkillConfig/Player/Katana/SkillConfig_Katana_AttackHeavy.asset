@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be02cef065514f70859b704ee2790e65, type: 3}
+  m_Name: SkillConfig_Katana_AttackHeavy
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: skillBehaviour
+      Entry: 7
+      Data: 0|GameCore.Character.Player.Skills.SkillBehaviour.Katana.KatanaAttackHeavyBehaviour,
+        Tinder.GameCore
+    - Name: m_ComboCount
+      Entry: 3
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: releaseCostDic
+      Entry: 7
+      Data: 1|System.Collections.Generic.Dictionary`2[[AkanyaTools.SkillMaster.Runtime.Data.Enum.SkillCostType,
+        AkanyaTools.SkillMaster.Runtime],[System.Single, mscorlib]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 2|System.Collections.Generic.EnumEqualityComparer`1[[AkanyaTools.SkillMaster.Runtime.Data.Enum.SkillCostType,
+        AkanyaTools.SkillMaster.Runtime]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  skillName: 
+  icon: {fileID: 0}
+  icons: []
+  clips:
+  - {fileID: 11400000, guid: a3c7d32b276712e448fc9dfc883eb436, type: 2}
+  - {fileID: 11400000, guid: 7f1521813902cf644a48cd05511a9d29, type: 2}
+  - {fileID: 11400000, guid: 04eb23004b2264044b270b62452f7305, type: 2}
+  baseCD: 0
+  baseAtk: 8
+  isPassive: 0
+  skillDescription: 
+  skillPrice: 0
+  maxLevel: 0
+  cdReduceRate: 0.9
+  atkIncreaseRate: 1.2

@@ -5,7 +5,6 @@
  */
 
 using System;
-using AkanyaTools.SkillMaster.Runtime.Data.Config;
 using Data.GameCore.Config;
 using UnityEngine;
 

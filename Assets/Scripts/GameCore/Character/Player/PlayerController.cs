@@ -7,7 +7,6 @@
 using System;
 using AkanyaTools.PlayableKami;
 using AkanyaTools.ResourceSystem;
-using AkanyaTools.SkillMaster.Runtime.Component;
 using AkanyaTools.SkillMaster.Runtime.Data;
 using AkanyaTools.SkillMaster.Runtime.Data.Event;
 using AkanyaTools.StateMachine;
@@ -18,16 +17,16 @@ using Data.GameCore.Config;
 using Data.GameCore.Enums;
 using Data.GameCore.Save;
 using FrameTools.StateMachine;
+using GameCore.Character.Player.Skills;
+using GameCore.Character.Player.Skills.SkillBehaviour;
 using GameCore.Character.Player.State;
-using GameCore.Skills;
-using GameCore.Skills.SkillBehaviour;
 using GameCore.UI.PnlGameMain;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace GameCore.Character.Player
 {
-    public sealed class PlayerController : PlayerControllerBase, IStateMachineOwner, ISkillCharacter
+    public sealed class PlayerController : MonoBehaviour, IStateMachineOwner, ISkillCharacter
     {
         [Header("组件")]
         [SerializeField]

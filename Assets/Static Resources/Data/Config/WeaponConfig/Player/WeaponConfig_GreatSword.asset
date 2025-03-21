@@ -1,0 +1,124 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373958a3543a4ab2af3c8dc8a1574c67, type: 3}
+  m_Name: WeaponConfig_GreatSword
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 7400000, guid: ca204b3a2546f784ebb8729773cda25e, type: 2}
+    - {fileID: 7400000, guid: b4d7065c365ea754a9e4642cfd9a2b21, type: 2}
+    - {fileID: 7400000, guid: e43b9de9bc77f52459d0a928d71ef3c0, type: 2}
+    - {fileID: 7400000, guid: b8bce58c1e2d50c4f8d80935e9c8bb09, type: 2}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: commonAnimationDic
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[UnityEngine.AnimationClip,
+        UnityEngine.AnimationModule]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 5
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Idle
+    - Name: $v
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Walk
+    - Name: $v
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Run
+    - Name: $v
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Dash
+    - Name: $v
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Dodge
+    - Name: $v
+      Entry: 10
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  weaponName: "\u5927\u5251"
+  icon: {fileID: 21300000, guid: fb004957fab810341801a7a100f10b66, type: 3}
+  weaponDescription: "\u5DE8\u578B\u53CC\u624B\u5251\uFF0C\u52BF\u5927\u529B\u6C89\u7684\u7EB5\u5288\u53EF\u540C\u65F6\u51FB\u788E\u76FE\u724C\u4E0E\u76D4\u7532\uFF0C\u6A2A\u626B\u653B\u51FB\u8303\u56F4\u5DE8\u5927\u3002\u9002\u5408\u529B\u91CF\u578B\u89D2\u8272\u8FDB\u884C\u9635\u5730\u6218\u538B\u5236\uFF0C\u867D\u727A\u7272\u673A\u52A8\u6027\u4F46\u62E5\u6709\u6467\u67AF\u62C9\u673D\u7684\u7834\u574F\u529B\u3002"
+  weaponPrefab: {fileID: 1388846707221286, guid: efd3c495ed63833488e4fd2881067494,
+    type: 3}
+  isDoubleWeapon: 0
+  baseAtk: 25
+  baseDef: 0
+  skillConfigs:
+  - {fileID: 11400000, guid: 4211f6d7592a3d34387b9fc6c5a10817, type: 2}
+  - {fileID: 11400000, guid: 6466d3241e4433848a85682cf52691aa, type: 2}
+  - {fileID: 11400000, guid: a5cf3bd56beb1914498b47e89efbdcb4, type: 2}
+  - {fileID: 11400000, guid: 22b72c28bfd8fea4fa8a44f2b64e63ab, type: 2}
+  - {fileID: 11400000, guid: df527c856dec50c4eb0a909225a115be, type: 2}
+  applyRootMotion: 1
+  footStepAudioClips:
+  - {fileID: 8300000, guid: 0a90377433737d04e8804cf4db0e1118, type: 3}
