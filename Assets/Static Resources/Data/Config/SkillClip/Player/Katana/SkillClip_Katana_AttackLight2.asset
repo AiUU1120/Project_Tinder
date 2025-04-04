@@ -222,10 +222,10 @@ MonoBehaviour:
       Data: Detection Track
     - Name: frameIndex
       Entry: 3
-      Data: 9
+      Data: 8
     - Name: durationFrame
       Entry: 3
-      Data: 6
+      Data: 14
     - Name: detectionData
       Entry: 7
       Data: 12|AkanyaTools.SkillMaster.Runtime.Data.Event.WeaponDetectionData, AkanyaTools.SkillMaster.Runtime

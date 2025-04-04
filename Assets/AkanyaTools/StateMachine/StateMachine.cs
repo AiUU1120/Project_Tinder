@@ -21,10 +21,10 @@ namespace AkanyaTools.StateMachine
         private IStateMachineOwner m_Owner;
 
         // 当前状态
-        public Type currStateType { get; private set; }
+        public Type curStateType { get; private set; }
 
         // 当前生效中的状态
-        public StateBase currStateObj { get; private set; }
+        public StateBase curStateObj { get; private set; }
 
         // 所有的状态 Key:状态枚举的值 Value:具体的状态
         private readonly Dictionary<Type, StateBase> m_StateDic = new();
@@ -73,27 +73,27 @@ namespace AkanyaTools.StateMachine
         {
             var stateType = typeof(T);
             // 状态一致，并且不需要刷新状态，则切换失败
-            if (stateType == currStateType && !reCurrState)
+            if (stateType == curStateType && !reCurrState)
             {
                 return false;
             }
 
             // 退出当前状态
-            if (currStateObj != null)
+            if (curStateObj != null)
             {
-                currStateObj.Exit();
-                currStateObj.RemoveUpdate(currStateObj.Update);
-                currStateObj.RemoveLateUpdate(currStateObj.LateUpdate);
-                currStateObj.RemoveFixedUpdate(currStateObj.FixedUpdate);
+                curStateObj.Exit();
+                curStateObj.RemoveUpdate(curStateObj.Update);
+                curStateObj.RemoveLateUpdate(curStateObj.LateUpdate);
+                curStateObj.RemoveFixedUpdate(curStateObj.FixedUpdate);
             }
 
             // 进入新状态
-            currStateObj = GetState<T>();
-            currStateType = stateType;
-            currStateObj.Enter();
-            currStateObj.AddUpdate(currStateObj.Update);
-            currStateObj.AddLateUpdate(currStateObj.LateUpdate);
-            currStateObj.AddFixedUpdate(currStateObj.FixedUpdate);
+            curStateObj = GetState<T>();
+            curStateType = stateType;
+            curStateObj.Enter();
+            curStateObj.AddUpdate(curStateObj.Update);
+            curStateObj.AddLateUpdate(curStateObj.LateUpdate);
+            curStateObj.AddFixedUpdate(curStateObj.FixedUpdate);
 
             return true;
         }
@@ -122,15 +122,15 @@ namespace AkanyaTools.StateMachine
         public void Stop()
         {
             // 处理当前状态的额外逻辑
-            if (currStateObj != null)
+            if (curStateObj != null)
             {
-                currStateObj.Exit();
-                currStateObj.RemoveUpdate(currStateObj.Update);
-                currStateObj.RemoveLateUpdate(currStateObj.LateUpdate);
-                currStateObj.RemoveFixedUpdate(currStateObj.FixedUpdate);
-                currStateObj = null;
+                curStateObj.Exit();
+                curStateObj.RemoveUpdate(curStateObj.Update);
+                curStateObj.RemoveLateUpdate(curStateObj.LateUpdate);
+                curStateObj.RemoveFixedUpdate(curStateObj.FixedUpdate);
+                curStateObj = null;
             }
-            currStateType = null;
+            curStateType = null;
             // 处理缓存中所有状态的逻辑
             foreach (var state in m_StateDic.Values)
             {

@@ -22,6 +22,7 @@ using GameCore.Character.Player.Skills.SkillBehaviour;
 using GameCore.Character.Player.State;
 using GameCore.UI.PnlGameMain;
 using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using UnityEngine;
 
 namespace GameCore.Character.Player

@@ -69,8 +69,8 @@ namespace AkanyaTools.SkillMaster.Runtime.Data.Event
                 }
             }
         }
-    }
 #endif
+    }
 
     public sealed class AttackHitConfig
     {

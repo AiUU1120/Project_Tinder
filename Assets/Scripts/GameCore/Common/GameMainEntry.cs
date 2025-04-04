@@ -14,9 +14,7 @@ namespace GameCore.Common
     {
         private void Start()
         {
-#if UNITY_EDITOR
             DataManager.CreateSaveData();
-#endif
             PlayerManager.instance.Init();
         }
     }

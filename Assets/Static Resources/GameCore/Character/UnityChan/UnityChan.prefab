@@ -10661,7 +10661,7 @@ MonoBehaviour:
   m_SkillBrain: {fileID: 1759600652607522553}
   m_MoveSpeed: 6.5
   m_DashSpeed: 7.3
-  m_TurnSpeed: 7
+  m_TurnSpeed: 15
   m_SkillWeaponsMapConfig: {fileID: 11400000, guid: 60f9470e773641f45a24bf0be26bb848,
     type: 2}
 --- !u!114 &1759600652607522553

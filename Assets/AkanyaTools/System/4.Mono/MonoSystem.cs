@@ -3,37 +3,37 @@ using System.Collections;
 using System.Collections.Generic;
 using AkanyaTools;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace JKFrame
 {
-    /// <summary>
-    /// 整个游戏只有一个Update、LateUpdate等
-    /// </summary>
-    public class MonoSystem : MonoBehaviour
+    public sealed class MonoSystem : MonoBehaviour
     {
-        private MonoSystem() { }
-        private static MonoSystem instance;
-        private Action updateEvent;
-        private Action lateUpdateEvent;
-        private Action fixedUpdateEvent;
+        private MonoSystem()
+        {
+        }
+
+        private static MonoSystem s_Instance;
+        private Action m_UpdateEvent;
+        private Action m_LateUpdateEvent;
+        private Action m_FixedUpdateEvent;
 
         public static void Init()
         {
-            instance = FrameRoot.RootTransform.GetComponent<MonoSystem>();
-            instance.updateEvent = null;
-            instance.lateUpdateEvent = null;
-            instance.fixedUpdateEvent = null;
+            s_Instance = FrameRoot.RootTransform.GetComponent<MonoSystem>();
+            s_Instance.m_UpdateEvent = null;
+            s_Instance.m_LateUpdateEvent = null;
+            s_Instance.m_FixedUpdateEvent = null;
         }
 
         #region 生命周期函数
+
         /// <summary>
         /// 添加Update监听
         /// </summary>
         /// <param name="action"></param>
         public static void AddUpdateListener(Action action)
         {
-            instance.updateEvent += action;
+            s_Instance.m_UpdateEvent += action;
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace JKFrame
         /// <param name="action"></param>
         public static void RemoveUpdateListener(Action action)
         {
-            instance.updateEvent -= action;
+            s_Instance.m_UpdateEvent -= action;
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace JKFrame
         /// <param name="action"></param>
         public static void AddLateUpdateListener(Action action)
         {
-            instance.lateUpdateEvent += action;
+            s_Instance.m_LateUpdateEvent += action;
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace JKFrame
         /// <param name="action"></param>
         public static void RemoveLateUpdateListener(Action action)
         {
-            instance.lateUpdateEvent -= action;
+            s_Instance.m_LateUpdateEvent -= action;
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace JKFrame
         /// <param name="action"></param>
         public static void AddFixedUpdateListener(Action action)
         {
-            instance.fixedUpdateEvent += action;
+            s_Instance.m_FixedUpdateEvent += action;
         }
 
         /// <summary>
@@ -78,46 +78,46 @@ namespace JKFrame
         /// <param name="action"></param>
         public static void RemoveFixedUpdateListener(Action action)
         {
-            instance.fixedUpdateEvent -= action;
+            s_Instance.m_FixedUpdateEvent -= action;
         }
 
         private void Update()
         {
-            updateEvent?.Invoke();
+            m_UpdateEvent?.Invoke();
         }
+
         private void LateUpdate()
         {
-            lateUpdateEvent?.Invoke();
+            m_LateUpdateEvent?.Invoke();
         }
+
         private void FixedUpdate()
         {
-            fixedUpdateEvent?.Invoke();
+            m_FixedUpdateEvent?.Invoke();
         }
 
         #endregion
+
         #region 协程
-        private Dictionary<object, List<Coroutine>> coroutineDic = new Dictionary<object, List<Coroutine>>();
-        private static ObjectPoolModule poolModule = new ObjectPoolModule();
+
+        private Dictionary<object, List<Coroutine>> m_CoroutineDic = new();
+        private static ObjectPoolModule s_PoolModule = new();
 
         /// <summary>
         /// 启动一个协程序
         /// </summary>
-        public static Coroutine Start_Coroutine(IEnumerator coroutine)
-        {
-            return instance.StartCoroutine(coroutine);
-        }
+        public static Coroutine Start_Coroutine(IEnumerator coroutine) => s_Instance.StartCoroutine(coroutine);
 
         /// <summary>
         /// 启动一个协程序并且绑定某个对象
         /// </summary>
         public static Coroutine Start_Coroutine(object obj, IEnumerator coroutine)
         {
-            Coroutine _coroutine = instance.StartCoroutine(coroutine);
-            if (!instance.coroutineDic.TryGetValue(obj, out List<Coroutine> coroutineList))
+            var _coroutine = s_Instance.StartCoroutine(coroutine);
+            if (!s_Instance.m_CoroutineDic.TryGetValue(obj, out var coroutineList))
             {
-                coroutineList = poolModule.GetObject<List<Coroutine>>();
-                if (coroutineList == null) coroutineList = new List<Coroutine>();
-                instance.coroutineDic.Add(obj, coroutineList);
+                coroutineList = s_PoolModule.GetObject<List<Coroutine>>() ?? new List<Coroutine>();
+                s_Instance.m_CoroutineDic.Add(obj, coroutineList);
             }
             coroutineList.Add(_coroutine);
             return _coroutine;
@@ -128,9 +128,9 @@ namespace JKFrame
         /// </summary>
         public static void Stop_Coroutine(object obj, Coroutine routine)
         {
-            if (instance.coroutineDic.TryGetValue(obj, out List<Coroutine> coroutineList))
+            if (s_Instance.m_CoroutineDic.TryGetValue(obj, out var coroutineList))
             {
-                instance.StopCoroutine(routine);
+                s_Instance.StopCoroutine(routine);
                 coroutineList.Remove(routine);
             }
         }
@@ -140,7 +140,7 @@ namespace JKFrame
         /// </summary>
         public static void Stop_Coroutine(Coroutine routine)
         {
-            instance.StopCoroutine(routine);
+            s_Instance.StopCoroutine(routine);
         }
 
         /// <summary>
@@ -148,14 +148,14 @@ namespace JKFrame
         /// </summary>
         public static void StopAllCoroutine(object obj)
         {
-            if (instance.coroutineDic.Remove(obj, out List<Coroutine> coroutineList))
+            if (s_Instance.m_CoroutineDic.Remove(obj, out var coroutineList))
             {
-                for (int i = 0; i < coroutineList.Count; i++)
+                for (var i = 0; i < coroutineList.Count; i++)
                 {
-                    instance.StopCoroutine(coroutineList[i]);
+                    s_Instance.StopCoroutine(coroutineList[i]);
                 }
                 coroutineList.Clear();
-                poolModule.PushObject(coroutineList);
+                s_PoolModule.PushObject(coroutineList);
             }
         }
 
@@ -165,14 +165,15 @@ namespace JKFrame
         public static void StopAllCoroutine()
         {
             // 全部数据都会无效
-            foreach (List<Coroutine> item in instance.coroutineDic.Values)
+            foreach (List<Coroutine> item in s_Instance.m_CoroutineDic.Values)
             {
                 item.Clear();
-                poolModule.PushObject(item);
+                s_PoolModule.PushObject(item);
             }
-            instance.coroutineDic.Clear();
-            instance.StopAllCoroutines();
+            s_Instance.m_CoroutineDic.Clear();
+            s_Instance.StopAllCoroutines();
         }
+
         #endregion
     }
 }

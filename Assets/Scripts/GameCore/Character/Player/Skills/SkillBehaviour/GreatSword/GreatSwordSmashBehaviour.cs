@@ -31,7 +31,8 @@ namespace GameCore.Character.Player.Skills.SkillBehaviour.GreatSword
 
         public override void OnRootMotion(Vector3 deltaPosition, Quaternion deltaRotation)
         {
-            m_SkillOwner.OnSkillMove(deltaPosition);
+            var pos = new Vector3(deltaPosition.x, deltaPosition.y * 2, deltaPosition.z);
+            m_SkillOwner.OnSkillMove(pos);
             m_SkillOwner.OnSkillRotate(deltaRotation);
         }
     }

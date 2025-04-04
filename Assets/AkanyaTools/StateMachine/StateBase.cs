@@ -1,21 +1,22 @@
 ﻿using FrameTools.Extension;
+using FrameTools.StateMachine;
 
-namespace FrameTools.StateMachine
+namespace AkanyaTools.StateMachine
 {
     /// <summary>
     /// 状态基类
     /// </summary>
     public abstract class StateBase
     {
-        protected AkanyaTools.StateMachine.StateMachine stateMachine;
+        protected StateMachine m_StateMachine;
 
         /// <summary>
         /// 初始化内部数据，系统使用
         /// </summary>
         /// <param name="sm"></param>
-        public void InitInternalData(AkanyaTools.StateMachine.StateMachine sm)
+        public void InitInternalData(StateMachine sm)
         {
-            stateMachine = sm;
+            m_StateMachine = sm;
         }
 
         /// <summary>
@@ -34,7 +35,7 @@ namespace FrameTools.StateMachine
         /// </summary>
         public virtual void UnInit()
         {
-            stateMachine = null;
+            m_StateMachine = null;
             // 放回对象池
             this.ObjectPushPool();
         }
@@ -66,28 +67,28 @@ namespace FrameTools.StateMachine
         {
         }
 
-        public bool TryGetShareData<T>(string key, out T data) => stateMachine.TryGetShareData<T>(key, out data);
+        public bool TryGetShareData<T>(string key, out T data) => m_StateMachine.TryGetShareData<T>(key, out data);
 
         public void AddShareData(string key, object data)
         {
-            stateMachine.AddShareData(key, data);
+            m_StateMachine.AddShareData(key, data);
         }
 
         public void RemoveShareData(string key)
         {
-            stateMachine.RemoveShareData(key);
+            m_StateMachine.RemoveShareData(key);
         }
 
         public void UpdateShareData(string key, object data)
         {
-            stateMachine.UpdateShareData(key, data);
+            m_StateMachine.UpdateShareData(key, data);
         }
 
         public void CleanShareData()
         {
-            stateMachine.CleanShareData();
+            m_StateMachine.CleanShareData();
         }
 
-        public bool ContainsShareData(string key) => stateMachine.ContainsShareData(key);
+        public bool ContainsShareData(string key) => m_StateMachine.ContainsShareData(key);
     }
 }

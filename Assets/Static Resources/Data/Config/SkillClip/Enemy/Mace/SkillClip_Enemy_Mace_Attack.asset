@@ -147,7 +147,7 @@ MonoBehaviour:
       Data: 0
     - Name: applyRootMotion
       Entry: 5
-      Data: true
+      Data: false
     - Name: transitionTime
       Entry: 4
       Data: 0.25

@@ -1,8 +1,8 @@
 ﻿/*
-* @Author: AiUU
-* @Description: 框架设置
-* @AkanyaTech.FrameTools
-*/
+ * @Author: AiUU
+ * @Description: 框架设置
+ * @AkanyaTech.FrameTools
+ */
 
 using System;
 using System.Collections.Generic;
@@ -65,28 +65,37 @@ namespace FrameTools.Setting
         /// </summary>
         public sealed class LogSetting
         {
+#if UNITY_EDITOR
             [LabelText("启用日志"), OnValueChanged(nameof(EnableLogValueChanged))]
+#endif
             public bool enableLog = true;
-
+#if UNITY_EDITOR
             [LabelText("写入时间"), OnValueChanged(nameof(EnableLogValueChanged))]
+#endif
             public bool writeTime = true;
-
+#if UNITY_EDITOR
             [LabelText("写入线程ID"), OnValueChanged(nameof(EnableLogValueChanged))]
+#endif
             public bool writeThreadID = false;
-
+#if UNITY_EDITOR
             [LabelText("写入堆栈"), OnValueChanged(nameof(EnableLogValueChanged))]
+#endif
             public bool writeTrace = true;
-
+#if UNITY_EDITOR
             [LabelText("保存日志文件"), OnValueChanged(nameof(EnableLogValueChanged))]
+#endif
             public bool enableSave = false;
-
+#if UNITY_EDITOR
             [LabelText("需要保存的日志类型"), HideIf("CheckSaveState"), EnumFlags, OnValueChanged(nameof(EnableLogValueChanged))]
+#endif
             public JK.Log.LogType saveLogTypes;
-
+#if UNITY_EDITOR
             [LabelText("保存路径,相对persistentDataPath的路径"), HideIf("CheckSaveState"), OnValueChanged(nameof(EnableLogValueChanged))]
+#endif
             public string savePath = "/Log";
-
+#if UNITY_EDITOR
             [LabelText("自定义的文件名"), HideIf("CheckSaveState"), OnValueChanged(nameof(EnableLogValueChanged))]
+#endif
             [InfoBox("如果填写，则会导致每次保存都是覆盖式的；如果不填写，则每次自动保存为时间命名的文件")]
             public string customSaveFileName = string.Empty;
 

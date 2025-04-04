@@ -6,6 +6,7 @@
 
 using System;
 using Data.GameCore.Config;
+using Sirenix.Serialization;
 using UnityEngine;
 
 namespace Data.GameCore

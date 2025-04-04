@@ -33,7 +33,7 @@ namespace AkanyaTools.PlayableKami
             set
             {
                 m_PlaySpeed = value;
-                m_CurrNode.SetSpeed(value);
+                m_CurNode.SetSpeed(value);
             }
         }
 
@@ -47,7 +47,7 @@ namespace AkanyaTools.PlayableKami
 
         private PlayableNodeBase m_PreNode;
 
-        private PlayableNodeBase m_CurrNode;
+        private PlayableNodeBase m_CurNode;
 
         private int m_InputPortFrom = 0;
 
@@ -106,7 +106,7 @@ namespace AkanyaTools.PlayableKami
             }
             SingleAnimationNode singleAnimationNode;
             // 首次播放 不需要过渡
-            if (m_CurrNode == null)
+            if (m_CurNode == null)
             {
                 singleAnimationNode = ResourceManager.GetOrNew<SingleAnimationNode>();
                 singleAnimationNode.Init(m_PlayableGraph, m_MixerPlayable, clip, speed, m_InputPortFrom);
@@ -114,17 +114,17 @@ namespace AkanyaTools.PlayableKami
             }
             else
             {
-                if (blockSameAnim && m_CurrNode is SingleAnimationNode preNode && preNode.GetAnimationClip() == clip)
+                if (blockSameAnim && m_CurNode is SingleAnimationNode preNode && preNode.GetAnimationClip() == clip)
                 {
                     return;
                 }
                 RecycleNode(m_PreNode);
                 singleAnimationNode = ResourceManager.GetOrNew<SingleAnimationNode>();
                 singleAnimationNode.Init(m_PlayableGraph, m_MixerPlayable, clip, speed, m_InputPortTo);
-                m_PreNode = m_CurrNode;
+                m_PreNode = m_CurNode;
                 StartTransitAnimation(mixingTime);
             }
-            m_CurrNode = singleAnimationNode;
+            m_CurNode = singleAnimationNode;
             playSpeed = speed;
             if (!m_PlayableGraph.IsPlaying())
             {
@@ -146,7 +146,7 @@ namespace AkanyaTools.PlayableKami
                 SetOnRootMotion(onRootMotion);
             }
             var blendAnimNode = ResourceManager.GetOrNew<BlendAnimationNode>();
-            if (m_CurrNode == null)
+            if (m_CurNode == null)
             {
                 blendAnimNode.Init(m_PlayableGraph, m_MixerPlayable, clips, speed, m_InputPortFrom);
                 m_MixerPlayable.SetInputWeight(m_InputPortFrom, 1);
@@ -155,10 +155,10 @@ namespace AkanyaTools.PlayableKami
             {
                 RecycleNode(m_PreNode);
                 blendAnimNode.Init(m_PlayableGraph, m_MixerPlayable, clips, speed, m_InputPortTo);
-                m_PreNode = m_CurrNode;
+                m_PreNode = m_CurNode;
                 StartTransitAnimation(mixingTime);
             }
-            m_CurrNode = blendAnimNode;
+            m_CurNode = blendAnimNode;
             playSpeed = speed;
             if (!m_PlayableGraph.IsPlaying())
             {
@@ -181,7 +181,7 @@ namespace AkanyaTools.PlayableKami
                 SetOnRootMotion(onRootMotion);
             }
             var blendAnimNode = ResourceManager.GetOrNew<BlendAnimationNode>();
-            if (m_CurrNode == null)
+            if (m_CurNode == null)
             {
                 blendAnimNode.Init(m_PlayableGraph, m_MixerPlayable, clip1, clip2, speed, m_InputPortFrom);
                 m_MixerPlayable.SetInputWeight(m_InputPortFrom, 1);
@@ -190,10 +190,10 @@ namespace AkanyaTools.PlayableKami
             {
                 RecycleNode(m_PreNode);
                 blendAnimNode.Init(m_PlayableGraph, m_MixerPlayable, clip1, clip2, speed, m_InputPortTo);
-                m_PreNode = m_CurrNode;
+                m_PreNode = m_CurNode;
                 StartTransitAnimation(mixingTime);
             }
-            m_CurrNode = blendAnimNode;
+            m_CurNode = blendAnimNode;
             playSpeed = speed;
             if (!m_PlayableGraph.IsPlaying())
             {
@@ -207,7 +207,7 @@ namespace AkanyaTools.PlayableKami
         /// <param name="weights">权重数组</param>
         public void SetBlendAnimationWeight(IReadOnlyList<float> weights)
         {
-            if (m_CurrNode is BlendAnimationNode node)
+            if (m_CurNode is BlendAnimationNode node)
             {
                 node.SetBlendAnimationWeight(weights);
             }
@@ -223,13 +223,13 @@ namespace AkanyaTools.PlayableKami
         /// <param name="weightTo">后一个动画权重</param>
         public void SetBlendAnimationWeight(float weightTo)
         {
-            if (m_CurrNode is BlendAnimationNode node)
+            if (m_CurNode is BlendAnimationNode node)
             {
                 node.SetBlendAnimationWeight(weightTo);
             }
             else
             {
-                Debug.LogError($"该 node {m_CurrNode.clipName} 不是混合动画节点!");
+                Debug.LogError($"该 node {m_CurNode.clipName} 不是混合动画节点!");
             }
         }
 
@@ -293,7 +293,7 @@ namespace AkanyaTools.PlayableKami
 
         private float GetCurProgress()
         {
-            if (m_CurrNode is SingleAnimationNode singleNode)
+            if (m_CurNode is SingleAnimationNode singleNode)
             {
                 return singleNode.GetProgress();
             }

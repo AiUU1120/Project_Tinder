@@ -1,0 +1,19 @@
+{
+    "name": "AkanyaTools.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:7cb2814e6655d904f952bf240b160d11",
+        "GUID:69448af7b92c7f342b298e06a37122aa"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
